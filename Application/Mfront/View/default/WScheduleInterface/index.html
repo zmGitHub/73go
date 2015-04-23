@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>账户绑定完成</title>
+    <meta name="viewport" content="initial-scale=1.0,width=device-width"/>
+
+    <link href="__PUBLIC__/Mfront/lib/index.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/Mfront/lib/turbo.css" rel="stylesheet" type="text/css" />
+    <script src="__PUBLIC__/Mfront/lib/zepto.min.js"></script>
+
+    <!-- Mobiscroll JS and index.cssCSS Includes #1072e3-->
+
+</head>
+<body>
+<header class="app-logo"></header>
+<div class="clear"></div>
+<section>
+    <div class="padding-tip">
+        <p class="bind-tip">
+            您当前的轻松行账户已于微信账户绑定 <span class="badge">√</span>
+        </p>
+    </div>
+</section>
+<section>
+    <div class="padding-7">
+        <form action="#1">
+            <div class="input-group">
+                <span class="input-group-addon no-bottom-border">用户名</span>
+                <input type="text" class="form-control no-bottom-border"  value="{:li('userName')}" readonly>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon no-bottom-border">姓&nbsp;&nbsp;名</span>
+                <input type="text" class="form-control no-bottom-border" value="{$data.employee.name}"  readonly>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">企&nbsp;&nbsp;业</span>
+                <input type="text" id="company" name="company" class="form-control" value="{$data.company.name}" readonly>
+            </div>
+            <div class="clear"></div>
+            <botton class="btn"  name="submit" id="submit"><h3>解 除 绑 定</h3></botton>
+        </form>
+
+    </div>
+</section>
+
+{:W("Cate/footer")}
+
+<script type="application/javascript">
+$(function(){
+	$("#submit").click(function(){
+		if(confirm("你确定要解除绑定？！")){
+			window.location.href = "http://weixin.73go.cn/Mfront/WScheduleInterface/delAccountBound";
+		}	
+		return false;		
+	});
+	
+});
+</script>
+</body>
+</html>

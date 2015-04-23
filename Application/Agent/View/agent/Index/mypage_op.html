@@ -1,0 +1,124 @@
+
+	<div class="main_right">
+	  <div class="r_hd">
+	    <h3 class="r_tit">我的主页</h3>
+      </div>
+	  <div  class="BoxHeight mb_10" ></div>
+	  <div class="clear"></div>
+	  <div class="personal_infro mb_10">
+	    <div class="btitle"><a href="{:U('TmcDepartmentStaff/showTmcStaffById',array('emps_id'=>LI('tmcempId')))}" class="tc_btn_m01">修改</a>
+	      <h4>基本信息</h4>
+        </div>
+	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+	      <tr>
+	        <td width="15%" class="td1">姓名</td>
+	        <td>{$data.name}</td>
+     <td width="15%" class="td1">工号</td>
+	        <td width="25%">{$data.emp_code}</td>
+          </tr>
+	      <tr>
+	        <td class="td1">部门</td>
+	        <td>{$data.branch}</td>
+	        <td class="td1">电话</td>
+	        <td>{$data.phone}</td>
+          </tr>
+        </table>
+	    <div class="personal_box">
+	      <div class="floor">
+	        <div class="bd">
+	          <div class="top_grade_rec">
+	            <div class="detail_wrap">
+	              <h2>我的待办</h2>
+	              <div class="invest_info">
+	                <div class="info2 info_rate">
+	                  <h4>轻松行待接单</h4>
+	                  <div class="value"><a href="{:U('NewDemand/showNewDemandController')}" class="tex_r">{$data.rec_count}</a></div>
+                    </div>
+	                <div class="info2 info_time">
+	                  <h4>待处理退改签</h4>
+	                  <div class="value"><a href="{:U('TmcOrder/change_or_refund_req_list')}" class="tex_r">{$data.refund_count}</a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+	  </div>
+      
+      <div class="personal_infro mb_10">
+      <div class="btitle">
+          <h4>我的工作组和客户</h4>
+        </div>
+        <table width="100%" border="0" cellspacing="1" cellpadding="0" class="table_fund_notop bg_tab" style="border-top:none;">
+          <tr>
+            <th width="20%">工作组</th>
+            <th>组员</th>
+            <th width="40%">企业客户</th>
+          </tr>
+          <volist name="data['member']"  id="m">
+           <tr>
+            <td>{$m.team_name}</td>
+            <td>{$m.team_person}</td>
+            <td><foreach name="m['tcname'] "  item="mt">
+            <a href="{:U('EM/showEnterpriseDetail',array('co_id'=>$mt['co_id'],'tmcid'=>LI('tmcId')))}" class="tex_blue">{$mt.c_name}</a><br />
+            </foreach>
+            </td>
+            </tr>
+            </volist>
+            </table>
+        </div>
+        
+        <div class="personal_infro mb_10">
+        <div class="btitle">
+          <h4>我的VIP客户</h4>
+        </div>
+        <table width="100%" border="0" cellspacing="1" cellpadding="0" class="table_fund_notop bg_tab" style="border-top:none;">
+          <tr>
+            <th width="20%">姓名</th>
+            <th>VIP级别</th>
+            <th width="40%">企业客户</th>
+          </tr>
+          <volist name="vips"  id="v" >
+	        <tr>
+            <td><a href="javascript:void(0);" class="tex_blue">{$v.emp_name}</a></td>
+            <td>{$v.level}</td>
+            <td><a href="{:U('EM/showEnterpriseDetail',array('co_id'=>$v['co_id'],'tmcid'=>LI('tmcId')))}"  class="tex_blue">{$v.co_name}</a><br /></td>
+          </tr>
+          </volist>
+         </table>
+      </div>
+      
+      <div class="personal_infro mb_10">
+        <div class="btitle">
+	      <h4>差旅公告</h4>
+        </div>
+        <div class="personal_box">
+	      <ul class="travel_bulletin">
+	      <foreach name="bulletinList" item="no">
+	        <li><span><if condition="$no.level eq 12">置顶
+	      <else />{$no.time|substr=0,16}
+	      </if></span>
+	       <if condition="$no.level neq 1"> 
+	      		<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" class="tex_r" >{$no.content}</a>
+	     	 	<else /><a href="javascript:void(0);" class="tex_r" >{$no.content}</a>
+	     		 </if>
+	     	 <else />
+	     	 	<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" >{$no.content}</a>
+	     	 	<else />{$no.content}
+	     		 </if>
+	      </if>
+	      
+	      </li>
+	     </foreach>
+	    </ul>
+        </div>
+      </div>
+      
+  </div>
+	<div class="clear"></div>
+</div>

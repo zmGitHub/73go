@@ -1,0 +1,100 @@
+
+  <div class="main_right xxzx_list">
+   	  <div class="r_hd">
+            <h3 class="r_tit">轻松行已接需求</h3>
+            <div class="r_hd_extra">
+              <a href="{:U('Agent/ES/showEReq')}" >制作方案</a>
+              <a href="{:U('Agent/TmcOrder/qsx_req_list_order')}" class="current">创建订单</a>
+            </div>
+   	</div>
+    <div  class="BoxHeight mt_10" ></div>
+    <p>搜索：
+      <input type="submit" value="同组人接的单" class="btn_b5 ml_5" />
+      <input type="submit" value="我接的单" class="btn_b5 ml_5" />
+    </p>
+    <div  class="BoxHeight mt_10" ></div>
+     <foreach name="sol_order" item="req">
+    <div class="contTwo">
+      	<dl>
+				<dt>
+				  <h4>需求单号：<br />{$req.qsx_rq_no}</h4><br />
+				  <h4>接单人：<br />{$req.tename}</h4><br />
+				  <h4>{$req.selec_time|substr=###,0,10}</h4>
+				  <h3>{$req.selec_time|substr=###,10,6}</h3>
+				</dt>
+				<dd>
+				  <h3><strong class="ml_16">{$req.from_city}——{$req.to_city}</strong></h3>
+				  <p>TR号：{$req.tr_no} / 紧急预订 <strong class=" ml_25">{$req.short_name}</strong>{$req.username}
+				   <em class="vip_8">
+				   <if condition='$req.vip_level ==1'>VIP1
+				  		<elseif condition='$req.vip_level ==2'/>VIP2
+				  		<else />VIP0
+				  	</if></em><br />
+				    出发时间：{$req.leave_date} <br />
+				    返回时间：{$req.back_date}<br />	
+			      选择的服务： </p>
+				  <div class="news_mod_form_cnt dt_time01 dt_time_xz"> 
+				  <if condition="$req.flight ==1 "><a class="current2" href="javascript:void(0);">机票</a> </if>
+				  <if condition="$req.hotel ==1 "><a class="current2" href="javascript:void(0);">酒店</a></if>
+				  <if condition="$req.train ==1 "> <a class="current2" href="javascript:void(0);">火车票</a></if>
+				  <if condition="$req.car ==1 "><a class="current2" href="javascript:void(0);">租车</a></if>
+				  <if condition="$req.visa ==1 "><a class="current2" href="javascript:void(0);">接送</a></if>
+				  <if condition="$req.transp ==1 "> <a class="current2" href="javascript:void(0);">签证</a></if> 
+				  <if condition="$req.other ==1 "> <a class="current2" href="javascript:void(0);">其他</a> </if>
+				  </div>
+				  <div class="clear"></div>
+				  <br />
+				  <div class="max_h500">
+				  <if condition="$req.flight ==1 ">
+				   	【机票】
+				    {$req.flight_content} <br />
+				    <br /></if>
+				   <if condition="$req.hotel ==1 ">
+					【酒店】 
+				    {$req.hotel_content}<br />
+				   <br /></if>
+				  <if condition="$req.train ==1 "> 
+					【火车票】
+				    {$req.train_content}<br />
+				    <br /></if>
+				  <if condition="$req.car ==1 ">
+					【租车】
+				    {$req.car_content}<br />
+				   <br /> </if>
+				  <if condition="$req.visa ==1 ">
+					【接送】 
+				    {$req.visa_content}<br />
+				   <br /></if>
+				  <if condition="$req.transp ==1 "> 
+					【签证】
+				    {$req.transp_content}<br />
+				    <br /></if>
+				  <if condition="$req.other ==1 "> 
+					【其他】
+				    {$req.other_content}<br />
+				 <br />  </if>
+			      </div>
+	    </dd>
+		<span>
+			<h4>方案数</h4>
+        <h3><a href="qsx_solution_edit.html" class="fl_right">{$req.count}</a></h3>
+		
+		</span>
+		</dl>
+    </div><form action="{:U('TmcOrder/order_edit')}" method="post">
+    <input type="hidden" name="solu_id" value="{$req.qid}" />
+     <input type="hidden" name="type" value="1" />
+    <div class="ticket_tt mt_10">用户选中的方案
+      <input type="submit" value="创建订单" class="btn_b5 fl_right" />
+    </div></form>
+    
+  <div class="pa_10 pa_15">提交时间：{$req.qtime}    提交人：{$req.username}<br />
+   {$req.qcontent}
+</div></foreach>
+  
+  </div>
+    <div class="clear"></div>
+</div>
+
+
+

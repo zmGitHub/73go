@@ -1,0 +1,86 @@
+
+  <div class="main_right">
+  <div class="r_hd">
+            <h3 class="r_tit">已过期机票</h3>
+   	  </div>
+      <div class="BoxHeight mt_10"></div>
+      
+<foreach name="order" item="o">
+    <if condition=" $o['flight'] neq null " >
+
+      <div class="order">
+        <div class="order_tit"><span class="mr_8">订单号：<em>{$o['orderNum']}</em></span><span class="mr_8">{$o['orderTime']}</span><strong class="ml_25">{$o['tmcName']}</strong></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+  <td width="70" align="center">
+     {$o['uname']}<br />
+              </td>
+  <td>
+
+            
+ <foreach name="o['flight']" item="of" key="ofk">
+     <table width="630" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab table_pr td_yq">
+          <tr>
+            <td width="14%" rowspan="2"  nowrap >{$of.time_dep|substr=0,10}
+            <if condition="$of.insurId neq null ">     <!-- 判断有没有保险 -->
+               <span class="bx_mr"><a class="a_buy_yq">保险</a></span>
+            </if>
+            <br />
+     {$of.airline_co} {$of.airline_num}</td>
+            <td rowspan="2" ><span class="tex_20">{$of.time_dep|substr=11,5}</span><br />
+     {$of.city_from}</td>
+            <td width="8%" rowspan="2"  ><p><br />
+            </p>
+            <p>——</p>
+              <p></p>
+            <p>&nbsp;</p></td>
+            <td rowspan="2" ><span class="tex_20">{$of.time_arv|substr=11,5}</span><br />
+    {$of.city_to}</td>
+            <td width="8%"><br/>{$of.class}</td>
+            <td width="5%" nowrap onmouseover = "flightPriceDetail({$of.price},{$of.baf},{$of.acf},{$of.tax})"><br/>￥{$of.allPrice}</td>
+            <td width="8%" rowspan="2" >
+            <a href="javascript:void(0)" class="tex_O">已过期</a>
+            </td>
+				 <!-- 订单状态为已过期的时候，产品状态的文字为 申请退票  和申请改签 -->
+				<td width="12%" rowspan="2" >								    	
+	          				<a href="{:U('Order/flight_apply_refund_ticket',array('id'=>$of['id']))}" class="tex_blue">申请退票</a><br />
+	         				<a href="{:U('Order/flight_apply_change_ticket',array('id'=>$of['id']))}"class="tex_O">申请改签</a>
+	          	</td>	
+
+
+          </tr>
+          <tr>
+            <td colspan="2" ><a href="javascript:void(0)" class="tex_blue">退改签政策</a></td>
+          </tr>
+          </table>
+</foreach>
+    
+        </td>
+        </tr>
+        </table>
+      </if>  
+</foreach>
+        <div class="clear"></div>
+      </div>
+ 
+<br>
+        <!-- 分页的样式 和数量的显现  开始-->
+            <div class="meneame">
+		    {$Page}
+		    </div>
+        	 <style>
+			/*css meneame style pagination*/
+			div.meneame{padding:3px;font-size:80%;margin:3px;color:#ff6500;text-align:center;}
+			div.meneame a{border:#ff9600 1px solid;padding:5px 7px;background-position:50% bottom;background-image:url(../images/meneame.jpg);margin:0 3px 0 0;text-decoration:none;}
+			div.meneame a:hover{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame a:active{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame span.current{border:#ff6500 1px solid;padding:5px 7px;font-weight:bold;color:#ff6500;margin:0 3px 0 0;background-color:#ffbe94;}
+			div.meneame span.disabled{border:#ffe3c6 1px solid;padding:5px 7px;color:#ffe3c6;margin:0 3px 0 0;}
+			</style>
+  </div>
+  <div class="clear"></div>
+</div>
+
+
+
+

@@ -1,0 +1,115 @@
+
+	<div class="main_right">
+	  <div class="r_hd">
+	    <h3 class="r_tit">公告管理</h3>
+      </div>
+	  <div  class="BoxHeight mb_10" ></div>
+	  <div class="clear"></div>
+	  <form action="{:U('QsxBulletinMgnt/add_qsx_bulletin')}" method="post">
+	  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4 mt_22">
+	    <tr>
+	      <td width="25%" align="right">发布对象</td>
+	      <td><select name="recv_id" class="text02 w200 c_tx2">
+	        <option value="-1">所有TMC</option>
+	        <option value="-2">所有企业用户</option>
+	        </select></td>
+        </tr>
+	     <tr>
+	      <td width="25%" align="right">&nbsp;</td>
+	      <td colspan="2">
+	      <input type="radio" name="level" value="12" />
+	        置顶
+	        <input type="radio" name="level" value="2" />
+	        重要
+	        <input type="radio" name="level" value="1" checked="checked" />
+	        普通</td>
+        </tr>
+	    <tr>
+	      <td align="right">公告内容</td>
+	      <td colspan="2"><textarea name="content" rows="5" class="text01 w450 h_80"></textarea></td>
+        </tr>
+	    <tr>
+	      <td align="right">链接网址</td>
+	      <td colspan="2"><input name="content_link" type="text" class="text01 w450" /></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;</td>
+	      <td colspan="2"><span class="pt_9"><!--<a href="#" class="btn_sure">添加</a>-->
+	      <input type="submit" value="添加" class="btn_sure"/></span></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+        </tr>
+      </table>
+      </form>
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab">
+	    <tr>
+	      <th width="12%">时间</th>
+	      <th width="15%">发布对象</th>
+	      <th>公告内容</th>
+	      <th width="17%">操作</th>
+        </tr>
+         <foreach name="bulletins" item="no">
+	    <tr class="tr_notice">
+	      <td><if condition="$no.level eq 12">置顶
+	      <else />{$no.time|substr=0,10}
+	      </if></td>
+	      <td><if condition="$no.recv_type eq 1 && $no.recv_id eq 0">所有TMC
+	      <elseif condition="$no.recv_type eq 2 && $no.recv_id eq 0" /> 所有企业客户
+	      </if></td>
+	      <td>
+	      	<if condition="$no.level neq 1"> 
+	      		<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" ><span class="tex_r">{$no.content}</span></a>
+	     	 	<else /><span class="tex_r">{$no.content}</span>
+	     		 </if>
+	     	 <else />
+	     	 	<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" >{$no.content}</a>
+	     	 	<else />{$no.content}
+	     		 </if>
+	      </if>
+	      </td>
+	      <td>
+	      <if condition="$no.show_enable eq 1">
+	       	<input type="submit" value="隐藏" onclick="upd_bulletin(({$no.id}),({$no.show_enable}))" class="btn_b5 ml_5" />
+	       	<else /><input type="submit" value="显示" onclick="upd_bulletin(({$no.id}),({$no.show_enable}))" class="btn_b5 ml_5" />
+	      </if>
+	      <input type="submit" value="删除" onclick="del_bulletin({$no.id})" class="btn_b5 ml_5" />
+	        </td>
+        </tr>
+        </foreach>
+	   </table>
+  </div>
+	<div class="clear"></div>
+
+	
+<script type="text/javascript">
+
+	function upd_bulletin(id,show_enable){
+		$.ajax({
+			url:"{:U('QsxBulletinMgnt/upd_bulletin')}",
+			data:"id="+id+"&show_enable="+show_enable,
+			dataType:"text",
+			type:"POST",
+			success:function(msg){
+				window.location.reload();
+			}
+		});
+	}
+	function del_bulletin(id){
+		$.ajax({
+			url:"{:U('QsxBulletinMgnt/del_bulletin')}",
+			data:"id="+id,
+			dataType:"text",
+			type:"POST",
+			success:function(msg){
+				//alert(msg);
+				window.location.reload();
+			}
+		});
+	}
+</script>
+
+	

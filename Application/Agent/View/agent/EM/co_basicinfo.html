@@ -1,0 +1,270 @@
+
+  <div class="main_right">
+   	  <div class="r_hd">
+            <h3 class="r_tit">企业客户基本信息</h3>
+    	</div>
+        
+      <div  class="BoxHeight mb_10" ></div>
+      <form action="{:U('EM/updateLink')}" method="post" id="form2">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4 mt_22">
+      <tr>
+            <td width="200" align="right">企业编号</td>
+            <td><input name="input3" type="text" class="text01" value="{$company.co_code}" disabled="disabled" /></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">企业名称</td>
+            <td width="240"><input name="input" type="text" class="text01" value="{$company.name}" disabled="disabled" />   </td>
+            <td width="262">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">简称</td>
+            <td> <input name="input2" type="text" class="text01" value="{$company.short_name}" disabled="disabled" /></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr> 
+            <td align="right">所属行业</td>
+            <td><input name="input4" type="text" class="text01" value="{$company.industry}"  disabled="disabled" /></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">规模</td>
+            <td><span class="tex_blue">
+              <select name="input4" id="select3" class="text02" disabled="disabled">
+                <option value="1-50" {$company['scale']=="1-50"?'selected':''}>1-50人</option>
+                <option value="51-100" {$company['scale']=="51-100"?'selected':''}>51-100人</option>
+                <option value="101-300" {$company['scale']=="101-300"?'selected':''}>101-300人</option>
+                <option value="301-500" {$company['scale']=="301-500"?'selected':''}>301-500人</option>
+                <option value="501-1000" {$company['scale']=="501-1000"?'selected':''}>501-1000人</option>
+                <option value="1001-3000" {$company['scale']=="1001-3000"?'selected':''}>1001-3000人</option>
+                <option value="3001-10000" {$company['scale']=="3001-10000"?'selected':''}>3001-10000人</option>
+                <option value="10000+"  {$company['scale']=="10000+"?'selected':''}>10000人以上</option>
+              </select>
+            </span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">网址</td>
+            <td><input name="input2" type="text" value="{$company.website}" class="text01" disabled="disabled" /></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">所在城市</td>
+            <td><span class="tex_blue">
+               <select name="province" id="select" class="text02 w100" disabled="disabled">
+                <option value="广东省"  {$company['province']=="广东省"?'selected':''}>广东省</option>
+                <option value="河北省" {$company['province']=="河北省"?'selected':''}>河北省</option>
+                <option value="广西省" {$company['province']=="广西省"?'selected':''}>广西省</option>
+              </select>
+            <select name="city" id="select2" class="text02 w100" disabled="disabled">
+                <option value="深圳" {$company['city']=="深圳"?'selected':''}>深圳</option>
+                <option value="沧州" {$company['city']=="沧州"?'selected':''}>沧州</option>
+                <option value="桂林" {$company['city']=="桂林"?'selected':''}>桂林</option>
+            </select>
+            </span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">详细地址</td>
+            <td><input name="input2" type="text" value="{$company.address}"  class="text01" disabled="disabled" /></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">联系人</td>
+            <td><input name="input2" type="text" value="{$company.contact_name}" class="text01" disabled="disabled" /></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">联系电话</td>
+            <td><input name="input2" type="text" value="{$company.contact_phone}" class="text01" disabled="disabled" /></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">电子邮箱</td>
+            <td><input name="input10" type="text" value="{$company.contact_email}" class="text01" disabled="disabled" /></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">&nbsp;<input name="co_id" type="hidden" class="text01" value="{$tmclink.co_id}"  /></td><!-- 1.19 更改 gsf -->
+            <td colspan="2">&nbsp;<input name="id" type="hidden" class="text01" value="{$tmclink.id}"  /> 
+            <input name="date" type="hidden" class="text01" value="{$tmclink.date}"  />
+            </td>
+          </tr>
+        </table>
+    <div class="btitle mt_22">
+      <h4>补充信息</h4>
+        </div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4 mt_22">
+          <tr>
+            <td width="200" align="right">结算类型</td>
+            <td colspan="2">
+            	<select name="pay_type" style="width:100px;height:30px;">
+            		<option value="0" {$tmclink['pay_type']==0?'selected':''}>现付</option>
+            		<option value="1" {$tmclink['pay_type']==1?'selected':''}>月结</option>
+            	</select>
+            </td>
+          </tr>
+          <tr>
+            <td width="200" align="right">企业联系人</td>
+            <td colspan="2"><input name="co_name"  type="text" class="text01" value="{$tmclink.co_name}" /></td>
+          </tr>
+          <tr>
+            <td align="right">联系人电话</td>
+            <td><input name="co_phone" type="text" class="text01" value="{$tmclink.co_phone}" /></td>
+              <td>
+                  <div id="tel" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+                      <i class="mod_tico_x16 mod_tico_warn_x16"></i>电话格式不正确
+                  </div>
+              </td>
+          </tr>
+          <tr>
+            <td align="right">联系人邮箱</td>
+            <td ><input name="co_email" type="text" class="text01" value="{$tmclink.co_email}" /></td>
+              <td>
+                  <div id="eml" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+                      <i class="mod_tico_x16 mod_tico_warn_x16"></i>电子邮箱格式不正确
+                  </div>
+              </td>
+          </tr>
+          <tr>
+            <td align="right">企业地址</td>
+            <td colspan="2"><input name="co_addr" type="text" class="text01" value="{$tmclink.co_addr}" /></td>
+          </tr>
+          <tr>
+            <td align="right">备注</td>
+            <td colspan="2"><textarea name="note" rows="5" class="text01 w450 h_80">{$tmclink.note}</textarea></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2"><span class="pt_9"><a href="javascript:void(0);" id="btn_sure" class="btn_sure">保存</a></span></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+          </tr>
+    </table>
+    </form>
+  </div>
+
+    <div class="clear"></div>
+</div>
+<script>
+    //企业客户基本信息
+    //保存修改
+    $(function () {
+        var err1= 1,err2= 1,err3=1,err4= 1,err5=1;
+        //企业联系人
+
+        $("input[name='co_name']").blur(function () {
+            var pattern = /^[\u4e00-\u9fa5]{2,10}$/gi;
+            var userNumber = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userNumber) ) {
+                err1 = 1;
+                _this.removeClass('warning').parent('input').removeClass('warning');
+            } else {
+                err1 = 0;
+                _this.addClass('warning').parent('input').addClass('warning');
+            }
+        });
+
+
+        /*联系人电话*/
+        $("input[name='co_phone']").blur(function () {
+            //2-20 汉字 数字 字母 下划线
+            var pattern = /^(\(\d{3,4}\)|\d{3,4}-)?\d{7,12}$/i;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userName) ) {
+                err2 = 1;
+                _this.removeClass('warning').parent('input').removeClass('warning');
+                $('#tel').css('display', 'none');
+            } else {
+                err2 = 0;
+                _this.addClass('warning').parent('input').addClass('warning');
+                $('#tel').css('display', 'block');
+            }
+        });
+
+
+        /*联系人邮箱*/
+        $("input[name='co_email']").blur(function () {
+
+            var pattern = /^(?:\w+\.?)*\w+@(?:\w+\.)*\w+$/;
+            var phone = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(phone) ) {
+                err3 = 1;
+                _this.removeClass('warning').parent('input').removeClass('warning');
+                $('#eml').css('display', 'none');
+            } else {
+                err3 = 0;
+                _this.addClass('warning').parent('input').addClass('warning');
+                $('#eml').css('display', 'block');
+            }
+        });
+
+        /*企业地址*/
+        $("input[name='co_addr']").blur(function () {
+
+            var pattern = /^[\u4e00-\u9fa5]{2,20}|[A-Za-z0-9]{2,20}$/gi;
+            var phone = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(phone) ) {
+                err4 = 1;
+                _this.removeClass('warning').parent('input').removeClass('warning');
+            } else {
+                err4 = 0;
+                _this.addClass('warning').parent('input').addClass('warning');
+            }
+        });
+
+        //备注
+
+        $("textarea[name='note']").blur(function () {
+            var pattern = /^[\u4e00-\u9fa5]{2,20}|[A-Za-z0-9]{2,20}$/gi;
+            var userNumber = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userNumber) ) {
+                err5 = 1;
+                _this.removeClass('warning').parent('input').removeClass('warning');
+            } else {
+                err5 = 0;
+                _this.addClass('warning').parent('input').addClass('warning');
+            }
+        });
+
+        $("#btn_sure").click(function(){
+            if(err1&&err2&&err3&&err4&&err5){
+                btn_sure();
+            }else{
+                swal({
+                    title: "温馨提示!",
+                    text: "你没有修改或信息输入不完整!!",
+                    type: "info",
+                    confirmButtonText: "关 闭"
+                });
+            }
+        });
+        document.onkeydown = function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+                if(err1&&err2&&err3&&err4&&err5){
+                    btn_sure();
+                }
+            }
+        };
+    });
+
+function btn_sure(){
+    $('#form2').submit();
+    swal({
+        title: "温馨提示!",
+        text: "修改成功!!",
+        type: "success",
+        confirmButtonText: "关 闭",
+        timer: 2000
+    });
+}
+</script>
+

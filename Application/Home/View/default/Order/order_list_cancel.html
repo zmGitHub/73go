@@ -1,0 +1,236 @@
+
+  <div class="main_right">
+  <div class="r_hd">
+            <h3 class="r_tit">订单查询</h3>
+             <div class="r_hd_extra">
+              <a href="{:U('Order/order_list_6')}" >所有</a>
+              <a href="{:U('Order/order_list_confirm')}">待确认</a>
+              <a href="{:U('Order/order_list_pay')}">待支付</a>
+              <a href="{:U('Order/order_list_cancel')}" class="current">已取消</a>
+            </div>
+   	  </div>
+      <div class="BoxHeight mt_10"></div>
+     <div class="mb_10" onkeydown="order_search();">
+	        <input name="start_date" id="start_date" type="text" value="{$start_date}" class="text01 c_tx2 w120 h20 fl_left laydate-icon"    placeholder="开始时间"/>
+	        <span class="date_jg2 fl_left">一</span>
+	        <input name="end_date" id="end_date"  type="text" value="{$end_date}" class="text01 c_tx2 w120 h20 fl_left laydate-icon" placeholder="结束时间"/>
+	        <input name="keywords" id="keywords" type="text" class="text01 fl_left c_tx2 ml_5 h20" value="{$keywords}" placeholder="订单号/TMC公司名"/>
+			<input id="search" type="button" value="查找" class="btn_b5 ml_5" />
+		</div>
+    
+<foreach name="order" item="o" key="k">
+      <div class="order">
+        <div class="order_tit"><span class="mr_8">订单号：<em>{$o.orderNum}</em></span><span class="mr_8">{$o.orderTime}</span><strong class="ml_25">{$o.tmcName}</strong></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+  <td width="70" align="center">
+     {$o.uname}<br />
+              </td>
+  <td>
+
+
+<!-- flight ticket information -->
+<if condition="$o.flight neq null ">
+     <foreach name="o.flight" item="of" key="ofk">
+     <table width="630" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab table_pr td_yq">
+          <tr>
+            <td width="14%" rowspan="2" >{$of.time_dep|substr=0,10}<span class="bx_mr"><a class="a_buy_yq">保险</a></span><br />
+     {$of.airline_co} {$of.airline_num}</td>
+            <td rowspan="2" ><span class="tex_20">{$of.time_dep|substr=11,5}</span><br />
+     {$of.city_from}</td>
+            <td width="8%" rowspan="2"  ><p><br />
+            </p>
+            <p>——</p>
+              <p></p>
+            <p>&nbsp;</p></td>
+            <td rowspan="2" ><span class="tex_20">{$of.time_arv|substr=11,5}</span><br />
+    {$of.city_to}</td>
+            <td width="8%"><br/>{$of.class}</td>
+            <td width="5%" nowrap><br/>￥{$of.allPrice}</td>
+            </td>
+            <td width="12%" rowspan="2" >
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" ><a href="#" class="tex_blue">退改签政策</a></td>
+          </tr>
+          </table>
+     </foreach>
+</if>
+          
+<!-- hotel information -->
+<if condition="$o.hotel neq null ">
+     <foreach name="o.hotel" item="oh" key="ohk">
+          <table width="630" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab table_pr td_yq">
+          <tr>
+    <td width="14%" nowrap>{$oh.date_ckin}<br />
+      ↓<br />
+      {$oh.date_ckout}</td>
+    <td width="45%" >{$oh.hotel_name}<br />
+      {$oh.hotel_addr}</td>
+    <td width="19%"  nowrap>￥{$oh.price}
+    
+    <if condition="$oh.prepay_val neq 0 ">
+        <if condition="$oh.prepay_status eq 0 ">
+        <p class="db_mr">需预付</p>
+        <elseif condition="$oh.prepay_status eq 1 "/>
+        <p class="db_mr">已预付</p></if>
+    <else/></if>
+    
+    <if condition="$oh.crecard_val eq 1 ">
+        <if condition="$oh.crecard_status eq 0 ">
+        <p class="db_mr">需担保</p>
+        <elseif condition="$oh.crecard_status eq 1 "/>
+        <p class="db_mr">已担保</p></if>
+    <else/></if>
+
+    <br />{$oh.room_type}
+        <span>{$oh.count}</span></td>
+        <td width="12%" >
+        </td>
+    <td  style="padding-right:10px;">
+        </td>
+  </tr>
+  </table>
+     </foreach>
+</if>
+          
+<!-- train ticket information -->
+<if condition="$o.train neq null ">
+     <foreach name="o.train" item="ot" key="otk">
+     <table width="630" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab table_pr td_yq">
+          <tr>
+            <td width="14%" rowspan="2" >{$ot.boarding_time|substr=0,10}<br />
+     {$ot.train_num}</td>
+            <td rowspan="2" ><span class="tex_20">{$ot.boarding_time|substr=11,5}</span><br />
+     {$ot.station_dep}</td>
+            <td width="8%" rowspan="2" class="tex_20">——</td>
+            <td rowspan="2" ><span class="tex_20">{$ot.arrive_time|substr=11,5}</span><br />
+     {$ot.station_arv}</td>
+            <td width="8%"><br/>{$ot.class_level}</td>
+            <td width="8%" nowrap><br/>￥{$ot.price}</td>
+            <td width="8%" rowspan="2" >
+            </td>
+            <td width="12%" rowspan="2" >
+            </td>
+          </tr>
+          <tr>
+            <td width="12%" colspan="2" ><a href="#" class="tex_blue">退改签政策</a></td>
+          </tr>
+          </table>
+     </foreach>
+</if>
+
+<!-- other products information -->
+<if condition="$o.other neq null ">
+     <foreach name="o.other" item="oo" key="ook"> 
+     <table width="630" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab table_pr td_yq">    
+          <tr>
+          <td width="14%" nowrap>{$oo.time_start}<br />
+            ↓<br />
+          {$oo.time_end}</td>
+          <td width="53%">{$oo.content}</td>
+          <td width="14%" class="tex_blue" nowrap>￥{$oo.price}</td>
+          <td>
+          </td>
+          <td width="12%">
+          </td>
+        </tr>
+        </table>
+    </foreach>
+</if>        
+        
+        </td>
+        </tr>
+        </table>
+        <div class="pa_15 tb_bg">总金额：￥{$o.amount}<span class="fl_right"> 已取消
+        <if condition="$o.servPrice neq '' ">
+        </span>（含服务费￥{$o.servPrice}）</if></div>
+          
+        <div class="clear"></div>
+      </div>
+</foreach> 
+
+<br>
+        <!-- 分页的样式 和数量的显现  开始-->
+            <div class="meneame">
+		    {$Page}
+		    </div>
+        	 <style>
+			/*css meneame style pagination*/
+			div.meneame{padding:3px;font-size:80%;margin:3px;color:#ff6500;text-align:center;}
+			div.meneame a{border:#ff9600 1px solid;padding:5px 7px;background-position:50% bottom;background-image:url(../images/meneame.jpg);margin:0 3px 0 0;text-decoration:none;}
+			div.meneame a:hover{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame a:active{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame span.current{border:#ff6500 1px solid;padding:5px 7px;font-weight:bold;color:#ff6500;margin:0 3px 0 0;background-color:#ffbe94;}
+			div.meneame span.disabled{border:#ffe3c6 1px solid;padding:5px 7px;color:#ffe3c6;margin:0 3px 0 0;}
+			</style>
+
+  </div>
+  <div class="clear"></div>
+</div>
+
+  <script type="text/javascript" src="__ROOT__/Public/js/searchPlugin/dataPicker/laydate.dev.js" charset="utf-8"></script><!--时间插件-->
+  <script>
+      var start = {
+          elem: '#start_date',
+          format: 'YYYY-MM-DD',
+          max: '2099-06-16 23:59:59', //最大日期
+          istime: true,
+          istoday: false,
+          choose: function(datas){
+              end.min = datas; //开始日选好后，重置结束日的最小日期
+              end.start = datas //将结束日的初始值设定为开始日
+          }
+      };
+      var end = {
+          elem: '#end_date',
+          format: 'YYYY-MM-DD',
+          max: '2099-06-16 23:59:59',
+          istime: true,
+          istoday: false,
+          choose: function(datas){
+              start.max = datas; //结束日选好后，重置开始日的最大日期
+          }
+      };
+      laydate.skin('huanglv');
+      laydate(start);
+      laydate(end);
+      
+      
+      function order_search(){
+ 		 if (event.keyCode==13)  //回车键的键值为13
+ 			 $('#search').click();
+ 	}
+
+      function order_post(start_date,end_date,keywords){
+ 		post("{:U('Order/order_list_cancel')}", {start_date:start_date,end_date:end_date,keywords:keywords});
+ 	}
+ 	
+ 	$('#search').click(function(){
+ 		var start_date = $('#start_date').val();
+ 		var end_date = $('#end_date').val();
+ 		var keywords = $('#keywords').val();
+ 		//if(leave_date!="" || back_date!="" || keywords!=""){
+ 			order_post(start_date,end_date,keywords);
+ 		//}
+ 		
+ 		
+ 	});
+ 	 function post(url,params){       
+ 		    var temp = document.createElement("form");        
+ 		    temp.action = url;        
+ 		    temp.method = "post";        
+ 		    temp.style.display = "none";        
+ 		    for (var x in params) {        
+ 		        var opt = document.createElement("textarea");        
+ 		        opt.name = x;        
+ 		        opt.value = params[x];        
+ 		        //alert(opt.value)        
+ 		        temp.appendChild(opt);        
+ 		    }        
+ 		    document.body.appendChild(temp);        
+ 		    temp.submit();        
+ 		    return temp;        
+ 		}  
+</script>

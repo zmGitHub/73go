@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>自助预定</title>
+<link href="__ROOT__/Public/css/weixin/header.css" rel="stylesheet" type="text/css" />
+<link href="__ROOT__/Public/css/weixin/self.css" rel="stylesheet" type="text/css" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, target-densitydpi=medium-dpi" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+</head>
+
+<body>
+<header>
+<div class="new-header">
+  <h2>自助预定</h2></div>
+</header>
+<div class="order">
+  <volist name="data['search_result']" id="vo1" key="key" >
+<div class="search_box">
+
+    	<table class="search_table_header" style="background:#ddd;">
+        <tbody>
+        	<tr>
+            	<td width="126" class="logo"><div class="clearfix"><span class="pubFlights_ca flight_logo">{$vo1.FlightName}</span> <strong>{$vo1.FlightNo}</strong></div>
+                <div class="low_text">计划机型：<span class="direction_black_border craft" code="321">{$vo1.CraftType}</span></div></td>
+                <td width="126" class="right"><div><strong class="time">{$vo1.depart_time}</strong></div><div>{$vo1.FromAirport}</div></td>
+                <td width="14" class="center">__</td>
+                <td width="123" class="left"><div><strong class="time">{$vo1.arrive_time}</strong></div>{$vo1.ToAirport}</td>
+               <!-- <td width="142" class="ontime">历史准点率<br>{$vo1.HistoryClock}%</td>
+                <td width="85" class="meals"><span class="division"></span>餐食<br>{$vo1.Meals}</td>
+                <td width="88" class="taxinfo"><span class="division"></span>机建＋燃油<br><dfn>¥</dfn>{$vo1.taxinfo}</td>
+                -->
+                <td width="83" class="price lowest_price"><span class="base_price02 tex_r"><dfn><span style="font-size:18px;color:#039;">¥</span></dfn>&nbsp;{$vo1.price lowest_price}</span><i>起</i></td><td width="13" class="special"></td>
+            </tr>
+        </tbody>
+        </table>
+        <volist name="vo1['PriceInfo']" id="vo11" >
+        
+   	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="yd_search" background="#f1f1f1">
+
+	      <tr>
+	        <!--<td width="200">
+	        <if condition="$vo11.special eq 'null' ">
+	     	 网络专享价
+	         <else /> {$vo11.special}
+	         </if>
+	         <span class="a_buy_c">代理</span></td>-->
+	        <td>&nbsp;</td>
+	        <td width="25%">{$vo11.right_discount}折</td>
+	       
+	        <td width="30%"><strong>
+            <if condition="$vo11['rule']['edn'] eq '不得签转' "> {$vo11.rule.edn} 
+             <else />支持改签
+             </if>
+            </strong></td>
+	        <td width="30%">¥{$vo11.right_price}
+	              <!--<a class="a_buy">{$vo11.list_combo1_p1}</a>--></td>
+	        <td align="center">
+	        	<input type="hidden" name ="money" value="{$vo11.right_price}">
+	        	<input type="hidden" name ="startcity" value="{$vo1.FromAirport}">
+	        	<input type="hidden" name ="arrivalcity" value="{$vo1.ToAirport}">
+	        	<input type="hidden" name ="take_time" value="{$vo1.dt}">
+	        	<input type="hidden" name ="arrive_time" value="{$vo1.at}">
+	        	<input type="hidden" name ="FlightsName" value="{$vo1.FlightsName}">
+                <input type="hidden" name ="FlightNo" value="{$vo1.FlightNo}">
+	            <input name="button" type="button" class="a_buy"   value="预订"  /></td>
+	        <td>&nbsp;</td>
+          </tr>
+	  
+      
+    </table>
+    </volist>
+    	<!--<span class="fl_right mt_10">最高返现53元 <span class="tex_blue">更多舱位-->
+   	<div  class="BoxHeight" ></div>
+<div class="clear"></div>
+</div>
+</div>
+ </volist>
+  <form id="frmSaveRoad" name="frmSaveRoad" method="post"
+    action="{:U('Book/book_self_orderinput')}">
+   				 <input type="hidden" id="money" name ="money" value="
+   				 ">
+	        	<input type="hidden" id ="startcity" name ="startcity" value="">
+	        	<input type="hidden" id ="arrivalcity"  name ="arrivalcity" value="">
+	        	<input type="hidden" id ="take_time" name ="take_time" value="">
+	        	<input type="hidden" id = "arrive_time" name ="arrive_time" value="">
+	        	<input type="hidden"  id= "FlightsName" name ="FlightsName" value="">
+                <input type="hidden"  id="FlightNo"  name ="FlightNo" value="">
+</form>
+
+
+
+
+<script type="text/javascript" src="__ROOT__/Public/style/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/style/js/fixdiv.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/style/js/address.js"></script>
+<script>
+
+</body>
+</html>

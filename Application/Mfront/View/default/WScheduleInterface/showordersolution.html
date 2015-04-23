@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+asdfasd
+<table border=1>
+	<tr>
+		<td>订单序号</td>
+		<td>订单编号</td>
+		<td>订单时间</td>
+		<td>订单内容</td>
+	</tr>
+	<foreach name="solution" item="o">
+	<tr>
+		<td>{$o.psid}</td>
+		<td>{$o.reqid}</td>
+		<td>{$o.agentid}</td>
+		<td>{$o.details}</td>
+	</tr>
+	</foreach>
+</table>
+</body>
+</html>

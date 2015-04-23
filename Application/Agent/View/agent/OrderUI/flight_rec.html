@@ -1,0 +1,37 @@
+<tr class="sz73go_flight_ticket">
+        <td><div><span class="tex_blue">
+            <input name="dep_date" type="text" onfocus="WdatePicker()" style="width: 80px;">
+            </span> </div>
+        </td>
+        <td><div><input type="text" name="airline_num" onblur="flightNumBlur(this, 'city_from','city_to')" style="width: 60px;" value="" class="sz73go_flight_num"></div></td>
+        <td><div><input type="text" name="class" value="" style="width: 30px;"></div></td>
+        <td><div><input name="dep_time" type="text" style="width: 98px; margin-bottom: 2px;" class="sz73go_timeitem"></div>
+          <div style="position: relative;">
+          <span style="margin-left:80px;width:18px;overflow:hidden;">
+          <select name="city_from" onchange="flightAddrDepChange(this,'city_from','dep_date','dep_time')" style="width: 94px; margin-left: -80px;"></select>
+          </span>
+          <input name="city_from" type="text" style="width: 80px; position: absolute; left: 2px;">
+          </div>
+        </td>
+        <td><div><input name="arv_time" style="width: 94px; margin-bottom: 2px;" class="sz73go_timeitem"></div>
+          <div style="position: relative;"><span style="margin-left: 80px; width: 18px; overflow: hidden;">
+          <select name="city_to" onchange="flightAddrArvChange(this,'city_arv','arv_time')"  style="width: 98px; margin-left: -80px">
+          </select>
+          </span>
+          <input name="city_to" style="width: 80px; position: absolute; left: 2px;">
+          </div></td>
+        <td><div><input type="text" name="price" value="" class="sz73go_moneyitem" style="width: 60px;"></div></td>
+        <td><div><input type="text" name="baf" value="" class="sz73go_moneyitem" style="width: 60px;"></div></td>
+        <td><div><input type="text" name="acf" value="" class="sz73go_moneyitem" style="width: 60px;"></div></td>
+        <td><div><input type="text" name="tax" value="" class="sz73go_moneyitem" style="width: 60px;"></div></td>
+        <td><div><input type="text" name="service_price" value="" class="sz73go_servicefee" style="width: 60px;"></div></td>
+        <td><div>
+            <input type="checkbox" name="refund_enable">
+            退
+            <input
+				type="checkbox" name="reschdule_enable" >
+            改
+            <input
+				type="checkbox" name="resign_enable">
+            签</div></td>
+      </tr>

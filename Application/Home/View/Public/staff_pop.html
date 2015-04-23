@@ -1,0 +1,190 @@
+<!---企业员工弹出浮层  --->
+<div class="popup popup_pos1" id="staff_box" style="display: none;">
+	<a href="javascript:void(0)" id="staff_shut" class="btn_close"></a>
+	<div class="pop_title">企业员工搜索</div>
+	<div class="popup_cont2" onkeydown="staff_search();">
+		<div id = "linkCom" style="display: none;">所属企业：
+             <span class="tex_blue">
+             <select name="select" id="co_id" class="text02 ml_5 w200 c_tx2" onchange="findLinkCom()">
+                	<option value="0" selected="selected">选择企业简称</option>
+        			<foreach name="link_coms" item="link_com">
+         				<option value="{$link_com.id}">{$link_com.short_name}</option>
+       		 		</foreach>
+             </select>
+             </span></div>
+		<input name="staff_info" type="text" id="staff_info" class="text01 h29 c_tx2" value="" placeholder="工号/姓名/电话/邮箱">
+		<input type="button" value="查找" id="staff_search" class="btn_b5 ml_5"style="cursor: pointer">
+		<div style="max-height: 350px;overflow-y: scroll;overflow-x: hidden;">
+			<table id='staff_tab' width="100%" border="0" cellspacing="0"
+				   cellpadding="0" class="table_fund bg_tab mt_10">
+			</table>
+		</div>
+
+		<div class="news_mod_form_cnt dt_time01 dt_time_xz" id="staff_boxs"></div>
+		<div class="text_cent">
+			<a href="javascript:void(0)" id="staff_button" class="btn_sure">确定</a>
+		</div>
+	</div>
+</div>
+<!---企业员工弹出浮层  --->
+
+<script>
+
+function staff_search(){
+	 if (event.keyCode==13)  //回车键的键值为13
+		 $('#staff_search').click();
+	}
+	
+	/*弹出企业员工*/
+	var staff_tartget = '';
+	var staff_isRadio;
+	var staff_urlStr = "";
+	var staff_info = "";
+	var co_id;
+	var parameter;
+	var exc_id;
+	
+	function staff_pop(obj,urlStr){
+		staff_tartget = obj;
+		staff_urlStr = urlStr;
+		staff_info = "";
+		$("#staff_info").val('');
+		
+		staff_isRadio = arguments[2] ? arguments[2] : false;//是否为单选
+		staff_byCom = arguments[3] ? arguments[3] : false;//是否根据公司查询员工信息
+		parameter = arguments[4] ? arguments[4] : false;//参数数组，需返回处理
+		self_id = arguments[5] ? arguments[5] : false;//排除数据ID数组
+		exc_id = $(self_id).data("exc_id");
+		
+		if(staff_byCom) $('#linkCom').css('display','inline-block');
+		$('#staff_box').css('display','block');
+		$("#staff_boxs").html('');
+		staff_ajax();
+		
+	};
+	
+	function staff_ajax(){
+		if(co_id>0){
+			var tag='info='+staff_info+'&exc_id='+exc_id+'&co_id='+co_id;
+		}else{
+			var tag='info='+staff_info+'&exc_id='+exc_id;
+		}
+		$.ajax({
+			url:staff_urlStr,
+				data:tag,
+				dataType:"text",
+				type:"POST",
+				success: function(data){
+					var html = '<tr><th width="5%">&nbsp;</th><th width="9%" style="display: none">id</th><th width="9%">员工编号</th> <th width="9%">姓名</th><th width="90">部门</th><th width="90">手机号</th><th width="90">邮箱</th></tr>' ;   //清空resText里面的所有内容
+					var data=eval("("+data+")");
+					//console.log(data);
+					if(data==null){
+						$('#staff_tab').html("<p style='width: 100%;padding: 30px;text-align: center'><strong>暂无数据!</strong></p>");
+					}else{
+					//转换为json对象 
+					$.each(data,function(i, item){  
+						var addhtml='';
+						if(item.branch_name==null)
+							item.branch_name='';
+						if(staff_isRadio==false){
+							 addhtml = '<label for="staff_'+item.id+'"><tr class="searchList" id="staff_'+item.id+'"  ondblclick="staff_dblclick('+item.id+')" style="cursor:pointer">' +
+							 '<td><input type="checkbox" data-id="'+item.id+'" name="staff_isChecked" id="staff_checkbox'+item.id+'" >' +
+							 '</td><td onclick="staff_sglclick('+item.id+')" style="display: none">'+item.id+'' +
+							 '</td><td onclick="staff_sglclick('+item.id+')">'+item.emp_code+'' +
+							 '</td><td onclick="staff_sglclick('+item.id+')">'+item.name+'' +
+							 '</td><td onclick="staff_sglclick('+item.id+')">'+item.branch_name+'' +
+							 '</td><td onclick="staff_sglclick('+item.id+')">'+item.phone+'' +
+							 '</td><td onclick="staff_sglclick('+item.id+')">'+item.email+'' +
+							 '</td></tr></label>';
+							 }
+							 else{
+							 addhtml = '<label for="staff_'+item.id+'"><tr class="searchList" id="staff_'+item.id+'"  ondblclick="staff_dblclick('+item.id+')" style="cursor:pointer">' +
+							 '<td><input type="radio" data-id="'+item.id+'" name="staff_isChecked" id="staff_checkbox'+item.id+'"  >' +
+							 '</td><td style="display: none" onclick="staff_sglclick('+item.id+')">'+item.id+'</td>' +
+							 '<td onclick="staff_sglclick('+item.id+')">'+item.emp_code+'</td>' +
+							 '<td onclick="staff_sglclick('+item.id+')">'+item.name+'</td>' +
+							 '<td onclick="staff_sglclick('+item.id+')">'+item.branch_name+'</td>' +
+							 '<td onclick="staff_sglclick('+item.id+')">'+item.phone+'</td>' +
+							 '<td onclick="staff_sglclick('+item.id+')">'+item.email+'</td>' +
+							 '</tr></label>';
+						}
+						   html+=addhtml;})
+					$('#staff_tab').html(html);
+					}
+	             }
+		})
+	}
+	
+	$('#staff_search').click(function(){
+		staff_info = $('#staff_info').val();
+		staff_ajax();
+		
+	});
+	/*关闭窗口*/
+	function staff_close(){
+		$('#staff_box').css('display','none');	
+		
+	};
+	/*关闭查询*/
+	$('#staff_shut').click(function(){
+		staff_close();
+	});
+	
+	/*单击*/
+	function staff_sglclick(id){
+		var staff_checkbox = $('#staff_checkbox'+id);
+		staff_checkbox.attr("checked")=="checked"?staff_checkbox.attr("checked",false):staff_checkbox.attr("checked",true);
+	};
+	
+	/*双击*/
+	function staff_dblclick(id){		
+		var obj =  staff_getdata(id);
+		var res = [];
+		res.push(obj);
+		staff_tartget(res,parameter);
+		staff_close();
+		
+	};
+	/*获取单行数据*/
+	function staff_getdata(id){
+		 var td = $('#staff_'+id).find("td");
+		var data = new Object();
+		//id
+		data.u_id = td.eq(1).text();
+		//姓名
+		data.name = td.eq(3).text();
+		//部门
+		//手机号
+		data.phone = td.eq(5).text();
+		//邮箱
+		data.email = td.eq(6).text();
+		return data; 
+		
+	}
+	/*获取所有选中的数据*/
+	function staff_getdatas(){
+		var result = [];
+		$("input[name='staff_isChecked']:checked").each(function(){
+			var id = $(this).data('id');
+			result.push(staff_getdata(id));
+		});
+		$('#msg1').css('display', 'none');
+		return result;
+		
+	};
+	/*提交数据*/
+	$('#staff_button').click(function(){
+		var lst = staff_getdatas() || [];
+		if(lst.length>0){
+			staff_tartget(lst,parameter);
+			staff_close();
+		}
+
+	});
+	
+	function findLinkCom(){
+		co_id=$("#co_id  option:selected").val();
+		staff_ajax();
+	}
+
+</script>

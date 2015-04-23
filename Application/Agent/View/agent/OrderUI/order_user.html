@@ -1,0 +1,50 @@
+	<td><input type="text" value=""  name="name" class="sz73go_dataitem"></td>
+	<td><select name="id_type" 
+		class="ml_5 h24 w146 sz73go_dataitem"></select></td>
+	<td><input type="text" value="" name="id_no" class="sz73go_dataitem"
+		style="width: 150px;"></td>
+	<td><input type="text" value="" name="phone" class="sz73go_dataitem"></td>
+	<td><a href="javascript: void(0);" class="tex_blue sz73go_editing_l0" name="user" onclick="$(this).parent().parent().remove()">删除</a></td>
+
+<!-- 弹出框 请把这个div放在body标签下 作为body的直接子标签 -->
+<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      	这个是取消框
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加旅客</h4>
+      </div>
+      <div class="modal-body">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund">
+       <tr>
+          <th width="20%"></th>
+          <th width="17%">工号</th>
+          <th width="21%">姓名</th>
+          <th>部门</th>
+          <th width="20%">电话</th>
+          <th>邮箱</th>      
+          <th>角色</th>          
+        </tr>
+        <foreach name="emps" item="e">
+        <tr>
+          <td width="20%"><input type="checkbox" name='userInfo' /></td>
+          <td width="17%">{$e.emp_code}</td>
+          <td width="21%">{$e.name}</td>
+          <td>{$e.br_name}</td>
+          <td width="20%">{$e.phone}</td>
+          <td>{$e.email}</td>      
+          <td>{$e.role}</td>          
+        </tr>
+        </foreach>
+        </table>
+        	<p id="closeTip"></p>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> 
+        <button type="button" id="confrimAdd" class="btn btn-primary">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+-->

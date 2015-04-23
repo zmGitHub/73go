@@ -1,0 +1,279 @@
+
+    <div class="main_right">
+    	<div class="r_hd">
+            <h3 class="r_tit">企业信息</h3>
+            <div class="r_hd_extra">
+              <a href="{:U('Index/config_coinfo_account')}">登录账户</a>
+              <a href="{:U('Index/config_coinfo_basicinfo')}" class="current">企业信息</a>
+            </div>
+    	</div>
+         <form action="{:U('User/mod_comapny_info')}"  method="post">
+      <div  class="BoxHeight mb_10" ></div>
+        <table width="600" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+          <tr>
+            <td width="200" height="20">&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">企业编号</td>
+            <td><input name="co_code" type="text" class="text01" value="{$co_info.0.co_code}" disabled="disabled" /></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">企业名称</td>
+            <td width="240"><input name="name" type="text" class="text01"  value="{$co_info.0.name}" placeholder="请填写企业名称"/>
+            </td>
+            <td width="262">
+              <div id="usermsg1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                <i class="mod_tico_x16 mod_tico_warn_x16"></i>名称必须是2~30个字符
+              </div>
+              <div id="usermsg2" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">简称</td>
+            <td><input name="short_name" type="text" class="text01" value="{$co_info.0.short_name}" placeholder="请填写企业简称"/></td>
+            <td>
+              <div id="usermsg3" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                <i class="mod_tico_x16 mod_tico_warn_x16"></i>简称必须是2~30个字符
+              </div>
+              <div id="usermsg4" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">所属行业</td>
+            <td>
+            <!--<input name="industry" type="text" class="text01" value="{$co_info.0.industry}"  />  -->
+	            <select name="industry" id="industry" class="text02">
+	            <foreach name="data" item="vo">
+                 <option value="{$vo.d_key}" {$co_info[0]['industry']==$vo['d_key']?'selected':''}>{$vo.d_value}</option>
+               	</foreach>
+	            </select>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">企业规模</td>
+            <td><span class="tex_blue">
+              <select name="scale" id="scale" class="text02">
+                <foreach name="data11" item="vo">
+                 <option value="{$vo.d_key}" {$co_info[0]['scale']==$vo['d_key']?'selected':''}>{$vo.d_value}</option>
+               	</foreach>
+              </select>
+            </span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">网址</td>
+            <td><input name="website" type="text" class="text01"  value="{$co_info.0.website}" placeholder="请填写企业网址"/></td>
+            <td>
+              <div id="usermsg5" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                <i class="mod_tico_x16 mod_tico_warn_x16"></i>网址不正确
+              </div>
+              <div id="usermsg6" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">所在城市</td>
+            <td><span class="tex_blue">
+            <div id="tmc_area">
+              <select id="province" name="province" class="prov text02 w122"></select>
+              <select class="city text02 w122" name="city" disabled="disabled"></select>
+            </div>
+            </span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">具体地址</td>
+            <td><input name="address" type="text" class="text01"  value="{$co_info.0.address}" placeholder="请填写详细地址"/></td>
+            <td>
+
+              <div id="usermsg7" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                <i class="mod_tico_x16 mod_tico_warn_x16"></i>地址必须是2~20个字符
+              </div>
+              <div id="usermsg8" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">联系人</td>
+            <td><input name="contact_name" type="text" class="text01" value="{$co_info.0.contact_name}" placeholder="请填写联系人"/></td>
+            <td>
+              <div id="usermsg9" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                <i class="mod_tico_x16 mod_tico_warn_x16"></i>名称必须是2~10个字符
+              </div>
+              <div id="usermsg10" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+              </div>
+
+            </td>
+          </tr>
+          <tr>
+            <td align="right">联系电话</td>
+            <td><input name="contact_phone" type="text" class="text01" value="{$co_info.0.contact_phone}" placeholder="请填写联系电话"/></td>
+            <td>
+              <div id="usermsg11" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                <i class="mod_tico_x16 mod_tico_warn_x16"></i>联系电话格式不正确
+              </div>
+              <div id="usermsg12" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">电子邮箱</td>
+            <td><input name="contact_email" type="text" class="text01" value="{$co_info.0.contact_email}" placeholder="请填写电子邮箱"/></td>
+            <td>
+              <div id="usermsg13" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                <i class="mod_tico_x16 mod_tico_warn_x16"></i>电子邮箱不正确
+              </div>
+              <div id="usermsg14" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+          </tr>
+          <tr>
+
+            <td>&nbsp;</td>
+            <td colspan="2"><!--<a href="#" class="btn_sure mt_10">保存修改</a>-->
+          <input type="submit" id="btn_sure" class="btn_sure btn-sure1" value="保存修改"></td>
+          </tr>
+        </table>
+         </form>
+    </div>
+    <div class="clear"></div>
+</div>
+</form>
+
+    <script type="text/javascript">
+      $(function () {
+        /*企业名称验证*/
+        $("input[name='name']").blur(function () {
+          //2-20 汉字 数字 字母 下划线
+          var pattern = /^[\u4e00-\u9fa50-9a-z\-[\](\)]{2,30}$/i;
+          var userName = $(this).val() || '';
+          var _this = $(this);
+          if ( pattern.test(userName) ) {
+            _this.removeClass('warning').parent('td').removeClass('warning');
+            $('#usermsg1').css('display', 'none');
+          } else {
+            _this.addClass('warning').parent('td').addClass('warning');
+            $('#usermsg1').css('display', 'block');
+          }
+        });
+        /*企业简称验证*/
+        $("input[name='short_name']").blur(function () {
+          //6-20 汉字 数字 字母 下划线
+          var pattern = /^[\u4e00-\u9fa50-9a-z]{2,30}$/i;
+          var userName = $(this).val() || '';
+          var _this = $(this);
+          if ( pattern.test(userName) ) {
+            _this.removeClass('warning').parent('td').removeClass('warning');
+            $('#usermsg3').css('display', 'none');
+          } else {
+            _this.addClass('warning').parent('td').addClass('warning');
+            $('#usermsg3').css('display', 'block');
+          }
+        });
+
+        /*企业网址验证*/
+        $("input[name='website']").blur(function () {
+          var patternStr = "^((https|http|ftp|rtsp|mms)?://)"
+                  + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@
+                  + "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184
+                  + "|" // 允许IP和DOMAIN（域名）
+                  + "([0-9a-z_!~*'()-]+\.)*" // 域名- www.
+                  + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名
+                  + "[a-z]{2,6})" // first level domain- .com or .museum
+                  + "(:[0-9]{1,4})?" // 端口- :80
+                  + "((/?)|"
+                  + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+          var pattern=new RegExp(patternStr);
+          var userName = $(this).val() || '';
+          var _this = $(this);
+          if ( pattern.test(userName) ) {
+            _this.removeClass('warning').parent('td').removeClass('warning');
+            $('#usermsg5').css('display', 'none');
+          } else {
+            _this.addClass('warning').parent('td').addClass('warning');
+            $('#usermsg5').css('display', 'block');
+          }
+        });
+
+        /*企业地址验证*/
+        $("input[name='address']").blur(function () {
+          //2-20 汉字 数字 字母 下划线
+          var pattern = /^[\u4e00-\u9fa50-9a-z]{2,30}$/i;
+          var userName = $(this).val() || '';
+          var _this = $(this);
+          if ( pattern.test(userName) ) {
+            _this.removeClass('warning').parent('td').removeClass('warning');
+            $('#usermsg7').css('display', 'none');
+          } else {
+            _this.addClass('warning').parent('td').addClass('warning');
+            $('#usermsg7').css('display', 'block');
+          }
+        });
+
+        /*企业联系人验证*/
+        $("input[name='contact_name']").blur(function () {
+          //2-20 汉字 数字 字母 下划线
+          var pattern = /^[\u4e00-\u9fa50-9a-z]{2,30}$/i;
+          var userName = $(this).val() || '';
+          var _this = $(this);
+          if ( pattern.test(userName) ) {
+            _this.removeClass('warning').parent('td').removeClass('warning');
+            $('#usermsg9').css('display', 'none');
+          } else {
+            _this.addClass('warning').parent('td').addClass('warning');
+            $('#usermsg9').css('display', 'block');
+          }
+        });
+
+        /*企业联系人电话验证 */
+        $("input[name='contact_phone']").blur(function () {
+
+          var pattern = /^\d{6,11}$/i;
+          var userName = $(this).val() || '';
+          var _this = $(this);
+          if ( pattern.test(userName) ) {
+            _this.removeClass('warning').parent('td').removeClass('warning');
+            $('#usermsg11').css('display', 'none');
+          } else {
+            _this.addClass('warning').parent('td').addClass('warning');
+            $('#usermsg11').css('display', 'block');
+          }
+        });
+
+        $("input[name='contact_email']").blur(function () {
+
+          var pattern = /^(?:\w+\.?)*\w+@(?:\w+\.)*\w+$/;
+          var userName = $(this).val() || '';
+          var _this = $(this);
+          if ( pattern.test(userName) ) {
+            _this.removeClass('warning').parent('td').removeClass('warning');
+            $('#usermsg13').css('display', 'none');
+          } else {
+            $("#btn_sure").unbind('click');
+            _this.addClass('warning').parent('td').addClass('warning');
+            $('#usermsg13').css('display', 'block');
+          }
+        });
+
+        $("#tmc_area").citySelect({
+          prov: "{$co_info.0.province}",
+          city: "{$co_info.0.city}"
+        });
+      });
+    </script>

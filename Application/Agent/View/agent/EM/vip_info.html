@@ -1,0 +1,255 @@
+
+  <div class="main_right">
+   	  <div class="r_hd">
+            <h3 class="r_tit">VIP客户信息</h3>
+   	  </div>
+        
+    <div  class="BoxHeight mb_10" ></div>
+    <form method="post" id="form1" action="{:U('EM/updateVip')}" >
+    
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4 mt_22">
+          <tr>
+            <td align="right" width="200">工号</td>
+            <td><input name="input3" type="text" value="{$emp.emp_code}" class="text01" disabled="disabled" /></td>
+          </tr>
+          <tr>
+            <td align="right">姓名</td>
+            <td><input name="input" type="text" value="{$emp.name}" class="text01" disabled="disabled" /></td>
+          </tr>
+          <tr>
+            <td align="right">性别</td>
+            <td><span class="tex_blue">
+              <select name="select4" id="select4" class="text02 w100" disabled="disabled">
+                <option value="M" {$emp['sex']=="M"?'selected':''}>男</option>
+                <option value="F" {$emp['sex']=="F"?'selected':''}>女</option>
+              </select>
+            </span></td>
+          </tr>
+          <tr>
+            <td align="right">所在部门</td>
+              <td><input name="input" type="text" value="{$empbrand.name}" class="text01" disabled="disabled" /></td>
+          </tr>
+          <tr>
+            <td align="right">角色</td>
+            <td><span class="tex_blue">
+              <select name="select3" id="select3" class="text02" disabled="disabled">
+              	<option value="0" {$emp['role']=="0"?'selected':''}>员工</option>
+                <option value="1" {$emp['role']=="1"?'selected':''}>部门主管</option>
+                <option value="10" {$emp['role']=="10"?'selected':''}>企业领导 </option>
+                <option value="99" {$emp['role']=="99"?'selected':''}>企业管理员</option>
+            </select>
+            </span></td>
+          </tr>
+          <tr>
+            <td align="right">手机</td>
+            <td><input name="input2" type="text" value="{$emp.phone}" class="text01" disabled="disabled" /></td>
+          </tr>
+          <tr>
+            <td align="right">电子邮箱</td>
+            <td><input name="input2" type="text" value="{$emp.email}" class="text01" disabled="disabled" /></td>
+          </tr>
+          <tr>
+            <td align="right">证件号</td>
+            <td><span class="tex_blue">
+              <select name="select6" id="select6" class="text02 w100" disabled="disabled">
+                <option value="0" {$emp['id_type']=="0"?'selected':''}>大陆居民身份证</option>
+                <option value="1" {$emp['id_type']=="1"?'selected':''}>护照</option>
+                <option value="2" {$emp['id_type']=="2"?'selected':''}>户口簿 </option>
+                <option value="3" {$emp['id_type']=="3"?'selected':''}>军人证</option>
+                <option value="4" {$emp['id_type']=="4"?'selected':''}>机动车驾驶证</option>
+                <option value="5" {$emp['id_type']=="5"?'selected':''}>港澳通行证</option>
+                <option value="6" {$emp['id_type']=="6"?'selected':''}>台胞证 </option>
+                <option value="7" {$emp['id_type']=="7"?'selected':''}>回乡证</option>
+                <option value="8" {$emp['id_type']=="8"?'selected':''}>外国人居住证</option>
+                <option value="99" {$emp['id_type']=="99"?'selected':''}>其他证件</option>
+              </select>
+            </span><input name="input2" type="text" class="text04" value="{$emp.id_num}" disabled="disabled" /></td>
+          </tr>
+          <tr>
+            <td align="right">所在城市</td>
+            <td><span class="tex_blue">
+                <select name="province" id="select" class="text02 w100" disabled="disabled">
+                <option value="广东省"  {$emp['province']=="广东省"?'selected':''}>广东省</option>
+                <option value="河北省" {$emp['province']=="河北省"?'selected':''}>河北省</option>
+                <option value="广西省" {$emp['province']=="广西省"?'selected':''}>广西省</option>
+              </select>
+            <select name="city" id="select2" class="text02 w100" disabled="disabled">
+                <option value="深圳" {$emp['city']=="深圳"?'selected':''}>深圳</option>
+                <option value="沧州" {$emp['city']=="沧州"?'selected':''}>沧州</option>
+                <option value="桂林" {$emp['city']=="桂林"?'selected':''}>桂林</option>
+            </select>
+            </span></td>
+          </tr>
+        </table>
+    <div class="btitle mt_22">
+      <h4>补充信息</h4><input name="emp_id" type="hidden" value="{$emp.id}" class="text01" />
+      <input type="hidden" name="id"  value="{$vip.id}"/>
+    </div>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4">
+    
+<tr>
+               <td width="200" align="right">VIP级别</td>
+               <td><select name="vip_level" id="select8" class="text02 w100 fl_left">
+                <option value="1" {$vip['vip_level']=="1"?'selected':''}>VIP1</option>
+                <option value="2" {$vip['vip_level']=="2"?'selected':''}>VIP2</option>
+               </select>
+               <span class=" ml_25">专属OP</span>
+               
+               <select name="op_id" id="select7" class="text02 w100">
+               		<if condition ="$vip.op_id eq null">
+                	<option value="{$vip.op_id}">{$tmc_emp.name}</option>
+                	</if>
+                <foreach name="ops" item="op">
+                	<option value="{$op.id}" {$vip['op_id']==$op['id']?'selected':''}>{$op.name}</option>
+                 </foreach>
+               </select>
+</td>
+      </tr>
+      		<tr>
+               <td align="right">联系电话</td>
+               <td><input name="phone" type="text" value="{$vip.phone}" class="text01" /></td>
+             </tr>
+             <tr>
+               <td align="right">联系邮箱</td>
+               <td><input name="email" type="text" value="{$vip.email}" class="text01" /></td>
+             </tr>
+             <tr>
+               <td align="right">企业地址</td>
+               <td><input name="work_addr" type="text" value="{$vip.work_addr}" class="text01" /></td>
+             </tr>
+             <tr>
+               <td align="right">家庭地址</td>
+               <td><input name="home_addr" type="text" value="{$vip.home_addr}" class="text01" /></td>
+             </tr>
+             <tr>
+               <td align="right">备注</td>
+               <td><textarea name="note" rows="5"  class="text01 w450 h_80">{$vip.note}</textarea></td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td><span class="pt_9"><a href="javascript:void(0);" id="btn_sure" class="btn_sure">保存</a></span></td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+             </tr>
+    </table>
+    </form>
+  </div>
+    <div class="clear"></div>
+</div>
+
+<script>
+//VIP客户基本信息
+//保存修改
+$(function () {
+    var err1= 0,err2= 0,err3=0,err4= 0,err5=0;
+
+    /*联系人电话*/
+    $("input[name='phone']").blur(function () {
+        //2-20 汉字 数字 字母 下划线
+        var pattern = /^(\(\d{3,4}\)|\d{3,4}-)?\d{7,12}$/i;
+        var userName = $(this).val() || '';
+        var _this = $(this);
+        if ( pattern.test(userName) ) {
+            err1 = 1;
+            _this.removeClass('warning').parent('input').removeClass('warning');
+        } else {
+            err1 = 0;
+            _this.addClass('warning').parent('input').addClass('warning');
+        }
+    });
+
+
+    /*联系人邮箱*/
+    $("input[name='email']").blur(function () {
+
+        var pattern = /^(?:\w+\.?)*\w+@(?:\w+\.)*\w+$/;
+        var phone = $(this).val() || '';
+        var _this = $(this);
+        if ( pattern.test(phone) ) {
+            err2 = 1;
+            _this.removeClass('warning').parent('input').removeClass('warning');
+        } else {
+            err2 = 0;
+            _this.addClass('warning').parent('input').addClass('warning');
+        }
+    });
+
+    /*企业地址*/
+    $("input[name='work_addr']").blur(function () {
+
+        var pattern = /^[\u4e00-\u9fa5]{2,20}|[A-Za-z0-9]{2,20}$/gi;
+        var phone = $(this).val() || '';
+        var _this = $(this);
+        if ( pattern.test(phone) ) {
+            err3 = 1;
+            _this.removeClass('warning').parent('input').removeClass('warning');
+        } else {
+            err3 = 0;
+            _this.addClass('warning').parent('input').addClass('warning');
+        }
+    });
+
+    //家庭地址
+
+    $("input[name='home_addr']").blur(function () {
+        var pattern = /^[\u4e00-\u9fa5]{2,10}$/gi;
+        var userNumber = $(this).val() || '';
+        var _this = $(this);
+        if ( pattern.test(userNumber) ) {
+            err4 = 1;
+            _this.removeClass('warning').parent('input').removeClass('warning');
+        } else {
+            err4 = 0;
+            _this.addClass('warning').parent('input').addClass('warning');
+        }
+    });
+    //备注
+
+    $("textarea[name='note']").blur(function () {
+        var pattern = /^[\u4e00-\u9fa5]{2,20}|[A-Za-z0-9]{2,20}$/gi;
+        var userNumber = $(this).val() || '';
+        var _this = $(this);
+        if ( pattern.test(userNumber) ) {
+            err5 = 1;
+            _this.removeClass('warning').parent('input').removeClass('warning');
+        } else {
+            err5 = 0;
+            _this.addClass('warning').parent('input').addClass('warning');
+        }
+    });
+
+    $("#btn_sure").click(function(){
+        if(err1&&err2&&err3&&err4&&err5){
+            btn_sure();
+        }else{
+            swal({
+                title: "温馨提示!",
+                text: "你没有修改或信息输入不完整!!",
+                type: "info",
+                confirmButtonText: "关 闭"
+            });
+        }
+    });
+    document.onkeydown = function(e){
+        var ev = document.all ? window.event : e;
+        if(ev.keyCode==13) {
+            if(err1&&err2&&err3&&err4&&err5){
+                btn_sure();
+            }
+        }
+    };
+});
+
+function btn_sure(){
+    $('#form1').submit();
+    swal({
+        title: "温馨提示!",
+        text: "添加保险产品成功!",
+        type: "success",
+        confirmButtonText: "关 闭",
+        timer: 2000
+    });
+}
+</script>

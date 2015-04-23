@@ -1,0 +1,368 @@
+
+  <div class="main_right">
+   	  <div class="r_hd">
+            <h3 class="r_tit">差旅企业员工列表</h3>
+            
+</div>
+        
+        <div  class="BoxHeight mb_10" ></div>
+    <div class="mt_10 ">
+    
+    <div id="emp_status">
+      <div class="news_mod_form_cnt dt_time01  dt_time_xz " >
+        <span class="fl_left pt_17">状&nbsp;态:</span>
+        <a id="a1" class="current2" href="#" onclick="change(this)">所有</a> 
+        <a id="a2" href="#" onclick="change(this)">属于企业</a></div>
+        <div class="dt_time01_yq">
+        <a id="a3" href="#" onclick="change(this)">不属于企业</a>
+        <a id="a4" href="#" onclick="change(this)">等待企业审核</a>
+        </div>
+        <div class="news_mod_form_cnt dt_time01  dt_time_xz ">
+        <a id="a5" href="#" onclick="change(this)">停用</a>
+        </div>
+        <input type="hidden" id="type" name="type" value="">
+     </div>
+        <span style=" margin-top:15px; display:block;" class="fl_left"></span>
+        
+		<div class="clear"></div>
+      <div class="news_mod_form_cnt dt_time01 dt_time_xz"> <span class="fl_left mr_12">所属企业:</span></div>
+     <span style=" margin-top:18px; display:block;" class="fl_left"></span>
+        <span class="tex_blue pt_8">
+        <!--<select name="select3"  class="text02  ml_5 h26" id="select3" onchange="changeEc();">
+        	<option value="-1" selected="selected">所有企业</option>
+        	<foreach name="cnames" item="em">
+         		<option value="{$em.id}">{$em.name}</option>
+       		 </foreach>
+        </select>
+        
+        --><table  border="0" align="center">
+  			<tr>
+    			<td><div style="position:relative;">   
+      			<span  class="sp">   
+            <select id="hoho" name="hoho"  class="text02  ml_5 h26 hoho" onchange="changeEc();" >
+            	  <option value="-1" selected="selected">所有企业</option>
+        			<foreach name="cnames" item="em">
+         				<option value="{$em.id}">{$em.name}</option>
+       		 		</foreach>
+             </select>  
+     		</span>
+     		<input name="box4" id="box4" value="所有企业"  class="bo4"  >   
+			</div>
+			</td>   
+  			</tr>
+		</table>
+      </span> 
+      </div>
+      
+      <div  class="BoxHeight" >
+   
+      </div>
+     
+
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab" id="tb_emp">
+           <td>&nbsp;</td>
+          <tr>
+            <th width="12%">序号</th>
+            <th width="15%">企业编号</th>
+            <th width="15%">姓名</th>
+            <th>部门（最小部门）</th>
+            <th width="10%">角色</th>
+            <th width="10%">省市</th>
+            <th width="10%">状态</th>
+            <th width="10%">操作</th>
+          </tr>
+          <foreach name="employee" item="e" key="k">
+          	<tr>
+            <td>{$k+1}</td>
+            <td><a href="{:U('EM/showEnterpriseDetail')}?id={$e.co_id}" class="tex_blue">{$e.co_code}</a></td>
+            <td><a href="{:U('EM/showStaffDetail')}?id={$e.id}" class="tex_blue">{$e.ename}</a></td>
+            <td>{$e.bname}</td>
+            <td>{$e.role}&nbsp;</td>
+            <td>{$e.province}-{$e.city}</td>
+            <td><if condition="$e.status eq 0">不属于企业
+            <elseif condition="$e.status eq 1" />属于企业
+            <elseif condition="$e.status eq 2" />等待企业审核
+  			<elseif condition="$e.status eq 99" /> 停用</if>
+  			</td>
+            <td><if condition="$e.status eq 99">
+          <input type="button"  value="启用" class="btn_b5 ml_5" onclick="startOrstop(({$e.id}),({$e.status}))" />
+  		<else /> <input type="button"  value="停用" class="btn_b5 ml_5" onclick="startOrstop(({$e.id}),({$e.status}))" /></if>
+  		</td>
+          </tr>
+          </foreach>
+        </table>
+        <br>
+        <!-- 分页的样式 和数量的显现  开始-->
+            <div class="meneame">
+		    {$Page}
+		    </div>
+        	 <style>
+			/*css meneame style pagination*/
+			div.meneame{padding:3px;font-size:80%;margin:3px;color:#ff6500;text-align:center;}
+			div.meneame a{border:#ff9600 1px solid;padding:5px 7px;background-position:50% bottom;background-image:url(../images/meneame.jpg);margin:0 3px 0 0;text-decoration:none;}
+			div.meneame a:hover{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame a:active{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame span.current{border:#ff6500 1px solid;padding:5px 7px;font-weight:bold;color:#ff6500;margin:0 3px 0 0;background-color:#ffbe94;}
+			div.meneame span.disabled{border:#ffe3c6 1px solid;padding:5px 7px;color:#ffe3c6;margin:0 3px 0 0;}
+			</style>
+        
+  </div>
+    <div class="clear"></div>
+</div>
+
+<script type="text/javascript" >
+
+	function startOrstop(eid,estatus){
+		$.ajax({
+			url:"{:U('EM/updateEmpStatus')}", 
+			data:"eid="+eid+"&estatus="+estatus,
+			dataType:"text",
+			type:"POST",
+			success:function(data){
+				if(data){
+					location.href = "{:U('EM/showStaff')}";
+				}
+			}
+		});
+		
+	}
+	
+	function getData(type,co_id){
+		//alert(type);
+		//alert(co_id);
+		$.ajax({
+ 			url:"{:U('EM/showStaffByCon')}", 
+ 			data:"status="+type+"&co_id="+co_id,
+ 			dataType:"text",
+ 			type:"POST",
+ 			success:function(data){
+ 				//alert(data);
+ 				var emps = eval("(" + data + ")");
+ 				var tb_emp=$('#tb_emp');
+ 				$('#tb_emp').eq(0).empty().append(tr2);   //清除内容
+ 				var td="<td>"+"&nbsp;"+"</td>";
+ 				var tr1=
+ 				"<tr>"+
+ 			 	"<th width='12%'>"+"序号"+"</th>"+
+           		"<th width='15%'>"+"企业编号"+"</th>"+
+           		"<th width='15%'>"+"姓名"+"</th>"+
+           		"<th>"+"部门（最小部门）"+"</th>"+
+           		"<th width='10%'>"+"角色"+"</th>"+
+           		"<th width='10%'>"+"省市"+"</th>"+
+           		"<th width='10%'>"+"状态"+"</th>"+
+           		"<th width='10%'>"+"操作"+"</th>"+
+ 				"</tr>"
+ 				tb_emp.append(td);
+ 				tb_emp.append(tr1);
+ 				for(var i=0;i<emps.length;i++){
+ 					var sta="";
+ 					if(emps[i].status == 0){
+						sta="不属于企业";
+					}else if(emps[i].status == 1){
+						sta="属于企业";
+					}else if(emps[i].status == 2){
+						sta="等待企业审核";
+					}else if(emps[i].status == 99){
+						sta="停用";
+					}
+ 					var input="";
+ 					if(emps[i].status == 99){
+ 						input="<input type='button'  value='启用' class='btn_b5 ml_5' onclick='startOrstop(("+emps[i].id+"),("+emps[i].status+"))' />"
+ 					}else{
+ 						input="<input type='button'  value='停用' class='btn_b5 ml_5' onclick='startOrstop(("+emps[i].id+"),("+emps[i].status+"))' />"
+ 					}
+ 					var tr2=
+ 						"<tr>"+
+ 						"<td>"+(i+1)+"</td>"+
+ 		            	"<td>"+"<a href='{:U('EM/showEnterpriseDetail')}?id="+emps[i].co_id+"' class='tex_blue'>"+emps[i].co_code+"</a>"+"</td>"+
+ 		            	"<td>"+"<a href='{:U('EM/showStaffDetail')}?id="+emps[i].id+"' class='tex_blue'>"+emps[i].ename+"</a>"+"</td>"+
+ 		           		"<td>"+emps[i].bname+"</td>"+
+ 		            	"<td>"+emps[i].role+"&nbsp;"+"</td>"+
+ 		            	"<td>"+emps[i].province+"-"+emps[i].city+"</td>"+
+ 		            	"<td>"+sta+"</td>"+
+ 		            	"<td>"+input+"</td>"
+ 				        "</tr>"
+ 				    tb_emp.append(tr2);   
+ 				}
+ 			}
+ 		});
+		
+	}
+	function changeEc(){
+		var type = $('#type').val();
+	 	var co_id=$("#hoho  option:selected").val();
+		var Value=$("#hoho  option:selected").text();
+	   	$("#box4").val(Value);
+	   	var name=$("#box4").val();
+	   	getData(type,co_id);
+	}
+	
+    function change(obj){
+    	var co_id=$("#hoho  option:selected").val();//获取公司
+    	var type = '';
+        if(obj.innerHTML=='所有'){
+         		  
+        }else if(obj.innerHTML=='属于企业'){
+         	type=1;
+        }else if(obj.innerHTML=='不属于企业'){
+         	type=0;
+        }else if(obj.innerHTML=='等待企业审核'){
+         		type=2;
+         	}else if(obj.innerHTML=='停用'){
+         		type=99;
+         	}
+        	$('#type').val(type);
+           	$("#emp_status a").each( function(index, element){     //循环取得a标签的值
+           		if(obj.innerHTML==element.innerHTML){
+                   	$("#a" + (index+1)).addClass("current2");
+                }else{
+                	$("#a" + (index+1)).removeClass("current2");
+                }
+             }); 
+           	getData(type,co_id);  
+       }
+       
+       
+    	function input(){
+    		 	var cus = 0;
+    		    var classname = "";
+    		    var arry = new Array();
+    		    var $autocomplete = $("<ul class='autocomplete'></ul>").hide().insertAfter("#box4");
+    		    $('#box4').val($("#hoho  option:selected").text());
+    		    $("#hoho").find("option").each(function(i, n) {
+    		        arry[i] = $(this).text();
+    		    });
+    		    $("#box4").keyup(function(event) {
+    		        if ((event.keyCode != 38) && (event.keyCode != 40) && (event.keyCode != 13)) {
+    		            $autocomplete.empty();
+    		            var $SerTxt = $("#box4").val().toLowerCase();
+    		            if ($SerTxt != "" && $SerTxt != null) {
+    		                for (var k = 0; k < arry.length; k++) {
+    		                    if (arry[k].toLowerCase().indexOf($SerTxt) >= 0) {
+    		                        $("<li title=" + arry[k] + " class=" + classname + "></li>").text(arry[k]).appendTo($autocomplete).mouseover(function() {
+    		                            $(".autocomplete li").removeClass("hovers");
+    		                            $(this).css({
+    		                                background: "#fff",
+    		                                color: "#3368c4"
+    		                            })
+    		                        }).mouseout(function() {
+    		                            $(this).css({
+    		                                background: "#fff",
+    		                                color: "#000"
+    		                            })
+    		                        }).click(function() {
+    		                            $("#box4").val($(this).text());
+    		                            $autocomplete.hide();
+    		                        })
+    		                    }
+    		                }
+    		            }
+    		            $autocomplete.show()
+    		        }
+    		        var listsize = $(".autocomplete li").size();
+    		        $(".autocomplete li").eq(0).addClass("hovers");
+    		        if (event.keyCode == 38) {
+    		            if (cus < 1) {
+    		                cus = listsize - 1;
+    		                $(".autocomplete li").removeClass();
+    		                $(".autocomplete li").eq(cus).addClass("hovers");
+    		                var text = $(".autocomplete li").eq(cus).text();
+    		                $("#box4").val(text);
+    		            } else {
+    		                cus--;
+    		                $(".autocomplete li").removeClass();
+    		                $(".autocomplete li").eq(cus).addClass("hovers");
+    		                var text = $(".autocomplete li").eq(cus).text();
+    		                $("#box4").val(text);
+    		            }
+    		        }
+    		        if (event.keyCode == 40) {
+    		            if (cus < (listsize - 1)) {
+    		                cus++;
+    		                $(".autocomplete li").removeClass();
+    		                $(".autocomplete li").eq(cus).addClass("hovers");
+    		                var text = $(".autocomplete li").eq(cus).text();
+    		                $("#box4").val(text);
+    		            } else {
+    		                cus = 0;
+    		                $(".autocomplete li").removeClass();
+    		                $(".autocomplete li").eq(cus).addClass("hovers");
+    		                var text = $(".autocomplete li").eq(cus).text();
+    		                $("#box4").val(text);
+    		            }
+    		        }
+    		        if (event.keyCode == 13) {
+    		            $(".autocomplete li").removeClass();
+    					$autocomplete.hide();
+    					
+    					var type=$('#type').val();
+    					
+    					var cname=$('#box4').val();
+    					
+    					$.ajax({
+    			   			url:"{:U('EM/inputfind')}", 
+    			   			data:"cname="+cname+"&type="+type,
+    			   			dataType:"text",
+    			   			type:"POST",
+    			   			success:function(data){
+    			   				//alert(data);
+    			   				var emps = eval("(" + data + ")");
+    			   				var tb_emp=$('#tb_emp');
+    			   				$('#tb_emp').eq(0).empty().append(tr2);   //清除内容
+    			   				var td="<td>"+"&nbsp;"+"</td>";
+    			   				var tr1=
+    			   				"<tr>"+
+    			   			 	"<th width='12%'>"+"序号"+"</th>"+
+    			             	"<th width='15%'>"+"企业编号"+"</th>"+
+    			             	"<th width='15%'>"+"姓名"+"</th>"+
+    			             	"<th>"+"部门（最小部门）"+"</th>"+
+    			             	"<th width='10%'>"+"角色"+"</th>"+
+    			             	"<th width='10%'>"+"省市"+"</th>"+
+    			             	"<th width='10%'>"+"状态"+"</th>"+
+    			             	"<th width='10%'>"+"操作"+"</th>"+
+    			   				"</tr>"
+    			   				tb_emp.append(td);
+    			   				tb_emp.append(tr1);
+    			   				for(var i=0;i<emps.length;i++){
+    			   					var input="";
+    			   					var sta="";
+    			   					if(emps[i].status == 99){
+    			   						input="<input type='button'  value='启用' class='btn_b5 ml_5' onclick='startOrstop(("+emps[i].id+"),("+emps[i].status+"))' />"
+    			   						sta="停用";
+    			   					}else{
+    			   						if(emps[i].status == 0){
+    			   							sta="不属于企业";
+    			   						}else if(emps[i].status == 1){
+    			   							sta="属于企业";
+    			   						}else if(emps[i].status == 2){
+    			   							sta="等待企业审核";
+    			   						}
+    			   						input="<input type='button'  value='停用' class='btn_b5 ml_5' onclick='startOrstop(("+emps[i].id+"),("+emps[i].status+"))' />"
+    			   					}
+    			   					var tr2=
+    			   						"<tr>"+
+    			   						"<td>"+(i+1)+"</td>"+
+    			   		            	"<td>"+"<a href='{:U('EM/showEnterpriseDetail')}?id="+emps[i].co_id+"' class='tex_blue'>"+emps[i].co_code+"</a>"+"</td>"+
+    			   		            	"<td>"+"<a href='{:U('EM/showStaffDetail')}?id="+emps[i].id+"' class='tex_blue'>"+emps[i].ename+"</a>"+"</td>"+
+    			   		           		"<td>"+emps[i].bname+"</td>"+
+    			   		            	"<td>"+emps[i].role+"&nbsp;"+"</td>"+
+    			   		            	"<td>"+emps[i].province+"-"+emps[i].city+"</td>"+
+    			   		            	"<td>"+sta+"</td>"+
+    			   		            	"<td>"+input+"</td>"
+    			   				        "</tr>"
+    			   				    tb_emp.append(tr2);  
+    			   				}
+    			   			}
+    			   		});
+    					
+    		        }
+    		    }).blur(function() {
+    		        setTimeout(function() {
+    		            $autocomplete.hide();
+    		        },
+    		        1000)
+    		    })
+       	}
+       	
+      window.onload=input; 
+</script>

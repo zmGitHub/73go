@@ -1,0 +1,77 @@
+
+  <div class="main_right">
+	  <div class="r_hd">
+	    <h3 class="r_tit">我的主页</h3>
+      </div>
+	  <div  class="BoxHeight mb_10" ></div>
+	  <div class="clear"></div>
+    <div class="personal_infro mb_10">
+      <div class="btitle"><a href="{:U('Config/showconfig_tmcinfo_basicinfo')}" class="tc_btn_m01">修改</a>
+        <h4>基本信息</h4>
+    </div>
+	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+	      <tr>
+	        <td width="18%" class="td1">企业编号</td>
+	        <td>{$pages.tmc_code} <span class="tex_blue ml_129">{$pages.tmc_cert}</span></td>
+     <td width="18%" class="td1">联&nbsp;&nbsp;系&nbsp;人</td>
+	        <td width="25%">{$pages.contact_name}</td>
+          </tr>
+	      <tr>
+	        <td class="td1">企业全称</td>
+	        <td>{$pages.name}</td>
+	        <td class="td1">企业简称</td>
+	        <td>{$pages.short_name}</td>
+          </tr>
+	      <tr>
+	        <td class="td1">员工总数</td>
+	        <td><a href="{:U('EM/showBSAll')}" class="tex_blue">{$pages.empcount}</a></td>
+	        <td class="td1">工作组总数</td>
+	        <td><a href="{:U('TmcGroup/showTmcGroup')}" class="tex_blue">{$pages.teamcount}</a></td>
+          </tr>
+	      <tr>
+	        <td class="td1">企业客户数量</td>
+	        <td><a href="{:U('EM/showcustomer')}" class="tex_blue">{$pages.linkcount}</a></td>
+	        <td class="td1">VIP客户数量</td>
+	        <td><a href="{:U('EM/showvipuser')}" class="tex_blue">{$pages.vipcount}</a></td>
+          </tr>
+        </table>
+	    <div class="btitle"><a href="javascript:void(0)" class="tc_btn_m01">修改</a><h4>旗舰店信息</h4>
+      </div>
+	    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_personal">
+	      <tr>
+	        <td width="15%" class="td1">网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址</td>
+	        <td>{$pages.sub_url}</td>
+          </tr>
+        </table>
+    </div>
+	  <div class="personal_infro mb_10">
+	   <div class="btitle">
+	   <a href="{:U('TmcBulletinMgnt/tmc_bulletin_mgnt')}" class="tc_btn_m01">修改</a>
+	      <h4>差旅公告</h4>
+        </div>
+	    <div class="personal_box">
+	      <ul class="travel_bulletin">
+	     <foreach name="bulletinList" item="no">
+	        <li><span><if condition="$no.level eq 12">置顶
+	      <else />{$no.time|substr=0,16}
+	      </if></span>
+	       <if condition="$no.level neq 1"> 
+	      		<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" class="tex_r" target="_blank">{$no.content}</a>
+	     	 	<else /><a href="javascript:void(0);" class="tex_r" target="_blank">{$no.content}</a>
+	     		 </if>
+	     	 <else />
+	     	 	<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" target="_blank">{$no.content}</a>
+	     	 	<else />{$no.content}
+	     		 </if>
+	      </if>
+	      
+	      </li>
+	     </foreach>
+	     </ul>
+        </div>
+    </div>
+  </div>
+	<div class="clear"></div>
+</div>

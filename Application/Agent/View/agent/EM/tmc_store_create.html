@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title> 
+<style type="text/css">
+#content{
+ width:500px;
+ height:500px;
+ border:solid 1px #cccccc;
+ padding: 5px 5px;
+ overflow:auto;
+
+}
+.btn_sure{ border:1px solid #ddd; padding:0px 30px; text-align:center; display:inline-block; height:38px; line-height:38px; font-size:14px; color:white; margin:10px 0 0 0;}
+.btn_tmc_store{ border:1px solid #999999; padding:0px 30px; text-align:center; display:inline-block; height:38px; line-height:38px; font-size:14px; color:#999999; margin:10px 0 0 0;}
+</style>
+
+</head>
+<body>
+	<div class="main_right">
+    	<div class="r_hd">
+      		<h3 class="r_tit">TMC旗舰店的配置管理</h3>
+    	</div>
+    	<div  class="BoxHeight mb_10" ></div>
+    	
+    	<form action="{:U('EM/tmc_store_create')}" method="post">
+    		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4">
+    			<tr>
+        			<td width="30%"></td>
+        			<td>&nbsp;</td>
+      			</tr>
+      			<tr>
+      				<td align="right">旗舰店专用网站<br /></td>
+      				<td>{$data.sub_url}</td>
+      
+     			</tr>
+     			<tr>
+     				
+      				<td align="right">用户注册条款<br /></td>
+      				<td>
+						<textarea name="reg_agreement" id="reg_agreement" cols="60" rows="27" style="resize: none;padding: 10px">轻松行差旅管理平台服务协议
+
+	声明：您阅读本协议时，请一并阅读本网站其它相关条款。您接受本协议条款时，即意味着您同时接受了本网站其它相关条款。
+1、会员注册
+1.1.会员资格
+深圳市轻松行科技有限公司（以下简称轻松行）"轻松行差旅管理平台"注册用户的对象均应为机票、火车票、酒店住宿及其他相关服务的最终消费者:
+(1)所有在中国境内合法注册成立的公司及其分支机构、国家机构、企事业单位、合伙组织，以及在中国境内合法开展业务并具取得营业/执业许可的其他机构和组织均可提出申请。
+(2)所有旅行社、机票代理机构或其他从事机票代理业务的从业者均不得自行或以他人名义申请为会员。
+(3)轻松行有权根据自身情况决定是否批准"轻松行差旅管理平台"会员资格，并保留最终的解释权。
+
+1.2.注册
+(1)所有注册会员必须遵守本协议所述条款。
+(2)申请为会员时，在"轻松行差旅管理平台"（www.73go.cn）的注册信息必须真实完整，信息发生变更时及时更新。申请获得批准后，"轻松行差旅管理平台"会员资格即刻生效。如因会员自身原因未真实完整填写注册信息或未及时更新信息而导致会员不能享受正常的"轻松行差旅管理平台"的会员权益，轻松行不承担任何责任。
+(3)成为会员后，您将获得一个企业编码、用户名。请妥善保存您的用户名、密码，以确保您能享受"轻松行差旅管理平台"的会员权益以及进入"轻松行差旅管理平台"并享受网站所提供的服务功能。因用户名和密码泄露而导致未经许可使用的，因此而造成的任何直接或间接、突发、特殊或重大的损失，轻松行不承担责任。
+(4)您同意对所有使用该用户名和密码授权的交易负责。您认可并同意，使用您的用户名和密码即视为您公司（或机构、组织）认可的交易，轻松行不承担因可能错误或恶意使用本单位用户名和密码而产生的任何责任。
+(5)用户名、密码遗失或泄漏，可立即通知"轻松行差旅管理平台"服务中心（电话：0755-83484939）进行弥补。
+(6)您同意，轻松行可根据自身经营策略的调整，以及会员购买机票的实际情况，决定是否终止"轻松行差旅管理平台"的会员资格。终止的通知自发送给会员所提交的联系方式后即视为送达，自送达时起会员资格终止。会员亦可自行终止会员资格。会员资格在被终止之前持续有效。
+
+2、会员的权利及义务
+(1)"轻松行差旅管理平台"的会员可享受本网站提供的各类服务。
+(2)与"轻松行差旅管理平台"相关的个人或公司数据将受到法律保护。
+(3)除法律另有规定外，会员购买机票、享受服务中所产生的税赋和费用均由会员自行承担。
+(4)会员应遵守《中华人民共和国民用航空法》及中国有关法律、法规和本网站有关规定，遵守轻松行网上预订规则，禁止虚假订位。
+(5)会员承诺，其并非旅行社、机票代理机构或其他从事机票代理业务的从业者，所购机票均用于自身消费，不存在以营利为目的直接或变相转售、代买的行为，否则愿意以全额机票款补足所购买的全部打折机票款，并赔偿轻松行因此遭受的损失。
+
+3、知识产权
+本网站的图形、图像、文字及其程序等无形资产的全部知识产权和其他权利均属轻松行，并受商标法及相关知识产权法律保护，未经许可，任何人不得下载、复制、使用。在本网发布信息之商标，归其相应的商标所有权人，受商标法保护。
+
+4、免责
+(1)对会员因使用本网站而产生的与第三方之间的纠纷，您同意轻松行不需承担任何责任，亦不需由轻松行介入进行调解、交涉。
+(2)本网站因正常的系统维护、升级或者因网络拥塞及其它不可抗力导致本网站不能正常运营时，轻松行不承担任何责任。
+
+5、服务终止
+(1)会员有权退出"轻松行差旅管理平台"。
+(2)轻松行可以根据自身经营需要，决定对"轻松行差旅管理平台"的全部或部分内容是否终止，并有权在预先不予通知的情况下终止本网站所提供的任何免费服务。在前述情形下，您同意轻松行无需承担任何赔偿责任或其他法律责任。
+
+6、争议解决
+双方在履行本协议过程中所发生的争议，首先应由双方协商解决；协商不成的，则提交仲裁，仲裁地点在深圳，仲裁裁决是终局的，对双方都有约束力。
+
+声明：作为"轻松行差旅管理平台"会员申请人，我已阅读并认真理解了本协议，同时也已阅读并理解本网站其它相关条款。我通过在线点击的方式表示接受本协议条款及本网站其它相关条款。
+						</textarea>
+					</td>
+      				
+     			</tr>
+     			<tr>
+					<td align="right">&nbsp;</td>
+					<td>
+						<label for="agrement">
+							<input type="checkbox" id="agrement"/>&nbsp;确定该注册条款
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">&nbsp;</td>
+					<td><input type="submit" id="create" value="创建" class="btn_tmc_store" disabled/></td>
+				</tr>
+			</table>
+		</form>
+		
+	</div>
+	<div class="clear"></div>
+</body>
+<script type="text/javascript">
+	document.getElementById('agrement').addEventListener('click', function(){
+		var result = this.checked;
+		if(result) {
+			var check = document.getElementById('create');
+			check.disabled = false;
+			
+			check.className = "btn_sure";
+		} else {
+	 		var check = document.getElementById('create');
+	 		check.disabled=true;
+			check.className = "btn_tmc_store";
+			
+		}
+	});
+	
+</script>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/favicon.ico" />
+
+    <title>轻松行</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/css/index2.css" rel="stylesheet" type="text/css" />
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/js/html5shiv.min.js"></script>
+      <script src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/css/carousel.css" rel="stylesheet">
+    <!-- Custom styles for one page -->
+    <link href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/css/onepagedemo.css" rel="stylesheet" media="all">
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+  <!--头部开始-->
+  <div class="top" id="top">
+    <div class="headtop">
+      <div class="logo"><a href="/"><img src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/logo_black.jpg" width="199" height="77" alt="LOGO"/></a></div>
+      <div class="txt">
+        <a href="{:U('Index/login')}" class="on">登录</a><a href="{:U('Index/register_user')}">注册</a><a href="http://www.73go.cn/clforum/forum.php">差旅管理学院</a><a href="{:U('Home/Index/index')}">首页</a></div>
+      </div>
+   </div>
+  <!--头部结束-->
+
+    <!--轮播图开始-->
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active" style="background:url(http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/banner_1.jpg) no-repeat; background-size:cover;">
+          <div class="container">
+            <div class="carousel-caption">
+
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">立即体验</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item" style="background:url(http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/banner_2.jpg) no-repeat; background-size:cover;">
+          <div class="container">
+            <div class="carousel-caption">
+
+             
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">立即体验</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item" style="background:url(http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/banner_6.jpg) no-repeat; background-size:cover;">
+          <div class="container">
+            <div class="carousel-caption">
+
+              <p><a class="btn btn-lg btn-primary btnwritebg" href="#" role="button">立即体验</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"><img src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/prev.png" /></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"><img src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/next.png" /></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
+    <!--轮播图结束-->
+ <div class="wanesr">
+   <div class="wanesr_cn">
+     <div class="wanesr_l">
+     <a href="#zy"><i class="i1"></i><b>专业</b><em>专业为企业提供方案</em></a>
+     <a href="#zy"><i class="i2"></i><b>高效</b><em>高效的企业方案</em></a>
+     <a href="#zn"><i class="i3"></i><b>智能</b><em>智能大分析降成本</em></a>
+     <a href="#tm"><i class="i4"></i><b>透明</b><em>透明 便捷 私人订制</em></a>
+
+     </div>
+     <div class="wanesr_r"><a href="{:U('Agent/index/login_tmc')}">差旅服务商入口</a></div>
+   </div>
+</div>
+<!--主体开始-->
+
+    <ul id="nav">
+      <li><a href="#top"><strong style="font-size: 25px;">▲</strong></a></li>
+      <li><a href="#travel">专业<br/>差旅</a></li>
+      <li><a href="#service">专业<br/>服务</a></li>
+      <li><a href="#booktrip">一分钟<br/>预定</a></li>
+    </ul>
+  <div class="container">
+    <div class="section" id="travel">
+      <img src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/2nd_1.png"/>
+    </div>
+
+    <div class="section" id="service">
+      <img src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/2nd_2.png"/>
+    </div>
+
+    <div class="section" id="booktrip">
+      <img src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/2nd_3.png"/>
+    </div>
+  </div>
+  <!--主体结束-->
+<!--底部信息开始-->
+<div class="foot">
+  <div class="foot_cont">
+    <p class="h32"><a href="#">关于我们</a> <a href="#">招聘信息</a> <a href="#">联系我们</a> <a href="#">合作伙伴</a></p>
+    <p class="h32">Copyright © 2014 73go.cn 版权所有 深圳市轻松行科技有限公司 <a href="http://www.miitbeian.gov.cn" target="_blank">粤ICP备14072826号</a></p>
+    <span><a href="#top">返回</a></span>
+</div>
+</div>
+<!--底部信息结束-->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/js/jquery.min.js"></script>
+    <script src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/js/bootstrap.min.js"></script>
+    <script src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/js/docs.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- one page demo js -->
+    <script src="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/js/jquery.nav.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#nav').onePageNav();
+      });
+    </script>
+  </body>
+</html>

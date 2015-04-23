@@ -1,0 +1,363 @@
+<script type="text/javascript" src="__ROOT__/Public/js/My97DatePicker/WdatePicker.js"></script>
+
+<div class="main_right">
+    <div class="r_hd">
+        <h3 class="r_tit">出差申请</h3>
+    </div>
+    <volist name="data" id="val">
+        <form id="frmSaveRoad" name="frmSaveRoad" method="post" action="{:U('Approval/mod_req',array('tr_id'=>$val['id']))}">
+
+            <div class="BoxHeight mb_10"></div>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+                <tr>
+                    <td width="140" align="right">申请人</td>
+                    <td><input name="username" type="text" class="text01 c_tx2" value="{:LI('userName')}">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">出差人员</td>
+                    <td><input name="tr_user" type="text" class="text01 c_tx2" value="{$val.tr_name}"/>
+                        <input type="button" value="搜索" onclick="search()" class="btn_b5 ml_5"/></td>
+                </tr>
+
+                <tr>
+                    <td align="right">出差时间</td>
+                    <td>
+                        <div class="input_box text_bd_w90">
+                            <input name="leave_date" type="text" onfocus="WdatePicker()" value="{$val.leave_date}"/>
+                        </div>
+                        <span class="date_jg2">一</span>
+
+                        <div class="input_box text_bd_w90">
+                            <input name="back_date" type="text" onfocus="WdatePicker()" value="{$val.back_date}"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">费用预算</td>
+                    <td><span class="tex_blue">
+              </span>
+                        <input name="cost" type="text" class="text01" value="{$val.cost}"/>&nbsp;&nbsp;元
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">出差事由</td>
+                    <td><textarea name="description" rows="5" class="text02" style="width:420px;height:120px;">{$datt.description}</textarea>
+
+                </tr>
+                <tr>
+                    <td align="right" valign="top"><span class="pt_8">审批人</span>
+                    </td>
+                    <td><span class="tex_blue">
+            </span>
+                        <input type="hidden" name="approval_id" value="{$val.appr_id}">
+                        <!-- <input name="approval_name" type="text" class="text03" placeholder="姓名" disabled/> -->
+                        <!-- <input name="approval_phone" type="text" class="text04" placeholder="手机号" disabled/> -->
+                        <!-- <input name="approval_email" type="text" class="text04" placeholder="电子邮箱" disabled /> -->
+                        <input name="approval_name" type="text" class="text03" value="{$val.name}" disabled/>
+                        <input name="approval_phone" type="text" class="text04" value="{$val.phone}" disabled/>
+                        <input name="approval_email" type="text" class="text04" value="{$val.email}" disabled/>
+
+                        <input type="button" value="搜索" onclick="search1()" class="btn_b5 ml_5"/>
+
+                        <div class="mod_tips_inner mt_2 fl_left" id='msg1' style="display:none">
+                            <i class="mod_tico_x16 mod_tico_warn_x16"></i>请填写审批人
+                        </div>
+                    </td>
+                <tr>
+                    <td align="right" valign="top"><span class="pt_8">知会人</span></td>
+                    <td><span class="tex_blue">
+            </span>
+                        <input name="input2" type="text" class="text03" value="姓名"/>
+                        <input name="input2" type="text" class="text04" value="手机号"/>
+                        <input name="input2" type="text" class="text04" value="电子邮箱"/>
+                        <input type="submit" value="搜索" class="btn_b5 ml_5"/>
+                        <!--  <div class="mod_tips_inner mt_2 fl_left"><i class="mod_tico_x16 mod_tico_warn_x16"></i>不是有效电子邮箱 &nbsp;不是有效的手机号码
+           </div> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"></td>
+                    <td><span class="tex_blue">
+            </span>
+                        <input name="input2" type="text" class="text03" value="姓名"/>
+                        <input name="input2" type="text" class="text04" value="手机号"/>
+                        <input name="input2" type="text" class="text04" value="电子邮箱"/>
+                        <input type="submit" value="搜索" class="btn_b5 ml_5"/>
+                    </td>
+                </tr>
+
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+                <tr>
+                    <td width="90%">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td align="center" valign="middle"><a href="javascript:void(0)" id="btnSaveRoad" class="btn_sure">提交修改</a>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- 表单的控件js -->
+            <div id="jsContainer" class="jsContainer" style="height:0">
+                <div id="tuna_alert" style="display:none;position:absolute;z-index:999;overflow:hidden;"></div>
+                <div id="tuna_jmpinfo" style="visibility:hidden;position:absolute;z-index:120;"></div>
+            </div>
+
+        </form>
+    </volist>
+</div>
+</div>
+
+
+<div class="popup popup_pos1" id="box" style="display: none;">
+    <a href="javascript:void(0)" id="shut" class="btn_close"></a>
+
+    <div class="pop_title">企业员工搜索</div>
+    <div class="popup_cont2">
+        <input name="info" type="text" id="info" class="text01 h20 c_tx2" value="" placeholder="工号/姓名/电话/邮箱/证件号码">
+        <input type="button" value="查找" id="search_1" class="btn_b5 ml_5">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab mt_10">
+            <div id='tab' style="height: 350px;overflow-y: scroll"></div>
+        </table>
+        <div class=" mt_10">操作：
+            <input type="submit" value="全选" class="btn_b5 ml_5">
+        </div>
+        <div class="news_mod_form_cnt dt_time01 dt_time_xz" id="boxs">
+        </div>
+        <div class="clear"></div>
+        <div class="text_cent"><a href="javascript:void(0)" id="button" class="btn_sure">确定</a></div>
+
+    </div>
+</div>
+
+<div class="popup popup_pos1" id="box1" style="display: none;">
+    <a href="javascript:void(0)" id="shut1" class="btn_close"></a>
+
+    <div class="pop_title">企业员工搜索</div>
+    <div class="popup_cont2">
+        <input name="info" type="text" id="info1" class="text01 h20 c_tx2" value="" placeholder="工号/姓名/电话/邮箱/证件号码">
+        <input type="button" value="查找" id="search_2" class="btn_b5 ml_5">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab mt_10">
+            <div id='tab1' style="height: 350px;overflow-y: scroll"></div>
+        </table>
+        <div class=" mt_10">操作：
+            <input type="submit" value="全选" class="btn_b5 ml_5">
+        </div>
+        <div class="news_mod_form_cnt dt_time01 dt_time_xz" id="boxs1">
+        </div>
+        <div class="clear"></div>
+        <div class="text_cent"><a href="javascript:void(0)" id="button1" class="btn_sure">确定</a></div>
+
+    </div>
+</div>
+<div class="clear"></div>
+<script>
+    /*弹出查询出差人员*/
+    function search() {
+
+        var info = $('#info').val();
+        $('#box').css('display', 'block');
+        $("#boxs").html('');
+        //var html = '<tr><th width="5%">&nbsp;</th><th width="9%">工号</th> <th width="9%">姓名</th><th width="20%">员工编号</th><th width="90">部门</th><th width="90">手机号</th><th width="90">邮箱</th><th width="90">角色</th><th width="90">操作</th></tr>' ;
+        $.ajax({
+            url: "{:U('Approval/find_user')}",
+            data: 'info=' + info,
+            dataType: "text",
+            type: "POST",
+            success: function (data) {
+                //alert(123);
+                var html = '<tr><th width="5%">&nbsp;</th><th width="9%">工号</th> <th width="9%">姓名</th><th width="20%">员工编号</th><th width="90">部门</th><th width="90">手机号</th><th width="90">邮箱</th><th width="90">角色</th><th width="90">操作</th></tr>';   //清空resText里面的所有内容
+                var data = eval("(" + data + ")");
+                console.log(data);
+                if (data == null) {
+
+                    $('#tab').html(html);
+                } else {
+                    //转换为json对象
+                    $.each(data, function (i, item) {
+                        html += '<tr id="' + item.id + '"><td><input type="checkbox" onclick="check(' + item.id + ')"  ></td><td>' + item.emp_code + '</td> <td id="name_' + item.id + '">' + item.name + '</td><td>000000001</td><td>MKT 一部</td> <td >' + item.phone + '</td> <td>' + item.email + '</td><td class="tex_blue">员工</td><td class="tex_blue"><a href="config_employee_detail.html">详情</a></td></tr>';
+                    })
+
+                    $('#tab').html(html);
+                }
+            }
+        })
+    }
+    ;
+
+    /*条件查询*/
+    $('#search_1').click(function () {
+
+        var info = $('#info').val();
+
+
+        search();
+
+
+    });
+    /*关闭查询*/
+    $('#shut').click(function () {
+        $('#box').css('display', 'none');
+    });
+    /*选中*/
+    function check(id) {
+        var name = $('#name_' + id).html();
+        $('#' + id).hide();//隐藏tr
+        $('#' + id + ' input:checked').removeAttr("checked");
+        $("#boxs").append('<a class="current" rel="' + id + '" href="javascript:void(0)">' + name + '</a>');//容器包含
+
+        //var obj = $(this).parent().html();
+        //alert(obj);
+
+
+    }
+    ;
+    //删除人员使得恢复原来的tr进行显现
+    $("#boxs a").live("click", function () {
+        var id = $(this).attr("rel");	//获取当前id
+        //alert(number);  exit;
+        $(this).remove();//将点击这个东西进行消失的处理
+        //将消失的数据进行恢复处理
+        $('#' + id).show();
+
+
+    });
+    //提交数据
+    $('#button').click(function () {
+        $('#box').css('display', 'none');
+        var node = $('#boxs').children();
+        //var name=$(":input[name=tr_user]").val();//获取已选人员
+        var name = '';
+        for (var i = 0; i < node.length; i++) {
+            //if(name=''){
+            name += node[i]['innerHTML'] + ",";
+            //}else{
+            //	name+=","+node[i]['innerHTML'];
+            //}
+
+
+            //console.log(node[i]['rel']);
+            //console.log(node[i]['innerHTML']);
+
+        }
+        $(":input[name=tr_user]").val(name);
+
+    });
+
+    /*弹出查询审批人员*/
+    function search1() {
+        //var a = $(":input[name=approval_name]").val();
+
+        var info = $('#info1').val();
+        $('#box1').css('display', 'block');
+        $("#boxs1").html('');
+        //var html = '<tr><th width="5%">&nbsp;</th><th width="9%">工号</th> <th width="9%">姓名</th><th width="20%">员工编号</th><th width="90">部门</th><th width="90">手机号</th><th width="90">邮箱</th><th width="90">角色</th><th width="90">操作</th></tr>' ;
+        $.ajax({
+            url: "{:U('Approval/find_user')}",
+            data: 'info=' + info,
+            dataType: "text",
+            type: "POST",
+            success: function (data) {
+                //alert(123);
+                var html = '<tr><th width="5%">&nbsp;</th><th width="9%">工号</th> <th width="9%">姓名</th><th width="20%">员工编号</th><th width="90">部门</th><th width="90">手机号</th><th width="90">邮箱</th><th width="90">角色</th><th width="90">操作</th></tr>';   //清空resText里面的所有内容
+                var data = eval("(" + data + ")");
+                if (data == null) {
+
+                    $('#tab').html(html);
+                } else {
+                    //转换为json对象
+                    $.each(data, function (i, item) {
+                        html += '<tr id="1' + item.id + '"><td><input type="checkbox" onclick="check1(' + item.id + ')"  ></td><td>' + item.emp_code + '</td> <td id="name1_' + item.id + '">' + item.name + '</td><td>000000001</td><td>MKT 一部</td> <td id="phone_' + item.id + '">' + item.phone + '</td> <td id="email_' + item.id + '">' + item.email + '</td><td class="tex_blue">员工</td><td class="tex_blue"><a href="config_employee_detail.html">详情</a></td></tr>';
+                    })
+
+                    $('#tab1').html(html);
+                }
+            }
+        })
+    }
+    ;
+    /*选中*/
+    function check1(id) {
+        var name = $('#name1_' + id).html();
+        var node = $('#boxs1').children();
+        var length = node.length;
+        //alert(length);
+        if (length > 0) {
+            alert('只能选一个审批人');
+            $('#1' + id + ' input:checked').removeAttr("checked");
+
+        } else {
+            $('#1' + id).hide();//隐藏tr
+            $('#1' + id + ' input:checked').removeAttr("checked");
+            $("#boxs1").append('<a class="current" rel="' + id + '"  href="javascript:void(0)">' + name + '</a>');//容器包含
+        }
+        //var obj = $(this).parent().html();
+        //alert(obj);
+
+
+    }
+    ;
+    //删除人员使得恢复原来的tr进行显现
+    $("#boxs1 a").live("click", function () {
+        var id = $(this).attr("rel");	//获取当前id
+        //alert(number);  exit;
+        $(this).remove();//将点击这个东西进行消失的处理
+        //将消失的数据进行恢复处理
+        $('#1' + id).show();
+
+
+    });
+    //提交数据
+    $('#button1').click(function () {
+
+        $('#box1').css('display', 'none');
+        var node = $('#boxs1').children();
+        //var name=$(":input[name=tr_user]").val();//获取已选人员
+        var id = '';
+        for (var i = 0; i < node.length; i++) {
+            //if(name=''){
+            id += node[i]['rel'];
+            //}else{
+            //	name+=","+node[i]['innerHTML'];
+            //}
+        }
+        $('#msg1').css('display', 'none');
+        var name1 = $('#name1_' + id).html();
+        var phone = $('#phone_' + id).html();
+        var email = $('#email_' + id).html();
+        $(":input[name=approval_id]").val(id);
+        $(":input[name=approval_name]").val(name1);
+        $(":input[name=approval_phone]").val(phone);
+        $(":input[name=approval_email]").val(email);
+
+    });
+
+    $("#btnSaveRoad").click(function () {
+
+        var name = $(":input[name=approval_name]").val();
+
+        if (name == '') {
+            $('#msg1').css('display', 'block');
+            return false;
+        } else {
+
+            $("#frmSaveRoad").submit();
+        }
+
+
+    });
+    /*关闭查询*/
+    $('#shut1').click(function () {
+        $('#box1').css('display', 'none');
+    });
+
+
+</script>
+
+
+
+
+
+
+

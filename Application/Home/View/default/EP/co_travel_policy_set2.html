@@ -1,0 +1,802 @@
+<script src="__ROOT__/Public/js/searchPlugin/artTemplate/template.js" type="text/javascript" charset="utf-8"></script><!--模板引擎-->
+<script src="__ROOT__/Public/js/searchPlugin/underscoe.min.js" type="text/javascript" charset="utf-8"></script><!--模板引擎-->
+<script id="userList" type="text/html">
+    <*each lst*>
+    <tr>
+        <td><input type="checkbox" name="checkUser" data-id="<*$value.id*>"></td>
+        <td><*$value.emp_code*></td>
+        <td><*$value.name*></td>
+        <td><*$value.bname*></td>
+        <td><*$value.phone*></td>
+        <td><*$value.email*></td>
+        <td><*$value.role*></td>
+    </tr>
+    <*/each*>
+
+</script>
+<div class="go-overlay" tabindex="-1" style="opacity: 1.15; display: none;"></div>
+<div class="main_right">
+    <div class="r_hd">
+        <h3 class="r_tit">差旅政策设置</h3>
+
+        <div class="r_hd_extra">
+            <a href="{:U('EP/indexjb')}">基本差旅政策</a>
+            <a href="{:U('EP/indexwj')}">差旅政策文件</a><a href="{:U('EP/indexts')}" class="current">特殊政策设置</a>
+            <a href="{:U('EP/co_tmc_mgnt')}">协议商旅管理公司</a>
+        </div>
+    </div>
+    <div class="BoxHeight mb_10"></div>
+    <div class="register_mod_form_row">
+        <div class="register_mod_form_label">特殊权限设置</div>
+
+        <div class="register_mod_form_cnt">
+            <div class="news_mod_form_cnt dt_time01 dt_time_xz w400" id="order_service">
+                <foreach name="tsname" item="t">
+                    <div><a href="{:U('EP/findBytsId')}?emp_id={$t.yid}" <if condition="$travel['emp_id'] == $t['id']">class="current2"</if>>{$t.name}</a><span class="del_user" data-cid="{$t.cid}" data-eid="{$t.id}">×</span></div>
+                </foreach>
+            </div>
+           <span style="margin-top: 10px;display: block;border: solid 1px #ccc;line-height: 27px;width: 45px;text-align: center;" class="fl_left">
+              <!--  <a href="javascript:void(0)" id="my_addbutton" class="tex_blue ml_5">添加</a> -->
+                <a href="javascript:void(0)" class="tex_blue ml_5"  onclick="staff_pop(getBusInfo,'{:U('home/pop/find_emp')}')">添加</a>
+              
+           </span>
+        </div>
+
+        <div class="clear"></div>
+
+
+    </div>
+
+    <div class="clear"></div>
+    <div id="checkdiv">
+
+        <div class="btitle mt_22">
+            <h4>出差流程</h4>
+        </div>
+        <form id="policyBox">
+            <div class="policy">
+                <input type="hidden" name="emp_id" value="{$travel.emp_id}"/>
+                <input type="hidden" name="co_id" value="{$travel.co_id}"/>
+                <if condition="$travel.need_approval eq '1'">
+                    <label for="need_approval" class="text-hover">
+                        <input type="checkbox" name="need_approval" id="need_approval" checked/>
+                        预订前必须提交出差申请并审批通过
+                    </label>
+                    <p class="ml_25">
+                        <label for="approv_by73go" class="text-hover">
+                            <if condition="$travel.approv_by73go eq '1'">
+                                <input type="checkbox" name="approv_by73go" class="need_approval" id="approv_by73go" checked/>
+                                <else/>
+                                <input type="checkbox" name="approv_by73go" class="need_approval" id="approv_by73go"/>
+                            </if>
+                            使用本网站的出差申请和审批功能
+                        </label>
+                    </p>
+
+                    <p class="ml_25">
+                        <label for="emergency_booking" class="text-hover">
+                            <if condition="$travel.emergency_booking eq '1'">
+                                <input type="checkbox" name="emergency_booking" class="need_approval" id="emergency_booking" checked/>
+                                <else/>
+                                <input type="checkbox" name="emergency_booking" class="need_approval" id="emergency_booking"/>
+                            </if>
+
+                            允许紧急预订
+                        </label>
+                    </p>
+                    <else/>
+                    <label for="need_approval" class="text-hover">
+                        <input type="checkbox" name="need_approval" id="need_approval"/>
+                        预订前必须提交出差申请并审批通过
+                    </label>
+                    <p class="ml_25">
+                        <label for="approv_by73go" class="text-hover">
+                            <input type="checkbox" name="approv_by73go" class="need_approval" id="approv_by73go" disabled/>
+                            使用本网站的出差申请和审批功能
+                        </label>
+                    </p>
+
+                    <p class="ml_25">
+                        <label for="emergency_booking" class="text-hover">
+                            <input type="checkbox" name="emergency_booking" class="need_approval" id="emergency_booking" disabled/>
+                            允许紧急预订
+                        </label>
+                    </p>
+                </if>
+
+            </div>
+
+            <div class="btitle mt_22"><h4>机票政策</h4></div>
+
+            <div class="policy">
+                <label for="f_class" class="text-hover">
+                    <if condition="$travel.f_class eq '1'">
+                        <input type="checkbox" name="f_class" id="f_class" checked/>
+                        <else/>
+                        <input type="checkbox" name="f_class" id="f_class"/>
+                    </if>
+                    允许乘坐头等舱
+                </label>
+
+            </div>
+            <div class="policy">
+                <label for="b_class" class="text-hover">
+
+                    <if condition="$travel.b_class eq '1'">
+                        <input type="checkbox" name="b_class" id="b_class" checked/>
+                        <else/>
+                        <input type="checkbox" name="b_class" id="b_class"/>
+                    </if>
+
+                    允许乘坐商务舱
+                </label>
+            </div>
+            <div class="policy">
+                <label for="e_class" class="text-hover">
+                    <if condition="$travel.e_class eq '1'">
+                        <input type="checkbox" name="e_class" id="e_class" checked/>
+                        <else/>
+                        <input type="checkbox" name="e_class" id="e_class"/>
+                    </if>
+                    允许乘坐经济舱
+                </label>
+
+            </div>
+
+            <div class="btitle mt_22">
+                <h4>火车票政策</h4>
+            </div>
+            <div class="policy">
+                <label for="soft_sleeper">
+                    <if condition="$travel.soft_sleeper eq '1'">
+                        <input type="checkbox" name="soft_sleeper" id="soft_sleeper" checked/>
+                        <else/>
+                        <input type="checkbox" name="soft_sleeper" id="soft_sleeper"/>
+                    </if>
+
+                    允许火车软卧
+                </label>
+            </div>
+            <div class="policy">
+                <if condition="$travel.hard_sleeper eq '1'">
+                    <label for="hard_sleeper">
+                        <input type="checkbox" name="hard_sleeper" id="hard_sleeper" checked/>
+                        允许火车硬卧
+                    </label>
+
+                    <p class="ml_25">
+                        <label for="hard_sleeper_limit">
+                            时间必须在<input name="hard_sleeper_limit" id="hard_sleeper_limit" value="{$travel.hard_sleeper_limit}" type="text" class="hard_sleeper text01 h20 c_tx2 w80"/>小时以上
+                        </label>
+                    </p>
+
+                    <else/>
+                    <label for="hard_sleeper">
+                        <input type="checkbox" name="hard_sleeper" id="hard_sleeper"/>
+                        允许火车硬卧
+                    </label>
+
+                    <p class="ml_25">
+                        <label for="hard_sleeper_limit">
+                            时间必须在<input name="hard_sleeper_limit" id="hard_sleeper_limit" type="text" class="hard_sleeper text01 h20 c_tx2 w80" disabled/>小时以上
+                        </label>
+                    </p>
+
+                </if>
+
+            </div>
+            <div class="policy">
+                <if condition="$travel.high_train eq '1'">
+                    <label for="high_train">
+                        <input type="checkbox" name="high_train" id="high_train" checked/>
+                        允许趁坐高铁、动车
+                    </label>
+
+                    <p class="ml_25">
+                        <label for="ht_b_class">
+                            <if condition="$travel.ht_b_class eq '1'">
+                                <input type="checkbox" class="high_train" name="ht_b_class" id="ht_b_class" checked/>
+                                <else/>
+                                <input type="checkbox" class="high_train" name="ht_b_class" id="ht_b_class"/>
+                            </if>
+                            允许商务座
+                        </label>
+
+                    </p>
+
+                    <p class=" ml_25">
+                        <label for="ht_class_1">
+                            <if condition="$travel.ht_class_1 eq '1'">
+                                <input type="checkbox" class="high_train" name="ht_class_1" id="ht_class_1" checked/>
+                                <else/>
+                                <input type="checkbox" class="high_train" name="ht_class_1" id="ht_class_1"/>
+                            </if>
+                            允许一等座
+                        </label>
+                    </p>
+
+                    <p class="ml_25">
+                        <label for="ht_class_2">
+                            <if condition="$travel.ht_class_2 eq '1'">
+                                <input type="checkbox" class="high_train" name="ht_class_2" id="ht_class_2" checked/>
+                                <else/>
+                                <input type="checkbox" class="high_train" name="ht_class_2" id="ht_class_2"/>
+                            </if>
+                            允许二等座
+                        </label>
+
+                    </p>
+                    <else/>
+                    <label for="high_train">
+                        <input type="checkbox" name="high_train" id="high_train"/>
+                        允许趁坐高铁、动车
+                    </label>
+
+                    <p class="ml_25">
+                        <label for="ht_b_class">
+                            <input type="checkbox" class="high_train" name="ht_b_class" id="ht_b_class" disabled/>
+                            允许商务座
+                        </label>
+
+                    </p>
+
+                    <p class=" ml_25">
+                        <label for="ht_class_1">
+                            <input type="checkbox" class="high_train" name="ht_class_1" id="ht_class_1" disabled/>
+                            允许一等座
+                        </label>
+                    </p>
+
+                    <p class="ml_25">
+                        <label for="ht_class_2">
+                            <input type="checkbox" class="high_train" name="ht_class_2" id="ht_class_2" disabled/>
+                            允许二等座
+                        </label>
+
+                    </p>
+
+                </if>
+
+
+            </div>
+            <div class="btitle mt_22">
+                <h4>酒店政策</h4>
+            </div>
+            <div class="policy">
+                <if condition="$travel.limit_hotel_price eq '1'">
+                    <label for="limit_hotel_price">
+                        <input type="checkbox" name="limit_hotel_price" id="limit_hotel_price" checked/>
+                        按城市类别定义标准
+                    </label>
+
+                    <p class=" ml_25">
+                        <label for="high_price_1">
+                            一类城市<input name="high_price_1" id="high_price_1" value="{$travel.high_price_1}" type="text" class="text01 h20 c_tx2 w80 cityCost"/>元以下
+                        </label>
+                    </p>
+                    <p class=" ml_25">
+                        <label for="high_price_2">
+                            二类城市<input name="high_price_2" id="high_price_2" value="{$travel.high_price_2}" type="text" class="text01 h20 c_tx2 w80 cityCost"/>元以下
+                        </label>
+
+                    </p>
+
+                    <p class=" ml_25">
+                        <label for="high_price_3">
+                            三类城市<input name="high_price_3" id="high_price_3" value="{$travel.high_price_3}" type="text" class="text01 h20 c_tx2 w80 cityCost"/>元以下
+                        </label>
+
+                    </p>
+                    <else/>
+                    <label for="limit_hotel_price">
+                        <input type="checkbox" name="limit_hotel_price" id="limit_hotel_price"/>
+                        按城市类别定义标准
+                    </label>
+
+                    <p class=" ml_25">
+                        <label for="high_price_1">
+                            一类城市<input name="high_price_1" id="high_price_1" type="text" class="text01 h20 c_tx2 w80 cityCost" disabled/>元以下
+                        </label>
+                    </p>
+                    <p class=" ml_25">
+                        <label for="high_price_2">
+                            二类城市<input name="high_price_2" id="high_price_2" type="text" class="text01 h20 c_tx2 w80 cityCost" disabled/>元以下
+                        </label>
+
+                    </p>
+
+                    <p class=" ml_25">
+                        <label for="high_price_3">
+                            三类城市<input name="high_price_3" id="high_price_3" type="text" class="text01 h20 c_tx2 w80 cityCost" disabled/>元以下
+                        </label>
+
+                    </p>
+                </if>
+
+            </div>
+            <div class="policy">
+                <if condition="$travel.limit_hotel_class eq '1'">
+                    <label for="limit_hotel_class">
+                        <input type="checkbox" name="limit_hotel_class" id="limit_hotel_class" checked/>
+                        按星级定义标准
+                    </label>
+
+                    <p class=" ml_25">
+                        <label for="hotel_class_5">
+                            <if condition="$travel.hotel_class_5 eq '1'">
+                                <input type="checkbox" class="limit_hotel_class" name="hotel_class_5" id="hotel_class_5" checked/>五星
+                                <else/>
+                                <input type="checkbox" class="limit_hotel_class" name="hotel_class_5" id="hotel_class_5"/>五星
+                            </if>
+                        </label>
+                    </p>
+
+                    <p class=" ml_25">
+                        <label for="hotel_class_4">
+                            <if condition="$travel.hotel_class_4 eq '1'">
+                                <input type="checkbox" class="limit_hotel_class" name="hotel_class_4" id="hotel_class_4" checked/>四星
+                                <else/>
+                                <input type="checkbox" class="limit_hotel_class" name="hotel_class_4" id="hotel_class_4"/>四星
+                            </if>
+
+                        </label>
+
+                    </p>
+
+                    <p class=" ml_25">
+
+                        <label for="hotel_class_3">
+                            <if condition="$travel.hotel_class_3 eq '1'">
+                                <input type="checkbox" class="limit_hotel_class" name="hotel_class_3" id="hotel_class_3" checked/>三星
+                                <else/>
+                                <input type="checkbox" class="limit_hotel_class" name="hotel_class_3" id="hotel_class_3"/>三星
+                            </if>
+
+                        </label>
+
+                    </p>
+
+                    <p class=" ml_25">
+                        <label for="hotel_class_2">
+                            <if condition="$travel.hotel_class_2 eq '1'">
+                                <input type="checkbox" class="limit_hotel_class" name="hotel_class_2" id="hotel_class_2" checked/>快捷酒店
+                                <else/>
+                                <input type="checkbox" class="limit_hotel_class" name="hotel_class_2" id="hotel_class_2"/>快捷酒店
+                            </if>
+
+                        </label>
+
+                    </p>
+                    <else/>
+                    <label for="limit_hotel_class">
+                        <input type="checkbox" name="limit_hotel_class" id="limit_hotel_class"/>
+                        按星级定义标准
+                    </label>
+
+                    <p class=" ml_25">
+                        <label for="hotel_class_5">
+                            <input type="checkbox" class="limit_hotel_class" name="hotel_class_5" id="hotel_class_5" disabled/>五星
+                        </label>
+                    </p>
+
+                    <p class=" ml_25">
+                        <label for="hotel_class_4">
+                            <input type="checkbox" class="limit_hotel_class" name="hotel_class_4" id="hotel_class_4" disabled/>四星
+
+                        </label>
+
+                    </p>
+
+                    <p class=" ml_25">
+
+                        <label for="hotel_class_3">
+                            <input type="checkbox" class="limit_hotel_class" name="hotel_class_3" id="hotel_class_3" disabled/>三星
+                        </label>
+
+                    </p>
+
+                    <p class=" ml_25">
+                        <label for="hotel_class_2">
+                            <input type="checkbox" class="limit_hotel_class" name="hotel_class_2" id="hotel_class_2" disabled/>快捷酒店
+                        </label>
+
+                    </p>
+
+                </if>
+
+            </div>
+        </form>
+        <div class="al_cent mt_22"><a href="javascript:void(0)" id="my_button" class="btn_sure">保存</a></div>
+    </div>
+
+    <div class="clear"></div>
+    <!---popup 搜索弹出浮层 start --->
+
+   <!--  <div id="searchBox" class="popup popup_pos1" style="display: none;">
+        <a href="javascript:void(0)" class="btn_close" id="btn_close"></a>
+        <div class="pop_title">企业员工搜索</div>
+        <div class="popup_cont2">
+            <input name="input" type="text" id="eplike" class="text01 c_tx2 c_txx2" placeholder="工号/姓名/部门/电话/邮箱/角色"/>
+            <input type="button" name="searchUser" value="查 找" class="btn_b5 ml_5"/>
+            <div style="height: 300px;overflow-y: scroll;overflow-x: hidden;margin-top: 10px">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab" id="tb_emp">
+                    <thead>
+                    <tr>
+                        <th width="5%"><input type="checkbox" name="checkedAll"></th>
+                        <th width="9%">工号</th>
+                        <th width="9%">姓名</th>
+                        <th width="90">部门</th>
+                        <th width="90">联系电话</th>
+                        <th width="90">邮箱</th>
+                        <th width="90">角色</th>
+                    </tr>
+                    </thead>
+                    <tbody id="userExtend"></tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="clear"></div>
+        <div class="text_cent"><a href="javascript:void(0)" id="getcheckid" class="btn_sure">确定</a></div>
+    </div> -->
+</div>
+</div>
+<div class="clear"></div>
+<!---popup 搜索弹出浮层 end --->
+
+
+<include file="Home@Public:staff_pop"/>
+
+<script type="text/javascript">
+
+function getBusInfo(lst) {
+	var data = {};
+	var tidList =[];
+   for (var i = 0, len = lst.length; i < len; i++) {
+	   var tempObj = {};
+       tempObj.id = lst[i].u_id
+       tidList.push(tempObj);
+   }
+ 
+   data.ids = tidList;
+   if(tidList.length>0){
+       $.ajax({
+           url: "{:U('EP/addtsEPUser')}",
+           data: data,
+           dataType: "JSON",
+           type: "POST",
+           success: function (msg) {
+               msg = ajaxGet(msg);
+               if (msg>0) {
+                   swal({
+                       title: "温馨提示!",
+                       text: "添加成功!!!",
+                       type: "success",
+                       confirmButtonText: "关 闭"
+                   }, function () {
+                       location.href = "{:U('EP/indexts')}";
+                   });
+               }
+               else {
+                   swal({
+                       title: "温馨提示!",
+                       text: "添加用户失败!!!",
+                       type: "error",
+                       confirmButtonText: "关 闭",
+                       timer: 3000
+                   });
+               }
+           }
+       });
+   }
+}
+
+
+    template.config('openTag', '<*');
+    template.config('closeTag', '*>');
+    $(function () {
+        var userList = [];
+        (function () {
+            $.ajax({
+                url: "{:U('EP/shouwtsEPLike')}",
+                dataType: "JSON",
+                type: "POST",
+                success: function (data) {
+                    console.log(data);
+                    if(data!=null&&data.length>0){
+                        _.each(data, function (item) {
+                            var obj = {};
+                            obj.id = item.id;
+                            obj.bname = item.bname;
+                            obj.name = item.name;
+                            obj.email = item.email;
+                            obj.phone = item.phone;
+                            obj.role = item.role;
+                            obj.emp_code = item.emp_code;
+                            userList.push(obj);
+                        });
+                    }
+                }
+            });
+        }());
+        //添加按钮弹出查找界面
+        $('#my_addbutton').click(function () {
+            renderTemp(userList);
+            $('#eplike').val('');
+            $("input[name='checkedAll']").attr("checked", false);
+            $('#searchBox').show();
+            $('.go-overlay').eq(0).show();
+        });
+        $("#btn_close").click(function () {
+            $('#searchBox').hide();
+            $('.go-overlay').eq(0).hide();
+        });
+
+        /*模糊搜索user*/
+        $("input[name='searchUser']").click(function () {
+            var eplike = $('#eplike').val() || '';
+            eplike = $.trim(eplike);
+            var lst = [];
+            if(eplike!=''){
+                lst = _.union(_.where(userList,{name: eplike}), _.where(userList,{bname: eplike}),_.where(userList,{email: eplike}),_.where(userList,{phone: eplike}),_.where(userList,{role: eplike}),_.where(userList,{emp_code: eplike}));
+            }else{
+                lst = userList;
+            }
+            renderTemp(lst);
+        });
+
+        /*全选*/
+        $("input[name='checkedAll']").click(function () {
+            var result = this.checked;
+            if(result){
+                $("#userExtend").find("input[type='checkbox']").attr("checked", true);
+            }else{
+                $("#userExtend").find("input[type='checkbox']").attr("checked", false);
+            }
+        });
+
+        /*提交选中*/
+        //获取复选框的值
+        $("#getcheckid").click(function () {
+            var data = {};
+            var tidList = [];
+            $("#userExtend").find("input[type='checkbox']:checked").each(function(){
+                var tempObj = {};
+                tempObj.id = $(this).data('id');
+                tidList.push(tempObj);
+            });
+            data.ids = tidList;
+            if(tidList.length>0){
+                $.ajax({
+                    url: "{:U('EP/addtsEPUser')}",
+                    data: data,
+                    dataType: "JSON",
+                    type: "POST",
+                    success: function (msg) {
+                        msg = ajaxGet(msg);
+                        if (msg>0) {
+                            swal({
+                                title: "温馨提示!",
+                                text: "添加成功!!!",
+                                type: "success",
+                                confirmButtonText: "关 闭"
+                            }, function () {
+                                location.href = "{:U('EP/indexts')}";
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "温馨提示!",
+                                text: "添加用户失败!!!",
+                                type: "error",
+                                confirmButtonText: "关 闭",
+                                timer: 3000
+                            });
+                        }
+                    }
+                });
+            }else{
+                swal({
+                    title: "温馨提示!",
+                    text: "请选择用户!!!",
+                    type: "info",
+                    confirmButtonText: "关 闭",
+                    timer: 3000
+                });
+            }
+
+        });
+
+        /**
+         * 出差流程
+         */
+        $("input[name='need_approval']").click(function () {
+            var res = this.checked;
+            if(res){
+                $('.need_approval').attr("disabled", false);
+            }else{
+                $('.need_approval').attr("disabled", true).attr("checked", false);
+            }
+        });
+
+        /**
+         * 火车票政策
+         */
+        $("input[name='hard_sleeper']").click(function () {
+            var res = this.checked;
+            if(res){
+                $('.hard_sleeper').attr("disabled", false);
+            }else{
+                $('.hard_sleeper').attr("disabled", true).val("");
+            }
+        });
+
+
+        $("input[name='high_train']").click(function () {
+            var res = this.checked;
+            if(res){
+                $('.high_train').attr("disabled", false);
+            }else{
+                $('.high_train').attr("disabled", true).attr("checked", false);
+            }
+        });
+
+
+        /**
+         * 酒店政策
+         */
+        $("input[name='limit_hotel_price']").click(function () {
+            var res = this.checked;
+            if(res){
+                $('.cityCost').attr("disabled", false);
+            }else{
+                $('.cityCost').attr("disabled", true).val("");
+            }
+        });
+
+
+        $("input[name='limit_hotel_class']").click(function () {
+            var res = this.checked;
+            if(res){
+                $('.limit_hotel_class').attr("disabled", false);
+            }else{
+                $('.limit_hotel_class').attr("disabled", true).attr("checked", false);
+            }
+        });
+        /*限制只能是数字*/
+        $('.cityCost').bind('blur', function () {
+            var val = $(this).val() || '';
+            var parten = /^\+?[1-9][0-9]{1,5}$/g;
+            if(!parten.test(val)){
+                $(this).val(1);
+            }
+        });
+        /*限制时间两位*/
+        $('.hard_sleeper').blur(function () {
+            var val = $(this).val() || '';
+            var parten = /^\+?[1-9]{1,2}$/g;
+            if(!parten.test(val)){
+                $(this).val(3);
+            }
+        });
+
+
+        //修改企业差旅配置
+        $('#my_button').click(function () {
+            if($("#emp_id").val() == '' || $("#emp_id").val() || $("#emp_id").val() < 1){
+                swal({
+                    title: "温馨提示!",
+                    text: "请选中需要设置特殊权限的员工!!!",
+                    type: "error",
+                    confirmButtonText: "关 闭"
+                });
+                return false;
+            }
+
+            var obj = ZmJSON("policyBox");
+            obj = eval("("+obj+")");
+            $.ajax({
+                url: "{:U('EP/addupdatetsEP')}",
+                data: obj,
+                type: "POST",
+                success: function (msg) {
+                    msg = ajaxGet(msg);
+                    if(msg){
+                        swal({
+                            title: "温馨提示!",
+                            text: "修改成功!!!!",
+                            type: "success",
+                            confirmButtonText: "关 闭"
+                        });
+                    }else {
+                        swal({
+                            title: "温馨提示!",
+                            text: "修改失败!!!",
+                            type: "error",
+                            confirmButtonText: "关 闭"
+                        });
+                    }
+                }
+            });
+        });
+
+        //删除添加的用户
+        $(".del_user").bind('click', function () {
+            var id = $(this).data("eid");//用户id
+            var cid = $(this).data("cid");//企业id
+            var obj = {};
+            obj.companyId =cid;
+            obj.userId = id;
+            $.ajax({
+                url: "{:U('EP/deletetsuser')}",
+                data: obj,
+                dataType: "JSON",
+                type: "POST",
+                success: function (data) {
+                    data = ajaxGet(data);
+                    if (data >0) {
+                        location.href = "{:U('EP/indexts')}";
+                    }else {
+                        swal({
+                            title: "温馨提示!",
+                            text: "删除用户失败!!!",
+                            type: "error",
+                            confirmButtonText: "关 闭",
+                            timer: 3000
+                        });
+                    }
+                }
+            });
+        });
+    });
+
+
+    function renderTemp(userList){
+        var data = {};
+        data.lst = userList;
+        var tempStr = template('userList', data) || "<td colspan='7'><strong>暂无员工信息...</strong></td>";
+        document.getElementById('userExtend').innerHTML = tempStr;
+    }
+
+    /*json格式传递参数 zm*/
+    function ZmJSON(formid){
+        var fields = $("#"+formid).serialize();
+        fields = decodeURIComponent(fields,true);//字符串转编码
+        var dataResult =fields;
+        var tmp = dataResult.replace(/&/g, "\",");
+        tmp = tmp.replace(/=/g, ":\"");
+        var jsonValue ="{" + tmp + "\\"}";
+        return jsonValue;
+    }
+
+
+
+
+
+/*    $('#my_button').click(function () {
+
+        $.ajax({
+            url: "{:U('EP/addupdatetsEP')}",
+            data: "hiddenaid=" + aq + "&need_approval=" + a + "&approv_by73go=" + b + "&emergency_booking=" + c + "&f_class=" + d + "&b_class=" + e + "&e_class=" + f + "&soft_sleeper=" + g + "&hard_sleeper=" + h + "&high_train=" + i + "&ht_b_class=" + j + "&ht_class_1=" + k + "&ht_class_2=" + r + "&limit_hotel_price=" + s + "&limit_hotel_class=" + t + "&hotel_class_5=" + aa + "&hotel_class_4=" + bb + "&hotel_class_3=" + cc + "&hotel_class_2=" + dd + "&hard_sleeper_limit=" + hard_sleeper_limit + "&high_price_1=" + high_price_1 + "&high_price_2=" + high_price_2 + "&high_price_3=" + high_price_3,
+            dataType: "text",
+            type: "POST",
+            success: function (msg) {
+                if (msg == 2) {
+                    alert("修改成功");
+                }
+                if (msg == 3) {
+                    alert("修改失败");
+                }
+                if (msg == 1) {
+                    alert("添加成功");
+                }
+                if (msg == 0) {
+                    alert("添加失败");
+                }
+
+            }
+        });
+
+    })*/
+</script>
+

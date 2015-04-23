@@ -1,0 +1,238 @@
+<script>
+    template.config('openTag','<*');
+    template.config('closeTag','*>');
+    template.helper('dateFormat', function (date, format) {
+
+    	return date;
+    });
+
+    $(document).ready(function () {
+    	(function(){
+            $.ajax({
+                url:"{:U('Index/ajax_mypage_user')}",
+                success: function (data) {
+                    var orders = data.orders || [];
+                    var fullCalendarData = [];
+
+                    for(var i= 0,length = orders.length;i<length;i++){
+                        var obj = {};
+                        obj.start = orders[i].date;
+                        obj.flight = orders[i].flight?1:0;
+                        obj.train = orders[i].train?1:0;
+                        obj.hotel = orders[i].hotel?1:0;
+                        obj.other = orders[i].other?1:0;
+                        fullCalendarData.push(obj);
+                    }
+
+                    $('#calendar').fullCalendar({
+                                header: {
+                                    left: 'prev',
+                                    center: 'title',
+                                    right: 'next'
+                                },
+                                editable: false,//允许是否可以编辑
+                                eventLimit: true, // 事件超过3条以后显示更多的样式
+                                height: 356,
+                                aspectRatio: 9.5, //设置表格的比率
+                                views: {
+                                    month: {
+                                        titleFormat: 'YYYY年MM月'
+                                    }
+                                },
+                                events: fullCalendarData,
+                                dayClick: function(data, allDay, jsEvent, view){
+                                    var currentObj = allDay.target;
+                                    $('#calendar').find("td").removeClass("active-td fc-today fc-state-highlight").find(".fc-content-skeleton").removeClass("active-td");
+                                    var isActive = $(currentObj).hasClass("active-td");
+                                    if(!isActive){
+                                        $(currentObj).eq(0).addClass("active-td");
+                                    }
+                                    var timeNow = moment(data).format("YYYY-MM-DD");
+                                    var datasInfo = {
+                                        counts : 0
+                                    };
+                                    for(var j = 0,orderLength = orders.length;j<orderLength;j++){
+                                        if(orders[j].date == timeNow){
+                                            datasInfo.flight = orders[j].flight;
+                                            datasInfo.other = orders[j].other;
+                                            datasInfo.train = orders[j].train;
+                                            datasInfo.hotel = orders[j].hotel;
+                                            datasInfo.counts = 1;
+                                        }
+                                    }
+                                    var htmlStr = template('userOrderList', datasInfo);
+                                    document.getElementById('userService').innerHTML = htmlStr;
+                                }}
+                    );
+                }
+        	});
+    	}());
+       
+        
+    });
+
+</script>
+<script id="userOrderList" type="text/html">
+    <*if counts*>
+        <*if flight*>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+                <td width="10%" align="center"><img src="images/plane.png" width="50" height="52"></td>
+                <!--机票信息-->
+                <td><!-- flight ticket information -->
+                    <*each flight*>
+                    <table width="630" border="0" cellspacing="0" cellpadding="0" class="table_fund14 bg_tab line_dashed">
+                        <tbody>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="tex_blue"><*$value.airline_num*></a></td>
+                            <td width="14%" nowrap="nowrap"><*$value.airline_co*></td>
+                            <td width="30%"><*$value.city_from*> <*$value.time_dep | dateFormat:'hh:mm'*></td>
+                            <td width="8%">——</td>
+                            <td width="30%"><*$value.city_to*> <*$value.time_arv | dateFormat:'hh:mm'*></td>
+                            <!-- 订单状态为待改签的时候，产品状态的文字为 null -->
+                            <!--------------------------- 这是机票月结的情景 ------------------------- -->
+                        </tr>
+                        </tbody>
+                    </table>
+                    <*/each*>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <div class="BoxHeight mb_10 line_dashed"></div>
+        <*/if*>
+        <*if hotel*>
+        <!--酒店信息-->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" align="center"><img src="images/hotel.png" width="50" height="52"/></td>
+                <td>
+                    <*each hotel*>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund14 bg_tab line_dashed">
+                        <tr>
+                            <td><a href="javascript:void(0)" class="fl_left tex_blue"><*$value.hotel_name*></a></td>
+                            <td width="30%"><*$value.room*></td>
+                            <td width="8%"><*$value.count*>间</td>
+                            <td width="30%"><*$value.day*>晚</td>
+                        </tr>
+                    </table>
+                    <*/each*>
+                </td>
+            </tr>
+        </table>
+        <div class="BoxHeight mb_10 line_dashed"></div>
+        <*/if*>
+        <*if train*>
+        <!--火车票信息-->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" align="center"><img src="images/train.png" width="50" height="52"/></td>
+                <td><!-- flight ticket information -->
+                    <*each train*>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_fund14 bg_tab line_dashed">
+                        <tr>
+                            <td width="14%"><a href="javascript:void(0)" class="tex_blue"> <*$value.train_num*> </a></td>
+                            <td><*$value.class*></td>
+                            <td width="30%"> <*$value.station_dep*> <*$value.boarding_time | dateFormat:'hh:mm'*> </td>
+                            <td width="8%" class="tex_20">——</td>
+                            <td width="30%"> <*$value.station_arv*> <*$value.arrive_time | dateFormat:'hh:mm'*> </td>
+                        </tr>
+                    </table>
+                    <*/each*>
+                </td>
+            </tr>
+        </table>
+        <div class="BoxHeight mb_10 line_dashed"></div>
+        <*/if*>
+        <*if other*>
+        <!--其它服务信息-->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="10%" align="center"><img src="images/other.png" width="50" height="52"/></td>
+                <td><!-- flight ticket information -->
+                    <*each other*>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund14 bg_tab line_dashed">
+                        <tr>
+                            <td style="text-align:left;"><a href="javascript:void(0)" class="tex_blue"><*$value.content*></a>
+                            </td>
+                            <td width="30%"><*$value.time_start*></td>
+                            <td width="8%">——</td>
+                            <td width="30%"><*$value.time_end*></td>
+                        </tr>
+                    </table>
+                    <*/each*>
+                </td>
+            </tr>
+        </table>
+        <div class="BoxHeight mb_10 line_dashed"></div>
+        <*/if*>
+    <*/if*>
+</script>
+	<div class="main_right">
+      <div class="r_hd">
+            <h3 class="r_tit">我的主页</h3>
+    	</div>
+    	
+	  <div  class="BoxHeight mb_10" ></div>
+	  <div id='calendar'></div>
+	  <div class="clear"></div>
+	  <div class="personal_infro">
+
+	    <div id="userService"></div>
+	    <div class="personal_box">
+	      <div class="floor">
+	        <div class="bd">
+	          <div class="top_grade_rec">
+	            <div class="detail_wrap">
+	              <h2>我的待办</h2>
+	              <div class="invest_info">
+	                <div class="info info_limit">
+	                  <h4>待我审批</h4>
+	                  <div class="value"><a href="{:U('Approval/my_approval_list')}" class="tex_r">{$pages.appr_num}</a></div>
+                    </div>
+	                <div class="info info_rate">
+	                  <h4>待确认订单</h4>
+	                  <div class="value"><a href="{:U('Order/order_list_confirm')}" class="tex_r">{$pages.or_num1}</a></div>
+                    </div>
+	                <div class="info info_time">
+	                  <h4>待支付订单</h4>
+	                  <div class="value"><a href="{:U('Order/order_list_pay')}" class="tex_r">{$pages.or_num2}</a></div>
+                    </div>
+                  </div>
+	            </div>
+              </div>
+            </div>
+          </div>
+        </div>
+	    <div class="btitle">
+	      <h4>差旅公告</h4>
+        </div>
+	    <div class="personal_box">
+	      <ul class="travel_bulletin">
+	      <foreach name="bulletinList" item="no">
+	        <li><span><if condition="$no.level eq 12">置顶
+	      <else />{$no.time|substr=0,16}
+	      </if></span>
+	       <if condition="$no.level neq 1"> 
+	      		<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" class="tex_r" >{$no.content}</a>
+	     	 	<else /><a href="javascript:void(0);" class="tex_r" >{$no.content}</a>
+	     		 </if>
+	     	 <else />
+	     	 	<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" >{$no.content}</a>
+	     	 	<else />{$no.content}
+	     		 </if>
+	      </if>
+	      
+	      </li>
+	     </foreach>
+	     </ul>
+	     
+	     
+        </div>
+      </div>
+  </div>
+	<div class="clear"></div>

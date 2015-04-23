@@ -1,0 +1,139 @@
+<div class="main_right">
+   	  <div class="r_hd">
+            <h3 class="r_tit">员工信息</h3>
+            
+    	</div>
+        
+      <div  class="BoxHeight mb_10" ></div>
+      <table width="600" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+        <tr>
+          <td width="200" height="20">&nbsp;</td>
+          <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+          <td><input name="empid" id="empid" type="hidden" class="text01" value="{$tmcemp.id}" /></td>
+        </tr>
+        <tr>
+          <td align="right">工号</td>
+          <td><input name="emp_code" id="emp_code" type="text" class="text01" value="{$tmcemp.emp_code}" /></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">姓名</td>
+          <td width="240"><input name="name" id="name" type="text" class="text01" value="{$tmcemp.name}" /></td>
+          <td width="262">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">性别</td>
+          <td><span class="tex_blue">
+            <select name="sex" id="sex" class="text02 w100">
+              <option value="M" <if condition="$tmcemp['sex']=='M'"> selected</if>>男</option>
+              <option value="F" <if condition="$tmcemp['sex']=='F'"> selected</if>>女</option>
+            </select>
+          </span></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">所在部门</td>
+          <td><span class="tex_blue">
+             <select id="barch" name="barch"  class="text02">
+					<option value="-1" selected="selected">请选择部门</option>
+        			<foreach name="brupdate" item="em">
+         				<option value="{$em.id}" <if condition="$tmcemp['br_id']==$em['id']"> selected </if>>{$em.name}</option>
+       		 		</foreach>
+             </select> 
+             
+          </span></td>
+          
+          <td>&nbsp;</td>
+        </tr>
+
+        <tr>
+          <td align="right">手机</td>
+          <td><input name="phone" id="phone"type="text" class="text01" value="{$tmcemp.phone}"/></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">电子邮箱</td>
+          <td><input name="email" id="email" type="text" class="text01" value="{$tmcemp.email}" /></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">证件号</td>
+          <td colspan="2"><span class="tex_blue">
+            <select name="id_type" id="id_type" class="text02">
+               <option value="-1" selected="selected">证件类型</option>
+        			<volist name="grouplist" id="vo">
+        			   <option value="{$vo.d_key}" <if condition="$tmcemp['id_type']==$vo['d_key']"> selected </if>>{$vo.d_value}</option>
+					</volist>
+            </select>
+            </span><br />
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td width="226px">
+            <input name="id_num" value="{$tmcemp.id_num}" id="id_num" type="text" class="text01" placeholder="请填写证件号码" />
+          </td>
+          <td>
+            <div id="idNumber" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+              <i class="mod_tico_x16 mod_tico_warn_x16"></i>证件号码长度为15-18位
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">所在城市</td>
+          <td><span class="tex_blue">
+               <div id="user_area">
+                            <select name="province" class="prov text02 w122"></select>
+                            <select class="city text02 w122" name="city" disabled="disabled"></select>
+                        </div>
+          </span></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td colspan="2"><a href="javascript:void(0)" onclick="addbarchname()" class="btn_sure">保存</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="javascript: history.back();" class="btn_sure">返回</a></td>
+        </tr>
+      </table>
+  </div>
+    <div class="clear"></div>
+<script type="text/javascript">
+//保存修改
+	function addbarchname(){
+	 var empid=$("#empid").val();//获取员工id
+	 var emp_code=$("#emp_code").val();//获取工号值
+	 var name=$("#name").val();//获取姓名值
+	 var barch=$("#barch  option:selected").val();//部门
+	 var sex=$("#sex option:selected").val();//证件类型
+	 var phone=$("#phone").val();//获取电话号码值
+	 var email=$("#email").val();//获取邮箱值
+	 var id_type=$("#id_type  option:selected").val();//证件类型
+	 var id_num=$("#id_num").val();//证件号码
+	$.ajax({
+    		url:"{:U('DepartmentStaff/updateStafffen')}", 
+    		data:"empid="+empid+"&emp_code="+emp_code+"&name="+name+"&barch="+barch+"&sex="+sex+"&phone="+phone+"&email="+email+"&id_type="+id_type+"&id_num="+id_num,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+    				alert("分配部门成功");
+    				location.href = "{:U('DepartmentStaff/showDepartment')}";
+    			}else{
+    				alert("分配部门失败");
+    			}
+    		}
+    	});
+	 
+	}
+      $("#user_area").citySelect({
+          prov: "{$tmcemp.province}",
+          city: "{$tmcemp.city}"
+      });
+</script>

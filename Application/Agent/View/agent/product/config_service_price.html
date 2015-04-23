@@ -1,0 +1,477 @@
+<div class="main_right">
+    <div class="r_hd">
+        <h3 class="r_tit">产品管理</h3>
+
+        <div class="r_hd_extra">
+            <a href="{:U('Product/config_flight_price')}">机票政策</a>
+            <a href="{:U('Product/config_flight_refund')}">机票退改签</a>
+            <a href="{:U('Product/config_insur_info')}">保险产品</a>
+            <a href="{:U('Product/config_service_price')}" class="current">服务费</a>
+        </div>
+    </div>
+    <div class="BoxHeight mb_10"></div>
+    <div class="BoxHeight mb_10"></div>
+    <table width="100%" id="tabSafe" border="0" cellspacing="1" cellpadding="0" class="table_fund bg_tab mt_10" style="border:1px solid #ddd;">
+        <thead>
+        <tr>
+            <th rowspan="2">
+                <select name="select2" id="select2" class="text02 ml_5 h26 w110">
+                    <option selected="selected">企业名称</option>
+                    <foreach name="request" item="r">
+                        <option value="{$r.id}">{$r.name}</option>
+                    </foreach>
+                </select>
+            </th>
+            <th colspan="2">服务费</th>
+            <th width="15%" rowspan="2">开始时间</th>
+            <th width="15%" rowspan="2">结束时间<br/></th>
+            <th width="15%" rowspan="2">操作<br/></th>
+        </tr>
+        <tr>
+            <th width="15%">按订单金额比例</th>
+            <th width="15%">每订单收取</th>
+        </tr>
+
+
+        <if condition="$request == '' ">
+            <tr>
+                <td style="height:140px; font-size:18px; color:#999;" colspan="6">暂无数据</td>
+            </tr>
+        </if>
+
+
+        </thead>
+        <tbody id="trList">
+        <foreach name="request" item="r">
+            <tr>
+                <td>{$r.name}</td>
+                <td>{$r.val_opp}</td>
+                <td>{$r.val_abs}</td>
+                <td>{$r.time_start}</td>
+                <td>{$r.time_end}</td>
+                <td><a href="javaScript:void(0);" class="tex_blue" name="updateSafe" onclick="update({$r.id})" ;>更新</a>
+                    <a href="javaScript:void(0);" class="tex_O" name="deleteSafe" onclick="deleteservice({$r.id})">删除</a>
+                </td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+    <p class="mt_10"><input type="button" name="addTr" value="添加服务费" class="btn_b5"/></p>
+
+    <div class="BoxHeight"></div>
+
+</div>
+</div>
+<div class="clear"></div>
+</div>
+
+<!---popup 添加部弹出浮层 start --->
+<div id="bardd" class="popup popup_pos1 w400" style="display: none;">
+    <a href="javascript:void(0)" class="btn_close" id="addtename_close"></a>
+
+    <div class="pop_title">添加服务费信息</div>
+    <div class="popup_cont2">
+        <form id="addForm">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+                <tr class="border_none">
+                    <td class="td1">企业名称</td>
+                    <td>
+                        <select name="co_id" id="co_id" type="text" class="text01 text010"/>
+                        <option selected="selected">企业名称</option>
+                        <foreach name="com" item="c">
+                            <option value="{$c.id}">{$c.name}</option>
+                        </foreach>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="border_none">
+                    <td class="td1">服务费</td>
+                    <td>
+                        <select name="val_type" id="val_type" type="text" class="text01 text010"/>
+                            <option value="val_opp" selected="selected">按订单金额比例</option>
+                            <option value="val_abs" >每订单收取</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="border_none val_opp">
+                    <td class="td1">比例(%)</td>
+                    <td><input name="val_opp" id="val_opp" type="text" class="text01 text010"/></td>
+                </tr>
+                <tr class="border_none val_abs" style="display: none;">
+                    <td class="td1">金额</td>
+                    <td><input name="val_abs" id="val_abs" type="text" class="text01 text010"/></td>
+                </tr>
+                <tr class="border_none">
+                    <td class="td1">开始时间</td>
+                    <td><input name="time_start" id="time_start" type="text" class="text01 laydate-icon
+	                 " onclick="laydate()"/></td>
+                </tr>
+                <tr class="border_none">
+                    <td class="td1">结束时间</td>
+                    <td><input name="time_end" id="time_end" type="text" class="text01 laydate-icon
+	                 "/></td>
+                </tr>
+            </table>
+        </form>
+        <div class="text_cent"><a href="javascript:void(0);" id="getbardd" class="btn_sure">确定</a></div>
+    </div>
+</div>
+
+<div id="barup" class="popup popup_pos1 w400" style="display: none;">
+    <a href="javascript:void(0)" class="btn_close" id="uptename_close"></a>
+
+    <div class="pop_title">修改服务费信息</div>
+    <div class="popup_cont2">
+        <form id="upForm">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+                <tr class="border_none">
+                    <td class="td1">企业名称</td>
+                    <td>
+                        <select name="upco_id" id="upco_id" type="text" class="text01 text010"/>
+                        <option selected="selected">企业名称</option>
+                        <foreach name="com" item="c">
+                            <option value="{$c.id}">{$c.name}</option>
+                        </foreach>
+                        </select>
+                    </td>
+                    <td><input name="upp_id" id="upp_id" type="hidden"/></td>
+                </tr>
+                <tr class="border_none">
+                    <td class="td1">服务费</td>
+                    <td>
+                        <select name="val_type" id="val_type" type="text" class="text01 text010"/>
+                        <option value="val_opp" selected="selected">按订单金额比例</option>
+                        <option value="val_abs" >每订单收取</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="border_none val_opp">
+                    <td class="td1">比例(%)</td>
+                    <td><input name="upval_opp" id="upval_opp" type="text" class="text01 text010"/></td>
+                </tr>
+                <tr class="border_none val_abs" style="display: none;">
+                    <td class="td1">金额</td>
+                    <td><input name="upval_abs" id="upval_abs" type="text" class="text01 text010"/></td>
+                </tr>
+                <tr class="border_none">
+                    <td class="td1">开始时间</td>
+                    <td><input name="uptime_start" id="uptime_start" type="text" class="text01 laydate-icon
+	                 " onclick="laydate()"/></td>
+                </tr>
+                <tr class="border_none">
+                    <td class="td1">结束时间</td>
+                    <td><input name="uptime_end" id="uptime_end" type="text" class="text01 laydate-icon
+	                 "/></td>
+                </tr>
+            </table>
+        </form>
+        <div class="text_cent"><a href="javascript:void(0);" onclick="upbardd()" class="btn_sure">确定</a></div>
+    </div>
+</div>
+<script>
+;!function(){
+laydate({
+   elem: '#time_end'
+})
+}();
+
+;!function(){
+laydate({
+   elem: '#uptime_end'
+})
+}();
+</script>
+<script type="text/javascript">
+
+     //添加服务费信息品
+    $("input[name='addTr']").click(function(){
+	 	$("#addForm")[0].reset();
+		$('#bardd').show();		
+	 });
+    $("#addtename_close").click(function(){
+  		$('#bardd').css("display","none");
+  	 });
+    $("#uptename_close").click(function(){
+  		$('#barup').css("display","none");
+  	 });
+
+     $("#val_type","#upForm").change(function(){
+         if($(this).val() == 'val_abs'){
+             $("tr.val_opp","#upForm").hide();
+             $("#upval_opp","#upForm").val(0);
+             $("tr.val_abs","#upForm").show();
+         }else{
+             $("tr.val_abs","#upForm").hide();
+             $("#upval_abs","#upForm").val(0);
+             $("tr.val_opp","#upForm").show();
+         }
+     });
+
+    //添加保险产品验证
+    //保存修改
+    $(function () {
+        var err2= 0,err3=0,err4=0,err5=0;
+        //产品名称
+        $("#val_type","#addForm").change(function(){
+            if($(this).val() == 'val_abs'){
+                $("tr.val_opp","#addForm").hide();
+                $("#val_opp","#addForm").val(0);
+                $("tr.val_abs","#addForm").show();
+                err2 = 1;
+            }else{
+                $("tr.val_abs","#addForm").hide();
+                $("#val_abs","#addForm").val(0);
+                $("tr.val_opp","#addForm").show();
+                err3 = 1;
+            }
+        });
+
+        /*按订单金额比例验证*/
+        $("input[name='val_opp']").blur(function () {
+
+            var pattern = /^\d{0,6}\.{0,1}(\d{1,2})?$/i;
+            var phone = $(this).val() || '';
+            var val_type = $("#val_type","#addForm").val();
+            var _this = $(this);
+            if ( pattern.test(phone)  && phone != '') {
+                err2 = 1;
+                _this.removeClass('warning').parent('input').removeClass('warning');
+            } else {
+                err2 = 0;
+                _this.addClass('warning').parent('input').addClass('warning');
+            }
+        });
+
+        /*每订单收取验证*/
+        $("input[name='val_abs']").blur(function () {
+
+            var pattern = /^\d{0,6}\.{0,1}(\d{1,2})?$/i;
+            var phone = $(this).val() || '';
+            var val_type = $("#val_type","#addForm").val();
+            var _this = $(this);
+            if ( pattern.test(phone)  && phone != ''  ) {
+                err3 = 1;
+                _this.removeClass('warning').parent('input').removeClass('warning');
+            } else {
+                err3 = 0;
+                _this.addClass('warning').parent('input').addClass('warning');
+            }
+        });
+
+        /*开始时间验证*/
+        $("input[name='time_start']").blur(function () {
+
+            var pattern ='';
+            var phone = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(phone) ) {
+                err4 = 1;
+                _this.removeClass('warning').parent('input').removeClass('warning');
+            } else {
+                err4 = 0;
+                _this.addClass('warning').parent('input').addClass('warning');
+            }
+        });
+
+        /*结束时间验证*/
+        $("input[name='time_end']").blur(function () {
+
+            var pattern = '';
+            var phone = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(phone) ) {
+                err5 = 1;
+                _this.removeClass('warning').parent('input').removeClass('warning');
+            } else {
+                err5 = 0;
+                _this.addClass('warning').parent('input').addClass('warning');
+            }
+        });
+        $("#getbardd").click(function(){
+            if(err2&&err3){
+                getbardd();
+            }else{
+                swal({
+                    title: "温馨提示!",
+                    text: "信息不完整!!",
+                    type: "info",
+                    confirmButtonText: "关 闭"
+                });
+            }
+        });
+        document.onkeydown = function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+                if(err2&&err3){
+                    getbardd();
+                }
+            }
+        };
+    });
+
+    //确认服务费信息品提交
+    function getbardd(){
+    	var objStr = ZmJSON('addForm');
+  		var toServer = eval('('+objStr+')');//将字符串装换成对象
+  		//console.log(toServer);
+    	$.ajax({
+	  		url:"{:U('ServicePrice/addServicePrice')}", 
+	  		data: toServer,
+	  		type:"POST",
+	  		success:function(data){
+	  			data = ajaxGet(data);
+	  			if(data==1){
+	  				//alert("添加保险产品成功");
+	  				swal({
+                        title: "温馨提示!",
+                        text: "添加保险产品成功!",
+                        type: "success",
+                        confirmButtonText: "关 闭",
+						timer: 2000
+                    });
+	  				
+	  				
+	  				location.href = "{:U('Product/config_service_price')}";
+	  			}else{	 
+	  				swal({
+                        title: "温馨提示!",
+                        text: "添加保险产品失败!",
+                        type: "error",
+                        confirmButtonText: "关 闭",
+						timer: 2000
+                    });
+	  				//alert("添加保险产品失败");
+	  				//location.href = "{:U('Product/config_service_price')}";
+	  			}
+	  		}
+	  	});
+    	
+    }
+
+     /*json格式传递参数 zm*/
+     function ZmJSON(formid){
+         var fields = $("#"+formid).serialize();
+         fields = decodeURIComponent(fields,true);//字符串转编码
+         var dataResult =fields;
+         var tmp = dataResult.replace(/&/g, "\",");
+         tmp = tmp.replace(/=/g, ":\"");
+         var jsonValue ="{" + tmp + "\\"}";
+         return jsonValue;
+     }
+      
+
+  //修改信息
+  function update(id){
+	  $.ajax({ 
+	  		url:"{:U('ServicePrice/showServiceById')}",
+			data:"id="+id,
+	  		dataType:"text",
+	  		type:"POST",
+	  		success:function(data){
+	  			data = ajaxGet(data);
+	  			var emps = eval("(" + data + ")");
+                $('#upp_id').val(emps.id);
+	  			$('#upco_id').val(emps.co_id);
+    			$('#upval_opp').val(emps.val_opp);
+    			$('#upval_abs').val(emps.val_abs);
+    			$('#uptime_start').val(emps.time_start);
+    			$('#uptime_end').val(emps.time_end);
+
+                if(emps.val_abs > 0){
+                    $("#val_type option","#upForm").eq(1).attr("selected",true);
+                    $("tr.val_opp","#upForm").hide();
+                    $("tr.val_abs","#upForm").show();
+                }else{
+                    $("#val_type option","#upForm").eq(0).attr("selected",true);
+                    $("tr.val_abs","#upForm").hide();
+                    $("tr.val_opp","#upForm").show();
+                }
+	  		}
+	  	});
+	  $("#barup").show();
+  }
+	$("#addtename_close").click(function(){
+		$('#bardd').css("display","none");
+	});
+	
+	//确认修改信息
+	function upbardd(){
+		var objStr = ZmJSON('upForm');
+  		var toServer = eval('('+objStr+')');//将字符串装换成对象
+  		//console.log(toServer);
+    	$.ajax({
+	  		url:"{:U('ServicePrice/updateService')}", 
+	  		data: toServer,
+	  		type:"POST",
+	  		success:function(data){
+	  			data = ajaxGet(data);
+	  			if(data==1){
+					swal({
+						title: "温馨提示!",
+						text: "修改保险产品成功!",
+						type: "success",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+	  				location.href = "{:U('Product/config_service_price')}";
+	  			}else{
+					swal({
+						title: "温馨提示!",
+						text: "修改保险产品失败!",
+						type: "error",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+	  				location.href = "{:U('Product/config_service_price')}";
+	  			}
+	  		}
+	  	});
+	}
+	
+	
+   function ZmJSON(formid){
+       var fields = $("#"+formid).serialize();
+       fields = decodeURIComponent(fields,true);//字符串转编码
+       var dataResult =fields;
+       var tmp = dataResult.replace(/&/g, "\",");
+       tmp = tmp.replace(/=/g, ":\"");
+       var jsonValue ="({" + tmp + "\\"})";
+       return jsonValue;
+   }
+	
+  //删除服务费
+  function deleteservice(id){
+	  $.ajax({
+  		url:"{:U('ServicePrice/deleteService')}", 
+  		data:"id="+id,
+  		dataType:"text",
+  		type:"POST",
+  		success:function(data){
+  			data = ajaxGet(data);
+  			if(data==1){
+				swal({
+					title: "温馨提示!",
+					text: "删除产品保险成功!!!",
+					type: "success",
+					confirmButtonText: "关 闭",
+					timer: 2000
+				});
+				location.href = "{:U('Product/config_service_price')}";
+  			}else{
+				swal({
+					title: "温馨提示!",
+					text: "删除产品保险失败!!!",
+					type: "error",
+					confirmButtonText: "关 闭",
+					timer: 2000
+				});
+  			}
+  		}
+  	});
+  }
+ 
+  
+</script>
+
+
+

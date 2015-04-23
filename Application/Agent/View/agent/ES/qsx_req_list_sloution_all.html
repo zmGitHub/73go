@@ -1,0 +1,105 @@
+
+  <div class="main_right xxzx_list">
+   	  <div class="r_hd">
+            <h3 class="r_tit">轻松行已接需求</h3>
+            <div class="r_hd_extra">
+				<a href="{:U('Agent/ES/showEReqAll')}" class="current">所有需求</a>
+              <a href="{:U('Agent/ES/showEReq')}" >制作方案</a>
+              <a href="{:U('Agent/Order/qsx_req_list_order')}" >创建订单</a>
+            </div>
+   	</div>
+    <div  class="BoxHeight mt_10" ></div>
+    <p>搜索：
+   		 <a href="{:U('ES/showEReq')}?bygrp=1" class="btn_b5 ml_5" >同组人接的单</a>
+   		 <a href="{:U('ES/showEReq')}?bygrp=2" class="btn_b5 ml_5" >我接的单</a>
+    </p>
+    <div  class="BoxHeight mt_10" ></div>
+    <foreach name="reqList" item="req" key="k">
+    <div class="contTwo" id="div_req">
+     	 <dl>
+     	 <if condition="$req.voice_text  neq null  "> {$req.voice_text}<br/>{$req.emp_name} </if>
+    	 <if condition="$req.voice_text eq null  ">
+				<dt>
+				  <h4>需求单号：<br />{$req.qsx_rq_no}</h4>
+				  <!-- op页面只需客户的信息 dx 15-3-24
+				  <h4>接单人：<br />{$req.name}</h4><br />
+				  -->
+				  <h4>{$req.rec_time|substr=###,0,10}</h4>
+				  <h3>{$req.rec_time|substr=###,10,6}</h3>
+			 <if condition="$u_name[$k] neq null"><h4>联系人：{$u_name[$k]}</h4></if>
+			 <if condition="$u_phone[$k] neq null"><h4>手机号码：{$u_phone[$k]}</h4></if>
+			 <if condition="$u_qq[$k] neq null"><a id="qq" target="_self" href="tencent://message/?Menu=yes&uin={$u_qq[$k]}&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45"><img border="0" src="http://wpa.qq.com/pa?p=2:{$u_qq[$k]}:41"></a></if>
+			 </dt>
+				<dd>
+				  <h3><strong class="ml_16">{$req.from_city}——{$req.to_city}</strong></h3>
+				  <p>
+				  <if condition="$req.tr_no neq '' ">
+				  TR号：{$req.tr_no}
+				  </if> 
+				  <if condition="$datt.emergency_booking eq 1">
+                    <td><input type="checkbox" id="choose_btn"/>&nbsp;
+                   		     /这是紧急预订
+                    </td>
+                    <else/>
+                    <td>&nbsp;</td>
+                  </if>
+				   <strong class=" ml_25">{$req.short_name} </strong> &nbsp;{$req.emp_name}
+				  	<if condition='$req.vip_level gt 0'>
+				  		<em class="vip_8">VIP{$req.vip_level}</em>
+				   </if><br />
+				   出发时间：{$req.leave_date} <br />
+				 <if condition="$req.back_date neq '0000-00-00' ">  
+				   返回时间：{$req.back_date}<br />	
+				 </if>	</p>
+
+				  <div class="clear"></div>
+				  <br />
+				  <div class="max_h500">
+					<em class="tex_14">【具体需求】</em>
+				    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$req.other_content}</p>
+			      </div>
+	    		</dd>
+	     </if>
+			 <if condition="$req.status eq 0">
+				<span><a href="{:U('ES/preAddScheme',array('id'=>$req['tqrid']))}" target="_blank"><em class="a_buy">加方案</a></em>
+				<h4>方案数</h4>
+				<h3><a href="{:U('ES/preAddScheme',array('id'=>$req['tqrid']))}"  target="_blank" class="fl_right" >{$req.num}</a></h3>
+				</span>
+			 <else/>
+				 <span><a href="{:U('Agent/Order/qsx_req_list_order')}" target="_blank"><em class="a_buy">创建订单</a></em></span>
+			 </if>
+		 </dl>
+
+	    </div>
+	</foreach>
+		<!-- 分页的样式 和数量的显现  开始-->
+            <div class="meneame">
+		    {$Page}
+		    </div></p>
+             </div>
+        	 <style>
+			/*css meneame style pagination*/
+			div.meneame{padding:3px;font-size:80%;margin:3px;color:#ff6500;text-align:center;}
+			div.meneame a{border:#ff9600 1px solid;padding:5px 7px;background-position:50% bottom;background-image:url(../images/meneame.jpg);margin:0 3px 0 0;text-decoration:none;}
+			div.meneame a:hover{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame a:active{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame span.current{border:#ff6500 1px solid;padding:5px 7px;font-weight:bold;color:#ff6500;margin:0 3px 0 0;background-color:#ffbe94;}
+			div.meneame span.disabled{border:#ffe3c6 1px solid;padding:5px 7px;color:#ffe3c6;margin:0 3px 0 0;}
+			</style>
+      
+      
+       </div>
+          <!-- 查询相关的记录完毕 -->
+
+</div>
+    
+<div>
+
+
+
+
+</div>
+  </div>
+    <div class="clear"></div>
+</div>
+

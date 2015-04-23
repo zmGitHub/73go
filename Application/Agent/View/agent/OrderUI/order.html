@@ -1,0 +1,38 @@
+<div class="order" id="orders">
+  
+<div class="order_tit"><span class="mr_8">订单号</span>：
+<em><span name="odr_order_num"></span></em><em class="fl_right" style="display: none">
+<input type="submit" value="删除"  onclick="$(this).parent().parent().parent().remove()" class="btn_b5 ml_5 sz73go_editing_l0" /> + </em></div>
+<div class="border_none p4_10 bg_hs sz73go_editing_l0">添加旅客： 
+	<input type="button" value="系统中查找" class="btn_b5 ml_5" name="find_user"/> 
+	<input type="button" value="手工添加" class="btn_b5 ml_5" name="add_user" /></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund sz73go_user_table">
+	<tr>
+		<th width="17%">姓名</th>
+		<th width="21%">证件类型</th>
+		<th>证件号</th>
+		<th width="20%">电话</th>
+		<th width="20%"><span class="sz73go_editing_l0">操作</span></th>
+	</tr>
+</table>
+<div class="BoxHeight mt_22 line_dashed"></div>
+<div class="register_mod_form_row mb_10 sz73go_editing_l0">
+<div class="register_mod_form_label">添加产品：</div>
+<div class="register_mod_form_cnt">
+<div class="news_mod_form_cnt dt_travel01 dt_time_xz ">
+	<a href="javascript:void(0);" name="add_part" partkind=1>单程机票</a> 
+	<a href="javascript:void(0);" name="add_part" partkind=2>两航段机票</a> 
+	<a href="javascript:void(0);" name="add_part" partkind=3>多航段机票</a> 
+	<!--<a href="javascript:void(0);" name="add_part" partkind=4>机票保险</a> -->
+	<a href="javascript:void(0);" name="add_part" partkind=5>酒店</a> 
+	<a href="javascript:void(0);" name="add_part" partkind=6>火车票</a> 
+	<a href="javascript:void(0);" name="add_part" partkind=7>其他</a>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="sz73go_order"></div>
+<div class="BoxHeight line_dashed"></div>
+
+</div>

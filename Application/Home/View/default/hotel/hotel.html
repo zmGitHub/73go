@@ -1,0 +1,179 @@
+<link rel="stylesheet" href="__ROOT__/Public/js/searchPlugin/addressSearchCode/css/cityquery.css"/><!--城市插件样式-->
+<div class="main_right">
+    <div class="r_hd">
+        <h3 class="r_tit">自助预定</h3>
+
+        <div class="r_hd_extra">
+            <a href="{:U('Book/index')}">机票预定</a>
+            <a href="javaScript:void(0);" class="current">酒店预订</a>
+        </div>
+
+    </div>
+    <div class="BoxHeight mb_10"></div>
+    <div class="product_tt"><a href="javaScript:void(0);" class="current">国内酒店</a></div>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4">
+
+        <form id="searchBox" action="{:U('Hotel/showData')}" method="post">
+            <tr>
+                <td width="130"></td>
+                <td>&nbsp;</td>
+            </tr>
+
+            <tr>
+
+                <td align="right">目的地</td>
+                <td width="250px">
+                    <input id="fromcity" name="target" type="text" class="input_box" placeholder="中文/拼音">
+                </td>
+                <td>
+                    <div id="goCity1" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i> 请填写出发城市
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">入住日期</td>
+                <td width="250px">
+                    <input id="J_DepDate" name="J_DepDate" type="text" class="f-text input_box" value="" placeholder="请填写入住日期"/>
+                </td>
+                <td>
+                    <div id="endCity1" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i> 请填写入住时间
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">退房日期</td>
+                <td>
+                    <input id="J_EndDate" name="J_EndDate" type="text" class="f-text input_box" value="" placeholder="请填写退房日期"/>
+                </td>
+                <td>
+                    <div id="endCity2" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i> 请填写退房时间
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">关键词</td>
+                <td width="250px">
+                    <input name="keyWord" type="text" class="text01 laydate-icon" id="keyWord" placeholder="请输入地标/商圈/景点"/>
+                </td>
+                <td>
+                    <div id="keyWordTip" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>请填写关键词
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">&nbsp;</td>
+                <td><input type="button" class="btn_sure mt_10" id="search" value="搜 索"></td>
+            </tr>
+
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </form>
+    </table>
+</div>
+<div class="clear"></div>
+</div>
+<div id="jsContainer" class="jsContainer" style="height:0">
+    <div id="tuna_alert" style="display:none;position:absolute;z-index:999;overflow:hidden;"></div>
+    <div id="tuna_jmpinfo" style="visibility:hidden;position:absolute;z-index:120;"></div>
+</div>
+<script src="__ROOT__/Public/js/searchPlugin/addressSearchCode/js/citylist.js" type="text/javascript" charset="utf-8"></script><!--城市插件-->
+<script src="__ROOT__/Public/js/searchPlugin/addressSearch/js/querycity.js" type="text/javascript" charset="utf-8"></script><!--城市插件-->
+<script type="text/javascript" src="__ROOT__/Public/js/searchPlugin/hotelDate/yui-min.js" charset="utf-8"></script><!--时间插件-->
+<script type="text/javascript">
+    /*页面数据初始化*/
+    var labelFromcity = new Array();
+    labelFromcity ['热门城市'] = new Array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19);
+    labelFromcity ['ABCDEF'] = new Array(4,7,9,12,17,19,21,23,25,27,29,30,32,33,35,37,39,41,42,44,46,47,49,51,53,60,63,68,78,85,87,91,94,97,110,112,117,119,121,123,132,136,141,148,150,153,157,159,161,164);
+    labelFromcity ['GHIJ'] = new Array(2,5,6,13,16,43,46,49,52,54,55,57,59,61,63,65,66,68,70,72,74,75,77,79,80,82,92,95,109,110,118,121,123,128,130,140,143,144,151,158,172,173,175,181,184,185,187,198,200,202);
+    labelFromcity ['KLMN'] = new Array(38,49,53,59,61,63,71,74,83,85,86,88,90,92,94,96,98,100,102,104,105,107,109,111,113,114,116,122,126,131,138,144,145,149,150,152,162,169,180,183,188,191,195,201,211);
+    labelFromcity ['PQRSTUVW'] = new Array(44,47,49,65,69,74,80,83,89,93,96,106,111,115,118,120,121,123,125,127,129,131,133,135,137,139,141,142,144,145,147,150,151,160,166,170,174,176,178,182,184,188,192,194,196);
+    labelFromcity ['XYZ'] = new Array(2,5,7,11,14,15,17,32,34,36,40,45,51,54,56,58,70,73,75,77,78,82,86,90,95,98,100,102,104,107,116,118,124,126,129,130,133,139,146,148);
+
+    $(function () {
+
+        /*地区选择插件*/
+        $('#fromcity').querycity({'data':citysFlight,'tabs':labelFromcity});
+        $('#tocity').querycity({'data':citysFlight,'tabs':labelFromcity});
+
+
+
+        $("#search").click(function () {
+            /*出发城市*/
+            var startcity = $("#fromcity").val() || '';
+            if (startcity != '' && startcity!='中文/拼音') {
+                $("#fromcity").removeClass('warning').parent('td').removeClass('warning');
+                $('#goCity1').css('display', 'none');
+            } else {
+                $("#fromcity").val('');
+                $("#fromcity").addClass('warning').parent('td').addClass('warning');
+                $('#goCity1').css('display', 'block');
+                return;
+            }
+            /*到达城市*/
+            var toCity = $("#J_DepDate").val() || '';
+
+            if (toCity != '' && toCity!='中文/拼音') {
+                $("#J_DepDate").removeClass('warning').parent('td').removeClass('warning');
+                $('#endCity1').css('display', 'none');
+            } else {
+                $("#J_DepDate").val('');
+                $("#J_DepDate").addClass('warning').parent('td').addClass('warning');
+                $('#endCity1').css('display', 'block');
+                return;
+            }
+            /*出发时间*/
+            var startdate = $('#J_EndDate').val();
+            if (startdate != '') {
+                $("#J_EndDate").removeClass('warning').parent('td').removeClass('warning');
+                $('#endCity2').css('display', 'none');
+            } else {
+                $("#J_EndDate").addClass('warning').parent('td').addClass('warning');
+                $('#endCity2').css('display', 'block');
+                return;
+            }
+
+            //关键字
+            var keyWord = $('#keyWord').val();
+            if (keyWord != '') {
+                $("#keyWord").removeClass('warning').parent('td').removeClass('warning');
+                $('#keyWordTip').css('display', 'none');
+            } else {
+                $("#keyWord").addClass('warning').parent('td').addClass('warning');
+                $('#keyWordTip').css('display', 'block');
+                return;
+            }
+            $("#searchBox").submit();
+        });
+    });
+
+    YUI({
+        modules: {
+            'trip-calendar': {
+                fullpath: 'js/searchPlugin/hotelDate/trip-calendar.js',
+                type    : 'js',
+                requires: ['trip-calendar-css']
+            },
+            'trip-calendar-css': {
+                fullpath: 'js/searchPlugin/hotelDate/trip-calendar.css',
+                type    : 'css'
+            }
+        }
+    }).use('trip-calendar', function(Y) {
+
+        new Y.TripCalendar({
+            minDate         : new Date,     //最小时间限制
+            triggerNode     : '#J_DepDate', //第一个触节点
+            finalTriggerNode: '#J_EndDate'  //最后一个触发节点
+        });
+    });
+
+//http://www.ijavascript.cn/tools/codedemo/css-xuanxiangka-458/index.htm#
+</script>
+
+

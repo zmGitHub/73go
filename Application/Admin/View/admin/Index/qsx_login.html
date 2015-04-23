@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="__ROOT__/Public/Admin/" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+<link rel="stylesheet" type="text/css" href="css/style_yq.css"/>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+
+<script type="text/javascript">
+
+$(function(){
+	$('#loginButton').click(function(){
+
+		var username = $('#loginNo').val();
+		var password = $('#password').val();
+
+		$.ajax({
+			url:"{:U('Index/login')}",
+			data:"username="+username+"&password="+password,
+			dataType:"text",
+			type:"POST",
+			success:function(msg){
+				if(msg == 0){
+					alert('登录信息错误');
+				}else if(msg==1){
+					location.href = "{:U('Index/main')}";
+				}
+			}
+		});
+	})
+})
+
+</script>
+
+
+<style type="text/css">
+    td.align_right {
+        text-align: right;
+    }
+</style>
+</head>
+
+<body>
+<div class="loginWrap">
+  <div class="loginContent">
+    <div class="loginContPic">
+  <img src="images/login.jpg" width="459" height="380" /></div>
+    <div class="loginContRight">
+      <div class="til tex_r">请登录</div>
+      <div class="loginError" style="display: block;"></div>
+      <div class="loginCont">
+        <div  class="loginContOneBox" >
+			<input name="username" type="text" class="loginContOne" id="loginNo" value="" />
+		</div>
+		<div  class="BoxHeight" ></div>
+		 <div  class="loginContTwoBox">
+            <input name="password" type="password" id="password" class="loginContTwo" placeholder="登录密码" style="color: rgb(102, 102, 102); font-size: 14px; display: inline-block;" value="">
+		 </div>
+		<div  class="BoxHeight" ></div>
+        <div class="clear"></div>
+        <div  class="BoxHeight" ></div>
+        <div class="clear"></div>
+      </div>
+      <div class="loginButton" id="loginButton">
+      <a href="javascript:void(0);" >立即登录</a></div>
+    </div>
+    <div class="clear"></div>
+</div>
+</div>
+
+<div  class="BoxHeight" ></div>
+
+<div class="footer">
+	<div class="copyiright">
+		Copyright © 2015 版权所有 深圳市轻松行科技有限公司 <p> 备案号：粤ICP备14072826号
+	</div>
+</div>
+</body>
+</html>
+  

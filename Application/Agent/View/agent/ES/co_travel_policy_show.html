@@ -1,0 +1,231 @@
+
+ <div class="main_right">
+    	<div class="r_hd">
+            <h3 class="r_tit">差旅政策</h3>
+    	</div>
+        
+        <div  class="BoxHeight mb_10" ></div>
+         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+          <tr>
+            <td colspan="2"><h3>公司：{$comcheck.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名：{$empcheck.name}
+</h3></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center"><h3>企业差旅规定
+</h3></td>
+          </tr>
+      </table>
+      <div class="line_border">
+      <div class="btitle mt_22">
+        <h4>出差流程</h4>
+      </div>
+      <div class="policy">
+      <input type="checkbox" name="need_approval" id="need_approval" value="{$check.need_approval}" />
+        预订前必须提交出差申请并审批通过
+          <p class=" ml_25">
+            <input type="checkbox" name="approv_by73go" id="approv_by73go" value="{$check.approv_by73go}" />
+          使用本网站的出差申请和审批功能</p>
+          <p class=" ml_25">
+            <input type="checkbox" name="emergency_booking" id="emergency_booking" value="{$check.emergency_booking}"  />
+          允许紧急预订</p>
+        </div>
+          
+      <div class="btitle mt_22"><h4>机票政策</h4></div>
+     
+      <div class="policy">
+        <input type="checkbox" name="f_class" id="f_class" value="{$check.f_class}"  />
+        允许乘坐头等舱 </div>
+      <div class="policy">
+        <input type="checkbox" name="b_class" id="b_class" value="{$check.b_class}"  />
+        允许乘坐商务舱 </div>
+      <div class="policy">
+        <input type="checkbox" name="e_class" id="e_class" value="{$check.e_class}"  />
+        允许乘坐经济舱 </div>
+        
+      <div class="btitle mt_22">
+        <h4>火车票政策</h4>
+      </div>
+      <div class="policy">
+      <input type="checkbox" name="soft_sleeper" id="soft_sleeper" value="{$check.soft_sleeper}"  />
+      允许火车软卧
+      </div>
+      <div class="policy">
+      <input type="checkbox" name="hard_sleeper" id="hard_sleeper" value="{$check.hard_sleeper}"  />
+      允许火车硬卧
+      <p class=" ml_25">
+            <input type="checkbox" name="checkbox2" id="checkbox2" />
+          必须时间在
+          <input name="hard_sleeper_limit" id="hard_sleeper_limit" type="text" class="text01 h20 c_tx2 w80" value="{$check.hard_sleeper_limit}" />
+      小时以上</p>
+        </div>
+      <div class="policy">
+      <input type="checkbox" name="high_train" id="high_train" value="{$check.high_train}"  />
+      允许趁坐高铁、动车
+      <p class=" ml_25">
+            <input type="checkbox" name="ht_b_class" id="ht_b_class" value="{$check.ht_b_class}"  />
+          允许商务座</p>
+          <p class=" ml_25">
+            <input type="checkbox" name="ht_class_1" id="ht_class_1" value="{$check.ht_class_1}"  />
+          允许一等座</p>
+        <p class=" ml_25">
+          <input type="checkbox" name="ht_class_2" id="ht_class_2" value="{$check.ht_class_2}"  />
+        允许二等座</p>
+        </div>
+      <div class="btitle mt_22">
+        <h4>酒店政策</h4>
+      </div>
+      <div class="policy">
+      <input type="checkbox" name="limit_hotel_price" id="limit_hotel_price" value="{$check.limit_hotel_price}"  />
+        按城市类别定义标准
+<p class=" ml_25">
+    <input type="checkbox" name="chekbox" id="chekbox"  />
+    一类城市
+    <input name="high_price_1" id ="high_price_1" type="text" class="text01 h20 c_tx2 w80" value="{$check.high_price_1}" />
+元以下</p>
+  <p class=" ml_25">
+    <input type="checkbox" name="checkbox5" id="checkbox8" />
+    二类城市
+    <input name="high_price_2" id="high_price_2" type="text" class="text01 h20 c_tx2 w80" value="{$check.high_price_2}" />
+元以下</p>
+    <p class=" ml_25">
+    <input type="checkbox" name="checkbox5" id="checkbox8" />
+    三类城市
+    <input name="high_price_3" id="high_price_3" type="text" class="text01 h20 c_tx2 w80" value="{$check.high_price_3}" />
+元以下</p>
+      </div>
+      <div class="policy">
+        <input type="checkbox" name="limit_hotel_class" id="limit_hotel_class" value="{$check.limit_hotel_class}"/>
+        按星级定义标准
+  <p class=" ml_25">
+    <input type="checkbox" name="hotel_class_5" id="hotel_class_5" value="{$check.hotel_class_5}"  />
+    五星</p>
+  <p class=" ml_25">
+    <input type="checkbox" name="hotel_class_4" id="hotel_class_4" value="{$check.hotel_class_4}"  />
+    四星</p>
+    <p class=" ml_25">
+    <input type="checkbox" name="hotel_class_3" id="hotel_class_3" value="{$check.hotel_class_3}"  />
+    三星</p>
+    <p class=" ml_25">
+    <input type="checkbox" name="hotel_class_2" id="hotel_class_2" value="{$check.hotel_class_2}"  />
+    快捷酒店</p>
+      </div>
+      </div>
+        <div  class="BoxHeight mb_10" ></div>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+          <tr>
+            <td colspan="2" align="center"><h3>企业差旅政策文件
+</h3></td>
+          </tr>
+      </table>
+      <div class="line_border">
+      {$check.policy_text}
+      	<p>&nbsp;</p>
+		<p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+      </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="Agent/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+//加载时,数据库字段有值则显示打钩
+$(document).ready(function() {
+	
+	var need_approval = $("input:[name='need_approval']").val();
+	if(need_approval==1){
+		$("#need_approval").attr("checked",true);//打勾
+	}
+	
+	var approv_by73go = $("input:[name='approv_by73go']").val();
+	if(approv_by73go==1){
+		$("#approv_by73go").attr("checked",true);//打勾
+	}
+	
+	var emergency_booking = $("input:[name='emergency_booking']").val();
+	if(emergency_booking==1){
+		$("#emergency_booking").attr("checked",true);//打勾
+	}
+	
+	var f_class = $("input:[name='f_class']").val();
+	if(f_class==1){
+		$("#f_class").attr("checked",true);//打勾
+	}
+	
+	var b_class = $("input:[name='b_class']").val();
+	if(b_class==1){
+		$("#b_class").attr("checked",true);//打勾
+	}
+	
+	var e_class = $("input:[name='e_class']").val();
+	if(e_class==1){
+		$("#e_class").attr("checked",true);//打勾
+	}
+	
+	var soft_sleeper = $("input:[name='soft_sleeper']").val();
+	if(soft_sleeper==1){
+		$("#soft_sleeper").attr("checked",true);//打勾
+	}
+	var hard_sleeper = $("input:[name='hard_sleeper']").val();
+	if(hard_sleeper==1){
+		$("#hard_sleeper").attr("checked",true);//打勾
+	}
+	var high_train = $("input:[name='high_train']").val();
+	if(high_train==1){
+		$("#high_train").attr("checked",true);//打勾
+	}
+	var ht_b_class = $("input:[name='ht_b_class']").val();
+	if(ht_b_class==1){
+		$("#ht_b_class").attr("checked",true);//打勾
+	}
+	var ht_class_1 = $("input:[name='ht_class_1']").val();
+	if(ht_class_1==1){
+		$("#ht_class_1").attr("checked",true);//打勾
+	}
+	var ht_class_2 = $("input:[name='ht_class_2']").val();
+	if(ht_class_2==1){
+		$("#need_approval").attr("checked",true);//打勾
+	}
+	
+	var limit_hotel_price = $("input:[name='limit_hotel_price']").val();
+	if(limit_hotel_price==1){
+		$("#limit_hotel_price").attr("checked",true);//打勾
+	}
+	var limit_hotel_class = $("input:[name='limit_hotel_class']").val();
+	if(limit_hotel_class==1){
+		$("#limit_hotel_class").attr("checked",true);//打勾
+	}
+	var hotel_class_5 = $("input:[name='hotel_class_5']").val();
+	if(hotel_class_5==1){
+		$("#hotel_class_5").attr("checked",true);//打勾
+	}
+	var hotel_class_4 = $("input:[name='hotel_class_4']").val();
+	if(hotel_class_4==1){
+		$("#hotel_class_4").attr("checked",true);//打勾
+	}
+	var hotel_class_3 = $("input:[name='hotel_class_3']").val();
+	if(hotel_class_3==1){
+		$("#hotel_class_3").attr("checked",true);//打勾
+	}
+	var hotel_class_2 = $("input:[name='hotel_class_2']").val();
+	if(hotel_class_2==1){
+		$("#hotel_class_2").attr("checked",true);//打勾
+	}
+});
+
+</script>

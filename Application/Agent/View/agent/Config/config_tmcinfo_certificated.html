@@ -1,0 +1,734 @@
+
+  <div class="main_right">
+   	  <div class="r_hd">
+            <h3 class="r_tit">企业信息</h3>
+           <div class="r_hd_extra">
+              <a href="{:U('Config/config_tmcinfo_account')}">登录账户</a>
+              <a href="{:U('Config/showconfig_tmcinfo_basicinfo')}">企业信息</a><a href="{:U('Config/config_tmcinfo_certificated')}"  class="current">认证</a>
+            </div>
+    	</div>
+        
+        <!--进行判断 认证结果 如果为 0 未认证的时候-->
+        
+        <if condition="$result['cert_val'] eq 0">
+
+
+            <div class="BoxHeight mb_10"></div>
+            <div style=" line-height:40px;" class="tex_14">只有通过认证才能对外提供服务，请及时认证!
+            </div>
+            <form action="{:U('config/doconfig_tmcinfo_certificated')}" method="post" id="cert_btn">
+
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4">
+                    <tr>
+                        <td width="200"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="right">营业执照号</td>
+                        <td width="220px"><input name="license_no" type="text" class="text01 fl_left" placeholder="请填写营业执照"/></td>
+                        <td>
+                            <div id="runNumber1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_warn_x16"></i>营业执照号必须为15位数字
+                            </div>
+                            <div id="runNumber2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">营业执照申办时间<br/></td>
+                        <td><input id="license_date" name="license_date" type="text" class="text01 fl_left laydate-icon" placeholder="请填写申办时间" style="width: 218px;" readonly="readonly"/></td>
+                        <td>
+                            <div id="requireTime1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_warn_x16"></i>请填写营业执照申办时间
+                            </div>
+                            <div id="requireTime2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">营业执照有效期</td>
+                        <td><input id="license_period" name="license_period" type="text" class="text01 fl_left" placeholder="营业执照有效期:单位(年)" style="width: 228px;"/></td>
+                        <td>
+                            <div id="deadLine1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_warn_x16"></i>营业执照有效期为正整数
+                            </div>
+                            <div id="deadLine2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">法人</td>
+                        <td><input name="legal_name" type="text" class="text01 fl_left" placeholder="请填写法人名称"/></td>
+                        <td>
+                            <div id="fname1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_warn_x16"></i>法人名称不正确
+                            </div>
+                            <div id="fname2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">法人联系电话 <br/></td>
+                        <td><input name="legal_phone" type="text" class="text01 fl_left" placeholder="电话格式不正确"/></td>
+                        <td>
+                            <div id="tel1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_warn_x16"></i>电话格式不正确
+                            </div>
+                            <div id="tel2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">营业执照上传</td>
+                        <td>
+                            <input id="imgUpload" type="file" name="license_image" class="text01 h20 c_tx2"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">&nbsp;</td>
+                        <td><img src="images/nopic.jpg" id="previewImg" width="250" height="141" class="border_ddd"/></td>
+                    </tr>
+                    <tr>
+                        <td align="right">支付宝合作ID</td>
+                        <td><input name="alipay_partner_id" type="text" class="text01 fl_left" placeholder="请输入以2088开头的合作者ID"/></td>
+                        <td>
+                            <div id="partnerId1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_warn_x16"></i>支付宝合作ID不正确,
+                            </div>
+                            <div id="partnerId2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">支付宝账号</td>
+                        <td><input name="alipay_id" type="text" class="text01 fl_left" placeholder="请输入支付宝账号"/></td>
+                        <td>
+                            <div id="payId1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_warn_x16"></i>支付宝账号不正确
+                            </div>
+                            <div id="payId2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">RSA密钥</td>
+                        <td><input name="rsa_key" type="text" class="text01 fl_left" placeholder="请填写RSA密码"/></td>
+                        <td>
+                            <div id="rsaPass1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_warn_x16"></i>RSA密钥错误
+                            </div>
+                            <div id="rsaPass2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right">&nbsp;</td>
+                        <td><a id="approve_btn" href="javascript:void(0)" class="btn_sure mt_10">提交认证</a></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+
+            </form>
+
+  </div>
+	
+	<!--判断认证结果为1 或者2 的 已认证或者待认证的状态时候的页面-->
+	<elseif condition="($result['cert_val'] eq 1) or ($result['cert_val'] eq 2)  "/>
+	
+	 <div  class="BoxHeight" ></div>
+    <div class="btitle">
+        <h4>
+            <label for="check_button">
+                <input type="checkbox" name="checkbox2" id="check_button" />重新认证
+            </label>
+        </h4>
+      </div>
+      
+    <form action="{:U('config/doconfig_tmcinfo_certificated12')}"  method="post" id="cert_btn12">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4">
+      <tr>
+        <td width="200"></td>
+        <td>&nbsp;</td>
+      </tr>
+        <tr>
+            <td align="right">营业执照号</td>
+            <td width="220px"><input name="license_no" value="{$result.license_no}" type="text" class="text01 fl_left" placeholder="请填写营业执照" disabled/></td>
+            <td>
+                <div id="runNumber1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_warn_x16"></i>营业执照号必须为15位数字
+                </div>
+                <div id="runNumber2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">营业执照申办时间<br/></td>
+            <td><input id="license_date" name="license_date" type="text" value="{$result.license_date}" class="text01 fl_left laydate-icon" placeholder="请填写申办时间" style="width: 218px;background-color: #EBEBE4;" readonly="readonly" disabled/></td>
+            <td>
+                <div id="requireTime1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_warn_x16"></i>请填写营业执照申办时间
+                </div>
+                <div id="requireTime2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">营业执照有效期</td>
+            <td><input id="license_period" name="license_period" value="{$result.license_period}" type="text" class="text01 fl_left" placeholder="营业执照有效期:单位(年)" style="width: 228px;" disabled/></td>
+            <td>
+                <div id="deadLine1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_warn_x16"></i>营业执照有效期只能正整数
+                </div>
+                <div id="deadLine2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">法人</td>
+            <td><input name="legal_name" type="text" value="{$result.legal_name}" class="text01 fl_left" placeholder="请填写法人名称" disabled/></td>
+            <td>
+                <div id="fname1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_warn_x16"></i>法人名称不正确
+                </div>
+                <div id="fname2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+
+            <td align="right">法人联系电话 <br/></td>
+            <td><input name="legal_phone" type="text" class="text01 fl_left" value="{$result.legal_phone}" placeholder="电话格式不正确" disabled/></td>
+            <td>
+                <div id="tel1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_warn_x16"></i>电话格式不正确
+                </div>
+                <div id="tel2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+          <td align="right">营业执照上传</td>
+          <td>
+              <input id="imgUpload" type="file" name="license_image" class="text01 c_tx2" disabled/>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;</td>
+          <td>
+              <if condition="$result['license_image'] eq  ''">
+                  <img src="images/nopic.jpg" id="previewImg" width="250" height="141" class="border_ddd" />
+                  <else/>
+                  <img src="/Uploads/{$result.license_image}" id="previewImg" width="250" height="141" class="border_ddd" />
+              </if>
+
+          </td>
+        </tr>
+        <tr>
+            <td align="right">支付宝合作ID</td>
+            <td><input name="alipay_partner_id" type="text" class="text01 fl_left" value="{$datt.alipay_partner_id}" placeholder="请输入以2088开头的合作者ID" disabled/></td>
+            <td>
+                <div id="partnerId1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_warn_x16"></i>支付宝合作ID不正确
+                </div>
+                <div id="partnerId2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                    <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                </div>
+            </td>
+        </tr>
+       <tr>
+           <td align="right">支付宝账号</td>
+           <td><input name="alipay_id" type="text" class="text01 fl_left" value="{$datt.alipay_id}" placeholder="请输入支付宝账号" disabled/></td>
+           <td>
+               <div id="payId1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                   <i class="mod_tico_x16 mod_tico_warn_x16"></i>支付宝账号不正确
+               </div>
+               <div id="payId2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                   <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+               </div>
+           </td>
+      </tr>
+      <tr>
+
+          <td align="right">RSA密钥</td>
+          <td><input name="rsa_key" type="text" class="text01 fl_left" value="{$datt.rsa_key}" placeholder="请填写RSA密码" disabled/></td>
+          <td>
+              <div id="rsaPass1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                  <i class="mod_tico_x16 mod_tico_warn_x16"></i>RSA密钥错误
+              </div>
+              <div id="rsaPass2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                  <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+              </div>
+          </td>
+      </tr>
+        
+      <tr>
+        <td align="right">&nbsp;</td>
+        <td><input name="updateRequire" type="button" class="btn_sure mt_10" value="提交认证" disabled/></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    </form>
+  </div>
+  
+  <!--判断认证结果为 3 认证结果未通过的的页面-->
+  <elseif condition="$result['cert_val'] eq 3 "/>
+	
+	 <div  class="BoxHeight mb_10" ></div>
+        <div style=" line-height:40px;" class="tex_14">
+            很抱歉认证没有通过，请重新提交认证资料：
+        </div>
+  <form action="{:U('config/doconfig_tmcinfo_certificated3')}" method="post" id="cert_btn">
+
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4">
+          <tr>
+              <td width="200"></td>
+              <td>&nbsp;</td>
+          </tr>
+          <tr>
+              <td align="right">营业执照号</td>
+              <td width="220px"><input name="license_no" type="text" class="text01 fl_left" placeholder="请填写营业执照"/></td>
+              <td>
+                  <div id="runNumber1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_warn_x16"></i>营业执照号必须为15位数字
+                  </div>
+                  <div id="runNumber2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td align="right">营业执照申办时间<br/></td>
+              <td><input id="license_date" name="license_date" type="text" class="text01 fl_left laydate-icon" placeholder="请填写申办时间" style="width: 218px;" readonly="readonly"/></td>
+              <td>
+                  <div id="requireTime1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_warn_x16"></i>请填写营业执照申办时间
+                  </div>
+                  <div id="requireTime2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td align="right">营业执照有效期</td>
+              <td><input id="license_period" name="license_period" type="text" class="text01 fl_left" placeholder="营业执照有效期:单位(年)" style="width: 228px;"/></td>
+              <td>
+                  <div id="deadLine1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_warn_x16"></i>营业执照有效期为正整数
+                  </div>
+                  <div id="deadLine2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td align="right">法人</td>
+              <td><input name="legal_name" type="text" class="text01 fl_left" placeholder="请填写法人名称"/></td>
+              <td>
+                  <div id="fname1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_warn_x16"></i>法人名称不正确
+                  </div>
+                  <div id="fname2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td align="right">法人联系电话 <br/></td>
+              <td><input name="legal_phone" type="text" class="text01 fl_left" placeholder="电话格式不正确"/></td>
+              <td>
+                  <div id="tel1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_warn_x16"></i>电话格式不正确
+                  </div>
+                  <div id="tel2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td align="right">营业执照上传</td>
+              <td>
+                  <input id="imgUpload" type="file" name="license_image" class="text01 h20 c_tx2"/>
+              </td>
+          </tr>
+          <tr>
+              <td align="right">&nbsp;</td>
+              <td><img src="images/nopic.jpg" id="previewImg" width="250" height="141" class="border_ddd"/></td>
+          </tr>
+          <tr>
+              <td align="right">支付宝合作ID</td>
+              <td><input name="alipay_partner_id" type="text" class="text01 fl_left" value="{$datt.alipay_partner_id}" placeholder="请输入以2088开头的合作者ID" disabled/></td>
+              <td>
+                  <div id="partnerId1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_warn_x16"></i>支付宝合作ID不正确
+                  </div>
+                  <div id="partnerId2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td align="right">支付宝ID</td>
+              <td><input name="alipay_id" type="text" class="text01 fl_left" placeholder="支付宝ID不正确"/></td>
+              <td>
+                  <div id="payId1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_warn_x16"></i>支付宝ID不正确
+                  </div>
+                  <div id="payId2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td align="right">RSA密钥</td>
+              <td><input name="rsa_key" type="text" class="text01 fl_left" placeholder="请填写RSA密码"/></td>
+              <td>
+                  <div id="rsaPass1" class="mod_tips_inner mt_2 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_warn_x16"></i>RSA密钥错误
+                  </div>
+                  <div id="rsaPass2" class="mod_success_tips_inner mt_8 fl_left" style="display:none";>
+                      <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                  </div>
+              </td>
+          </tr>
+
+          <tr>
+              <td align="right">&nbsp;</td>
+              <td><a id="approve_btn" href="javascript:void(0)" class="btn_sure mt_10">提交认证</a></td>
+          </tr>
+          <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+          </tr>
+      </table>
+
+  </form>
+	</div>
+	
+	</if>
+	
+
+	
+    <div class="clear"></div>
+</div>
+
+  <script type="text/javascript">
+
+
+      $(function () {
+          var err1 = 0,err2 = 0,err3 = 0,err4 = 0,err5 = 0,err6 = 0,err7 = 0;
+          /*申请时间*/
+          var start = {
+              elem: '#license_date',
+              format: 'YYYY-MM-DD',
+              min: '1960-00-00 23:59:59', //设定最小日期为当前日期
+              max: '2099-06-16 23:59:59', //最大日期
+              istime: true,
+              istoday: false,
+              choose: function(datas){
+                  var license_date = $("input[name='license_date']") || '';
+                  if ( license_date.val() != '') {
+                      err2 = 1;
+                      license_date.removeClass('warning').parent('td').removeClass('warning');
+                      $('#requireTime1').css('display', 'none');
+                  }
+              }
+
+          };
+
+          laydate.skin('huanglv');
+          laydate(start);
+          /*营业执照验证*/
+          $("input[name='license_no']").blur(function () {
+              //6-20 数字 字母 下划线
+              var pattern = /^\d{15}$/i;
+              var userName = $(this).val() || '';
+              var _this = $(this);
+              if ( pattern.test(userName) ) {
+                  err1 = 1;
+                  _this.removeClass('warning').parent('td').removeClass('warning');
+                  $('#runNumber1').css('display', 'none');
+              } else {
+                  err1 = 0;
+                  _this.addClass('warning').parent('td').addClass('warning');
+                  $('#runNumber1').css('display', 'block');
+              }
+          });
+
+          /*有有效期*/
+          $("input[name='license_date']").blur(function () {
+
+              var pattern = /^(\d{4})-(\d{2})-(\d{2})$/;
+              var license_date = $(this).val() || '';
+              var _this = $(this);
+              if ( pattern.test(license_date) ) {
+                  err2 = 1;
+                  _this.removeClass('warning').parent('td').removeClass('warning');
+                  $('#requireTime1').css('display', 'none');
+              } else {
+                  err2 = 0;
+                  _this.addClass('warning').parent('td').addClass('warning');
+                  $('#requireTime1').css('display', 'block');
+              }
+          });
+
+
+          /*有有效期*/
+          $("input[name='license_period']").blur(function () {
+
+              var pattern = /^[0-9]*[0-9][0-9]*$/;
+              var license_period = $(this).val() || '';
+              var _this = $(this);
+              if ( pattern.test(license_period) && license_period.length<=2 ) {
+                  err3 = 1;
+                  _this.removeClass('warning').parent('td').removeClass('warning');
+                  $('#deadLine1').css('display', 'none');
+              } else {
+                  err3 = 0;
+                  _this.addClass('warning').parent('td').addClass('warning');
+                  $('#deadLine1').css('display', 'block');
+              }
+          });
+
+          /*法人名称验证*/
+          $("input[name='legal_name']").blur(function () {
+
+              var pattern = /^[\u4e00-\u9fa5]{2,10}$/gi;
+              var legal_name = $(this).val() || '';
+              var _this = $(this);
+              if ( pattern.test(legal_name) ) {
+                  err4 = 1;
+                  _this.removeClass('warning').parent('td').removeClass('warning');
+                  $('#fname1').css('display', 'none');
+              } else {
+                  err4 = 0;
+                  _this.addClass('warning').parent('td').addClass('warning');
+                  $('#fname1').css('display', 'block');
+              }
+          });
+
+          /*法人联系电话*/
+          $("input[name='legal_phone']").blur(function () {
+              var pattern = /^(\(\d{3,4}\)|\d{3,4}-)?\d{10,11}$/;
+              var legal_phone = $(this).val() || '';
+              var _this = $(this);
+              if ( pattern.test(legal_phone) ) {
+                  err5 = 1;
+                  _this.removeClass('warning').parent('td').removeClass('warning');
+                  $('#tel1').css('display', 'none');
+              } else {
+                  err5 = 0;
+                  _this.addClass('warning').parent('td').addClass('warning');
+                  $('#tel1').css('display', 'block');
+              }
+          });
+
+          $("#approve_btn").click(function () {
+              if(err1&&err2&&err3&&err4&&err5){
+                  swal({
+                      title: "温馨提示!",
+                      text: "您的认证信息已经提交成功!!!",
+                      type: "success",
+                      confirmButtonText: "关 闭"
+                  },function(){
+                      $("#cert_btn").submit();
+
+                  });
+
+
+              }else{
+                  swal({
+                      title: "温馨提示!",
+                      text: "您的认证信息提交失败!!!",
+                      type: "error",
+                      confirmButtonText: "关 闭"
+                  });
+              }
+          });
+				
+
+          $("#check_button").click(function () {
+              var result = this.checked || false;
+              if(result){
+                  $("#cert_btn12").find("input").removeAttr("disabled");
+                  $("input[name='license_no']").focus();
+                  $(".laydate-icon").css('background-color','#fff');
+                  err1=err2=err3=err4=err5=1;
+              }else{
+                  $("#cert_btn12").find("input").attr("disabled", true).removeClass("warning");
+                  $("#cert_btn12").find('td').removeClass("warning").find(".mt_2,.mt_8").css("display", "none");
+                  $(".laydate-icon").css('background-color','#EBEBE4');
+              }
+
+          });
+
+          $("input[name='updateRequire']").click(function(){
+              if(err1&&err2&&err3&&err4&&err5){
+                  swal({
+                      title: "温馨提示!",
+                      text: "您的认证信息已经提交成功!!!",
+                      type: "success",
+                      confirmButtonText: "关 闭"
+                  }, function () {
+                      $("#cert_btn12").submit();
+                  });
+
+              }else{
+                  swal({
+                      title: "温馨提示!",
+                      text: "您的认证信息提交失败!!!",
+                      type: "error",
+                      confirmButtonText: "关 闭"
+                  });
+              }
+
+          });
+
+          $("#approve_btn13").click(function () {
+              if(err1&&err2&&err3&&err4&&err5){
+                  swal({
+                      title: "温馨提示!",
+                      text: "您的认证信息已经提交成功!!!",
+                      type: "success",
+                      confirmButtonText: "关 闭"
+                  }, function () {
+                      $("#cert_btn3").submit();
+                  });
+
+              }else{
+                  swal({
+                      title: "温馨提示!",
+                      text: "您的认证信息提交失败!!!",
+                      type: "error",
+                      confirmButtonText: "关 闭"
+                  });
+              }
+          });
+
+          //上传头像
+          $("#imgUpload").change(function(){
+              var jphotofile = $("#imgUpload").val();
+              var jphotofileformat = jphotofile.substring(jphotofile.lastIndexOf('.')+1,jphotofile.length);
+              if(jphotofileformat.toLowerCase()=="jpg" || jphotofileformat.toLowerCase()=="jpeg" ||jphotofileformat.toLowerCase()=="png" ||jphotofileformat.toLowerCase()=="pjpeg"
+                      ||jphotofileformat.toLowerCase()=="gif" ||jphotofileformat.toLowerCase()=="bmp" ||jphotofileformat.toLowerCase()=="x-png"){
+                  var fileObj = document.getElementById("imgUpload").files[0]; // 获取文件
+                  //上传文件的大小
+                  var totalFileSize = fileObj.size;
+                  //上传文件的大小
+                  if(totalFileSize>2048000){
+                      $("#imgUpload").val("");
+                      swal({
+                          title: "温馨提示!",
+                          text: "图片大小不能超过2M!!",
+                          type: "info",
+                          confirmButtonText: "关 闭"
+                      });
+                      return;
+                  }
+                  //图片预览
+                  var oImage = document.getElementById('previewImg');
+                  var oReader = new FileReader();
+                  oReader.onload = function(e){
+                      oImage.src = e.target.result;
+                      oImage.onload = function(){};
+                  };
+                  oReader.readAsDataURL(fileObj);
+
+                  var FileController = "{:U('config/upload')}";                    // 接收上传文件的后台地址
+                  var form = new FormData();
+                  form.append("uploadFile", fileObj);                           // 文件对象
+                  var xhr = new XMLHttpRequest();								 // XMLHttpRequest 对象
+                  xhr.open("post", FileController, true);
+                  xhr.onload = function(data){ //头像上传成功执行函数
+                      if(xhr.readyState == 4 && xhr.status == 200){
+                          var result = xhr.responseText || '';
+                          if(result!=''){
+                              result = JSON.parse(result);
+                              if(result.code>0){
+                                  swal({
+                                      title: "温馨提示!",
+                                      text: result.info,
+                                      type: "success",
+                                      confirmButtonText: "关 闭"
+                                  });
+                              }else{
+                                  swal({
+                                      title: "温馨提示!",
+                                      text: result.info,
+                                      type: "info",
+                                      confirmButtonText: "关 闭"
+                                  });
+                              }
+
+                          }
+                      }else{
+                          swal({
+                              title: "温馨提示!",
+                              text: "上传错误!请重试....",
+                              type: "error",
+                              confirmButtonText: "关 闭"
+                          });
+                      }
+                  };
+                  xhr.send(form);
+              }else{
+                  $("#imgUpload").val("");
+                  swal({
+                      title: "温馨提示!",
+                      text: "图片格式不正确!!请上传jpg jpeg png pjpeg gif bmp x-png格式图片!!",
+                      type: "error",
+                      confirmButtonText: "关 闭"
+                  });
+              }
+          });
+          document.onkeydown = function(e){
+              var ev = document.all ? window.event : e;
+              if(ev.keyCode==13) {
+                  if(err1&&err2&&err3&&err4&&err5){
+                      var btn2 = $("#cert_btn12") || null;
+                      var btn3 = $("#cert_btn3") || null;
+                      var btn = $("#cert_btn") || null;
+                      if(btn){
+                          btn.submit();
+                      }
+                      if(btn2){
+                          $("#check_button").attr('checked', false);
+                          btn2.submit();
+                      }
+                      if(btn3){
+                          btn3.submit();
+                      }
+                  }else{
+                      swal({
+                          title: "温馨提示!",
+                          text: "申请失败!!!",
+                          type: "error",
+                          confirmButtonText: "关 闭"
+                      });
+                  }
+              }
+          };
+      });
+  </script>
+
+
+

@@ -1,0 +1,99 @@
+ <div class="main_right">
+   	 <div class="r_hd">
+            <h3 class="r_tit">部门和员工信息管理</h3>
+            <div class="r_hd_extra"> <a href="{:U('DepartmentStaff/ExeclDepartment')}" class="current">导入部门</a>
+            <a href="{:U('DepartmentStaff/ExeclStaff')}">导入员工</a> </div>
+    </div>
+        
+    <div  class="BoxHeight mb_10" ></div>
+     <div class="mt_10 tex_14"><a href="__ROOT__/Public/busitemp/{:urlencode('部门数据模板')}.xls" class="tex_blue fl_right">模板下载</a></div>
+      <div class="clear"></div>
+ 
+ <form method="post" action="{:U('BranchExcel/runexcel')}" enctype="multipart/form-data">
+    <div class="mt_10"><span class="fl_left">部门信息文档：
+	    <input type="file" class="btn_b5 ml_5" name="file_stu" onchange="fileBarchan();" /></span>
+	    <span class="mod_tips_inner"><i class="mod_tico_x16 mod_tico_warn_x16"></i>只支持 Excel98~2003格式文档（*.xls)</span>
+    </div>
+    <div class="text_cent"><input type="submit" id="fileUpload" style="display:none;"/></div>
+ </form>
+  <div class="clear"></div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab" style="border:1px solid #ddd;">
+      <tr>
+          <th width="8%">&nbsp;</th>
+          <th>一级部门</th>
+          <th>二级部门</th>
+          <th>三级部门</th>
+          <th>四级部门</th>
+          <th>五级部门</th>
+      </tr>
+       <if condition ="$bar == '' ">
+	      <tr> 
+	          <td style="height:140px; font-size:18px; color:#999;" colspan="6">暂无数据</td>
+	      </tr>	
+      </if>
+       <volist name="bar" id="b">
+      		<if condition="$b.name == 1 ">
+		        <tr class="excelLst" data-lst="first:'{$b[0]}',second:'{$b[1]}',third:'{$b[2]}',four:'{$b[3]}',five:'{$b[4]}'">
+		          <td><i class="mod_tico_x16 mod_tico_succ_x16"></i></td>
+		          <td>{$b[0]}</td>
+		          <td>{$b[1]}</td>
+		          <td>{$b[2]}</td>
+		          <td>{$b[3]}</td>
+		          <td>{$b[4]}</td>
+		        </tr>
+	    	<else />
+	    		<tr>
+		          <td><i class="mod_tico_x16 mod_tico_warn_x16"></i></td>
+		          <td>{$b[0]}</td>
+		          <td>{$b[1]}</td>
+		          <td>{$b[2]}</td>
+		          <td>{$b[3]}</td>
+		          <td>{$b[4]}</td>
+		        </tr>
+		        </if>
+        </volist>
+ </table>
+      <div class="text_cent"><input type="button" name="import" class ="btn_sure btn-sure1" value="导入"/></div>
+</div>
+<div class="clear"></div>
+<script language="javascript"><!--
+	//上传部门execl事件
+	function fileBarchan(){
+		$('#fileUpload').click();
+	}
+	$(function(){
+		$("input[name='import']").click(function(){
+			var serverData = {};
+			var obj = [];			
+			$('.excelLst').each(function(){
+				var str = $(this).data('lst');
+				str = eval('({'+str+'})');
+				obj.push(str);			
+			});					
+			serverData.list = obj; /*这是给serverData对象添加了一个属性并赋值为一个obj对象数组*/
+			$.ajax({
+				url: "{:U('DepartmentStaff/addExeclDepartment')}",
+				data: serverData,
+				type: 'POST',
+				success: function(reuslt){
+					if(reuslt){
+						swal({
+							title: "温馨提示!",
+							text: "导入部门信息成功!!!",
+							type: "success",
+							confirmButtonText: "关 闭"
+						});
+					}else{
+						swal({
+							title: "温馨提示!",
+							text: "导入部门信息失败!",
+							type: "error",
+							confirmButtonText: "关 闭"
+						});
+					}
+
+				}
+			});
+		});
+	});
+--></script>

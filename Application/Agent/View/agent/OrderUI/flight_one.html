@@ -1,0 +1,34 @@
+<div class="mb_10 sz73go_flight" >
+  <div class="order_tit">单程 PNR：
+    <input name="pnr" type="text" class="text01 c_tx2 w80 h20" value="">
+    <a
+	href="javascript:void(0)" class="fl_right tex_blue sz73go_remove_element sz73go_editing_l0">删除</a><a
+	class="a_buy_b tex_12 sz73go_addensure">添加保险</a></div>
+  <table border="0" cellpadding="0" width="100%" class="table_fund bg_tab">
+    <thead>
+      <tr style="background-color: #f1f1f1;">
+        <th>出发日期</th>
+        <th>航班号</th>
+        <th>仓位</th>
+        <th>出发</th>
+        <th>到达</th>
+        <th>票价</th>
+        <th>燃油附加费</th>
+        <th>机场建设费</th>
+        <th>机票税</th>
+        <th>服务费</th>
+        <th>允许退改签</th>
+      </tr>
+    </thead>
+    <tbody>
+      <include file="__PUBLIC__/../Application/Agent/View/agent/OrderUI/flight_rec.html" />
+    </tbody>
+  </table>
+  <div class="pa_15 re_bg"><strong>退改签政策：</strong></div>
+  <div class="pa_15"><input type="text" value="" name="refund_policy" style="width: 100%; border: 1px #fff solid;"></div>
+  <div class="pa_15 re_bg"><strong>备注信息：</strong></div>
+  <div class="pa_15"><input type="text" value="" name="tmc_note" style="width: 100%; border: 1px #fff solid;"></div>
+  <div class="clear"></div>
+<input type="hidden" name="kind" value="1"/>
+</div>
+  <div class="sz73go_flightensure"></div>

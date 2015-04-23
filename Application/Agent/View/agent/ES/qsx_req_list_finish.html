@@ -1,0 +1,251 @@
+
+  <div class="main_right xxzx_list">
+   	  <div class="r_hd">
+            <h3 class="r_tit">轻松行已处理完列表</h3>
+            
+   	</div>
+    <div  class="BoxHeight mt_10" ></div>
+    
+    <p>搜索：
+      <a href="{:U('ES/qsx_req_list_finish')}?bygrp=1" class="btn_b5 ml_5" >同组人接的单</a>
+   	  <a href="{:U('ES/qsx_req_list_finish')}?bygrp=2" class="btn_b5 ml_5" >我接的单</a>
+      <!--<input type="submit" value="同组人接的单" class="btn_b5 ml_5" onclick="choose('team')" />
+      <input type="submit" value="我接的单" class="btn_b5 ml_5" onclick="choose('me')" />
+    -->
+    </p>
+    <div  class="BoxHeight mt_10" ></div>
+     <foreach name="reqList" item="req">
+     <div class="contTwo" id="div_req">
+     	 <dl>
+     	 <if condition="$req.voice_text  neq null  "> {$req.voice_text}<br/>{$req.emp_name} </if>
+    	<if condition="$req.voice_text  eq null  "> 
+				<dt>
+				  <h4>需求单号：<br />{$req.qsx_rq_no}</h4><br />
+				  <h4>接单人：<br />{$req.name}</h4><br />
+				  <h4>{$req.rec_time|substr=###,0,10}</h4>
+				  <h3>{$req.rec_time|substr=###,10,6}</h3>
+				</dt>
+				<dd>
+				  <h3><strong class="ml_16">{$req.from_city}——{$req.to_city}</strong></h3>
+				  <p>
+				  <if condition="$req.tr_no neq '' "> 
+				  TR号：{$req.tr_no} 
+				  </if>
+				  <if condition="$datt.emergency_booking eq 1">
+                    <td><input type="checkbox" id="choose_btn"/>&nbsp;
+                   		     /这是紧急预订
+                    </td>
+                    <else/>
+                    <td>&nbsp;</td>
+                 </if>
+				  
+				  
+				  
+				   <strong class=" ml_25">{$req.short_name} </strong> &nbsp;{$req.emp_name} 
+				  
+				  	<if condition='$req.vip_level ==1'>
+				  		<em class="vip_8">VIP1</em>
+				   <elseif condition='$req.vip_level ==2'/><em class="vip_8">VIP2</em>
+				   </if><br />
+				   出发时间：{$req.leave_date} <br />
+				 <if condition="$req.back_date neq '0000-00-00' ">  
+				   返回时间：{$req.back_date}<br />	
+				 </if></p>            
+			     <!--  选择的服务： </p>
+				  <div class="news_mod_form_cnt dt_time01 dt_time_xz"> 
+				  <if condition="$req.flight ==1 "><a class="current2" href="javascript:void(0);">机票</a> </if>
+				  <if condition="$req.hotel ==1 "><a class="current2" href="javascript:void(0);">酒店</a></if>
+				  <if condition="$req.train ==1 "> <a class="current2" href="javascript:void(0);">火车票</a></if>
+				  <if condition="$req.car ==1 "><a class="current2" href="javascript:void(0);">租车</a></if>
+				  <if condition="$req.visa ==1 "><a class="current2" href="javascript:void(0);">接送</a></if>
+				  <if condition="$req.transp ==1 "> <a class="current2" href="javascript:void(0);">签证</a></if> 
+				  <if condition="$req.other ==1 "> <a class="current2" href="javascript:void(0);">其他</a> </if>
+				  </div> -->
+				  <div class="clear"></div>
+				  <br />
+				  <div class="max_h500">
+				  <!-- <if condition="$req.flight ==1 ">
+				   	【机票】
+				    {$req.flight_content} <br />
+				    <br /></if>
+				   <if condition="$req.hotel ==1 ">
+					【酒店】 
+				    {$req.hotel_content}<br />
+				   <br /></if>
+				  <if condition="$req.train ==1 "> 
+					【火车票】
+				    {$req.train_content}<br />
+				    <br /></if>
+				  <if condition="$req.car ==1 ">
+					【租车】
+				    {$req.car_content}<br />
+				   <br /> </if>
+				  <if condition="$req.visa ==1 ">
+					【接送】 
+				    {$req.visa_content}<br />
+				   <br /></if>
+				  <if condition="$req.transp ==1 "> 
+					【签证】
+				    {$req.transp_content}<br />
+				    <br /></if>
+				  <if condition="$req.other ==1 ">  -->
+					<em class="tex_14">【具体需求】</em>
+				    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$req.other_content}</p>
+				 <!-- </if> -->
+				  
+			      </div>
+	    </dd>
+	    </if>
+		<span>
+			<h4>已提交方案数</h4>
+         <h3><a href="{:U('ES/preAddScheme',array('id'=>$req['tqrid']))}" class="fl_right" >{$req.num}</a></h3><br/>
+           <if condition="$req.rec_status == 0"><p class="fl_right">未接单</p> </if>
+           <if condition="$req.sol_status == 2"><p class="fl_right">未被用户选择</p>
+           <elseif condition="$req.sol_status == 1"/><p class="fl_right">已被用户选择</p>
+           </if>
+
+		</span>
+		</dl>
+		</if>
+		</div>
+		</foreach>
+		<!-- 分页的样式 和数量的显现  开始-->
+            <div class="meneame">
+		    {$Page}
+		    </div></p>
+             </div>
+        	 <style>
+			/*css meneame style pagination*/
+			div.meneame{padding:3px;font-size:80%;margin:3px;color:#ff6500;text-align:center;}
+			div.meneame a{border:#ff9600 1px solid;padding:5px 7px;background-position:50% bottom;background-image:url(../images/meneame.jpg);margin:0 3px 0 0;text-decoration:none;}
+			div.meneame a:hover{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame a:active{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame span.current{border:#ff6500 1px solid;padding:5px 7px;font-weight:bold;color:#ff6500;margin:0 3px 0 0;background-color:#ffbe94;}
+			div.meneame span.disabled{border:#ffe3c6 1px solid;padding:5px 7px;color:#ffe3c6;margin:0 3px 0 0;}
+			</style>
+      
+      
+       </div>
+          <!-- 查询相关的记录完毕 -->
+          
+    <!--<div class="contTwo">
+      <dl>
+				<dt>
+                <h4>需求单号： 100000057</h4><br />
+				    <br />
+				  <h4>2014/01/12</h4>
+				  <h3>22:22</h3>
+                  <em class="tex_blue">取消</em>
+				</dt>
+				<dd>
+				  <h3><strong class="ml_16">上海——南京</strong></h3>
+				  <p>TR号：123456789 / 紧急预订 <strong class=" ml_25">Xx公司（简称）</strong>杨某某 <em class="a_buy_c tex_12">VIP1</em><br />
+				    出发时间：2014-10-10 <br />
+				    起飞的时段：早上（9:00-11:00）<br />
+			      选择的服务： </p>
+				  <div class="news_mod_form_cnt dt_time01 dt_time_xz"> <a class="current2" href="#">机票</a> <a href="#">酒店</a><a href="#">火车</a><a href="#">租车</a><a href="#">接送</a><a href="#">签证</a> </div>
+				  <div class="clear"></div>
+				  <br />
+				  <div class="max_h500">【机票】
+				    这里显示机票的详细需求内容，整体上要求缩进2个字，如果没有关于机票的具体需求，则不显示这段文字 <br />
+				    <br />
+				    【酒店】
+				    这里显示酒店的详细需求内容<br />
+				    <br />
+				    【火车票】
+				    这里显示火车票的详细需求内容<br />
+				    <br />
+				    【机票】
+				    这里显示机票的详细需求内容，整体上要求缩进2个字，如果没有关于机票的具体需求，则不显示这段文字 <br />
+				    <br />
+				    【酒店】
+				    这里显示酒店的详细需求内容<br />
+				    <br />
+				    【火车票】
+				    这里显示火车票的详细需求内容<br />
+				    <br />
+				    【机票】
+				    这里显示机票的详细overflow:auto 需求内容，整体上要求缩进2个字，如果没有关于机票的具体需求，则不显示这段文字 <br />
+				    <br />
+				    【酒店】
+				    这里显示酒店的详细需求内容<br />
+				    <br />
+				    【火车票】
+				    这里显示火车票的详细需求内容<br />
+				    <br />
+				    【火车票】
+				    这里显示火车票的详细需求内容 <br />
+			      </div>
+	    </dd>
+		<span class="acronym_mt_yq">
+			<h4>已提交方案数</h4>
+        <h3><a href="order_1.html" class="fl_right">3</a></h3><br/>
+            <p class="fl_right">未被用户选择</p>
+		
+		</span>
+		</dl>
+<dl>
+		  <dt>
+          <h4>需求单号： 100000057</h4><br />
+				    <br />
+					<h4>2014/01/12</h4>
+					<h3>22:22</h3>
+                    <em class="tex_blue">取消</em>
+	    </dt>
+			  <dd>
+			    <h3><strong class="ml_16">上海——南京</strong></h3>
+			    <p> TR号：123456789 / 紧急预订 <strong class=" ml_25">Xx公司（简称）</strong>杨某某 <em class="a_buy_c tex_12">VIP2</em><br />
+                出发时间：2014-10-10 <br />
+			      起飞的时段：早上（9:00-11:00）<br />
+			      选择的服务： </p>
+			    <div class="news_mod_form_cnt dt_time01 dt_time_xz"> <a class="current2" href="#">机票</a> <a href="#">酒店</a><a href="#">火车</a><a href="#">租车</a><a href="#">接送</a><a href="#">签证</a> </div>
+			    <div class="clear"></div>
+			    <br />
+			    <div class="max_h500">【机票】
+			      这里显示机票的详细需求内容，整体上要求缩进2个字，如果没有关于机票的具体需求，则不显示这段文字 <br />
+			      <br />
+			      【酒店】
+			      这里显示酒店的详细需求内容<br />
+			      <br />
+			      【火车票】
+			      这里显示火车票的详细需求内容<br />
+			      <br />
+			      【机票】
+			      这里显示机票的详细需求内容，整体上要求缩进2个字，如果没有关于机票的具体需求，则不显示这段文字 <br />
+			      <br />
+			      【酒店】
+			      这里显示酒店的详细需求内容<br />
+			      <br />
+			      【火车票】
+			      这里显示火车票的详细需求内容<br />
+			      <br />
+			      【机票】
+			      这里显示机票的详细overflow:auto 需求内容，整体上要求缩进2个字，如果没有关于机票的具体需求，则不显示这段文字 <br />
+			      <br />
+			      【酒店】
+			      这里显示酒店的详细需求内容<br />
+			      <br />
+			      【火车票】
+			      这里显示火车票的详细需求内容<br />
+			      <br />
+			      【火车票】
+			      这里显示火车票的详细需求内容 <br />
+		        </div>
+	    </dd>
+			  <span>
+            <span>
+			<p class="tex_O text1_yq">未接单</p>
+		   
+		</span>
+	  </dl>
+		
+                    --><div class="clear"></div><br />
+                    
+</div>
+    
+<div>
+</div>
+  </div>
+    <div class="clear"></div>
+
+

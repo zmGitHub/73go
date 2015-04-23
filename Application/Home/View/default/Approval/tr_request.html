@@ -1,0 +1,462 @@
+<script type="text/javascript" src="__ROOT__/Public/js/searchPlugin/dataPicker/laydate.dev.js"
+        charset="utf-8"></script><!--时间插件-->
+
+<div class="main_right">
+    <div class="r_hd">
+        <h3 class="r_tit">出差申请</h3>
+        <if condition="$travel.without_app eq '1'">
+        <label align="right" >根据贵公司差旅政策，您预定机票不需要填写出差申请</label>
+        </if>
+    </div>
+    <form id="frmSaveRoad" name="frmSaveRoad" method="post"
+          action="{$posturl}">
+        <div class="BoxHeight mb_10"></div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+            <tr>
+                <td width="140" align="right">申请人</td>
+                <td><input name="username" type="text" class="text01 c_tx2" value="{$name}" {:LI('userName')==""?'':'disabled'}>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div style="margin-left: 95px;">
+                        常用旅客 <label for="usal_user"><input name="usal_user" id="usal_user" type="checkbox"  value="{$userinfo[0][name]}"/>{$userinfo[0][name]}</label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right">出差人员</td>
+                <td>
+                    <input name="tr_user" id="tr_user" type="text" class="text01 c_tx2 text001" value="{$val.tr_name}"
+                           placeholder="请添加出差人员..." style="color: rgb(0, 0, 0);"/>
+                    <input name="search_tr_user" type="button" data-exc_id="[]" value="搜索" onclick="staff_pop(getBusInfo,'{:U('home/pop/find_user')}',false,false,false,this)"
+                           class="btn_b5 ml_5 btn_b6"/>
+
+                    <div id="usermsg1" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>出差人员不能为空
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">出差时间</td>
+                <td>
+                    <input name="leave_date" type="text" value="{$val.leave_date}"
+                           class="text01 c_tx2 w87 h20 fl_left laydate-icon" style="float: left ;color: rgb(0, 0, 0);" id="leave_date"
+                           placeholder="开始时间"/>
+                    <span class="date_jg2 fl_left">一</span>
+                    <input name="back_date" type="text" value="{$val.back_date}"
+                           class="text01 c_tx2 w87 h20 fl_left laydate-icon" id="back_date" placeholder="结束时间" style="color: rgb(0, 0, 0);"/>
+                    <div id="goTime" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>出差时间不完善
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">费用预算</td>
+                <td><span class="tex_blue">
+              </span>
+                    <input name="cost" type="text" class="text01 fl_left" value="{$val.cost}" placeholder="请填写费用预算..." style="color: rgb(0, 0, 0);"/><span class="fl_left" style="line-height: 30px">&nbsp;&nbsp;元</span>
+                    <div id="preMoney" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>费用只能为正整数
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">出差事由</td>
+                <td>
+                    <span>
+                        <textarea name="description" rows="5" class="text02" style="width:420px;height:120px;"
+                                  placeholder="请填写出差事由..." style="color: rgb(0, 0, 0);">{$description}</textarea>
+                    </span>
+
+            </tr>
+            <if condition="$travel.without_app eq '0'">
+            <tr>
+                <td align="right" valign="top"><span class="pt_8">审批人</span>
+                </td>
+                <td><span class="tex_blue">
+            </span>
+                    <input type="hidden" name="approval_id" value="">
+                    <input name="approval_name" type="text" class="text03 text001" placeholder="姓名"  style="color: rgb(0, 0, 0);" value="{$val.name}"
+                           disabled/>
+                    <input name="approval_phone" type="text" class="text04 text001" placeholder="手机号" style="color: rgb(0, 0, 0);"
+                           value="{$val.phone}" disabled/>
+                    <input name="approval_email" type="text" class="text04 text001" placeholder="电子邮箱" style="color: rgb(0, 0, 0);"
+                           value="{$val.email}" disabled/>
+                    <input type="button" value="搜索" onclick="staff_pop(getExamInfo,'{:U('home/pop/find_user')}',true)"
+                           class="btn_b5 ml_5 btn_b6"/>
+
+                    <div class="mod_tips_inner mt_2 fl_left" id='msg1' style="display:none"><i
+                            class="mod_tico_x16 mod_tico_warn_x16"></i>请填写审批人
+                    </div>
+                </td>
+                </tr>
+            </if>
+                <td align="right" valign="top"><span class="pt_8">知会人</span><br/>
+                </td>
+                <td>
+                    <span><input name="not_name" type="text" class="text03 text001" placeholder="姓名" style="color: rgb(0, 0, 0);"/></span>
+                   <span><input name="not_phone" type="text" class="text04 text001" placeholder="手机号" style="color: rgb(0, 0, 0);"/></span>
+                   <span><input name="not_email" type="text" class="text04 text001" placeholder="电子邮箱" style="color: rgb(0, 0, 0);"/></span>
+                   <span><input type="button" value="添加" id="add" class="btn_b5 ml_5 btn_b6"/></span>
+                   <span><input type="button" value="搜索" name="search_not_user" data-exc_id="[]" onclick="staff_pop(getNotInfos,'{:U('home/pop/find_user')}',false,false,false,this)"
+                           class="btn_b5 ml_5 btn_b6"/></span>
+                    <table width="80%" border="0" cellpadding="0" cellspacing="0" id="orderUser" class=" table_fund2">
+                        <volist name="notifiers" id="notifier">
+                            <tr>
+                                <td width="24%" align="left"><input name="not_name[]" type="hidden"
+                                                                    value="{$notifier.name}"/>{$notifier.name}
+                                </td>
+                                <td width="34%" align="left"><input name="not_phone[]" type="hidden"
+                                                                    value="{$notifier.phone}"/>{$notifier.phone}
+                                </td>
+                                <td width="34%" align="left"><input name="not_email[]" type="hidden"
+                                                                    value="{$notifier.email}"/>{$notifier.email}
+                                </td>
+                                <td align="left" class="tex_blue"><a href="javascript:void(this);"
+                                                                     onclick="delRow(this)">删除</a></td>
+                            </tr>
+                        </volist>
+
+                    </table>
+                    <p>&nbsp; </p>
+
+
+                </td>
+            </tr>
+
+        </table>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+            <tr>
+                <td width="90%">&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"><a href="javascript:void(0)" id="btnSaveRoad" class="btn_sure">提交</a>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 表单的控件js -->
+        <div id="jsContainer" class="jsContainer" style="height:0">
+            <div id="tuna_alert" style="display:none;position:absolute;z-index:999;overflow:hidden;"></div>
+            <div id="tuna_jmpinfo" style="visibility:hidden;position:absolute;z-index:120;"></div>
+        </div>
+    </form>
+
+</div>
+</div>
+</form>
+
+<div class="clear"></div>
+<include file="Home@Public:staff_pop"/>
+<script>
+    var count= 0;
+    function getBusInfo(lst) {
+        var str = $(":input[name=tr_user]").val();
+        var arr=new Array();
+        var a=0;
+        arr=str.split(',');
+        arr.splice(arr.length,1);
+        for(var i = 0; i < lst.length; i++){
+            var flag = true;
+            for (var j= 0;j<arr.length;j++) {
+                if(arr[j]==lst[i].name){
+                    lst.splice(i,1);
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag){
+                str=str+lst[i].name+",";
+            }
+        }
+
+        $("input[name='tr_user']").val(str);
+    }
+
+    function getExamInfo(lst) {
+        var notinfo = lst[0];
+        $("input[name='approval_id']").val(notinfo['u_id']);
+        $("input[name='approval_name']").val(notinfo['name']);
+        $("input[name='approval_phone']").val(notinfo['phone']);
+        $("input[name='approval_email']").val(notinfo['email']);
+    }
+
+    function getNotInfo(lst) {
+        var notinfo = lst[0];
+        $("input[name='not_name']").val(notinfo['name']);
+        $("input[name='not_phone']").val(notinfo['phone']);
+        $("input[name='not_email']").val(notinfo['email']);
+    }
+
+    function checkDate(){
+        var leave_date = $("input[name='leave_date']").val() || '';
+        var back_date = $("input[name='back_date']").val() || '';
+        if(leave_date==''){
+            $('#goTime').css('display', 'block');
+        }else{
+            $('#goTime').css('display', 'none');
+            $('#back_date').focus();
+        }
+        //填写结束时间才会有警告判断 dx 15-3-25
+        $('#back_date').bind('blur',function(){
+            if(back_date==''){
+                $('#goTime').css('display', 'block');
+            }else{
+                $('#goTime').css('display', 'none');
+                $('#back_date').blur();
+            }
+        });
+    }
+
+    var start = {
+        elem: '#leave_date',
+        format: 'YYYY-MM-DD',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+            checkDate();
+        }
+    };
+    var end = {
+        elem: '#back_date',
+        format: 'YYYY-MM-DD',
+        min: laydate.now(),
+        max: '2099-06-16',
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+            checkDate();
+        }
+    };
+    laydate.skin('huanglv');
+    laydate(start);
+    laydate(end);
+
+$(function () {
+    /*费用预算 */
+    var not_name= 0,not_phone= 0,not_email =0;
+    $("input[name='cost']").blur(function () {
+        var pattern = /^[\d||\d+(\.\d+)]{1,32}$/;
+        var preMoney = $(this).val() || '';
+        var _this = $(this);
+        if ( pattern.test(preMoney)) {
+            _this.removeClass('warning').parent("td").removeClass('warning');
+            $('#preMoney').css('display', 'none');
+        } else {
+            _this.addClass('warning').parent("td").addClass('warning');
+            $('#preMoney').css('display', 'block');
+        }
+    });
+
+
+    $("textarea[name='description']").blur(function () {
+        var preMoney = $(this).val() || '';
+        var _this = $(this);
+        if (preMoney!='') {
+            _this.removeClass('warning').parent("span").removeClass('warning');
+        } else {
+            _this.addClass('warning').parent("span").addClass('warning');
+        }
+    });
+
+    /**
+     *知会人验证
+     */
+
+    /**
+     * 姓名验证
+     */
+    $("input[name='not_name']").blur(function () {
+        //2-20 汉字 数字 字母 下划线
+        var pattern = /([\u4E00-\u9FA5]{1,7})|([a-zA-Z]{1,10})/;
+        var userName = $(this).val() || '';
+        var _this = $(this);
+        if ( pattern.test(userName) ) {
+            not_name = 1;
+            _this.removeClass('warning').parent('span').removeClass('warning');
+        } else {
+            not_name = 0;
+            _this.addClass('warning').parent('span').addClass('warning');
+        }
+    });
+    /**
+     *知会人电话验证
+     */
+    $("input[name='not_phone']").blur(function () {
+        //2-20 汉字 数字 字母 下划线
+        var userName = $(this).val() || '';
+        var _this = $(this);
+        if ( userName.length>5 && userName.length<25 ) {
+            not_phone = 1;
+            _this.removeClass('warning').parent('span').removeClass('warning');
+        } else {
+            not_phone = 0;
+            _this.addClass('warning').parent('span').addClass('warning');
+        }
+    });
+    //出差人员添加删除
+    $("#usal_user").click(function(){
+        var m = 0;
+        var res = this.checked;
+        var newstr="";
+        if ( res){
+            var str=$("#tr_user").val();
+            var arr=new Array();
+            arr=str.split(',');
+            for(var i=0;i<arr.length-1;i++){
+                if(arr[i]==$(this).val()){
+                    break;
+                }
+            }
+            m = str + $(this).val()+",";
+            $("#tr_user").val(m);
+        } else{
+            var str=$("#tr_user").val();
+            var arr=new Array();
+            arr=str.split(',');
+            arr.splice(arr.length-1,1);
+            for(var i=0;i<arr.length;i++){
+                if(arr[i]==$(this).val()){
+                    arr.splice(i,1);
+                    continue;
+                }
+                newstr = newstr+arr[i]+",";
+            }
+            $("#tr_user").val(newstr);
+        }
+    });
+    /**
+     *知会人电子邮箱验证
+     */
+    $("input[name='not_email']").blur(function () {
+        var pattern = /^(?:\w+\.?)*\w+@(?:\w+\.)*\w+$/;
+        var userName = $(this).val() || '';
+        var _this = $(this);
+        if ( pattern.test(userName) ) {
+            not_email = 1;
+            _this.removeClass('warning').parent('span').removeClass('warning');
+        } else {
+            not_email = 0;
+            _this.addClass('warning').parent('span').addClass('warning');
+        }
+    });
+
+
+
+    $("#add").click(function () {
+        var name = $("input[name='not_name']").val();
+        var phone = $("input[name='not_phone']").val();
+        var email = $("input[name='not_email']").val();
+
+        if (!not_name) {
+            $("input[name='not_name']").focus();
+            swal({
+                title: "温馨提示!",
+                text: "请填知会人姓名!!",
+                type: "info",
+                confirmButtonText: "关 闭",
+                timer: 3000
+            });
+            return;
+        }
+        if (!not_phone) {
+            $("input[name='not_phone']").focus();
+            swal({
+                title: "温馨提示!",
+                text: "请填写知会人手机号码!!",
+                type: "info",
+                confirmButtonText: "关 闭",
+                timer: 3000
+            });
+            return;
+        }
+        if (!not_email) {
+            $("input[name='not_email']").focus();
+            swal({
+                title: "温馨提示!",
+                text: "请填写乘机人邮箱号码!!",
+                type: "info",
+                confirmButtonText: "关 闭",
+                timer: 3000
+            });
+            return;
+        }
+        if (not_name && not_phone && not_phone) {
+            var html = $('#orderUser').html();
+            html += '<tr><td width="24%" align="left"><input name="not_name[]" type="hidden"  value="' + name + '" />' + name + '</td><td width="34%" align="left"><input name="not_phone[]" type="hidden"  value="' + phone + '" />' + phone + '</td><td width="34%" align="left"><input name="not_email[]" type="hidden"  value="' + email + '" />' + email + '</td><td align="left" class="tex_blue"><a href="javascript:void(this);" onclick="delRow(this)">删除</a></td></tr>';
+            $('#orderUser').html(html);
+            $("input[name='not_name']").val('');
+            $("input[name='not_phone']").val('');
+            $("input[name='not_email']").val('');
+        }
+    });
+
+
+    $("#btnSaveRoad").click(function () {
+        var name = $("input[name='approval_name']").val() || '';
+        var tr_user = $("input[name='tr_user']").val() || '';
+        var leave_date = $("input[name='leave_date']").val() || '';
+        var back_date = $("input[name='back_date']").val() || '';
+        var preMoney = $("input[name='cost']").val() || '';
+        if(tr_user == ''){
+            $('#usermsg1').css('display', 'block');
+            return;
+        }
+        if (leave_date == '' || back_date == '') {
+            $('#goTime').css('display', 'block');
+            return;
+        }
+        if(preMoney == ''){
+            $('#preMoney').css('display', 'block');
+            return;
+        }
+        //if (name == '') {
+        //     $('#msg1').css('display', 'block');
+        //     return;
+        //}
+        swal({
+            title: "温馨提示!",
+            text: "操作成功!!",
+            type: "success",
+            confirmButtonText: "关 闭",
+            timer: 3000
+        }, function () {
+            $("#frmSaveRoad").submit();
+        });
+
+    });
+});
+
+
+    //--------进行知会人的相关处理-----------------------
+
+    function getNotInfos(lst) {
+        var html = $('#orderUser').html();
+        var str = "";
+        for (var i = 0, len = lst.length; i < len; i++) {
+            html += '<tr><td width="24%" align="left"><input name="not_name[]" type="hidden"  value="' + lst[i].name + '" />' + lst[i].name + '</td><td width="34%" align="left"><input name="not_phone[]" type="hidden"  value="' + lst[i].phone + '" />' + lst[i].phone + '</td><td width="34%" align="left"><input name="not_email[]" type="hidden"  value="' + lst[i].email + '" />' + lst[i].email + '</td><td align="left" class="tex_blue"><a href="javascript:void(this);" onclick="delRow(this)">删除</a></td></tr>';
+            //str+=lst[i].name+',';
+        }
+        $('#orderUser').html(html);
+        //$("input[name='not_user']").val(str);
+    }
+
+    function delRow(row) {
+        $(row).parent().parent().remove();
+    }
+
+
+</script>
+
+
+
+
+
+

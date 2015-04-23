@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/Agent/" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>TMC注册</title>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+<link href="../js/sweetAlert/css/sweet-alert.css" rel="stylesheet" type="text/css"/>
+<link rel="shortcut icon" href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/favicon.ico" />
+<script src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="{:U('Home/Resource/jsBase')}"></script>
+	<script src="../js/functions_73go.js"></script>
+	<!--百度统计js代码-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?9e8dc4308f6255aaab3aadc413a1846e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+
+<div class="header">
+    <div class="mininav">
+      <div class="cont">
+       <span class="lefttxt"> 欢迎来73GO！
+         <if condition="LI('userName') neq null ">
+              <a href="{:U('Index/mypage_tmc')}">{:LI('userName')}</a><a href="{:U('Index/login')}"> 退出</a>
+              <else/>
+              <a href="{:U('Index/login')}">请登录</a><a href="{:U('Index/register_user')}"> 注册</a>
+             </if></span>
+       </div>
+    </div>
+    <div class="headtop">
+            <div class="logoMark"></div>
+            <div class="logo"><a href="{:U('Home/Index/index')}"><img src="images/logo.jpg" width="191" height="43" alt="轻松行" /></a></div>
+            <div class="txt"></div>
+            <div class="iphone"></div>
+  </div>
+    <div class="nav">
+    	<div class="menu">
+        	<div class="navcate indexFlag" >
+            	<div class="navNews" style="right:-280px;"></div>
+           	  <div class="kc_title"><a href="javaScript: void (0);">我的菜单</a></div>
+                <div class="all-sort-list" ><div class="sub_i_bg"></div></div>
+            </div>
+            <ul class="menu_ul">
+                <li><a href="{:U('Home/Index/index')}" class="on">首页</a></li>
+            </ul>
+      </div>
+	</div>
+</div>
+<div class="clear"></div>
+<div class="cent_reg">
+  <div class="register_mod_form register_confirm_form mt38 ml_150">
+    <div class="register_mod_form_row">
+      <div class="register_mod_form_label"> <span class="tex_r">*</span>公司注册名 </div>
+      <div class="register_mod_form_cnt">
+          <input name="username" type="text" class="text01 fl_left c_tx2"  placeholder="2~30个数字或字母，例:公司简写" />
+		  <div id="usermsg1" class="mod_tips_inner mt_2 fl_left" style="display:none" ;>
+             <i class="mod_tico_x16 mod_tico_warn_x16"></i>注册名限长度2~30的数字或字母
+		  </div>
+		  <div id="usermsg2" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+			  <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+		  </div>
+
+		  <div id="usermsg3" style="display:none" class="mod_tips_inner mt_2 fl_left">
+             <i class="mod_tico_x16 mod_tico_warn_x16"></i>该用户已被注册
+		  </div>
+        
+      </div>
+    </div>
+    <div class="register_mod_form_row">
+      <div class="register_mod_form_label"> <span class="tex_r">*</span>登录密码 </div>
+      <div class="register_mod_form_cnt">
+        <input name="password" type="password" class="text01 fl_left c_tx2" placeholder="密码长度必须是5~16个字符" />
+		  <div id="pasmsg1" style="display:none" class="mod_tips_inner mt_2 fl_left"><i
+				  class="mod_tico_x16 mod_tico_warn_x16"></i>密码长度必须是5~16个字符
+		  </div>
+		  <div id="pasmsg2" class="mod_success_tips_inner mt_2 fl_left" style="display:none">
+			  <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+		  </div>
+      </div>
+    </div>
+    <div class="register_mod_form_row">
+      <div class="register_mod_form_label"> <span class="tex_r">*</span>确认密码 </div>
+      <div class="register_mod_form_cnt">
+        <input name="repassword" type="password" class="text01 fl_left" placeholder="请再次输入密码"/>
+		  <div id="repasmsg1" style="display:none" class="mod_tips_inner mt_2 fl_left">
+			  <i class="mod_tico_x16 mod_tico_warn_x16"></i>两次输入密码不一致
+		  </div>
+		  <div id="repasmsg2" class="mod_success_tips_inner mt_2 fl_left" style="display:none">
+			  <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+		  </div>
+      </div>
+    </div>
+    <div class="register_mod_form_row">
+      <div class="register_mod_form_label"> &nbsp; </div>
+      <div class="register_mod_form_cnt"> 注册即表明您已同意 <a href="javascript:void(0)" id="rg" class="tex_blue">《服务协议》 </a></div>
+      
+    </div>
+    <div class="register_mod_form_row ">
+        <div class="register_mod_form_label"> &nbsp; </div>
+        <div id="button" class="register_mod_form_cnt"><a href="javascript:void(0)" class="btn_sure">注册</a></div>
+      </div>
+  </div>
+</div>
+<div class="footer-index">
+	<div class="copyiright">
+		Copyright © 2015 版权所有 深圳市轻松行科技有限公司 <a href="http://www.miitbeian.gov.cn" target="_blank">粤ICP备14072826号</a><p>
+	</div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript" src="../js/sweetAlert/js/sweet-alert.min.js"></script>
+<script>
+$("#rg").click(function(){
+	window.open("{:U('Index/Register_tmc_agreement')}");
+})
+
+	var error0 = 0;
+	var error1 = 0;
+	var error2 = 0;
+	function toServer(){
+		var username = $(":input[name=username]").val() || '';
+		var password = $(":input[name=password]").val() || '';
+		var repassword = $(":input[name=repassword]").val() || '';
+		if ( username == '' || !error0) {
+			$('#usermsg2').css('display', 'none');
+			return;
+		}
+		if ( password == '' || !error1) {
+			$('#pasmsg1').css("display", "block");
+			$('#pasmsg2').css("display", "none");
+			return;
+		}
+		if ( repassword != password ) {
+
+			$('#repasmsg1').css("display", "block");
+			$('#repasmsg2').css("display", "none");
+			return;
+		}else{
+			$('#repasmsg1').css("display", "none");
+			$('#repasmsg2').css("display", "none");
+			$('#repasmsg2').removeClass('warning').parent('.register_mod_form_cnt').removeClass('warning');
+		}
+		$.ajax({
+			url:"{:U('TMCUser/add_tmc')}",
+			data:"username="+username+'&password='+password,
+			dataType:"text",
+			type:"POST",
+			success: function (msg) {
+				msg = ajaxGet(msg);
+				if ( msg == 1 ) {
+					swal({
+						title: "温馨提示!",
+						text: "注册成功!!",
+						type: "success",
+						confirmButtonText: "关 闭"
+					});
+					location.href = "{:U('Config/showconfig_tmcinfo_basicinfo')}";
+				} else {
+					swal({
+						title: "温馨提示!",
+						text: "注册失败!",
+						type: "error",
+						confirmButtonText: "关 闭"
+					});
+				}
+
+			}
+
+		});
+	}
+
+	document.onkeydown = function(e){
+		var ev = document.all ? window.event : e;
+		if(ev.keyCode==13) {
+			toServer();
+		}
+	}
+
+	$(function(){
+
+		//==================验证用户名===================//
+
+		//对表单进行失去焦点操作，对其数据进行正则验证
+		$(":input[name=username]").blur(function() {
+			//6-20 汉字 数字 字母 下划线
+			var pattern = /^[\u4e00-\u9fa50-9a-z[\](\)\-]{2,30}$/i;
+			var userName = $(this).val() || '';
+			var _this = $(this);
+			if ( pattern.test(userName) ) {
+				$.ajax({
+					url:"{:U('Home/User/check_user')}",
+					data: "username=" + userName,
+					dataType: "JSON",
+					type: "POST",
+					success: function (msg) {
+						msg = ajaxGet(msg);
+						if ( msg == 1 ) {
+							error0 = 0;
+							$("#button").unbind('click');
+							_this.addClass('warning').parent('.register_mod_form_cnt').addClass('warning');
+							$('#usermsg1').css('display', 'none');
+							$('#usermsg2').css('display', 'none');
+							$('#usermsg3').css('display', 'block');
+						} else {
+							error0 =1;
+							_this.removeClass('warning').parent('.register_mod_form_cnt').removeClass('warning');
+							$("#button").unbind('click').bind('click', function () {
+								toServer();
+							});
+							$('#usermsg1').css('display', 'none');
+							$('#usermsg3').css('display', 'none');
+						}
+
+					}
+				});
+			} else {
+				error0 =0;
+				$("#button").unbind('click');
+				_this.addClass('warning').parent('.register_mod_form_cnt').addClass('warning');
+				$('#usermsg1').css('display', 'block');
+				$('#usermsg2').css('display', 'none');
+				$('#usermsg3').css('display', 'none');
+			}
+		});
+		//===================验证密码====================//
+		$(":input[name=password]").blur(function () {
+			var password = $(this).val() || '';
+			var _this = $(this);
+			if ( password.length >= 5 && password.length <= 15 ) {
+				error1 = 1;
+				_this.removeClass('warning').parent('.register_mod_form_cnt').removeClass('warning');
+				$("#button").unbind('click').bind('click', function () {
+					toServer();
+				});
+				$('#pasmsg1').css("display", "none");
+			} else {
+				error1 = 0;
+				$("#button").unbind('click');
+				_this.addClass('warning').parent('.register_mod_form_cnt').addClass('warning');
+				$('#pasmsg1').css("display", "block");
+
+			}
+		});
+		//==============验证密码是否一致======================//
+		$(":input[name=repassword]").blur(function () {
+			var orignPassword = $(":input[name=password]").val() || '';
+			var _this = $(this);
+			if ( $(this).val() == orignPassword ) {
+				error2 = 1;
+				$('#repasmsg1').css("display", "none");
+				_this.removeClass('warning').parent('.register_mod_form_cnt').removeClass('warning');
+				$("#button").unbind('click').bind('click', function () {
+					toServer();
+				});
+			} else {
+				error2 = 0;
+				$("#button").unbind('click');
+				_this.addClass('warning').parent('.register_mod_form_cnt').addClass('warning');
+				$('#repasmsg1').css("display", "block");
+			}
+
+		});
+		
+
+	
+	})
+</script>

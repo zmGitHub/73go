@@ -1,0 +1,432 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta content="all" name="robots">
+    <meta name="robots" content="index,follow">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <title>轻松行-酒店预订</title>
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/js/searchPlugin/hotelDate/hotelPay.css"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript">
+        if (screen.width >= 1200) {
+            var link = document.createElement('link');
+            link.rel = "stylesheet";
+            link.type="text/css";
+            link.href="http://www.elongstatic.com/hotels/201502121815/css/hotelsList_w_2013.css?t=201503061415";
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
+    <![endif]-->
+
+</head>
+<body>
+
+<div class="header">
+    <div class="mininav">
+        <div class="cont">
+			<span class="lefttxt"> 欢迎来73GO!
+			   <if condition="LI('userName') neq null">
+                   <!--  <a href="javascript:void(0)">{:LI('userName')}</a><a href="{:U('Index/login')}"> 退出</a></span>-->
+                   <if condition="session('user_type') eq   '1' " >
+                       <a href="{:U('Index/mypage_user')}">
+                           <elseif condition="session('user_type') eq  '2' "/>
+                           <a href="{:U('Index/mypage_co')}">
+                               <else />
+                               <a href="{:U('Agent/Config/config_tmcinfo_account')}">
+                   </if>
+                   {:LI('userName')}</a><a href="{:U('Index/logout')}"> 退出</a>
+                   <else />
+                   <a href="{:U('Index/login')}">请登录</a><a href="{:U('Index/register_user')}"> 注册</a>
+               </if>
+			</span>
+        </div>
+    </div>
+    <div class="headtop">
+        <div class="logoMark"></div>
+        <div class="logo">
+            <a href="{:U('Home/Index/index')}"><img src="__ROOT__/Public/images/logo.jpg" width="191" height="43" alt="轻松行"/></a>
+        </div>
+        <div class="txt"></div>
+    </div>
+    <div class="nav">
+        <div class="menu">
+            <div class="navcate indexFlag">
+                <div class="navNews" style="right:-280px;"></div>
+                <div class="kc_title"><a href="{:U('Home/book/index')}">我的菜单</a></div>
+                <div class="all-sort-list">
+                    <div class="sub_i_bg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+
+<div id="fill_order">
+
+    <div class="clear"></div>
+    <div class="main clx">
+        <!--左侧内容-->
+
+        <div id="left">
+            <div class="hotel_info">
+                <div class="l"><img alt="北京饭店" src="http://pavo.elongstatic.com/i/Hotel120_120/0000ckvw.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_CN.jpg?t=201503061415'"></div>
+                <div class="r">
+                    <a title="北京饭店" href="/detail_cn_50101002.html" target="_blank">北京饭店</a><br>
+                    <p class="pt5"><span title="国家旅游局评定星级为5星级" class="dx dx5"></span></p>
+
+
+                    <p class="dizhi">
+                        东城区东长安街33号(地铁王府井站A口西侧)
+                        <a title="北京饭店地图" href="#?" class="map" lng="39.915251" lat="39.915251" hotelid="50101002" hotelname="北京饭店" moneysymb="" lowestprice="" cityname="北京" method="showMap"></a>
+                    </p>
+
+                </div>
+                <div class="clear"></div>
+                <!--促销信息-->
+                <div class="rm_type">
+                    <ul>
+                        <li><span>房&nbsp;&nbsp;&nbsp;型：</span>小套房（A座、大床）</li>
+                        <li><span>床&nbsp;&nbsp;&nbsp;型：</span>大床2米</li>
+                        <li><span>早&nbsp;&nbsp;&nbsp;餐：</span>无早</li>
+                        <li><span>宽&nbsp;&nbsp;&nbsp;带：</span>无线/宽带[免费]</li>
+                        <li><span>面&nbsp;&nbsp;&nbsp;积：</span>75平米</li>
+                        <li method="fillOrderTitle" class="time">过去24小时有20人预订了该酒店！</li>
+
+
+                    </ul>
+                </div>
+                <!--促销信息 end-->
+            </div>
+
+            <div class="faq">
+                <p class="t14 mb5">温馨提示：</p>
+
+                <p class="l_black">您的手机号码需要提供给酒店</p>
+
+                <p class="l_black">酒店要求入住人持本人有效大陆身份证办理入住</p>
+
+            </div>
+
+            <div class="faq faq2" style="display:;">
+                <p class="t14 mb5">需要帮助？ </p>
+                <p><span class="cjwt"></span><a href="#?" id="hrfquest">查看常见问题</a></p>
+
+                <p><span class="zxkf"></span>
+
+                    <a onclick="window.open('http://www.elong.com/chat.html?g=31878', '', 'height=460,width=690,left=200,top=100,resizable=yes');" href="#" mth="servicehelp">在线客服</a>
+                </p>
+                <p><span class="kfdh"></span>客服电话 4009-333-333</p>
+
+            </div>
+
+
+
+        </div>
+
+        <div id="right">
+            <!--登录、注册信息-->
+
+            <div class="rightTitle" id="loginOper">
+
+                <ul class="login">
+
+                    <li method="username" class="name">
+                        欢迎您，
+                        总经理
+                    </li>
+                    <li><a method="loginout" href="http://my.elong.com/logout_cn.html" title="">退出</a></li>
+
+                </ul>
+
+                <span class="title">填写订单信息</span>
+
+                <div id="loginDiv" class="logon_popup none" method="dvlogin" style="position: absolute; z-index: 4500;">
+                    <h3>
+                        <a href="#?" class="right close" method="closeLoginWindow">关闭</a>登录</h3>
+                    <div class="left main">
+                        <div id="showError" class="tip" style="display: none">
+                        </div>
+                        <ul>
+                            <li class="t14">邮箱或手机号</li>
+                            <li>
+                                <input type="text l_black" method="user" class="text l_black" value=""></li>
+                            <li class="t14">密 码</li>
+                            <li>
+                                <input method="realpass" type="password" class="text" value="">
+                            </li>
+                            <li style="display:  none" id="showVCode" class="t14">验证码</li>
+                            <li method="vcode" style="display:none">
+                                <input type="text" class="text code" value="" method="txtvcode">&nbsp;
+                                <img method="imgCode" src=" " align="absmiddle" alt="看不清可点击图片更换图片。" title="看不清可点击图片更换图片。">&nbsp; <a href="#" method="imgCode">换一张</a> </li>
+                            <li>
+                                <label class="reme" title="(保存2个月)">
+                                    <input type="checkbox" name="checkbox" id="inputRememberMe">下次自动登录</label></li>
+                            <li class="clx">
+                                <span method="login" class="left">
+                                    <input type="button" class="btn" value="登录" method="reallogin">
+                                </span>
+                                <a method="forgotpass" href="#?" class="right" rel="nofollow">忘记密码?</a>
+                                <span method="wait" style="display: none">
+                                        <input type="button" class="btn logining" value="登录"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="left ml20 side">
+                        <p>
+                            还不是会员？</p>
+                        <p class="mt5">
+                            <a href="javascript:window.open('http://my.elong.com/register_cn.html?redirecturl='+encodeURIComponent(window.location.href), '_blank')" class="reg_now" title="注册艺龙帐号可快速预订并享受积分回赠" rel="nofollow">马上注册！</a></p>
+                        <p class="mt20">
+                            或用以下帐号登录</p>
+                        <p class="mt5">
+                            <a href="http://openapi.elong.com/qq.html" class="coop qq" rel="nofollow"><tt></tt>QQ</a></p>
+                        <p class="mt5">
+                            <a href="http://openapi.elong.com/sina.html" class="coop weibo" rel="nofollow"><tt></tt>
+                                新浪微博</a></p>
+                        <p class="mt5">
+                            <a href="#?" class="coop alipay" method="clickAlipay" rel="nofollow">
+                                <tt></tt>支付宝</a></p>
+                        <p class="mt5 tr t12">
+                            <a href="http://my.elong.com/login_cn.html" rel="nofollow">更多&gt;&gt;</a></p>
+                    </div>
+                    <div class="clear">
+                    </div>
+                    <!--弹出 end-->
+                </div>
+
+            </div>
+
+            <div class="p10">
+                <!--客房,优惠信息-->
+
+                <h2>
+                    <div class="hdyh">
+                        <span></span>
+                        恭喜您获得了该房型最优价格，请不要错过！</div>
+                    小套房（A座、大床）
+    <span class="t12 normal l_black">
+         - 不含早（内宾）</span>
+                </h2>
+                <div class="pt10 mb15">
+                    <ul class="normal_list">
+                        <li id="liroom"><span class="wl">
+            房间数量&nbsp;&nbsp;</span>
+                            <select class="fi_s1" id="rdoRoomNum"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select>
+                            间
+
+                        </li>
+                        <li><span class="wl">
+            入住时间&nbsp;&nbsp;</span>3月10日入住，3月26日退房<a class="pl10 underline" title="修改日期" href="#?" method="changedate" id="chDate">修改日期</a></li>
+                        <li><span class="wl">
+            房费总计&nbsp;&nbsp;</span><span showcalendar="True" class="pri bor" id="TotalAmount"><span class="pfh">¥</span>31680.00</span>&nbsp;元
+
+                            <!--非预付-->
+                            <span class="l_black pl20">(预订免费，入住后酒店前台付款)</span>
+
+                        </li>
+
+                    </ul>
+                    <script id="roomTemp" type="text/x-jquery-tmpl">
+    <div class="price_list">
+        <table cellspacing="0" cellpadding="0" border="0" class="arr1"><tbody><tr><th>03-10(二)</th><th>03-11(三)</th><th>03-12(四)</th><th>03-13(五)</th><th>03-14(六)</th><tr><td>1980<br>无早</td><td>1980<br>无早</td><td>1980<br>无早</td><td>1980<br>无早</td><td>1980<br>无早</td></tr></tr></tbody></table><table cellspacing="0" cellpadding="0" border="0" class="arr1"><tbody><tr><th>03-15(日)</th><th>03-16(一)</th><th>03-17(二)</th><th>03-18(三)</th><th>03-19(四)</th><tr><td>1980<br>无早</td><td>1980<br>无早</td><td>1980<br>无早</td><td>1980<br>无早</td><td>1980<br>无早</td></tr></tr></tbody></table><table cellspacing="0" cellpadding="0" border="0" class="arr1"><tbody><tr><th>03-20(五)</th><th>03-21(六)</th><th>03-22(日)</th><th>03-23(一)</th><th>03-24(二)</th><tr><td>1980<br>无早</td><td>1980<br>无早</td><td>1980<br>无早</td><td>1980<br>无早</td><td>1980<br>无早</td></tr></tr></tbody></table><table cellspacing="0" cellpadding="0" border="0" class="arr1"><tbody><tr><th>03-25(三)</th><tr><td>1980<br>无早</td></tr></tr></tbody></table>
+        
+        
+
+        <div class="sum">
+          <p class="tr"><span class="t14 fw">总金额</span></p>
+          <p class="tr"><span class="arial"><#=$Model.Symb #><#=$Model.AvgPrice #></span><span>&nbsp; x &nbsp;</span><span><#=$Model.Interval #>晚</span><span>&nbsp;x&nbsp;</span><span><#=$Model.RoomNum #>间</span><span>&nbsp;=&nbsp;</span><span class="arial cf60 t16 fw"><#=$Model.Symb #><#=$Model.SumPrice #><#=$Model.LiJianAmount#></span></p>
+          <p class="tr"><span class="c9">(预订免费，入住后酒店前台付款<#=$Model.HkdPrice#>)</span></p>
+          <#=$Model.HkdDesc#></span></p>
+        </div>
+    </div>
+    </script>
+                    <script id="roomTemp1" type="text/x-jquery-tmpl">
+    <div class="price_list">
+      <div class="sum">
+      <p class="tr"><span class="c9"><#=$Model.HkdDesc#></span></p>
+      </div>
+    </div>
+    </script>
+
+                    <div class="cu">
+                        <div id="divLongCui">
+
+                        </div>
+
+                        <div id="dvCouponInfo"><p>    <span class="wl">&nbsp;</span>    <label><input type="checkbox" class="radio" checked="checked" method="confirmCoupon1" style="display:none;"><span class="icon_fan mr5" method="couponUpperLimit">3216元</span>总计<span class="cf60">¥31680.00</span>，离店后返<span class="cf60">¥3216</span>现金，实际支出<span class="cf60">¥28464.00</span></label></p></div>
+
+                        <p id="dvNewMember" style="display: none;"><span class="wl">&nbsp;</span><span class="icon_sdl mr10"></span>首次预订，入住结账后会额外赠送订单金额10%的礼品卡！最高赠送200元哦！</p>
+
+                    </div>
+                </div>
+
+                <!--入住信息-->
+
+                <h2>
+                    入住信息</h2>
+                <div id="dvTemplate" style="display: none">
+                    <div method="Guest1">
+                        <div class="name_box clx">
+                            <div class="l_1">
+                                <span class="red mr5">*</span>入住人姓名&nbsp;&nbsp;</div>
+                            <div class="r">
+                <span>
+                    <input type="text" value="{0}" method="txtGuestName" class="text l_black" flag="LoginTip">
+                    <div id="divLoginTips" class="loginWrap" style="display: none;">
+                        <div class="loginWrapInner">
+                            <a href="#?" method="showlogin">登录账户</a>后，可以选择或保存您的常用入住人，填写订单更便捷。</div>
+                    </div>
+                </span>
+                                <span class="ts" method="sptip">(请填写实际入住人姓名，每个房间只需填1位)<i class="icon_infots" method="guesttip"></i></span></div>
+
+                        </div>
+                    </div>
+                    <div method="Guest0">
+                        <div class="name_box clx">
+                            <div class="l_1">
+                                <span class="red mr5">*</span>入住人姓名&nbsp;&nbsp;</div>
+                            <div class="r">
+                <span>
+                    <input type="text" value="{0}" method="txtGuestName" class="text l_black" flag="LoginTip"><div id="divLoginTips" class="loginWrap" style="display: none;">
+                    <div class="loginWrapInner">
+                        <a href="#?" method="showlogin">登录账户</a>后，可以选择或保存您的常用入住人，填写订单更便捷。</div>
+                </div>
+                    </span><span class="ts" method="sptip">(请填写实际入住人姓名，每个房间只需填1位)<i class="icon_infots" method="guesttip"></i></span></div>
+                        </div>
+                    </div>
+                    <div method="Guest">
+                        <div class="name_box clx">
+                            <div class="l_1">
+                                <span class="red mr5">*</span>入住人姓名&nbsp;&nbsp;</div>
+                            <div class="r">
+                <span>
+                    <input type="text" value="{0}" method="txtGuestName" class="text l_black"></span><span class="ts" method="sptip">(请填写实际入住人姓名，每个房间只需填1位)<i class="icon_infots" method="guesttip"></i></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="check_info" id="divCheckIn">
+                    <div method="dvGuest">
+                        <div class="name_box clx">
+                            <div class="l_1">
+                                <span class="red mr5">*</span>入住人姓名&nbsp;&nbsp;</div>
+                            <div class="r">
+                <span>
+                    <input type="text" value="{0}" method="txtGuestName" class="text l_black" flag="LoginTip">
+                    <div id="divLoginTips" class="loginWrap" style="display: none;">
+                        <div class="loginWrapInner">
+                            <a href="#?" method="showlogin">登录账户</a>后，可以选择或保存您的常用入住人，填写订单更便捷。</div>
+                    </div>
+                </span>
+                                <span class="ts" method="sptip">(请填写实际入住人姓名，每个房间只需填1位)<i class="icon_infots" method="guesttip"></i></span></div>
+
+                        </div>
+                    </div>
+                    <ul id="ulContact">
+
+                        <li class="mt10"><span class="w1"><span class="red mr5">*</span>联系手机&nbsp;&nbsp;</span><span class="w3"><select id="selPhoneInden">
+
+                            <option value="">
+                                中国大陆(+86)
+                            </option>
+                            %&gt;
+
+                            <option value="852">
+                                中国香港(+852)
+                            </option>
+                            %&gt;
+
+                            <option value="853">
+                                中国澳门(+853)
+                            </option>
+                            %&gt;
+
+                            <option value="886">
+                                中国台湾(+886)
+                            </option>
+                            %&gt;
+
+                        </select>
+            <input type="text" value="" id="CMobile" maxlength="11" class="text nor_text"><span class="input_follow">(用于接收确认信息)</span> <span class="icon_info" method="confirmtipphone"></span></span></li>
+                        <li class="mt10"><span class="w1"><span class="red mr5" style="display: none;" id="emailMustNeed">
+            *</span>E-mail&nbsp;&nbsp;</span><span class="w3"><input type="text" value="" id="CEmail" maxlength="50" class="text nor_text"><span class="input_follow">(用于接收确认邮件)</span>
+                <span class="icon_info" method="confirmtipmail"></span></span></li>
+
+                    </ul>
+                    <ul id="ulVouch">
+                    </ul>
+                    <ul id="vouchTimeLine"><li class="mt10"><span class="w1"><span class="red mr5">*</span>最晚到店时间&nbsp;&nbsp;</span><span class="w3 arrive_vt">    <div class="arrive_timebox" id="arriveTimeLine"><div class="arr_lft_tips" id="dvText1" style="display: none;"><span>20:00</span>前免费取消</div><div class="arr_lft_tips arr_lft_tips_r" id="dvText2" style="display: none;"><span>20:00</span>前免费取消</div><div class="arr_rig_tips" id="dvText3" style="display: block; left: -7px;">担保房费<span>¥1980.00</span>元</div><div class="arr_rig_tips arr_rig_tips_r" id="dvText4" style="display: none;">担保房费<span>¥1980.00</span>元</div>        <div class="arrive_dbbox" id="timeLine" style="position: relative; background-position: 0px 4px;" value="7|24|24|7|1980.00"><a href="##" id="timeDot24" hidefocus="true" class="bd_a type1 left_icon " value="24|true|false"><span class="icon" method="timeDot"></span><span class="time_txt"><span class="or">00:00<span class="arrive_date or">(3月11日)</span></span></span></a>  <a href="##" id="timeDot25" hidefocus="true" class="" value="25|true|false"><span class="icon" method="timeDot"></span><span class="time_txt"><span class="">1</span></span></a>  <a href="##" id="timeDot26" hidefocus="true" class="" value="26|true|false"><span class="icon" method="timeDot"></span><span class="time_txt"><span class="">2</span></span></a>  <a href="##" id="timeDot27" hidefocus="true" class="" value="27|true|false"><span class="icon" method="timeDot"></span><span class="time_txt"><span class="">3</span></span></a>  <a href="##" id="timeDot28" hidefocus="true" class="" value="28|true|false"><span class="icon" method="timeDot"></span><span class="time_txt"><span class="">4</span></span></a>  <a href="##" id="timeDot29" hidefocus="true" class="" value="29|true|false"><span class="icon" method="timeDot"></span><span class="time_txt"><span class="">5</span></span></a>  <a href="##" id="timeDot30" hidefocus="true" class="bd_a type1 right_icon " value="30|true|false"><span class="icon" method="timeDot"></span><span class="time_txt"><span class="">06:00</span></span></a>  <b style="left: -7px; position: absolute;"><em class="on tj"><span class="icon"></span><span class="time_txt" style="display: none;"><span></span></span></em></b></div>    </div>    <br>    <p class="notic" id="vouchNotice"></p>    <p class="notic" id="CheckInNotice">        <span class="icon"></span>通常酒店14点办理入住，早到可能需要等待</p></span> <input type="hidden" id="hdShopTime" value="23:00-23:59"> <input type="hidden" id="IsVouch" value="true"></li></ul>
+
+                    <div id="checktime" class="danbao_tips mt10"></div>
+                </div>
+
+                <!--支付方式-->
+
+
+                <!-- 担保 -->
+                <div id="vouchDiv"></div>
+
+                <!--Validate region author:yuebing dong date:2012.08.16-->
+
+                <!--Validate region author:yuebing dong date:2012.08.16-->
+                <!--发票信息-->
+                <div class="submit_box"><span class="pl20"><input type="button" id="ContinueOrder" tabindex="20" value="继 续" onfocus="this.blur()" onmouseout="this.className='sub_order'" onmouseup="this.className='sub_order'" onmousedown="this.className='sub_order_on'" class="sub_order"></span><span class="cf09 pl10">不收预订费</span></div>
+
+                <div class="check_info danbao_rule" id="divCancelRule" style=""><p class="prp_read">房量紧张，需冻结/暂扣房费(<span class="pfh">¥</span><span id="spCreditAmt" class="cf60 bold arial">1980.00</span>)担保订单，如订单不确认，艺龙将立即操作解冻/退款。&nbsp;<a href="#" id="showVouchTipInfo">什么是担保？</a></p><dl class="cancel_that"><dt>取消说明</dt><dd><i class="gre"></i>订单一经预订成功，不可变更/取消，如未入住酒店将扣除您的全部担保金额作为违约金</dd></dl></div>
+
+
+                <div class="fapiao">注：如需发票，请从酒店前台索取</div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="down_side">
+        <span class="l"></span><span class="r"></span>
+    </div>
+</div>
+<div class="clear"></div>
+
+
+
+
+<div id="m_contentend" style="height:0;"> <img src="http://tj.elongstatic.com/t.gif?g=74619&amp;cid=c685b42d-9781-4d17-8bf2-55683f5d519c&amp;sid=f7a38f99-e3e3-4ac0-8ce2-fe042edef8df&amp;rf=http%3A%2F%2Fhotel.elong.com%2Fbeijing%2F50101002%2F%3Froomid%3D1047_64239&amp;bs=1366*768&amp;rt=15&amp;jst=7462&amp;ch=hotel&amp;pt=HotelFillOrderPage&amp;p1=50793&amp;m20=HotelSearchV5_20140918_1&amp;m19=xianchenghoufu_20140821_1&amp;m21=ArriveTimeSlider_20141104_1&amp;p88=1426002145889&amp;p89=1426002145889&amp;p90=1426002145889&amp;p91=1426002145889&amp;p92=1426002145889&amp;p93=1426002145890&amp;p94=1426002145902&amp;p95=1426002145906&amp;p96=1426002145933&amp;p97=1426002146133&amp;p98=1426002146003&amp;p99=1426002153449&amp;p100=0001f147c4568f00b204ffffffff1481b4f0b2539c5cb8c1af6dffffffff5c3fef608f00b20404188e3002153451ac368f8d" style="display:none;"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ===================== footer start ===================== -->
+
+
+
+
+<div class="clear">
+</div>
+
+
+<!-- ===================== footer end ===================== -->
+
+
+
+
+</body>

@@ -1,0 +1,249 @@
+
+  <div class="main_right">
+  		<div class="r_hd">
+	            <h3 class="r_tit">产品管理</h3>
+	            <div class="r_hd_extra"> 
+	            <a href="{:U('Product/config_flight_price')}" class="current">机票政策</a>
+	            <a href="{:U('Product/config_flight_refund')}">机票退改签</a>
+	            <a href="{:U('Product/config_insur_info')}">保险产品</a>
+	            <a href="{:U('Product/config_service_price')}">服务费</a>
+        </div>
+  </div>
+   <div class="BoxHeight mb_10" ></div>
+   
+   	<div class="btn_b5 fl_right"><a href="javascript:void(0);" onclick="addfile()">导入机票政策</a></div>
+   
+  
+    <div class="clear"></div>
+    <div class="ml_32">
+        <label><input type="checkbox" name="checkbox"  id="checked" />
+        机票自助预订结果中显示OTA价格信息</label>
+        <div class="BoxHeight" ></div>
+          <p class="ml_25">
+            <label><input type="checkbox" id="taobao" {$datt['alitrip_show']==1?'checked':''}  name="taobao" disabled />
+      显示淘宝旅行的价格</label></p>
+      <div class="BoxHeight"></div>
+          <p class="ml_25">
+            <label><input type="checkbox" id="ctrip" {$datt['ctrip_show']==1?'checked':''} name="ctrip" disabled />
+      显示携程的价格</label></p>
+    </div>
+
+	  <if condition ="($res eq '') and ($xls.time neq '') ">
+
+		  <div class="BoxHeight"></div>
+		  <div class="sidenav">
+			  <a href="#" data-trigger="collapse" data-parent=".sidenav">
+				  <div class="order_tit">
+					  <span class="mr_8"><em>▼导入时间：{$xls.time}</em></span>
+					  <span class="ml_14">文件名：{$xls.o_filename}</span>
+					  <span class="fl_right"><em class="ml_5"></em></span>
+				  </div>
+			  </a>
+			  <div class="collapsible" style="display:none;">
+				  <div class="pa_10 pa_15">
+					  <!--https://view.officeapps.live.com/op/view.aspx?src=http%3A%2F%2Fdevwww.73go.cn%2FUploads%2Fxls/%2F20150112065243.xls-->
+					  <iframe frameborder="0" width="100%" height="500px" src="https://view.officeapps.live.com/op/view.aspx?src=http%3A%2F%2Fdevwww.73go.cn%2FUploads%2Fxls/%2F{$xls.filename}.xls"></iframe>
+				  </div>
+			  </div>
+		  </div>
+		  <div class="BoxHeight"></div>
+
+		  <else/>
+
+		  <table width="100%" border="0" cellspacing="1" cellpadding="0" class="table_fund bg_tab mt_10" style="border:1px solid #ddd;">
+			  <tr>
+				  <th width="3%" rowspan="2"></th>
+				  <th rowspan="2">企业名称</th>
+				  <th colspan="3">政策范围</th>
+				  <th width="18%" rowspan="2">仓位</th>
+				  <th width="5%" rowspan="2">旅行类型</th>
+				  <th colspan="2">政策内容</th>
+				  <th width="12%" rowspan="2">有效时间</th>
+			  </tr>
+			  <tr>
+				  <th width="8%">航空公司</th>
+				  <th width="10%">航线</th>
+				  <th width="8%">适用航班</th>
+				  <th width="7%">+/-点数</th>
+				  <th width="7%">+/-钱数</th>
+			  </tr>
+			  <if condition ="$res == '' ">
+				  <tr>
+					  <td style="height:140px; font-size:18px; color:#999;" colspan="10">暂无数据</td>
+				  </tr>
+			  </if>
+
+			  <volist name="res" id="r">
+				  <if condition="$r.name == 1 ">
+					  <tr class="excelLst" data-lst="fileId:'{$fileId}',code:'{$r[0]}',name:'{$r[1]}',airline:'{$r[2]}',flight_num:'{$r[3]}',class:'{$r[4]}',type:'{$r[5]}',val_opp:'{$r[6]}',val_abs:'{$r[7]}',time:'{$r[8]}'">
+						  <td><i class="mod_tico_x16 mod_tico_succ_x16"></i></td>
+						  <td>{$r[0]}</td>
+						  <td>{$r[1]}</td>
+						  <td>{$r[2]}</td>
+						  <td>{$r[3]}</td>
+						  <td>{$r[4]}</td>
+						  <td>{$r[5]}</td>
+						  <td>{$r[6]}</td>
+						  <td>{$r[7]}</td>
+						  <td>{$r[8]}</td>
+					  </tr>
+					  <else />
+					  <tr>
+						  <td><i class="mod_tico_x16 mod_tico_warn_x16"></i></td>
+						  <td>{$r[0]}</td>
+						  <td>{$r[1]}</td>
+						  <td>{$r[2]}</td>
+						  <td>{$r[3]}</td>
+						  <td>{$r[4]}</td>
+						  <td>{$r[5]}</td>
+						  <td>{$r[6]}</td>
+						  <td>{$r[7]}</td>
+						  <td>{$r[8]}</td>
+					  </tr>
+				  </if>
+			  </volist>
+		  </table>
+		  <div class="text_cent">
+			  <input type="button" name="import" class ="btn_sure btn_sure2" value="导入"/>
+		  </div>
+
+	  </if>
+
+<!---popup 添加部弹出浮层 start --->
+        
+<div id="barfile" class="popup popup_pos1 w400" style="display: none;">
+	       <a href="javascript:void(0)" class="btn_close" onclick="closefile()" id="addtename_close" ></a>
+           <div class="pop_title">导入机票政策</div>
+           <div class="mt_10 tex_14 mr_8">
+             
+           </div>
+           <div class="popup_cont2">
+	      <form method="post" action="{:U('FlightPriceExcle/runexcel')}" enctype="multipart/form-data">
+			    <div class="mt_10"><span class="fl_left tex_14">机票政策信息文档：
+				    <input type="file" class="btn_b5 ml_5" name="file_stu" onchange="fileStaff();" /></span>
+				    <a href="__ROOT__/Public/busitemp/{:urlencode('机票政策模板')}.xls" class="tex_blue fl_right mt_5">模板下载</a>
+				    <span class="mod_tips_inner" style="margin:0 0 0 130px;">只支持 Excel98~2003格式文档（*.xls)</span>
+			    </div>
+			    <div class="text_cent"><input type="submit" id="fileUpload" style="display:none;"/></div>
+	 	  </form>    
+</div>
+</div>
+
+    <div class="BoxHeight" ></div> 		  
+    
+    <p>&nbsp;</p>
+  </div>
+
+  <div class="clear"></div>
+
+
+<script>
+
+	$(function(){
+		
+		$('#checked').click(function(){
+ 			var result = document.getElementById('checked').checked;
+ 			if(result){
+	 			$("#taobao").removeAttr("disabled");
+	 			$("#ctrip").removeAttr("disabled");
+
+ 			}else{
+	 			$("#taobao").attr("disabled","disabled");
+	 	 		$("#ctrip").attr("disabled","disabled");
+
+ 			}
+ 			
+ 		});
+		
+	//进行产品管理配置的操作
+	$("input[name='taobao']").click(function(){
+
+		var result=document.getElementById("taobao").checked?1:0;		
+		//alert(result);
+		$.ajax({
+			url:"{:U('Product/save_taobao_product')}",
+			data:"taobao="+result,
+			type:"POST",
+			success:function(res){
+				//alert(res);
+			}
+		});		
+	});
+
+	$("input[name='ctrip']").click(function(){
+
+		var result=document.getElementById("ctrip").checked?1:0;	
+		//alert(result);
+		$.ajax({
+			url:"{:U('Product/save_ctrip_product')}",
+			data:"ctrip="+result,
+			type:"POST",
+			success:function(res){
+				//if(res==1){
+					//alert("添加保险产品成功");
+	  				//location.href = "{:U('Product/config_flight_price')}";	
+					
+				//}else{
+
+				//}
+				
+			}
+		});		
+	});	
+	})
+	
+	function addfile(){
+		$("#barfile").show();
+	}
+	function closefile(){
+		$('#barfile').css("display","none");
+		
+	}
+	function fileStaff(){
+		closefile();
+		$('#fileUpload').click();
+	}
+	
+	$(function(){
+		$("input[name='import']").click(function(){
+			var serverData = {};
+			var obj = [];			
+			$('.excelLst').each(function(){
+				var str = $(this).data('lst');
+				str = eval('({'+str+'})');
+				obj.push(str);	
+			});					
+			serverData.list = obj; /*这是给serverData对象添加了一个属性并赋值为一个obj对象数组*/
+			$.ajax({
+				url: "{:U('Product/addflight_price')}",
+				data: serverData,
+				type: 'POST',				
+				success: function(reuslt){
+					if(reuslt){
+						swal({
+							title: "温馨提示!",
+							text: "导入机票政策成功!!!",
+							type: "success",
+							confirmButtonText: "关 闭",
+						},function(){
+							location.href = "{:U('Product/config_flight_price')}";							
+						});
+						
+					}else{
+						swal({
+							title: "温馨提示!",
+							text: "导入机票政策失败!!!",
+							type: "error",
+							confirmButtonText: "关 闭"
+						},function(){
+							location.href = "{:U('Product/config_flight_price')}";
+						});
+					}
+				}
+			});
+		});
+	});
+</script>
+
+
+

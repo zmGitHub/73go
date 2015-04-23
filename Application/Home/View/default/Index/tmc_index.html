@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <base href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{:getHostedTmcInfo('name')}-旗舰店</title>
+    <link href="css/index.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="top">
+    <div class="headtop">
+        <div class="logo"><img src=<if condition="getHostedTmcInfo('small_logo') neq null ">"{:getHostedTmcInfo('large_logo')}"<else/>"images/logo.jpg"</if> width="191" height="43" /></div>
+        <div class="txt">
+            <a href="{:U('Index/login')}">登录</a><span><img src="images/index_navline.jpg" width="1" height="31" /></span><a href="#">关于我们</a><a href="{:U('Agent/index/login_tmc')}">TMC入口</a><a href="#">差旅管理学院</a><a href="#" class="on">首页</a></div>
+    </div>
+</div>
+
+<div class="banner">
+    <img src="images/banner_02.jpg" width="1600" height="528" /></div>
+<div class="foot">
+    <div class="foot_cont">
+        <p class="h32"><span class="mt10">终端设备支持</span><img src="images/index_zc.jpg" width="130" height="32" /></p>
+        <p class="h32">Copyright © 2014 73go.cn 版权所有 深圳市轻松行科技有限公司 <a href="http://www.miitbeian.gov.cn" target="_blank">粤ICP备14072826号</a></p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,769 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="description" content="轻松行微信">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=1">
+    <link rel="shortcut icon" href="http://devwww.73go.cn/Public/images/favicon.ico">
+
+    <title>{$sitetitle?$sitetitle:'轻松行'}</title>
+
+    <link href="__PUBLIC__/Mfront/libs/ezgo/ezgo.css" rel="stylesheet">
+    <link href="__PUBLIC__/Mfront/css/turbo.css" rel="stylesheet">
+    <link href="__PUBLIC__/Mfront/css/common.css?20150311" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="app-head">
+    <button class="app-head-back btn btn-primary">
+        <i class="icon-angle-left"></i>
+    </button>
+    <h3 class="app-head-title">
+        轻松行预定
+    </h3>
+</header>
+
+<section class="app-content m-t">
+    <form class="form-input-group" action="http://weixin.73go.cn/Mfront/WScheduleInterface/addEasybooking" method="post">
+        <div class="form-group-set">
+            <div class="form-group">
+                <label class="control-label">出差申请</label>
+                <input class="form-control" name="tr_number" id="tr_number" type="text" placeholder="请输入出差申请号">
+            </div>
+            <div class="form-group">
+                <label class="control-label">紧急预订</label>
+                &nbsp;
+                <input class="m-l" name="is_emergency" id="is_emergency" type="checkbox">
+            </div>
+        </div>
+
+        <div class="form-group-set">
+            <div class="form-group">
+                <label class="control-label">出发城市</label>
+                <select class="form-control" id="from_city">
+                    <optgroup label="热门城市">
+                        <option value=" 北京">北京</option>
+                        <option value=" 上海">上海</option>
+                        <option value=" 广州">广州</option>
+                        <option value=" 深圳">深圳</option>
+                        <option value=" 香港">香港</option>
+                        <option value=" 成都">成都</option>
+                        <option value=" 杭州">杭州</option>
+                        <option value=" 武汉">武汉</option>
+                        <option value=" 西安">西安</option>
+                        <option value=" 重庆">重庆</option>
+                        <option value=" 青岛">青岛</option>
+                        <option value=" 长沙">长沙</option>
+                        <option value=" 南京">南京</option>
+                        <option value=" 厦门">厦门</option>
+                        <option value=" 昆明">昆明</option>
+                        <option value=" 大连">大连</option>
+                        <option value=" 天津">天津</option>
+                        <option value=" 郑州">郑州</option>
+                        <option value=" 三亚">三亚</option>
+                        <option value=" 济南">济南</option>
+                        <option value=" 福州">福州</option>
+                        <option value=" 澳门">澳门</option>
+                        <option value=" 台北">台北</option>
+
+                    </optgroup>
+                    <optgroup label="A">
+                        <option value="阿克苏">阿克苏</option>
+                        <option value="阿勒泰">阿勒泰</option>
+                        <option value="阿里">阿里</option>
+                        <option value="安康">安康</option>
+                        <option value="安庆">安庆</option>
+                        <option value="安顺">安顺</option>
+                        <option value="鞍山">鞍山</option>
+                        <option value="阿尔山">阿尔山</option>
+                        <option value="阿拉善右旗">阿拉善右旗</option>
+                        <option value="阿拉善左旗">阿拉善左旗</option>
+                    </optgroup>
+                    <optgroup label="B">
+                        <option value="北京">北京</option>
+                        <option value="百色">百色</option>
+                        <option value="保山">保山</option>
+                        <option value="包头">包头</option>
+                        <option value="巴彦淖尔">巴彦淖尔</option>
+                        <option value="毕节">毕节</option>
+                        <option value="北海">北海</option>
+                        <option value="博乐">博乐</option>
+                    </optgroup>
+                    <optgroup label="C">
+                        <option value="成都">成都</option>
+                        <option value="重庆">重庆</option>
+                        <option value="长沙">长沙</option>
+                        <option value="长白山">长白山</option>
+                        <option value="长春">长春</option>
+                        <option value="长治">长治</option>
+                        <option value="常德">常德</option>
+                        <option value="常州">常州</option>
+                        <option value="昌都">昌都</option>
+                        <option value="朝阳">朝阳</option>
+                        <option value="赤峰">赤峰</option>
+                        <option value="长沙">长沙</option>
+                        <option value="成都">成都</option>
+                        <option value="重庆">重庆</option>
+                        <option value="池州">池州</option>
+                    </optgroup>
+                    <optgroup label="D">
+                        <option value="大连">大连</option>
+                        <option value="大理">大理</option>
+                        <option value="大庆">大庆</option>
+                        <option value="达县">达县</option>
+                        <option value="达州">达州</option>
+                        <option value="丹东">丹东</option>
+                        <option value="德宏">德宏</option>
+                        <option value="迪庆">迪庆</option>
+                        <option value="东营">东营</option>
+                        <option value="敦煌">敦煌</option>
+                        <option value="大连">大连</option>
+                        <option value="大同">大同</option>
+                        <option value="稻城">稻城</option>
+                    </optgroup>
+                    <optgroup label="E">
+                        <option value="鄂尔多斯">鄂尔多斯</option>
+                        <option value="恩施">恩施</option>
+                        <option value="二连浩特">二连浩特</option>
+                        <option value="额济纳旗 ">额济纳旗</option>
+                    </optgroup>
+                    <optgroup label="F">
+                        <option value="福州">福州</option>
+                        <option value="佛山">佛山</option>
+                        <option value="阜阳">阜阳</option>
+                        <option value="福州">福州</option>
+                    </optgroup>
+                    <optgroup label="G">
+                        <option value="广州">广州</option>
+                        <option value="赣州">赣州</option>
+                        <option value="格尔木">格尔木</option>
+                        <option value="固原">固原</option>
+                        <option value="广汉">广汉</option>
+                        <option value="广元">广元</option>
+                        <option value="光化">光化</option>
+                        <option value="贵阳">贵阳</option>
+                        <option value="桂林">桂林</option>
+                        <option value="高雄">高雄</option>
+                        <option value="广州">广州</option>
+                    </optgroup>
+                    <optgroup label="H">
+                        <option value="杭州">杭州</option>
+                        <option value="哈尔滨">哈尔滨</option>
+                        <option value="哈密">哈密</option>
+                        <option value="海口">海口</option>
+                        <option value="海拉尔">海拉尔</option>
+                        <option value="邯郸">邯郸</option>
+                        <option value="和田">和田</option>
+                        <option value="黑河">黑河</option>
+                        <option value="怀化">怀化</option>
+                        <option value="淮安">淮安</option>
+                        <option value="黄山">黄山</option>
+                        <option value="黄岩">黄岩</option>
+                        <option value="呼和浩特">呼和浩特</option>
+                        <option value="杭州">杭州</option>
+                        <option value="合肥">合肥</option>
+                        <option value="香港">香港</option>
+                        <option value="汉中">汉中</option>
+                        <option value="河池">河池</option>
+                        <option value="红原">红原</option>
+                        <option value="花莲">花莲</option>
+                    </optgroup>
+                    <optgroup label="I">
+                        <option value=""></option>
+                    </optgroup>
+                    <optgroup label="J">
+                        <option value="济南">济南</option>
+                        <option value="济宁">济宁</option>
+                        <option value="吉林">吉林</option>
+                        <option value="鸡西">鸡西</option>
+                        <option value="佳木斯">佳木斯</option>
+                        <option value="嘉峪关">嘉峪关</option>
+                        <option value="晋江">晋江</option>
+                        <option value="锦州">锦州</option>
+                        <option value="景德镇">景德镇</option>
+                        <option value="景洪">景洪</option>
+                        <option value="井冈山">井冈山</option>
+                        <option value="九江">九江</option>
+                        <option value="九寨沟">九寨沟</option>
+                        <option value="加格达奇">加格达奇</option>
+                        <option value="揭阳">揭阳</option>
+                        <option value="金昌">金昌</option>
+                        <option value="济南">济南</option>
+                        <option value="九华山">九华山</option>
+                        <option value="金门">金门</option>
+                        <option value="嘉义">嘉义</option>
+                    </optgroup>
+                    <optgroup label="K">
+                        <option value="喀纳斯">喀纳斯</option>
+                        <option value="喀什">喀什</option>
+                        <option value="康定">康定</option>
+                        <option value="克拉玛依">克拉玛依</option>
+                        <option value="库车">库车</option>
+                        <option value="库尔勒">库尔勒</option>
+                        <option value="昆明">昆明</option>
+                        <option value="昆明">昆明</option>
+                        <option value="凯里">凯里</option>
+                    </optgroup>
+                    <optgroup label="L">
+                        <option value="拉萨">拉萨</option>
+                        <option value="兰州">兰州</option>
+                        <option value="荔波">荔波</option>
+                        <option value="丽江">丽江</option>
+                        <option value="黎平">黎平</option>
+                        <option value="连城">连城</option>
+                        <option value="连云港">连云港</option>
+                        <option value="梁平">梁平</option>
+                        <option value="临沧">临沧</option>
+                        <option value="临沂">临沂</option>
+                        <option value="林西">林西</option>
+                        <option value="林芝">林芝</option>
+                        <option value="柳州">柳州</option>
+                        <option value="龙岩">龙岩</option>
+                        <option value="泸州">泸州</option>
+                        <option value="洛阳">洛阳</option>
+                        <option value="吕梁">吕梁</option>
+                    </optgroup>
+                    <optgroup label="M">
+                        <option value="满洲里">满洲里</option>
+                        <option value="芒市">芒市</option>
+                        <option value="梅州">梅州</option>
+                        <option value="绵阳">绵阳</option>
+                        <option value="漠河">漠河</option>
+                        <option value="牡丹江">牡丹江</option>
+                        <option value="梅县">梅县</option>
+                    </optgroup>
+                    <optgroup label="N">
+                        <option value="那拉提">那拉提</option>
+                        <option value="南昌">南昌</option>
+                        <option value="南充">南充</option>
+                        <option value="南宁">南宁</option>
+                        <option value="南通">南通</option>
+                        <option value="南阳">南阳</option>
+                        <option value="宁波">宁波</option>
+                        <option value="南京">南京</option>
+                        <option value="南京">南京</option>
+                    </optgroup>
+                    <optgroup label="O">
+                        <option value=""></option>
+                    </optgroup>
+                    <optgroup label="P">
+                        <option value="攀枝花">攀枝花</option>
+                        <option value="普洱">普洱</option>
+                        <option value="普陀山">普陀山</option>
+                    </optgroup>
+                    <optgroup label="Q">
+                        <option value="青岛">青岛</option>
+                        <option value="齐齐哈尔">齐齐哈尔</option>
+                        <option value="且末">且末</option>
+                        <option value="秦皇岛">秦皇岛</option>
+                        <option value="庆阳">庆阳</option>
+                        <option value="衢州">衢州</option>
+                        <option value="青岛">青岛</option>
+                        <option value="黔江">黔江</option>
+                        <option value="泉州">泉州</option>
+                    </optgroup>
+                    <optgroup label="R">
+                        <option value="日喀则">日喀则</option>
+                    </optgroup>
+                    <optgroup label="S">
+                        <option value="上海">上海</option>
+                        <option value="深圳">深圳</option>
+                        <option value="三亚">三亚</option>
+                        <option value="沙市">沙市</option>
+                        <option value="山海关">山海关</option>
+                        <option value="沈阳">沈阳</option>
+                        <option value="石家庄">石家庄</option>
+                        <option value="思茅">思茅</option>
+                        <option value="三亚">三亚</option>
+                        <option value="上海">上海</option>
+                        <option value="上海">上海</option>
+                        <option value="上海">上海</option>
+                        <option value="汕头">汕头</option>
+                        <option value="石狮">石狮</option>
+                        <option value="神农架">神农架</option>
+                    </optgroup>
+                    <optgroup label="T">
+                        <option value="天津">天津</option>
+                        <option value="塔城">塔城</option>
+                        <option value="台州">台州</option>
+                        <option value="太原">太原</option>
+                        <option value="唐山">唐山</option>
+                        <option value="腾冲">腾冲</option>
+                        <option value="天水">天水</option>
+                        <option value="通辽">通辽</option>
+                        <option value="吐鲁番">吐鲁番</option>
+                        <option value="台中">台中</option>
+                        <option value="天津">天津</option>
+                        <option value="铜仁">铜仁</option>
+                        <option value="通化">通化</option>
+                        <option value="台南">台南</option>
+                        <option value="台东">台东</option>
+                    </optgroup>
+                    <optgroup label="U">
+                        <option value=""></option>
+                    </optgroup>
+                    <optgroup label="V">
+                        <option value=""></option>
+                    </optgroup>
+                    <optgroup label="X">
+                        <option value="西安">西安</option>
+                        <option value="厦门">厦门</option>
+                        <option value="西昌">西昌</option>
+                        <option value="西宁">西宁</option>
+                        <option value="西双版纳">西双版纳</option>
+                        <option value="锡林浩特">锡林浩特</option>
+                        <option value="香格里拉">香格里拉</option>
+                        <option value="襄樊">襄樊</option>
+                        <option value="襄阳">襄阳</option>
+                        <option value="兴义">兴义</option>
+                        <option value="徐州">徐州</option>
+                        <option value="西安">西安</option>
+                        <option value="厦门">厦门</option>
+                        <option value="香港">香港</option>
+                        <option value="香港">香港</option>
+                        <option value="夏河">夏河</option>
+                        <option value="香港">香港</option>
+                    </optgroup>
+                    <optgroup label="Y">
+                        <option value="延安">延安</option>
+                        <option value="延吉">延吉</option>
+                        <option value="盐城">盐城</option>
+                        <option value="烟台">烟台</option>
+                        <option value="伊春">伊春</option>
+                        <option value="伊犁">伊犁</option>
+                        <option value="伊宁">伊宁</option>
+                        <option value="宜宾">宜宾</option>
+                        <option value="宜昌">宜昌</option>
+                        <option value="义乌">义乌</option>
+                        <option value="银川">银川</option>
+                        <option value="永州">永州</option>
+                        <option value="榆林">榆林</option>
+                        <option value="玉树">玉树</option>
+                        <option value="运城">运城</option>
+                        <option value="扬州">扬州</option>
+                        <option value="宜春">宜春</option>
+                    </optgroup>
+                    <optgroup label="Z">
+                        <option value="郑州">郑州</option>
+                        <option value="湛江">湛江</option>
+                        <option value="张家界">张家界</option>
+                        <option value="昭通">昭通</option>
+                        <option value="芷江">芷江</option>
+                        <option value="中山">中山</option>
+                        <option value="中卫">中卫</option>
+                        <option value="舟山">舟山</option>
+                        <option value="张掖">张掖</option>
+                        <option value="遵义">遵义</option>
+                        <option value="郑州">郑州</option>
+                        <option value="重庆">重庆</option>
+                        <option value="珠海">珠海</option>
+                        <option value="张家口">张家口</option>
+                    </optgroup>
+                </select>
+                <i class="icon icon-angle-right"></i>
+            </div>
+            <div class="form-group">
+                <label class="control-label">到达城市</label>
+                <select class="form-control" id="to_city">
+                    <optgroup label="热门城市">
+                        <option value=" 北京">北京</option>
+                        <option value=" 上海">上海</option>
+                        <option value=" 广州">广州</option>
+                        <option value=" 深圳">深圳</option>
+                        <option value=" 香港">香港</option>
+                        <option value=" 成都">成都</option>
+                        <option value=" 杭州">杭州</option>
+                        <option value=" 武汉">武汉</option>
+                        <option value=" 西安">西安</option>
+                        <option value=" 重庆">重庆</option>
+                        <option value=" 青岛">青岛</option>
+                        <option value=" 长沙">长沙</option>
+                        <option value=" 南京">南京</option>
+                        <option value=" 厦门">厦门</option>
+                        <option value=" 昆明">昆明</option>
+                        <option value=" 大连">大连</option>
+                        <option value=" 天津">天津</option>
+                        <option value=" 郑州">郑州</option>
+                        <option value=" 三亚">三亚</option>
+                        <option value=" 济南">济南</option>
+                        <option value=" 福州">福州</option>
+                        <option value=" 澳门">澳门</option>
+                        <option value=" 台北">台北</option>
+
+                    </optgroup>
+                    <optgroup label="A">
+                        <option value="阿克苏">阿克苏</option>
+                        <option value="阿勒泰">阿勒泰</option>
+                        <option value="阿里">阿里</option>
+                        <option value="安康">安康</option>
+                        <option value="安庆">安庆</option>
+                        <option value="安顺">安顺</option>
+                        <option value="鞍山">鞍山</option>
+                        <option value="阿尔山">阿尔山</option>
+                        <option value="阿拉善右旗">阿拉善右旗</option>
+                        <option value="阿拉善左旗">阿拉善左旗</option>
+                    </optgroup>
+                    <optgroup label="B">
+                        <option value="北京">北京</option>
+                        <option value="百色">百色</option>
+                        <option value="保山">保山</option>
+                        <option value="包头">包头</option>
+                        <option value="巴彦淖尔">巴彦淖尔</option>
+                        <option value="毕节">毕节</option>
+                        <option value="北海">北海</option>
+                        <option value="博乐">博乐</option>
+                    </optgroup>
+                    <optgroup label="C">
+                        <option value="成都">成都</option>
+                        <option value="重庆">重庆</option>
+                        <option value="长沙">长沙</option>
+                        <option value="长白山">长白山</option>
+                        <option value="长春">长春</option>
+                        <option value="长治">长治</option>
+                        <option value="常德">常德</option>
+                        <option value="常州">常州</option>
+                        <option value="昌都">昌都</option>
+                        <option value="朝阳">朝阳</option>
+                        <option value="赤峰">赤峰</option>
+                        <option value="长沙">长沙</option>
+                        <option value="成都">成都</option>
+                        <option value="重庆">重庆</option>
+                        <option value="池州">池州</option>
+                    </optgroup>
+                    <optgroup label="D">
+                        <option value="大连">大连</option>
+                        <option value="大理">大理</option>
+                        <option value="大庆">大庆</option>
+                        <option value="达县">达县</option>
+                        <option value="达州">达州</option>
+                        <option value="丹东">丹东</option>
+                        <option value="德宏">德宏</option>
+                        <option value="迪庆">迪庆</option>
+                        <option value="东营">东营</option>
+                        <option value="敦煌">敦煌</option>
+                        <option value="大连">大连</option>
+                        <option value="大同">大同</option>
+                        <option value="稻城">稻城</option>
+                    </optgroup>
+                    <optgroup label="E">
+                        <option value="鄂尔多斯">鄂尔多斯</option>
+                        <option value="恩施">恩施</option>
+                        <option value="二连浩特">二连浩特</option>
+                        <option value="额济纳旗 ">额济纳旗</option>
+                    </optgroup>
+                    <optgroup label="F">
+                        <option value="福州">福州</option>
+                        <option value="佛山">佛山</option>
+                        <option value="阜阳">阜阳</option>
+                        <option value="福州">福州</option>
+                    </optgroup>
+                    <optgroup label="G">
+                        <option value="广州">广州</option>
+                        <option value="赣州">赣州</option>
+                        <option value="格尔木">格尔木</option>
+                        <option value="固原">固原</option>
+                        <option value="广汉">广汉</option>
+                        <option value="广元">广元</option>
+                        <option value="光化">光化</option>
+                        <option value="贵阳">贵阳</option>
+                        <option value="桂林">桂林</option>
+                        <option value="高雄">高雄</option>
+                        <option value="广州">广州</option>
+                    </optgroup>
+                    <optgroup label="H">
+                        <option value="杭州">杭州</option>
+                        <option value="哈尔滨">哈尔滨</option>
+                        <option value="哈密">哈密</option>
+                        <option value="海口">海口</option>
+                        <option value="海拉尔">海拉尔</option>
+                        <option value="邯郸">邯郸</option>
+                        <option value="和田">和田</option>
+                        <option value="黑河">黑河</option>
+                        <option value="怀化">怀化</option>
+                        <option value="淮安">淮安</option>
+                        <option value="黄山">黄山</option>
+                        <option value="黄岩">黄岩</option>
+                        <option value="呼和浩特">呼和浩特</option>
+                        <option value="杭州">杭州</option>
+                        <option value="合肥">合肥</option>
+                        <option value="香港">香港</option>
+                        <option value="汉中">汉中</option>
+                        <option value="河池">河池</option>
+                        <option value="红原">红原</option>
+                        <option value="花莲">花莲</option>
+                    </optgroup>
+                    <optgroup label="I">
+                        <option value=""></option>
+                    </optgroup>
+                    <optgroup label="J">
+                        <option value="济南">济南</option>
+                        <option value="济宁">济宁</option>
+                        <option value="吉林">吉林</option>
+                        <option value="鸡西">鸡西</option>
+                        <option value="佳木斯">佳木斯</option>
+                        <option value="嘉峪关">嘉峪关</option>
+                        <option value="晋江">晋江</option>
+                        <option value="锦州">锦州</option>
+                        <option value="景德镇">景德镇</option>
+                        <option value="景洪">景洪</option>
+                        <option value="井冈山">井冈山</option>
+                        <option value="九江">九江</option>
+                        <option value="九寨沟">九寨沟</option>
+                        <option value="加格达奇">加格达奇</option>
+                        <option value="揭阳">揭阳</option>
+                        <option value="金昌">金昌</option>
+                        <option value="济南">济南</option>
+                        <option value="九华山">九华山</option>
+                        <option value="金门">金门</option>
+                        <option value="嘉义">嘉义</option>
+                    </optgroup>
+                    <optgroup label="K">
+                        <option value="喀纳斯">喀纳斯</option>
+                        <option value="喀什">喀什</option>
+                        <option value="康定">康定</option>
+                        <option value="克拉玛依">克拉玛依</option>
+                        <option value="库车">库车</option>
+                        <option value="库尔勒">库尔勒</option>
+                        <option value="昆明">昆明</option>
+                        <option value="昆明">昆明</option>
+                        <option value="凯里">凯里</option>
+                    </optgroup>
+                    <optgroup label="L">
+                        <option value="拉萨">拉萨</option>
+                        <option value="兰州">兰州</option>
+                        <option value="荔波">荔波</option>
+                        <option value="丽江">丽江</option>
+                        <option value="黎平">黎平</option>
+                        <option value="连城">连城</option>
+                        <option value="连云港">连云港</option>
+                        <option value="梁平">梁平</option>
+                        <option value="临沧">临沧</option>
+                        <option value="临沂">临沂</option>
+                        <option value="林西">林西</option>
+                        <option value="林芝">林芝</option>
+                        <option value="柳州">柳州</option>
+                        <option value="龙岩">龙岩</option>
+                        <option value="泸州">泸州</option>
+                        <option value="洛阳">洛阳</option>
+                        <option value="吕梁">吕梁</option>
+                    </optgroup>
+                    <optgroup label="M">
+                        <option value="满洲里">满洲里</option>
+                        <option value="芒市">芒市</option>
+                        <option value="梅州">梅州</option>
+                        <option value="绵阳">绵阳</option>
+                        <option value="漠河">漠河</option>
+                        <option value="牡丹江">牡丹江</option>
+                        <option value="梅县">梅县</option>
+                    </optgroup>
+                    <optgroup label="N">
+                        <option value="那拉提">那拉提</option>
+                        <option value="南昌">南昌</option>
+                        <option value="南充">南充</option>
+                        <option value="南宁">南宁</option>
+                        <option value="南通">南通</option>
+                        <option value="南阳">南阳</option>
+                        <option value="宁波">宁波</option>
+                        <option value="南京">南京</option>
+                        <option value="南京">南京</option>
+                    </optgroup>
+                    <optgroup label="O">
+                        <option value=""></option>
+                    </optgroup>
+                    <optgroup label="P">
+                        <option value="攀枝花">攀枝花</option>
+                        <option value="普洱">普洱</option>
+                        <option value="普陀山">普陀山</option>
+                    </optgroup>
+                    <optgroup label="Q">
+                        <option value="青岛">青岛</option>
+                        <option value="齐齐哈尔">齐齐哈尔</option>
+                        <option value="且末">且末</option>
+                        <option value="秦皇岛">秦皇岛</option>
+                        <option value="庆阳">庆阳</option>
+                        <option value="衢州">衢州</option>
+                        <option value="青岛">青岛</option>
+                        <option value="黔江">黔江</option>
+                        <option value="泉州">泉州</option>
+                    </optgroup>
+                    <optgroup label="R">
+                        <option value="日喀则">日喀则</option>
+                    </optgroup>
+                    <optgroup label="S">
+                        <option value="上海">上海</option>
+                        <option value="深圳">深圳</option>
+                        <option value="三亚">三亚</option>
+                        <option value="沙市">沙市</option>
+                        <option value="山海关">山海关</option>
+                        <option value="沈阳">沈阳</option>
+                        <option value="石家庄">石家庄</option>
+                        <option value="思茅">思茅</option>
+                        <option value="三亚">三亚</option>
+                        <option value="上海">上海</option>
+                        <option value="上海">上海</option>
+                        <option value="上海">上海</option>
+                        <option value="汕头">汕头</option>
+                        <option value="石狮">石狮</option>
+                        <option value="神农架">神农架</option>
+                    </optgroup>
+                    <optgroup label="T">
+                        <option value="天津">天津</option>
+                        <option value="塔城">塔城</option>
+                        <option value="台州">台州</option>
+                        <option value="太原">太原</option>
+                        <option value="唐山">唐山</option>
+                        <option value="腾冲">腾冲</option>
+                        <option value="天水">天水</option>
+                        <option value="通辽">通辽</option>
+                        <option value="吐鲁番">吐鲁番</option>
+                        <option value="台中">台中</option>
+                        <option value="天津">天津</option>
+                        <option value="铜仁">铜仁</option>
+                        <option value="通化">通化</option>
+                        <option value="台南">台南</option>
+                        <option value="台东">台东</option>
+                    </optgroup>
+                    <optgroup label="U">
+                        <option value=""></option>
+                    </optgroup>
+                    <optgroup label="V">
+                        <option value=""></option>
+                    </optgroup>
+                    <optgroup label="X">
+                        <option value="西安">西安</option>
+                        <option value="厦门">厦门</option>
+                        <option value="西昌">西昌</option>
+                        <option value="西宁">西宁</option>
+                        <option value="西双版纳">西双版纳</option>
+                        <option value="锡林浩特">锡林浩特</option>
+                        <option value="香格里拉">香格里拉</option>
+                        <option value="襄樊">襄樊</option>
+                        <option value="襄阳">襄阳</option>
+                        <option value="兴义">兴义</option>
+                        <option value="徐州">徐州</option>
+                        <option value="西安">西安</option>
+                        <option value="厦门">厦门</option>
+                        <option value="香港">香港</option>
+                        <option value="香港">香港</option>
+                        <option value="夏河">夏河</option>
+                        <option value="香港">香港</option>
+                    </optgroup>
+                    <optgroup label="Y">
+                        <option value="延安">延安</option>
+                        <option value="延吉">延吉</option>
+                        <option value="盐城">盐城</option>
+                        <option value="烟台">烟台</option>
+                        <option value="伊春">伊春</option>
+                        <option value="伊犁">伊犁</option>
+                        <option value="伊宁">伊宁</option>
+                        <option value="宜宾">宜宾</option>
+                        <option value="宜昌">宜昌</option>
+                        <option value="义乌">义乌</option>
+                        <option value="银川">银川</option>
+                        <option value="永州">永州</option>
+                        <option value="榆林">榆林</option>
+                        <option value="玉树">玉树</option>
+                        <option value="运城">运城</option>
+                        <option value="扬州">扬州</option>
+                        <option value="宜春">宜春</option>
+                    </optgroup>
+                    <optgroup label="Z">
+                        <option value="郑州">郑州</option>
+                        <option value="湛江">湛江</option>
+                        <option value="张家界">张家界</option>
+                        <option value="昭通">昭通</option>
+                        <option value="芷江">芷江</option>
+                        <option value="中山">中山</option>
+                        <option value="中卫">中卫</option>
+                        <option value="舟山">舟山</option>
+                        <option value="张掖">张掖</option>
+                        <option value="遵义">遵义</option>
+                        <option value="郑州">郑州</option>
+                        <option value="重庆">重庆</option>
+                        <option value="珠海">珠海</option>
+                        <option value="张家口">张家口</option>
+                    </optgroup>
+                </select>
+                <i class="icon icon-angle-right"></i>
+            </div>
+        </div>
+        <div class="form-group-set">
+            <div class="form-group">
+                <label class="control-label">出发时间</label>
+                <input class="form-control" name="leave_date" id="leave_date" type="text" placeholder="请输入出发时间">
+                <i class="icon icon-angle-right"></i>
+            </div>
+            <div class="form-group">
+                <label class="control-label">返程时间</label>
+                <input class="form-control" name="back_date" id="back_date" type="text" placeholder="请输入返程时间">
+                <i class="icon icon-angle-right"></i>
+            </div>
+        </div>
+        <div class="form-group-set">
+            <div class="form-group">
+                <textarea name="other_content" rows="5" class="form-control" placeholder="请填写您的需求..."></textarea>
+            </div>
+        </div>
+        <button class="btn btn-primary m-t col-xs-12 btn-lg" type="button"><i class="icon-ok"></i>提交</button>
+        <div class="clearfix"></div>
+    </form>
+</section>
+
+<footer class="app-menu">
+    {:W("Cate/footer")}
+</footer>
+
+<script src="__PUBLIC__/Mfront/libs/zepto.js"></script>
+<script src="__PUBLIC__/Mfront/libs/turbo.js"></script>
+
+<script>
+    $(function () {
+        var now = new Date();
+        // 出发时间
+        $('#leave_date').mobiscroll().date({
+            theme: 'mobiscroll',
+            lang: 'zh',
+            display: 'bottom',
+            minDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+            dateOrder: 'YYMMdd',
+            dateFormat: 'yy-mm-dd'
+        });
+
+        // 到达时间
+        $('#back_date').mobiscroll().date({
+            theme: 'mobiscroll',
+            lang: 'zh',
+            display: 'bottom',
+            minDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+            dateOrder: 'YYMMdd',
+            dateFormat: 'yy-mm-dd'
+        });
+        //出发城市
+        $('#from_city').mobiscroll().select({
+            theme: 'mobiscroll',
+            lang: 'zh',
+            display: 'bottom',
+            label: 'Name',
+            maxWidth: [80, 300],
+            rtl: true,
+            group: true,
+            groupLabel: 'A-Z'
+        });
+        //到达城市
+        $('#to_city').mobiscroll().select({
+            theme: 'mobiscroll',
+            lang: 'zh',
+            display: 'bottom',
+            label: 'Name',
+            maxWidth: [80, 300],
+            rtl: true,
+            group: true,
+            groupLabel: 'A-Z'
+        });
+    });
+</script>
+</body>
+</html>

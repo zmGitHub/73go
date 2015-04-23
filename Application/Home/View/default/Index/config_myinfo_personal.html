@@ -1,0 +1,667 @@
+<div class="main_right">
+    <div class="r_hd">
+        <h3 class="r_tit">个人信息</h3>
+
+        <div class="r_hd_extra">
+            <a href="{:U('Index/config_myinfo_acount')}">登录账户</a>
+            <a href="{:U('Index/config_myinfo_personal')}" class="current">详细信息</a>
+            <a href="{:U('Index/config_myinfo_card')}">常旅客卡</a>
+            <a href="{:U('Index/config_myinfo_dispaddr')}">配送地址</a>
+        </div>
+    </div>
+    <form id="profileInfo">
+        <div class="BoxHeight mb_10"></div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+            <tr>
+                <td width="200" align="right"><b style="color: #ff0000;display:inline;font-size: 20px;vertical-align: middle;">*</b>&nbsp;真实姓名</td>
+                <td><input name="name" type="text" class="text01" value="{$result.0.name}" placeholder="请填写身份证上的姓名" autofocus></td>
+                <td>
+                    <div id="tmcUser1" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>真实姓名长度为2-6个字符
+                    </div>
+                    <div id="tmcUser2" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right"><b style="color: #ff0000;display:inline;font-size: 20px;vertical-align: middle;">*</b>&nbsp;性别</td>
+                <td style="width: 230px">
+                    <span class="tex_blue">
+                      <select name="sex" class="text02">
+
+                          <foreach name="data11" item="vo">
+                              <option value="{$vo.d_key}" {$result[0]['sex']==$vo['d_key']?'selected':''}>{$vo.d_value}</option>
+                          </foreach>
+
+                      </select>
+                    </span>
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="right">手机</td>
+                <td><input name="phone" type="text" class="text01" value="{$result.0.phone}" placeholder="请填写常用手机号码"/></td>
+                <td>
+                    <div id="tmcTel1" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>手机格式不正确
+                    </div>
+                    <div id="tmcTel2" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">QQ</td>
+                <td><input name="qq" type="text" class="text01" value="{$result.0.qq}" placeholder="请填写常用qq"></td>
+                <td>
+                    <div id="tmcQQ1" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>QQ格式不正确
+                    </div>
+                    <div id="tmcQQ2" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">电子邮箱</td>
+                <td><input name="email" type="text" class="text01" value="{$result.0.email}" placeholder="请填写常用邮箱地址"></td>
+
+                <td>
+                    <div id="tmcEmail1" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>邮箱格式不正确
+                    </div>
+                    <div id="tmcEmail2" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">证件</td>
+                <td><span class="tex_blue">
+              <select name="id_type" id="select6" class="text02">
+                  <!--证件类型不需要
+                  <option value="-1" selected="selected">证件类型</option>-->
+                  <foreach name="data" item="vo">
+                      <option {$result[0]['id_type']==$vo['d_key']?'selected':''} value="{$vo.d_key}">{$vo.d_value}</option>
+                  </foreach>
+              </select>
+              </span></td>
+            </tr>
+            <tr>
+                <td align="right"></td>
+                <td>
+                    <input name="id_num" type="text" class="text01" value="{$result.0.id_num}" placeholder="请填写证件上的号码"/>
+                </td>
+                <td>
+                    <div id="tmcIdcard1" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>证件长度为15或18位
+                    </div>
+                    <div id="tmcIdcard2" style="display:none" class="mod_success_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">所在城市</td>
+                <td>
+                    <span class="tex_blue">
+                        <div id="user_area">
+                            <select name="province" class="prov text02 w122"></select>
+                            <select class="city text02 w122" name="city" disabled="disabled"></select>
+                        </div>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="button" id="btn_sure" class="btn_sure btn-sure1" value="保存修改" disabled>
+                </td>
+            </tr>
+        </table>
+        <br/>
+    </form>
+    <div class="btitle">
+        <h4>
+            <label for="check">
+                <input type="checkbox" name="checkbox" id="check"/><span> 修改</span>
+            </label>
+
+        </h4>
+    </div>
+    <!--  <form action="{:U('User/mod_company')}"  method="post">-->
+    <table width="100%" border="0" id='tb' cellpadding="0" cellspacing="0" class="table_p4 table_tmc">
+        <tr>
+            <td width="200"></td>
+            <td>&nbsp;</td>
+        </tr>
+        <if condition="$result[0]['status'] eq 0">
+            <tr>
+                <input type="hidden" name="status" id="add" value="{$result.0.status}"/>
+                <td align="right">企业编号</td>
+                <td width="220px" class="tipCode">
+                    <input name="co_code" id="addCompanyId" type="text" class="text01 fl_left" placeholder="请填写企业编号..." disabled/>
+                </td>
+
+                <td>
+                    <div id="co_codeTip" style="display: none;" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>不存在的企业编号
+                    </div>
+
+                </td>
+            </tr>
+            <!--<tr>-->
+                <!--<td align="right">企业名称</td>-->
+                <!--<td><span id="companyName"></span></td>-->
+            <!--</tr>-->
+            <tr>
+                <td align="right">&nbsp;</td>
+                <td>
+                    <input type="button" name="confirmUpdateNew" data-status="{$result[0]['status']}" class="btn_sure btn-sure1" value="确认绑定" disabled>
+                </td>
+            </tr>
+            <tr>
+                <elseif condition="$result[0]['status'] eq 1"/>
+            <tr>
+                <input type="hidden" name="status" value="{$result.0.status}"/>
+                <td align="right">企业编号</td>
+                <td class="tipCode" width="250px">
+                    <input name="co_code" type="text" class="text01 fl_left" value="{$co_info.0.co_code}" placeholder="请填写企业编号..." disabled="disabled"/>
+                </td>
+                <td>
+                    <div id="co_codeTip" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>不存在的企业编号
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">企业名称:</td>
+                <td id="companyName">
+                    {$co_info.0.name}
+                </td>
+            </tr>
+            <tr class="update_entity">
+                <td align="right">部门</td>
+                <td>
+                    <span class="tex_blue">
+                        <select name="br_id" id="company_part" class="text02 fl_left" disabled="disabled">
+                          <foreach name="co_branch" item="vo">
+                            <option value="{$vo.id}" {$result[0]['br_id']==$vo['id']?'selected':''} >{$vo.name}</option>
+                        </foreach>
+                        </select>
+                    </span>
+                </td>
+            </tr>
+            <tr class="update_entity">
+                <td align="right">工号</td>
+                <td class="tipCode">
+                    <input name="emp_code" type="text" class="text01" value="{$result.0.emp_code}" placeholder="请填写员工工号..." disabled/>
+                </td>
+                <td>
+                    <div id="co_number" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>工号不能为空
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="right">&nbsp;</td>
+                <td>
+                    <input type="button" name="confirmUpdate" data-status="{$result[0]['status']}" class="btn_sure" value="保存修改" disabled>
+                </td>
+            </tr>
+            <tr>
+                <elseif condition="$result[0]['status'] eq 2"/>
+            <tr>
+                <input type="hidden" name="status" value="{$result.0.status}"/>
+                <td align="right">企业编号</td>
+                <td width="220px" class="tipCode">
+                    <input name="co_code" type="text" class="text01 fl_left" value="{$co_info.0.co_code}" placeholder="请填写企业编号" disabled/>
+                <td>
+                <td>
+                <div id="co_codeTipSuccess" class="mod_tips_inner mt_2 fl_left" style="color:#080808">
+                    <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>待审核
+                </div>
+
+                <div id="co_codeTip" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                    <i class="mod_tico_x16 mod_tico_warn_x16"></i>不存在的企业编号
+                </div>
+                </td>
+
+
+            </td>
+                </td>
+            </tr>
+            <!--<tr>
+                <td align="right">企业名称</td>
+                <td><span id="companyName">{$co_info.0.name}</span></td>
+            </tr>-->
+            <tr>
+                <td align="right">&nbsp;</td>
+                <td>
+                    <input type="button" name="confirmUpdate" data-status="{$result[0]['status']}" class="btn_sure btn-sure1" value="保存修改" disabled>
+                </td>
+            </tr>
+
+            <!--申请驳回-->
+            <tr>
+                <elseif condition="$result[0]['status'] eq 15"/>
+            <tr>
+                <input type="hidden" name="status" value="{$result.0.status}"/>
+                <td align="right">企业编号</td>
+                <td width="220px" class="tipCode">
+                    <input name="co_code" type="text" class="text01 fl_left" value="{$co_info.0.co_code}" placeholder="请填写企业编号" disabled/>
+                <td>
+                <td>
+                    <div id="co_codeTipSuccess" class="mod_tips_inner mt_2 fl_left" style="color:#080808">
+                        <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>申请被驳回
+                    </div>
+
+                    <div id="co_codeTip" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>不存在的企业编号
+                    </div>
+                </td>
+
+
+                </td>
+                </td>
+            </tr>
+            <!--<tr>
+                <td align="right">企业名称</td>
+                <td><span id="companyName">{$co_info.0.name}</span></td>
+            </tr>-->
+            <tr>
+                <td align="right">&nbsp;</td>
+                <td>
+                    <input type="button" name="confirmUpdate" data-status="{$result[0]['status']}" class="btn_sure btn-sure1" value="重新绑定" disabled>
+                </td>
+            </tr>
+
+            <tr>
+                <else/>
+            <tr>
+                <input type="hidden" name="status" value="{$result.0.status}" disabled/>
+                <td align="right">企业编号</td>
+                <td class="tipCode">
+                    <input name="co_code" type="text" class="text01 fl_left" placeholder="请填写企业编号" disabled/>
+                </td>
+                <td>
+                    <div id="co_codeTip" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                        <i class="mod_tico_x16 mod_tico_warn_x16"></i>不存在的企业编号
+                    </div>
+
+                </td>
+            </tr>
+        </if>
+
+
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+    </table>
+    </form>
+</div>
+<div class="clear"></div>
+</div>
+<script>
+    $(function () {
+        /*姓名验证*/
+        var status = $("input[name='confirmUpdate']").attr('data-status') || -1;
+        var update = false;
+        var error = false;
+        var err1= 1,err2 = 1;
+        $("input[name='name']").blur(function () {
+            var pattern = /^[\u4e00-\u9fa50-9a-z]{2,10}$/i;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userName) ) {
+                _this.removeClass('warning').parent('td').removeClass('warning');
+                $("#btn_sure").removeAttr("disabled");
+                $('#tmcUser1').css('display', 'none');
+            } else {
+                $("#btn_sure").attr("disabled", true);
+                _this.addClass('warning').parent('td').addClass('warning');
+                $('#tmcUser1').css('display', 'block');
+            }
+        });
+        /*手机号码验证*/
+        $("input[name='phone']").blur(function () {
+            var pattern = /^\d{6,11}$/i;
+            var userTel = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userTel) ) {
+                _this.removeClass('warning').parent('td').removeClass('warning');
+                $("#btn_sure").removeAttr("disabled");
+                $('#tmcTel1').css('display', 'none');
+            } else {
+                $("#btn_sure").attr("disabled", true);
+                _this.addClass('warning').parent('td').addClass('warning');
+                $('#tmcTel1').css('display', 'block');
+            }
+        });
+        /*qq号码*/
+        $("input[name='qq']").blur(function () {
+            var pattern = /^[1-9][0-9]{4,9}$/;
+            var userQQ = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userQQ)) {
+                _this.removeClass('warning').parent('td').removeClass('warning');
+                $("#btn_sure").removeAttr("disabled");
+                $('#tmcQQ1').css('display', 'none');
+            } else {
+                $("#btn_sure").attr("disabled", true);
+                _this.addClass('warning').parent('td').addClass('warning');
+                $('#tmcQQ1').css('display', 'block');
+            }
+        });
+        /*邮箱验证*/
+        $("input[name='email']").blur(function () {
+            var pattern =/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+            var userEmail = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userEmail) ) {
+                _this.removeClass('warning').parent('td').removeClass('warning');
+                $("#btn_sure").removeAttr("disabled");
+                $('#tmcEmail1').css('display', 'none');
+            } else {
+                $("#btn_sure").attr("disabled", true);
+                _this.addClass('warning').parent('td').addClass('warning');
+                $('#tmcEmail1').css('display', 'block');
+            }
+        });
+
+        /*证件号验证*/
+       $('#select6').change(function() {
+            var type = $(this).val()||-1;
+            if(type==0) {
+                $("input[name='id_num']").focus();
+                $("input[name='id_num']").bind('blur',function () {
+                    var pattern = /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/;
+                    var codeId = $(this).val() || '';
+                    var _this = $(this);
+                    if (pattern.test(codeId)) {
+                        _this.removeClass('warning').parent('td').removeClass('warning');
+                        $('#tmcIdcard1').css('display', 'none');
+                    } else {
+                        _this.addClass('warning').parent('td').addClass('warning');
+                        $('#tmcIdcard1').css('display', 'block');
+                    }
+                });
+            } else {
+                $("input[name='id_num']").unbind('blur');
+                $("input[name='id_num']").removeClass('warning').parent('td').removeClass('warning');
+                $('#tmcIdcard1').css('display', 'none');
+            }
+        });
+
+       /* $("input[name='id_num']").blur(function () {
+            var pattern = /^\d{6,20}(\d|X|x)$/;
+            var idNumber = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(idNumber) ) {
+                _this.removeClass('warning').parent('td').removeClass('warning');
+                $("#btn_sure").removeAttr("disabled");
+                $('#tmcIdcard1').css('display', 'none');
+            } else {
+                $("#btn_sure").attr("disabled", true);
+                _this.addClass('warning').parent('td').addClass('warning');
+                $('#tmcIdcard1').css('display', 'block');
+            }
+        });*/
+
+        $('#check').click(function () {
+            update = true;
+            var res = this.checked;
+            if ( res ) {
+                $.ajax({
+                    url: "{:U('User/checkBaseInfo')}",
+                    dataType: "JSON",
+                    success: function (result) {
+                        result = ajaxGet(result);
+                        if(result>0){
+                            $("#tb input").not("input[name='confirmUpdate']").removeAttr("disabled");
+                            $("#tb select").removeAttr("disabled");
+                            $("#company_part").removeAttr("disabled");
+                        }else{
+                            swal({
+                                title: "温馨提示!",
+                                text: "请完善个人基本信息!!!",
+                                type: "info",
+                                confirmButtonText: "关 闭",
+                                timer: 4000
+                            });
+                        }
+                    }
+                });
+
+            } else {
+                $("#tb input").attr("disabled", "disabled");
+                $("#tb select").attr("disabled", "disabled");
+                $("input[name='confirmUpdate']").attr("disabled", true);
+                $("#co_codeTipSuccess").css("display","inline-block");
+                $('#co_codeTip').css("display", "none");
+            }
+            $(".text01").removeClass("warning");
+            $(".tipCode").removeClass("warning");
+        });
+        /*企业编号验证*/
+        $("input[name='co_code']").blur(function () {
+            var value = $(this).val() || '';
+            var _this = $(this);
+            if ( value != '' && value.length<30) {
+                $.ajax({
+                    url: "{:U('User/check_company1')}",
+                    data: "co_code=" + value,
+                    dataType: "JSON",
+                    type: "POST",
+                    success: function (msg) {
+                        if ( msg != "" ) {
+                            error = true;
+                            err1 = 1;
+                            var partStr = "";
+                            _this.removeClass('warning').parent('td').removeClass('warning');
+                            $('#co_codeTip').css("display", "none");
+                            $("#co_codeTipSuccess").css("display","none");
+                            $("input[name='confirmUpdate']").attr("disabled",false);
+                            $("#companyName").html(msg.name);
+                            if(msg.parts!=null && msg.parts.length>0){
+                                for(var i= 0,length=msg.parts.length;i<length;i++){
+                                    partStr+='<option value="'+msg.parts[i].id+'" >'+msg.parts[i].name+'</option>';
+                                }
+                            }
+                            $("#company_part").html(partStr);
+                            status = 0;
+                        } else {
+                            err1 = 0;
+                            _this.val('');
+                            $("input[name='confirmUpdate']").attr("disabled",true);
+                            _this.addClass('warning').parent('td').addClass('warning');
+                            $('#co_codeTip').css("display", "inline-block");
+                            $("#co_codeTipSuccess").css("display","none");
+                            $("input[name='confirmUpdate']").attr("disabled",true);
+                            $("#companyName").html("");
+                        }
+
+                    }
+
+                });
+
+            }else{
+                err1 = 0;
+                _this.addClass('warning').parent('td').addClass('warning');
+                _this.val('');
+                $("input[name='confirmUpdate']").attr("disabled",true);
+                $("#co_codeTipSuccess").css("display","none");
+                $('#co_codeTip').css("display", "inline-block");
+            }
+        });
+        /*工号验证*/
+        $("input[name='emp_code']").blur(function () {
+            var value = $(this).val() || '';
+            var _this = $(this);
+            if ( value != '' && value.length<30) {
+                err2 = 1;
+                _this.removeClass('warning').parent('td').removeClass('warning');
+                $('#co_number').css("display", "none");
+                $("input[name='confirmUpdate']").attr("disabled",false);
+            }else{
+                err2 = 0;
+                $("input[name='confirmUpdate']").attr("disabled",true);
+                _this.addClass('warning').parent('td').addClass('warning');
+                $('#co_number').css("display", "inline-block");
+            }
+        });
+
+        $("select[name='br_id']").change(function () {
+            error = true;
+            $("input[name='confirmUpdate']").attr("disabled",false);
+        });
+        /*提交申请1*/
+        $("input[name='confirmUpdate']").click(function () {
+            var value = $("input[name='co_code']").val() || '';//企业编号
+            var brId = $("select[name='br_id']").val() || '';//部门编号
+            var empCode = $("input[name='emp_code']").val() || '';//工号
+            if ( err1 ) {
+                $.ajax({
+                    url: "{:U('User/mod_company')}",
+                    data: "co_code=" + value + "&br_id=" + brId + "&emp_code=" + empCode + "&status=" + status,
+                    dataType: "text",
+                    type: "POST",
+                    success: function (msg) {
+                        var result = parseInt(msg) || 0;
+                        if ( result != 0 ) {
+                            swal({
+                                title: "温馨提示!",
+                                text: "企业审核中...",
+                                type: "success",
+                                confirmButtonText: "关 闭"
+                            }, function () {
+                                window.location.reload();
+                            });
+
+                        } else {
+                            swal({
+                                title: "温馨提示!",
+                                text: "企业绑定失败!!!",
+                                type: "error",
+                                confirmButtonText: "关 闭"
+                            });
+                        }
+                    }
+                });
+            }else{
+                swal({
+                    title: "温馨提示!",
+                    text: "请完善绑定信息!!!",
+                    type: "info",
+                    confirmButtonText: "关 闭"
+                });
+            }
+
+        });
+        //开始认证
+        $("input[name='confirmUpdateNew']").click(function () {
+            var value = $("input[name='co_code']").val() || '';//企业编号
+            if ( err1) {
+                $.ajax({
+                    url: "{:U('User/mod_company')}",
+                    data: "co_code=" + value + "&status=" + status,
+                    dataType: "text",
+                    type: "POST",
+                    success: function (msg) {
+                        var result = parseInt(msg) || 0;
+                        if ( result != 0 ) {
+                            swal({
+                                title: "温馨提示!",
+                                text: "企业审核中...",
+                                type: "success",
+                                confirmButtonText: "关 闭"
+                            }, function () {
+                                window.location.reload();
+                            });
+
+                        } else {
+                            swal({
+                                title: "温馨提示!",
+                                text: "企业绑定失败!!!",
+                                type: "error",
+                                confirmButtonText: "关 闭"
+                            });
+                        }
+                    }
+                });
+            }else{
+                swal({
+                    title: "温馨提示!",
+                    text: "请完善绑定信息!!!",
+                    type: "info",
+                    confirmButtonText: "关 闭"
+                });
+            }
+
+        });
+
+        $("#btn_sure").click(function () {
+            var obj = zmJSON("profileInfo");
+            obj = eval("("+ obj+")");
+            //有数据直接点击保存也能提示成功
+            var name = $('.text01').val();
+            $.ajax({
+                url: "{:U('User/mod_user_detail')}",
+                data: obj,
+                dataType: "JSON",
+                type: "POST",
+                success: function (result) {
+                    result = parseInt(result);
+                    if(result>0 || name!=''){
+                        swal({
+                            title: "温馨提示!",
+                            text: "个人信息修改成功！",
+                            type: "success",
+                            confirmButtonText: "关 闭"
+                        }, function () {
+                            $("input[name='confirmUpdate']").removeAttr("disabled");
+                            $('#check').attr("checked",false);
+                        });
+                    }else{
+                        swal({
+                            title: "温馨提示!",
+                            text: "个人信息修改失败!",
+                            type: "info",
+                            confirmButtonText: "关 闭"
+                        }, function () {
+                            $("input[name='confirmUpdate']").attr("disabled", true);
+                        });
+                    }
+                }
+            });
+        });
+
+        $("#user_area").citySelect({
+            prov: "{$result.0.province}",
+            city: "{$result.0.city}"
+        });
+    });
+
+    /*json格式传递参数 zm*/
+    function zmJSON(formid){
+        var fields = $("#"+formid).serialize();
+        fields = decodeURIComponent(fields,true);//字符串转编码
+        var dataResult =fields;
+        var tmp = dataResult.replace(/&/g, "\",");
+        tmp = tmp.replace(/=/g, ":\"");
+        var jsonValue ="{" + tmp + "\\"}";
+        return jsonValue;
+    }
+
+</script>
+
+

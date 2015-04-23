@@ -1,0 +1,151 @@
+<!---企业弹出浮层  --->
+<div class="popup popup_pos1" id="com_box" style="display: none;">
+	<a href="javascript:void(0)" id="com_shut"  class="btn_close"></a>
+	<div class="pop_title">企业搜索</div>
+	<div class="popup_cont2" onkeydown="com_search();">
+		
+		<input name="com_info" type="text" id="com_info" class="text01 h20 c_tx2"
+			value="" placeholder="企业编号/企业名称">
+		<input type="button" value="查找" id="com_search" class="btn_b5 ml_5" style="cursor:pointer">
+		<table id='com_tab' width="100%" border="0" cellspacing="0"
+			cellpadding="0" class="table_fund bg_tab mt_10" >
+		</table>
+		<div class="news_mod_form_cnt dt_time01 dt_time_xz" id="com_boxs"></div>
+		<div class="text_cent">
+			<a href="javascript:void(0)" id="com_button" class="btn_sure">确定</a>
+		</div>
+	</div>
+</div>
+<!---企业弹出浮层  --->
+<script >
+
+function com_search(){
+	 if (event.keyCode==13)  //回车键的键值为13
+		 $('#com_search').click();
+	}
+	
+	/*弹出企业*/
+	var com_tartget = '';
+	var com_isRadio;
+	var com_isShowData;
+	var com_urlStr = "";
+	var com_info = "";
+	var parameter;
+	function com_pop(obj,urlStr){
+		com_tartget = obj;
+		com_urlStr = urlStr;
+		com_info = "";
+		$("#com_info").val('');
+		com_isRadio = arguments[2] ? arguments[2] : false;//是否为单选
+		com_isShowData = arguments[3] ? arguments[3] : false;//是否默认不需要搜索便展示数据
+		parameter = arguments[4] ? arguments[4] : false;//参数数组
+		
+		$('#com_box').css('display','block');
+		$("#com_boxs").html('');
+		if(com_isShowData==false){
+			com_ajax();
+		}		
+	};
+	
+	function com_ajax(){
+		$.ajax({
+			url:com_urlStr,
+				data:'info='+com_info,
+				dataType:"text",
+				type:"POST",
+				success: function(data){
+					var html = '<tr><th width="5%">&nbsp;</th><th width="5%">id</th><th width="10%">企业编号</th><th width="12%">全名</th><th width="90">联系人</th><th width="90">联系电话</th></tr>' ;  
+					var data=eval("("+data+")");
+					//console.log(data);
+					if(data==null){
+						$('#com_tab').html(html);
+					}else{
+					//转换为json对象 
+					$.each(data,function(i, item){  
+					
+						var addhtml='';
+						if(com_isRadio==false){
+							addhtml = '<tr class="searchList" id="com_'+item.id+'"  style="cursor:pointer"><td><input type="checkbox" data-id="'+item.id+'" name="com_isChecked" id="com_checkbox'+item.id+'"></td><td onclick="com_sglclick('+item.id+')" ondblclick="com_dblclick('+item.id+')">'+item.id+'</td><td onclick="com_sglclick('+item.id+')" ondblclick="com_dblclick('+item.id+')">'+item.co_code+'</td><td onclick="com_sglclick('+item.id+')" ondblclick="com_dblclick('+item.id+')">'+item.name+'</td><td onclick="com_sglclick('+item.id+')" ondblclick="com_dblclick('+item.id+')">'+item.contact_name+'</td><td onclick="com_sglclick('+item.id+')" ondblclick="com_dblclick('+item.id+')">'+item.contact_phone+'</td></tr>';  
+						}else{
+							addhtml = '<tr class="searchList" id="com_'+item.id+'"  style="cursor:pointer"><td><input type="radio" data-id="'+item.id+'" name="com_isChecked" id="com_checkbox'+item.id+'"></td><td onclick="com_sglclick('+item.id+')" ondblclick="com_dblclick('+item.id+')">'+item.id+'</td><td onclick="com_sglclick('+item.id+')" ondblclick="com_dblclick('+item.id+')">'+item.co_code+'</td><td onclick="com_sglclick('+item.id+')" ondblclick="com_dblclick('+item.id+')">'+item.name+'</td><td onclick="com_sglclick('+item.id+')" ondblclick="com_dblclick('+item.id+')">'+item.contact_name+'</td><td onclick="com_sglclick('+item.id+')" ondblclick="com_dblclick('+item.id+')">'+item.contact_phone+'</td></tr>';  
+						}
+						   html+=addhtml;
+					});
+					$('#com_tab').html(html);
+					}
+	             }
+		});
+	}
+	
+	$('#com_search').click(function(){
+		com_info = $('#com_info').val();
+		if(com_info!=""){
+			com_ajax();
+		}
+		
+		
+	});
+	/*关闭窗口*/
+	function com_close(){
+		$('#com_box').css('display','none');	
+		
+	};
+	/*关闭查询*/
+	$('#com_shut').click(function(){
+		com_close();
+	});
+	
+	/*单击*/
+	function com_sglclick(id){
+		var com_checkbox = $('#com_checkbox'+id);
+		com_checkbox.attr("checked")=="checked"?com_checkbox.attr("checked",false):com_checkbox.attr("checked",true);
+	};
+	
+	/*双击*/
+	function com_dblclick(id){		
+		var obj =  com_getdata(id);
+		var res = [];
+		res.push(obj);
+		com_tartget(res,parameter);
+		com_close();
+		
+	};
+	/*获取单行数据*/
+	function com_getdata(id){
+		var td = $('#com_'+id).find("td");
+		var data = new Object();
+		//id
+		data.co_id = td.eq(1).text();
+		//企业编号
+		data.co_code = td.eq(2).text();
+		//全名
+		data.name = td.eq(3).text();
+		//联系人
+		data.contact_name = td.eq(4).text();
+		//联系电话
+		data.contact_phone = td.eq(5).text();
+		return data;
+		
+	}
+	/*获取所有选中的数据*/
+	function com_getdatas(){
+		var result = [];
+		$("input[name='com_isChecked']:checked").each(function(){
+			var id =  $(this).data('id');
+			result.push(com_getdata(id));
+		});
+		return result;
+		
+	};
+	/*提交数据*/
+	$('#com_button').click(function(){
+		var lst = com_getdatas() || [];		
+		
+		if(lst.length>0){
+			com_tartget(lst,parameter);
+			com_close();
+		}
+		
+	});
+
+</script>

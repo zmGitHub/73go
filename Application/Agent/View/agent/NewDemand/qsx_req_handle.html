@@ -1,0 +1,185 @@
+<div class="main_right xxzx_list">
+   	  <div class="r_hd">
+            <h3 class="r_tit">轻松行预定需求</h3>
+   	</div>
+    <div  class="BoxHeight mt_10" ></div>
+    
+    
+    <foreach name="nedemand"  item="req" key="k">
+    <div class="contTwo">
+		<dl>
+		 <if condition="$req.voice_txt  neq null  "> {$req.voice_txt}<br/>{$req.emp_name} </if>
+		 <!-- 加了一个判断，直接过滤掉已过期的订单 dx 15-3-25-->
+    	 <if condition="($req.voice_txt  eq  '')AND($req.minute gt 0 )">
+				<dt>
+				  <h4>需求单号： <br />{$req.qsx_rq_no}<br /><br />
+			      {$req.submit_time|substr=###,0,10}</h4>
+				  <h3>{$req.submit_time|substr=###,10,6}</h3>
+				  <!--新增用户的联系方式 dx 15-3-17-->
+			      <if condition="$u_name[$k] neq null"><h4>联系人：{$u_name[$k]}</h4></if>
+			      <if condition="$u_phone[$k] neq null"><h4>手机号码：{$u_phone[$k]}</h4></if>
+			      <if condition="$u_qq[$k] neq null"><a id="qq" target="_self" href="tencent://message/?Menu=yes&uin={$u_qq[$k]}&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45"><img border="0" src="http://wpa.qq.com/pa?p=2:{$u_qq[$k]}:41"></a></if>
+			<!--<a class="tex_blue">取消</a>
+            --></dt>
+				<dd>
+				  <h3>
+				  <strong class="ml_16">{$req.from_city}——{$req.to_city} </strong>
+				  <!-- 1.20更改过期时间 -->
+				  <em class="ml_25 tex_12">
+				  <if condition="$req.minute gt 0">离过期还有：{$req.minute}分钟 
+				  <else/>已过期
+				  </if>
+				  </em>
+				  </h3>
+				  <p>
+				  <if condition="$req.tr_no neq '' ">
+				   TR号：{$req.tr_no}
+				  </if>
+				 <if condition="$datt.emergency_booking eq 1">
+                    <td><input type="checkbox" id="choose_btn"/>&nbsp;
+                   		     /这是紧急预订
+                    </td>
+                    <else/>
+                    <td>&nbsp;</td>
+                 </if>
+				   <!--
+				   <strong class=" ml_25">{$req.short_name}（简称）</strong>{$req.emp_name}
+				   -->
+					  <if condition='$req.vip_level ==1'>
+				  		<em class="vip_8">VIP1</em>
+				   <elseif condition='$req.vip_level ==2'/><em class="vip_8">VIP2</em>
+				   </if><br />
+				     出发时间：{$req.leave_date} <br />
+				 <if condition="$req.back_date neq '0000-00-00' ">  
+				   返回时间：{$req.back_date}<br />	
+				 </if>  </p>
+				   <!-- 选择的服务： </p>
+				  <div class="news_mod_form_cnt dt_time01 dt_time_xz"> 
+				  <if condition="$req.flight ==1 "><a class="current2" href="javascript:void(0);">机票</a> </if>
+				  <if condition="$req.hotel ==1 "><a class="current2" href="javascript:void(0);">酒店</a></if>
+				  <if condition="$req.train ==1 "> <a class="current2" href="javascript:void(0);">火车票</a></if>
+				  <if condition="$req.car ==1 "><a class="current2" href="javascript:void(0);">租车</a></if>
+				  <if condition="$req.visa ==1 "><a class="current2" href="javascript:void(0);">接送</a></if>
+				  <if condition="$req.transp ==1 "> <a class="current2" href="javascript:void(0);">签证</a></if> 
+				  <if condition="$req.other ==1 "> <a class="current2" href="javascript:void(0);">其他</a> </if>
+				  </div> -->
+				  <div class="clear"></div>
+				  <br />
+				  <div class="max_h500">
+				  <!--<if condition="$req.flight ==1 ">
+				   	【机票】
+				    {$req.flight_content} <br />
+				    <br /></if>
+				   <if condition="$req.hotel ==1 ">
+					【酒店】 
+				    {$req.hotel_content}<br />
+				   <br /></if>
+				  <if condition="$req.train ==1 "> 
+					【火车票】
+				    {$req.train_content}<br />
+				    <br /></if>
+				  <if condition="$req.car ==1 ">
+					【租车】
+				    {$req.car_content}<br />
+				   <br /> </if>
+				  <if condition="$req.visa ==1 ">
+					【接送】 
+				    {$req.visa_content}<br />
+				   <br /></if>
+				  <if condition="$req.transp ==1 "> 
+					【签证】
+				    {$req.transp_content}<br />
+				    <br /></if>
+				  <if condition="$req.other ==1 "> -->
+					<em class="tex_14">【具体需求】</em>
+				    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$req.other_content}</p>
+				    <!-- </if> -->
+				  
+			      </div>
+	    </dd>
+	    </if>
+				<span>
+			<if condition="$req.minute gt 0"><a><h3 class="a_buy tex_14" onclick="Grab({$req.rec_id});">抢单</h3></a></if>
+		</span>
+	</dl>
+    </div>
+    
+    </foreach>
+    <br>
+        <!-- 分页的样式 和数量的显现  开始-->
+            <div class="meneame">
+		    {$Page}
+		    </div>
+        	 <style>
+			/*css meneame style pagination*/
+			div.meneame{padding:3px;font-size:80%;margin:3px;color:#ff6500;text-align:center;}
+			div.meneame a{border:#ff9600 1px solid;padding:5px 7px;background-position:50% bottom;background-image:url(../images/meneame.jpg);margin:0 3px 0 0;text-decoration:none;}
+			div.meneame a:hover{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame a:active{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame span.current{border:#ff6500 1px solid;padding:5px 7px;font-weight:bold;color:#ff6500;margin:0 3px 0 0;background-color:#ffbe94;}
+			div.meneame span.disabled{border:#ffe3c6 1px solid;padding:5px 7px;color:#ffe3c6;margin:0 3px 0 0;}
+			</style>
+    
+<div>
+</div>
+  </div>
+    <div class="clear"></div>
+</div>
+
+<script type="text/javascript" >
+	function Grab(recid){
+		
+		$.ajax({
+			url:"{:U('NewDemand/grabNewDemandController')}", 
+			data:"recid="+recid,
+			dataType:"text",
+			type:"POST",
+			success:function(data){
+				/**
+				 * 修改需求单过期后 ，TMC员工依然可以抢单成功的bug
+				 * 修改者：王月
+				 * 修改时间：2015-3-17
+				 */
+				data = parseInt(data);
+				if(data===1) {
+					swal({
+						title: "温馨提示!",
+						text: "抢单成功!!",
+						type: "success",
+						confirmButtonText: "关 闭"
+					}, function () {
+						location.href = "{:U('NewDemand/showNewDemandController')}";
+					});
+				} else if(data===-1) {
+					swal({
+						title: "温馨提示!",
+						text: "抢单失败，订单已过期!!",
+						type: "info",
+						confirmButtonText: "关闭刷新"
+					}, function () {
+						window.location.reload();
+					});
+				} else if(data===3) {
+					swal({
+						title: "温馨提示!",
+						text: "抢单失败，订单已取消!!",
+						type: "info",
+						confirmButtonText: "关闭刷新"
+					}, function () {
+						window.location.reload();
+					});
+				} else if(data===0) {
+					swal({
+						title: "温馨提示!",
+						text: "抢单失败，请刷新重试!!",
+						type: "info",
+						confirmButtonText: "关闭刷新"
+					}, function () {
+						window.location.reload();
+					});
+				}
+			}
+		});
+	}
+
+</script>

@@ -1,0 +1,321 @@
+<div class="main_right">
+    <div class="r_hd">
+        <h3 class="r_tit">个人信息</h3>
+
+        <div class="r_hd_extra">
+            <a href="{:U('Index/config_myinfo_acount')}">登录账户</a>
+            <a href="{:U('Index/config_myinfo_personal')}">详细信息</a>
+            <a href="{:U('Index/config_myinfo_card')}">常旅客卡</a>
+            <a href="{:U('Index/config_myinfo_dispaddr')}" class="current">配送地址</a>
+        </div>
+    </div>
+
+    <div class="BoxHeight mb_10"></div>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+        <tr>
+            <td width="200" align="right">真实姓名</td>
+            <td width="250px"><input name="name" type="text" class="text01 c_tx2" placeholder="请填写身份证上的姓名"  autocomplete="off"></td>
+            <td>
+                <div id="tmcUser1" style="display:none" class="mod_tips_inner mt_2 fl_left">
+                    <i class="mod_tico_x16 mod_tico_warn_x16"></i>真实姓名长度为2-6个字符
+                </div>
+                <div id="tmcUser2" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                    <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">手机</td>
+            <td><input name="phone" type="text" class="text01 c_tx2" placeholder="请填写常用联系电话" autocomplete="off"></td>
+            <td>
+                <div id="tmcTel1" style="display:none" class="mod_tips_inner mt_8 fl_left">
+                    <i class="mod_tico_x16 mod_tico_warn_x16"></i>手机格式不正确
+                </div>
+                <div id="tmcTel2" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                    <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">所在城市</td>
+            <td><span class="tex_blue">
+
+                <div id="userTmc_area">
+                    <select name="province" class="prov text02 w122"></select>
+                    <select class="city text02 w122" name="city" disabled="disabled"></select>
+                </div>
+            </span></td>
+        </tr>
+        <td align="right">邮编</td>
+        <td><input name="postcode" type="text" class="text01" placeholder="请填写邮编号码"></td>
+        <td>
+            <div id="tmcPostcode1" style="display:none" class="mod_tips_inner mt_8 fl_left">
+                <i class="mod_tico_x16 mod_tico_warn_x16"></i>邮编格式不正确
+            </div>
+            <div id="tmcPostcode2" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+            </div>
+        </td>
+        </tr>
+        <tr>
+            <td align="right">地址</td>
+            <td><input name="address" type="text" class="text01" placeholder="请填写详细地址"></td>
+            <td>
+                <div id="tmcAddress1" style="display:none" class="mod_tips_inner mt_8 fl_left">
+                    <i class="mod_tico_x16 mod_tico_warn_x16"></i>地址长度为2-30个字符
+                </div>
+                <div id="tmcAddress2" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                    <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><input type="button" value="添 加" id="add" class="btn_sure btn-sure1" disabled></td>
+        </tr>
+    </table>
+    <div class="BoxHeight mb_10"></div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab mt_10">
+        <tr>
+            <th width="12%">收件人</th>
+            <th width="15%">电话</th>
+            <th>收件地址<br/></th>
+            <th width="12%">操作</th>
+        </tr>
+        <foreach name="info" item="vo">
+            <tr>
+                <td>{$vo.name}</td>
+                <td> {$vo.phone}</td>
+                <td>{$vo.address}<br/></td>
+                <td><a href="javascript:void(0)" onclick="del({$vo.id})" class="a_buy ml_5">删除</a></td>
+            </tr>
+        </foreach>
+    </table>
+    <br>
+    <!-- 分页的样式 和数量的显现  开始-->
+    <div class="meneame">
+        {$Page}
+    </div>
+    <style>
+        /*css meneame style pagination*/
+        div.meneame {
+            padding: 3px;
+            font-size: 80%;
+            margin: 3px;
+            color: #ff6500;
+            text-align: center;
+        }
+
+        div.meneame a {
+            border: #ff9600 1px solid;
+            padding: 5px 7px;
+            background-position: 50% bottom;
+            background-image: url(../images/meneame.jpg);
+            margin: 0 3px 0 0;
+            text-decoration: none;
+        }
+
+        div.meneame a:hover {
+            border: #ff9600 1px solid;
+            background-image: none;
+            color: #ff6500;
+            background-color: #ffc794;
+        }
+
+        div.meneame a:active {
+            border: #ff9600 1px solid;
+            background-image: none;
+            color: #ff6500;
+            background-color: #ffc794;
+        }
+
+        div.meneame span.current {
+            border: #ff6500 1px solid;
+            padding: 5px 7px;
+            font-weight: bold;
+            color: #ff6500;
+            margin: 0 3px 0 0;
+            background-color: #ffbe94;
+        }
+
+        div.meneame span.disabled {
+            border: #ffe3c6 1px solid;
+            padding: 5px 7px;
+            color: #ffe3c6;
+            margin: 0 3px 0 0;
+        }
+    </style>
+
+</div>
+<div class="clear"></div>
+</div>
+
+
+<script>
+    
+    
+    $(function () {
+        /*姓名验证*/
+        $("input[name='name']").blur(function () {
+            var pattern = /^[\u4e00-\u9fa50-9a-z]{2,10}$/i;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userName) ) {
+                _this.removeClass('warning').parent('td').removeClass('warning');
+                $("#add").removeAttr("disabled");
+                $('#tmcUser1').css('display', 'none');
+            } else {
+                $("#add").attr("disabled", true);
+                _this.addClass('warning').parent('td').addClass('warning');
+                $('#tmcUser1').css('display', 'block');
+            }
+        });
+
+
+        /*手机号码验证*/
+        $("input[name='phone']").blur(function () {
+            var pattern = /^\d{6,11}$/i;
+            var userTel = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userTel) ) {
+                _this.removeClass('warning').parent('td').removeClass('warning');
+                $("#add").removeAttr("disabled");
+                $('#tmcTel1').css('display', 'none');
+            } else {
+                $("#add").attr("disabled", true);
+                _this.addClass('warning').parent('td').addClass('warning');
+                $('#tmcTel1').css('display', 'block');
+            }
+        });
+
+        /*邮编格式*/
+        $("input[name='postcode']").blur(function () {
+            var pattern = /^[1-9][0-9]{5}$/;
+            var postCode = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(postCode) ) {
+                _this.removeClass('warning').parent('td').removeClass('warning');
+                $("#add").removeAttr("disabled");
+                $('#tmcPostcode1').css('display', 'none');
+            } else {
+                $("#add").attr("disabled", true);
+                _this.addClass('warning').parent('td').addClass('warning');
+                $('#tmcPostcode1').css('display', 'block');
+            }
+        });
+
+        /*地址*/
+        $("input[name='address']").blur(function () {
+            var pattern = /^[\u4e00-\u9fa50-9a-z]{2,30}$/i;
+            var address = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(address) ) {
+                _this.removeClass('warning').parent('td').removeClass('warning');
+                $("#add").removeAttr("disabled");
+                $('#tmcAddress1').css('display', 'none');
+            } else {
+                $("#add").attr("disabled", true);
+                _this.addClass('warning').parent('td').addClass('warning');
+                $('#tmcAddress1').css('display', 'block');
+            }
+        });
+
+        $("#add").click(function () {
+            var name = $("input[name='name']").val();
+            var phone = $("input[name='phone']").val();
+            var province = $("select[name='province']").val();
+            var city = $("select[name='city']").val();
+            var address = $("input[name='address']").val();
+            var postcode = $("input[name='postcode']").val();
+            if ( name && phone && address && postcode ) {
+                $.ajax({
+                    url: "{:U('Index/add_dispaddr')}",
+                    data: "name=" + name + "&phone= " + phone + "&province= " + province + "&city= " + city + "&address= " + address + "&postcode= " + postcode,
+                    dataType: "text",
+                    type: "POST",
+                    success: function (msg) {
+                        var result = parseInt(msg) || 0;
+                        if ( result == 1 ) {
+                            swal({
+                                title: "温馨提示!",
+                                text: "配送地址添加成功!!!",
+                                type: "success",
+                                confirmButtonText: "关 闭"
+                            }, function () {
+                                window.location.reload();
+                            });
+
+                        } else {
+                            swal({
+                                title: "温馨提示!",
+                                text: "配送地址添加失败!",
+                                type: "error",
+                                confirmButtonText: "关 闭"
+                            });
+                        }
+
+                    }
+
+                })
+            } else {
+
+                swal({
+                    title: "温馨提示!",
+                    text: "配送地址不完全!",
+                    type: "info",
+                    confirmButtonText: "关 闭"
+                });
+
+            }
+
+        });
+
+        $("#userTmc_area").citySelect({
+            prov: "广东",
+            city: "深圳"
+        });
+    });
+    
+    
+
+    function del(id) {
+        $.ajax({
+            url: "{:U('Index/del_dispaddr')}",
+            data: "id=" + id,
+            dataType: "text",
+            type: "POST",
+            success: function (msg) {
+                var result = parseInt(msg) || 0;
+                if ( result == 1 ) {
+                    swal({
+                        title: "温馨提示!",
+                        text: "配送地址删除成功!!!",
+                        type: "success",
+                        confirmButtonText: "关 闭"
+                    }, function () {
+                        window.location.reload();
+                    });
+                } else {
+                    swal({
+                        title: "温馨提示!",
+                        text: "配送地址删除失败!",
+                        type: "error",
+                        confirmButtonText: "关 闭"
+                    });
+                }
+
+            }
+
+
+        })
+
+
+    }
+</script>
+
+

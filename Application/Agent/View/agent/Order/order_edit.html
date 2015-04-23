@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link rel="stylesheet" type="text/css" href="css/sz73go.common.css"/>
+<link rel="stylesheet" type="text/css" href="Agent/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="Agent/css/order.css"/>
+<link rel="stylesheet" type="text/css" href="Agent/css/bootstrap.min.css"/>
+<link rel="shortcut icon" href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/favicon.ico" />
+<!--<script src="Agent/js/jquery-1.7.2.min.js"></script>-->
+<script src="Agent/js/jquery-1.9.1.min.js"></script>
+<script src="Agent/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="{:U('Home/Resource/jsBase')}"></script>
+<script type="text/javascript" src="js/functions_73go.js"></script>
+<script type="text/javascript" src="js/business/sz73go.business.common.js"></script>
+<script type="text/javascript" src="js/order/sz73go.order.base.js"></script>
+<script type="text/javascript" src="js/order/sz73go.order.parts.js"></script>
+<style type="text/css">
+	.modal-body table {
+		border-color: #EEEEEE;
+		background-color: #DDDDDD;
+	}
+	.modal-body td {
+		background-color: #ffffff;
+	}
+</style>
+<!--百度统计js代码-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?9e8dc4308f6255aaab3aadc413a1846e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+<body>
+<div class="header">
+    <div class="mininav">
+		<div class="cont">
+			<span class="lefttxt"> 欢迎来73GO！
+			  <if condition="LI('userName') neq null">
+				  <!--  <a href="javascript:void(0)">{:LI('userName')}</a><a href="{:U('Index/login')}"> 退出</a></span>-->
+				  <if condition="LI('userType') eq   '3' " >
+					  <a href="{:U('Index/mypage_tmc')}">
+						  <elseif condition="LI('userType') eq  '4' "/>
+						  <a href="{:U('Index/mypage_op')}">
+				  </if>
+				  {:LI('userName')}</a><a href="{:U('Index/logout')}"> 退出</a>
+
+				  <else />
+				  <a href="{:U('Index/login_tmc')}">请登录</a><a href="{:U('Index/register_tmc')}"> 注册</a>
+			  </if>
+		</span>
+		</div>
+    </div>
+    <div class="headtop">
+            <div class="logoMark"></div>
+            <div class="logo"><a href=""><img src="Agent/images/logo.jpg" width="191" height="43" alt="轻松行" /></a></div>
+            <div class="txt"></div>
+            <div class="iphone"></div>
+  </div>
+    <div class="nav">
+    	<div class="menu">
+        	<div class="navcate indexFlag" >
+            	<div class="navNews" style="right:-280px;"></div>
+           	  <div class="kc_title"><a href="javaScript: void(0);">我的菜单</a></div>
+                <div class="all-sort-list" ><div class="sub_i_bg"></div></div>
+            </div>
+            <ul class="menu_ul">
+                <li><a href="{:U('Home/Index/index')}" class="on">首页</a></li>
+            </ul>
+      </div>
+	</div>
+</div><div class="clear"></div>
+
+<div class="cent_reg" >
+  <div class="r_hd">
+            <h3 class="r_tit">订单管理</h3>
+  </div>
+   <div class="BoxHeight mt_10"></div>
+  <if condition="$type eq 1">
+  <div class="ticket_tt">用户选中的方案 </div>
+  <div class="pa_10 pa_15"><p style="font-weight:bolder;">提交时间：{$solu.time}    提交人：{$solu.emp_name}</p>
+        {$solu.content|nl2br} </div>
+    </if>
+  <div id="u_order"></div>
+</div>
+
+
+<div class="footer">
+	<div class="copyiright">
+		Copyright © 2015 版权所有 深圳市轻松行科技有限公司 <a href="http://www.miitbeian.gov.cn" target="_blank">粤ICP备14072826号</a><p>
+	</div>
+</div>
+
+<script type="text/javascript">
+var uOrderDiv = document.getElementById("u_order");
+var uOrder = new Sz73goUnionOrder(uOrderDiv);
+
+var type= 0;
+<if condition="$type">
+type = {$type};
+</if>
+
+<if condition="$type eq 0">
+  uOrder.setOrderConfig({
+  	src: '2',
+	src_id: "{:LI('tmcempId')}"
+  });
+</if>
+<if condition="$type eq 1">
+  uOrder.setOrderConfig({
+  	src: '1',
+	src_id: "{$solu.id}",
+	co_id: "{$solu.req.co_id}",
+	u_id: "{$solu.req.u_id}"
+  });
+</if>
+
+<if condition="$type eq 2">
+  var order_data = {$order_json};
+  if (order_data && order_data["orders"].length > 0) {
+	  var odr0 = order_data.orders[0];
+	  uOrder.setOrderConfig({
+		  src: odr0.src,
+		  src_id: odr0.src_id,
+		  co_id: odr0.co_id,
+		  u_id: odr0.u_id
+	  });
+  }
+  uOrder.data = order_data;
+</if>
+
+uOrder.config["success"] = function (isEditing) {
+	if (isEditing)
+		alert('订单保存成功');
+	else
+		alert('添加订单成功');
+	// 成功保存后，应该跳转回订单列表
+	window.location = "{:U('TmcOrder/order_list_all')}";
+};
+
+uOrder.config["failure"] = function (isEditing) {
+	if (isEditing)
+		alert('订单保存失败');
+	else
+		alert('添加订单失败');
+};
+
+uOrder.render();
+
+</script>
+
+</body>
+</html>

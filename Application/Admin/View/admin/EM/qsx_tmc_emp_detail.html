@@ -1,0 +1,90 @@
+
+  <div class="main_right">
+   	  <div class="r_hd">
+            <h3 class="r_tit">TMC企业员工信息</h3>
+   	  </div>
+        
+      <div  class="BoxHeight mb_10" ></div>
+        <table width="600" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+          <tr>
+            <td width="200" height="20">&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">员工ID</td>
+            <td><span class="text_left_25_yq">{$tmcempone.id}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">系统用户ID</td>
+            <td width="240"><span class="text_left_25_yq">{$tmcempone.u_id}</span></td>
+            <td width="262">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">企业ID</td>
+            <td><span class="text_left_25_yq">{$tmcempone.tmc_id}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">部门ID</td>
+            <td><span class="text_left_25_yq">{$tmcempone.tmcbr_id}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">工号</td>
+            <td><span class="text_left_25_yq">{$tmcempone.emp_code}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+           <tr>
+            <td align="right">姓名</td>
+            <td><span class="text_left_25_yq">{$tmcempone.name}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+           <tr>
+            <td align="right">性别</td>
+            <td><span class="text_left_25_yq">{$tmcempone.sex}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">电话号码</td>
+            <td><span class="text_left_25_yq">{$tmcempone.phone}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">电子邮箱</td>
+            <td><span class="text_left_25_yq">{$tmcempone.email}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">证件类型</td>
+            <td colspan="2"><span class="text_left_25_yq">{$tmcempone.id_type}</span></td>
+          </tr>
+          <tr>
+            <td align="right">证件号码</td>
+            <td><span class="text_left_25_yq">{$tmcempone.id_num}</span>
+           </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">省</td>
+            <td><span class="text_left_25_yq">{$tmcempone.province}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">市</td>
+            <td><span class="text_left_25_yq">{$tmcempone.city}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">状态</td>
+            <td><span class="text_left_25_yq"><if condition="$tmcempone.status eq 0">正常
+  		<elseif condition="$tmcempone.status eq 99"/> 停用</if></span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <td>&nbsp;</td>
+        </table>
+    </div>
+    <div class="clear"></div>
+</div>
+
+

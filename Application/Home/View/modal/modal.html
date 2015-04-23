@@ -1,0 +1,20 @@
+<div class="modal fade" ><present name="div_id">id="{$div_id}" </present>tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--这个是取消框-->
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">{$title}</h4>
+            </div>
+            <div class="modal-body">
+                {__CONTENT__}
+            </div>
+            <div class="modal-footer">
+                <foreach name="buttons" item="btn" key="k" >
+                    <button type="button" class="btn btn-primary" btn-key="{$k}">{$btn}</button>
+                </foreach>
+
+            </div>
+        </div>
+    </div>
+</div>

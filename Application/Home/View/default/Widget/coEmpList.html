@@ -1,0 +1,26 @@
+{__NOLAYOUT__}
+<table width="100%" border="1" cellspacing="1" cellpadding="2" class="table_fund">
+    <tr>
+        <td width="10px"></td>
+        <td width="17%">工号</td>
+        <td width="30%">部门</td>
+        <td width="25%">姓名</td>
+        <td  nowrap>性别</td>
+        <td width="22%">电话号码</td>
+        <td style="display:none;"></td>
+    </tr>
+    <foreach name="emps" item="e">
+        <tr>
+            <td><input type="checkbox" name='select_user' /></td>
+            <td><span name="emp_code">{$e.emp_code}</span></td>
+            <td>{$e.br_name}</span></td>
+            <td><span name="name">{$e.name}</span></td>
+            <td nowrap><center>{$e.sex_disp}</center></td>
+            <td><span name="phone">{$e.phone}</span></td>
+            <td style="display:none;">
+            <input type="hidden" name="co_id" value="{$e.co_id}" />
+            <input type="hidden" name="emp_id" value="{$e.id}" />
+            </td>
+        </tr>
+    </foreach>
+</table>

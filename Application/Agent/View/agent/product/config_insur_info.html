@@ -1,0 +1,412 @@
+<div class="main_right">
+  		<div class="r_hd">
+           
+	            <h3 class="r_tit">产品管理</h3>
+	            <div class="r_hd_extra"> 
+	            <a href="{:U('Product/config_flight_price')}" >机票政策</a>
+	            <a href="{:U('Product/config_flight_refund')}">机票退改签</a>
+	            <a href="{:U('Product/config_insur_info')}" class="current" >保险产品</a>
+	            <a href="{:U('Product/config_service_price')}">服务费</a>
+        </div>
+  </div>
+    <div class="BoxHeight mb_10" ></div>
+    
+    <div class="clear"></div>
+    <table width="100%" border="0" id="tabSafe" cellspacing="1" cellpadding="0" class="table_fund bg_tab mt_10">
+      <tr>
+        <th width="12%">产品名称</th>
+        <th width="17%">保险公司</th>
+        <th width="8%">保险费（元）</th>
+        <th width="8%">理赔额（万）</th>
+        <th>描述</th>
+        <th width="5%">使用范围<br /></th>
+        <th width="14%">操作<br /></th>
+      </tr>
+     
+       	
+      <tbody id="trList">
+      <foreach name="insur_info" item="r">
+	      <tr>
+	        <td >{$r.p_name}</td>
+	        <td >{$r.insur_co}</td>
+	        <td >{$r.price}</td>
+	        <td >{$r.cov_amount}</td>
+	        <td >{$r.descrip}</td>
+	        <td >
+		        <if condition="$r.field eq 0 ">国内</if>
+		        <if condition="$r.field eq 1 ">国际 </if>
+	        </td>
+	        <td><a href="javaScript:void(0);" class="tex_blue" onclick='updateinsur({$r.id})';>更新</a> <a href="javaScript:void(0);" class="tex_blue" onclick='deleteinsur({$r.id})'>删除</a></td>
+	      </tr>
+      </foreach>      
+      </tbody>
+
+    </table>
+    <p class="mt_10"><input name="addTr" type="button" value="+ 添加产品" class="btn_b5" /></p>
+<div class="BoxHeight" ></div>
+</div>
+  <div class="clear"></div>
+
+<!---popup 添加部弹出浮层 start --->
+        
+<div id="bardd" class="popup popup_pos1 w400" style="display: none;">
+	        <a href="javascript:void(0)" class="btn_close" id="addtename_close" ></a>
+           <div class="pop_title">添加保险产品信息</div>
+           <div class="popup_cont2">
+           	 <form id="addForm">
+           	     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+	               <tr class="border_none">
+	                 <td class="td1">产品名称</td>
+	                 <td><input name="p_name" id="p_name" type="text" class="text01 text010" /></td>
+	               </tr>
+	               <tr class="border_none">
+	                 <td class="td1">保险公司</td>
+	                 <td><input name="insur_co" id="insur_co" type="text" class="text01 text010" /></td>
+	               </tr>
+	               <tr class="border_none">
+	                 <td class="td1">保险费(元)</td>
+	                 <td><input name="price" id="price" type="text" class="text01 text010" /></td>
+	               </tr>
+	               <tr class="border_none">
+	                 <td class="td1">理赔额(万)</td>
+	                 <td><input name="cov_amount" id="cov_amount" type="text" class="text01 text010" /></td>
+	               </tr>
+	               <tr class="border_none">
+	                 <td class="td1">描述</td>
+	                 <td><textarea name="descrip" rom="5" id="descrip" class="text01 text0100"></textarea></td>
+	               </tr>
+	               <tr class="border_none">
+	                 <td class="td1">适用范围</td>
+	                 <td>
+	                 <select name="field" id="field" type="text" class="text01 text010" />
+	                     <option value="0">国内</option>
+	                     	<option value="1">国际</option>
+	                 </select>
+					   </td>
+	               </tr>
+	             </table>
+           	 </form>
+   <div class="text_cent"><a href="javascript:void(0);" id="getbardd" class="btn_sure">确定</a></div>
+</div>
+</div>
+
+
+
+<!---popup 添加部弹出浮层 start --->
+
+<div id="barup" class="popup popup_pos1 w400" style="display: none;">
+	        <a href="javascript:void(0)" class="btn_close" id="uptename_close" ></a>
+           <div class="pop_title">修改保险产品信息</div>
+           <div class="popup_cont2">
+           	 <form id="upForm">
+           	     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+	               <tr class="border_none">
+	                 <td class="td1">产品名称</td>
+	                 <td><input name="upp_name" id="upp_name" type="text" class="text01 text010" /></td>
+	                 <td><input name="upp_id" id="upp_id" type="hidden" /></td>
+	               </tr>
+	               <tr class="border_none">
+	                 <td class="td1">保险公司</td>
+	                 <td><input name="upinsur_co" id="upinsur_co" type="text" class="text01 text010" /></td>
+	               </tr>
+	               <tr class="border_none">
+	                 <td class="td1">保险费(元)</td>
+	                 <td><input name="upprice" id="upprice" type="text" class="text01 text010" /></td>
+	               </tr>
+	               <tr class="border_none">
+	                 <td class="td1">理赔额(万)</td>
+	                 <td><input name="upcov_amount" id="upcov_amount" type="text" class="text01 text010" /></td>
+	               </tr>
+	               <tr class="border_none">
+	                 <td class="td1">描述</td>
+	                 <td>
+						 <textarea name="updescrip" rom="5" id="updescrip" class="text01 text0100"></textarea></td>
+	               </tr>
+	               <tr class="border_none">
+	                 <td class="td1">适用范围</td>
+	                 <td>
+	                 <select name="upfield" id="upfield" type="text" class="text01 text010" />
+	                     <option value="0">国内</option>
+	                     	<option value="1">国际</option>
+	                 </select>
+					   </td>
+	               </tr>
+	             </table>
+           	 </form>
+   <div class="text_cent"><a href="javascript:void(0);" onclick="getbarup()" class="btn_sure">确定</a></div>
+</div>
+</div>
+
+
+
+<script type="text/javascript">	
+	/*json格式传递参数 zm*/
+	function ZmJSON(formid){
+		var fields = $("#"+formid).serialize();
+		fields = decodeURIComponent(fields,true);//字符串转编码
+		var dataResult =fields;
+		var tmp = dataResult.replace(/&/g, "\",");
+		tmp = tmp.replace(/=/g, ":\"");
+		var jsonValue ="{" + tmp + "\\"}";
+		return jsonValue;
+	}
+     //添加保险产品
+    $("input[name='addTr']").click(function(){
+	 	$("#addForm")[0].reset();
+		$('#bardd').show();		
+	 });
+    $("#addtename_close").click(function(){
+  		$('#bardd').css("display","none");
+  	 });
+    $("#uptename_close").click(function(){
+  		$('#barup').css("display","none");
+  	 });
+	//添加保险产品验证
+	//保存修改
+	$(function () {
+		var err1= 0,err2= 0,err3=0,err4= 0,err5=0;
+		//产品名称
+
+		$("input[name='p_name']").blur(function () {
+			var pattern = /^[\u4e00-\u9fa50-9a-z[\](\)\-]{2,10}$/i;
+			var userNumber = $(this).val() || '';
+			var _this = $(this);
+			if ( pattern.test(userNumber) ) {
+				err1 = 1;
+				_this.removeClass('warning').parent('input').removeClass('warning');
+			} else {
+				err1 = 0;
+				_this.addClass('warning').parent('input').addClass('warning');
+			}
+		});
+
+
+		/*保险公司验证*/
+		$("input[name='insur_co']").blur(function () {
+			//2-20 汉字 数字 字母 下划线
+			var pattern = /^[\u4e00-\u9fa50-9a-z[\](\)\-]{2,10}$/i;
+			var userName = $(this).val() || '';
+			var _this = $(this);
+			if ( pattern.test(userName) ) {
+				err2 = 1;
+				_this.removeClass('warning').parent('input').removeClass('warning');
+			} else {
+				err2 = 0;
+				_this.addClass('warning').parent('input').addClass('warning');
+			}
+		});
+
+
+		/*保险费(元)验证*/
+		$("input[name='price']").blur(function () {
+
+			var pattern = /^\d{0,6}\.{0,1}(\d{1,2})?$/i;
+			var phone = $(this).val() || '';
+			var _this = $(this);
+			if ( pattern.test(phone)  && phone != '') {
+				err3 = 1;
+				_this.removeClass('warning').parent('input').removeClass('warning');
+			} else {
+				err3 = 0;
+				_this.addClass('warning').parent('input').addClass('warning');
+			}
+		});
+
+		/*理赔额(万)验证*/
+		$("input[name='cov_amount']").blur(function () {
+
+			var pattern = /^\d{0,4}\.{0,1}(\d{1,2})?$/i;
+			var phone = $(this).val() || '';
+			var _this = $(this);
+			if ( pattern.test(phone) ) {
+				err4 = 1;
+				_this.removeClass('warning').parent('input').removeClass('warning');
+			} else {
+				err4 = 0;
+				_this.addClass('warning').parent('input').addClass('warning');
+			}
+		});
+
+		//描述
+
+		$("textarea[name='descrip']").blur(function () {
+			var pattern = /^[\u4e00-\u9fa5]{2,20}|[A-Za-z0-9]{2,20}$/gi;
+			var userNumber = $(this).val() || '';
+			var _this = $(this);
+			if ( pattern.test(userNumber) ) {
+				err5 = 1;
+				_this.removeClass('warning').parent('input').removeClass('warning');
+			} else {
+				err5 = 0;
+				_this.addClass('warning').parent('input').addClass('warning');
+			}
+		});
+
+		$("#getbardd").click(function(){
+			if(err1&&err2&&err3&&err4&&err5){
+				getbardd();
+			}else{
+				swal({
+					title: "温馨提示!",
+					text: "信息不完整!!",
+					type: "info",
+					confirmButtonText: "关 闭"
+				});
+			}
+		});
+		document.onkeydown = function(e){
+			var ev = document.all ? window.event : e;
+			if(ev.keyCode==13) {
+				if(err1&&err2&&err3&&err4&&err5){
+					getbardd();
+				}
+			}
+		};
+	});
+
+    //确认保险产品提交
+    function getbardd(){
+    	var objStr = ZmJSON('addForm');
+  		var toServer = eval('('+objStr+')');//将字符串装换成对象
+  		//console.log(toServer);
+    	$.ajax({
+	  		url:"{:U('InsurInfo/addInsurInfo')}", 
+	  		data: toServer,
+	  		type:"POST",
+	  		success:function(data){
+	  			data = ajaxGet(data);
+	  			if(data==1){
+	  				//alert("添加保险产品成功");
+	  				swal({
+                        title: "温馨提示!",
+                        text: "添加保险产品成功!",
+                        type: "success",
+                        confirmButtonText: "关 闭",
+						timer: 2000
+                    });
+	  				
+	  				
+	  				location.href = "{:U('Product/config_insur_info')}";
+	  			}else{	 
+	  				swal({
+                        title: "温馨提示!",
+                        text: "添加保险产品失败!",
+                        type: "error",
+                        confirmButtonText: "关 闭",
+						timer: 2000
+                    });
+	  				//alert("添加保险产品失败");
+	  				//location.href = "{:U('Product/config_insur_info')}";
+	  			}
+	  		}
+	  	});
+    	
+    }
+     
+      
+  //修改产品保险信息
+
+	function updateinsur(id){
+	  $.ajax({ 
+	  		url:"{:U('InsurInfo/showInsurInfoById')}", 
+	  		data:"id="+id,
+	  		dataType:"text",
+	  		type:"POST",
+	  		success:function(data){
+	  			data = ajaxGet(data);
+	  			var emps = eval("(" + data + ")");
+	  			$('#upp_id').val(emps.id);
+    			$('#upp_name').val(emps.p_name);
+    			$('#upinsur_co').val(emps.insur_co);
+    			$('#upprice').val(emps.price);
+    			$('#upcov_amount').val(emps.cov_amount);
+    			$('#updescrip').val(emps.descrip);
+    			$('#upfield').val(emps.field);
+	  		}
+	  	});
+	  $("#barup").show();
+  }
+	$("#addtename_close").click(function(){
+		$('#bardd').css("display","none");
+	});
+
+	//确认修改产品信息
+	function getbarup(){
+		var objStr = ZmJSON('upForm');
+  		var toServer = eval('('+objStr+')');//将字符串装换成对象
+  		//console.log(toServer);
+    	$.ajax({
+	  		url:"{:U('InsurInfo/updateInsurInfo')}", 
+	  		data: toServer,
+	  		type:"POST",
+	  		success:function(data){
+	  			data = ajaxGet(data);
+	  			if(data==1){
+					swal({
+						title: "温馨提示!",
+						text: "修改保险产品成功!",
+						type: "success",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+	  				location.href = "{:U('Product/config_insur_info')}";
+	  			}else{
+					swal({
+						title: "温馨提示!",
+						text: "修改保险产品失败!",
+						type: "error",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+	  				location.href = "{:U('Product/config_insur_info')}";
+	  			}
+	  		}
+	  	});
+	}
+	
+   function ZmJSON(formid){
+       var fields = $("#"+formid).serialize();
+       fields = decodeURIComponent(fields,true);//字符串转编码
+       var dataResult =fields;
+       var tmp = dataResult.replace(/&/g, "\",");
+       tmp = tmp.replace(/=/g, ":\"");
+       var jsonValue ="({" + tmp + "\\"})";
+       return jsonValue;
+   }
+	
+  //删除产品保险信息
+  function deleteinsur(id){
+	  $.ajax({
+  		url:"{:U('InsurInfo/deleteInsurInfo')}", 
+  		data:"id="+id,
+  		dataType:"text",
+  		type:"POST",
+  		success:function(data){
+  			data = ajaxGet(data);
+  			if(data==1){
+				swal({
+					title: "温馨提示!",
+					text: "删除产品保险成功!!!",
+					type: "success",
+					confirmButtonText: "关 闭",
+					timer: 2000
+				});
+				location.href = "{:U('Product/config_insur_info')}";
+  			}else{
+				swal({
+					title: "温馨提示!",
+					text: "删除产品保险失败!!!",
+					type: "error",
+					confirmButtonText: "关 闭",
+					timer: 2000
+				});
+  			}
+  		}
+  	});
+  }
+ 
+  
+</script>
+
+
+

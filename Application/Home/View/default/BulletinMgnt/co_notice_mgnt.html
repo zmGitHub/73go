@@ -1,0 +1,187 @@
+
+	<div class="main_right">
+      <div class="r_hd">
+            <h3 class="r_tit">通告管理</h3>
+    	</div>
+	  <div  class="BoxHeight mb_10" ></div>
+	  <div class="clear"></div>
+	  <form action="{:U('BulletinMgnt/add_co_bulletin')}" method="post" id="co_notice">
+	  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4 mt_22">
+	    <tr>
+	      <td width="25%" align="right">&nbsp;</td>
+	      <td colspan="2">
+			  <label for="first">
+				  <input type="radio" id="first" name="level" value="12" />置顶
+			  </label>
+
+			  <label for="second">
+				  <input type="radio" id="second" name="level" value="2" />重要
+			  </label>
+
+			  <label for="third">
+				  <input type="radio" id="third" name="level" value="1" checked="checked" />普通
+			  </label>
+
+	        </td>
+        </tr>
+	    <tr>
+	      <td align="right">公告内容</td>
+	      <td colspan="2"><textarea name="content" style="resize: none;" rows="5" class="text01 w450 h_80" placeholder="请填写公共内容..."></textarea></td>
+        </tr>
+	    <tr>
+	      <td align="right">链接网址</td>
+	      <td colspan="2"><input name="content_link" type="text" class="text01 w450" placeholder="请填写正确的连接地址"/></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;</td>
+	      <td colspan="2"><span class="pt_9"><!--<a href="#" class="btn_sure">添加</a>-->
+	      <input type="button" value="添 加" class="btn_sure btn-sure1" /></span></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;</td>
+	      <td colspan="2">&nbsp;</td>
+        </tr>
+      </table>
+      </form>
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0" id="bulletin_table" class="table_fund bg_tab">
+	    <tr>
+	      <th width="12%">时间</th>
+	      <th>公告内容</th>
+	      <th width="17%">操作</th>
+        </tr>
+        <foreach name="notices" item="no">
+	    <tr class="tr_notice">
+	      <td><if condition="$no.level eq 12">置顶
+	      <else />{$no.time|substr=0,10}
+	      </if></td>
+	      <td>
+	      	<if condition="$no.level neq 1"> 
+	      		<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" target="_blank" ><span class="tex_r">{$no.content}</span></a>
+	     	 	<else /><span class="tex_r">{$no.content}</span>
+	     		 </if>
+	     	 <else />
+	     	 	<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" target="_blank" >{$no.content}</a>
+	     	 	<else />{$no.content}
+	     		 </if>
+	      </if>
+	      </td>
+	      <td>
+	      <if condition="$no.show_enable eq 1">
+	       	<input type="submit" value="隐 藏" onclick="upd_bulletin(({$no.id}),({$no.show_enable}))" class="btn_b5 ml_5 btn_bb5" />
+	       	<else /><input type="submit" value="显示" onclick="upd_bulletin(({$no.id}),({$no.show_enable}))" class="btn_b5 btn_bb5 ml_5" />
+	      </if>
+	      <input type="button" value="删 除" onclick="del_bulletin({$no.id})" class="btn_b5 ml_5 btn_bb5"/>
+	        </td>
+        </tr>
+        </foreach>
+        </table>
+        
+			
+	</div>
+	
+	 	 
+      	 
+	<div class="clear"></div>
+	
+
+
+     
+
+<script type="text/javascript">
+
+	$(function () {
+		//$("textarea[name='content']").blur(function () {
+		$('.btn_sure').eq(0).click(function (){
+		var text = $("textarea[name='content']").val() || '';
+			var _this = $("textarea[name='content']");
+			if(!text){
+				_this.attr('placeholder', '公告内容不能为空....');
+				_this.addClass('warning');
+
+			}else{
+				_this.removeClass('warning');
+				$('#co_notice').submit();
+			}
+		});
+
+		$(function () {
+			//$("textarea[name='content']").blur(function () {
+			document.onkeydown = function (e) {
+				var ev = document.all ? window.event : e;
+				if (ev.keyCode == 13) {
+					var text = $("textarea[name='content']").val() || '';
+					var _this = $("textarea[name='content']");
+					if (!text) {
+						_this.attr('placeholder', '公告内容不能为空....');
+						_this.addClass('warning');
+
+					} else {
+						_this.removeClass('warning');
+						$('#co_notice').submit();
+					}
+				}
+			}
+		});
+
+		$("input[name='content_link']").blur(function () {
+			var linkStr = $(this).val() || '';
+			var patternStr = "^((https|http|ftp|rtsp|mms)?://)"
+					+ "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@
+					+ "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184
+					+ "|" // 允许IP和DOMAIN（域名）
+					+ "([0-9a-z_!~*'()-]+\.)*" // 域名- www.
+					+ "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名
+					+ "[a-z]{2,6})" // first level domain- .com or .museum
+					+ "(:[0-9]{1,4})?" // 端口- :80
+					+ "((/?)|"
+					+ "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+			var pattern=new RegExp(patternStr);
+			var _this = $(this);
+			if ( pattern.test(linkStr) ) {
+				_this.removeClass('warning').parent('td').removeClass('warning');
+				$('.btn_sure1').eq(0).removeAttr('disabled');
+			} else {
+				_this.val('');
+				_this.addClass('warning').parent('td').addClass('warning');
+				$('.btn_sure1').eq(0).attr('disabled', true);
+			}
+		});
+
+
+
+		document.onkeydown = function(e){
+			var ev = document.all ? window.event : e;
+			if(ev.keyCode==13) {
+				if(err1){
+					$('#co_notice').submit();
+				}
+			}
+		};
+
+	});
+
+	function upd_bulletin(id,show_enable){
+		$.ajax({
+			url:"{:U('BulletinMgnt/upd_bulletin')}",
+			data:"id="+id+"&show_enable="+show_enable,
+			dataType:"text",
+			type:"POST",
+			success:function(msg){
+				window.location.reload();
+			}
+		});
+	}
+	function del_bulletin(id){
+		$.ajax({
+			url:"{:U('BulletinMgnt/del_bulletin')}",
+			data:"id="+id,
+			dataType:"text",
+			type:"POST",
+			success:function(msg){
+				window.location.reload();
+			}
+		});
+	}
+</script>

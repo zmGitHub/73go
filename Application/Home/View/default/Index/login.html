@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<head>
+    <base href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>企业用户登陆</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/animate.css"/>
+    <link href="js/sweetAlert/css/sweet-alert.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/favicon.ico" />
+    <script src="util/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101200975" data-redirecturi="http://www.73go.cn/Home/Index/login.html" charset="utf-8" ></script>
+    <!--百度统计js代码-->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?9e8dc4308f6255aaab3aadc413a1846e";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+</head>
+
+<body class="loginWrap">
+
+    <div class="header-index">
+
+        <div class="headtop">
+            <div class="logoMark"></div>
+            <div class="logo"><a href="{:U('Home/Index/index')}"><img src="images/logo.jpg" width="191" height="43" alt="轻松行"></a></div>
+            <div class="txt"></div>
+            <div class="iphone"></div>
+        </div>
+    </div>
+
+    <if condition="LI('userType') eq 1">
+
+        <div class="loginContRight">
+            <div class="BoxHeight mt_22"></div>
+            <!-- <div class="loginError" style="display: block;"></div> -->
+            <div class="loginError" id="message" style="color:red;"></div>
+            <div class="loginCont">
+                <div class="loginButton"><a href="{:U('Index/mypage_user')}">进入我的主页</a></div>
+                <div class="BoxHeight mt_22"></div>
+
+                <div class="loginCont">
+                    <div class="loginContOneBox">
+                        <input name="username" type="text" class="loginContOne" id="loginNo"
+                               placeholder="个人用户名/企业注册名" >
+                    </div>
+                    <div class="BoxHeight"></div>
+                    <div class="loginContTwoBox">
+                        <input name="password" id="password" type="password" class="loginContTwo"
+                               style="color: rgb(102, 102, 102); font-size: 14px; display: inline-block;"
+                               placeholder="登录密码"/>
+                    </div>
+                    <div class="BoxHeight"></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="loginButton_h" id="mybutton1"><a href="javascript:void(0)" onclick="logoutQQ()" >切换账户</a></div>
+                <div class="BoxHeight"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="loginContNav"><a href="{:U('Index/register_user')}" target='_blank' style="color:#fe6a00; margin-left:5px;">免费注册</a><span>|</span><a
+                    href="{:U('Index/forget_password_email')}">忘记密码</a></div>
+        </div>
+
+
+    <elseif condition="LI('userType') eq 2" />
+
+        <div class="loginContRight">
+            <div class="BoxHeight mt_22"></div>
+            <!-- <div class="loginError" style="display: block;"></div> -->
+            <div class="loginError" id="message" style="color:red;"></div>
+            <div class="loginCont">
+                <div class="loginButton"><a href="{:U('Index/mypage_co')}">进入我的主页</a></div>
+                <div class="BoxHeight mt_22"></div>
+
+                <div class="loginCont">
+                    <div class="loginContOneBox">
+                        <input name="username" type="text" class="loginContOne" id="loginNo"
+                               placeholder="个人用户名/企业注册名" >
+                    </div>
+                    <div class="BoxHeight"></div>
+                    <div class="loginContTwoBox">
+                        <input name="password" id="password" type="password" class="loginContTwo"
+                               style="color: rgb(102, 102, 102); font-size: 14px; display: inline-block;"
+                               placeholder="登录密码"/>
+                    </div>
+                    <div class="BoxHeight"></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="loginButton_h" id="mybutton1"><a href="javascript:void(0)" onclick="logoutQQ()">切换账户</a></div>
+                <div class="BoxHeight"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="loginContNav"><a href="{:U('Index/register_co')}" target='_blank' style="color:#fe6a00; margin-left:5px;">免费注册</a><span>|</span><a
+                    href="{:U('Index/forget_password_email')}">忘记密码</a></div>
+        </div>
+
+
+        <else/>
+
+
+    <div class="loginContRight">
+        <div class="til" id="message" style="color:red;"></div>
+
+        <div class="loginError" style="display: block;"></div>
+        <div class="loginCont">
+            <div class="loginContOneBox">
+                <input name="loginNo" type="text" class="loginContOne" id="loginNo" placeholder="用户名" autofocus>
+            </div>
+            <div class="BoxHeight"></div>
+            <div class="loginContTwoBox">
+                <input name="_Freedom_hint_password_bak_" id="password" type="password" class="loginContTwo" placeholder="登录密码">
+            </div>
+            <div class="BoxHeight"></div>
+            <div class="clear"></div>
+        </div>
+        <div class="loginButton"><a href="javascript:void(0)" id="mybutton1">立即登录</a></div>
+        <div class="loginContNav">
+            <!--  <img src="images/qq.png" width="120" height="24"/>  -->
+            <span id="qqLoginBtn" ></span>
+            <a href="{:U('Index/register_user')}" target='_blank' style="color:#fe6a00; margin-left:5px;">免费注册</a><span>|</span><a href="{:U('Index/forget_password_email')}">忘记密码</a></div>
+    </div>
+
+
+    </if>
+
+
+    <div class="BoxHeight"></div>
+
+    <div class="footer-index">
+        <div class="copyiright">
+            Copyright © 2015 版权所有 深圳市轻松行科技有限公司 <a href="http://www.miitbeian.gov.cn" target="_blank">粤ICP备14072826号</a>
+        </div>
+    </div>
+<!-- 验证登录信息是否合法 -->
+<script type="text/javascript" src="js/sweetAlert/js/sweet-alert.min.js"></script>
+<script type="text/javascript">
+    //如果登陆了QQ，退出QQ
+	function logoutQQ(){
+		if( QC.Login.check() ){
+			//alert('退出QQ账户');
+			QC.Login.signOut();
+		}
+	};
+
+    function toServer(){
+        var loginNo = $('#loginNo').val() || '';
+        var password = $('#password').val() || '';
+        if(loginNo==''){
+            $('#loginNo').focus();
+            return;
+        }
+        if(password==''){
+            $('#password').focus();
+            return;
+        }
+        $.ajax({
+            url: "{:U('User/check_login')}",
+            data: "loginNo=" + loginNo + "&password=" + password,
+            dataType: "text",
+            type: "POST",
+            success: function (msg) {
+                msg = parseInt(msg);
+                if(msg == 0){
+                    swal({
+                        title: "温馨提示!",
+                        text: "账号或密码错误!!",
+                        type: "info",
+                        confirmButtonText: "关 闭",
+                        timer: 3000
+                    });
+                }else if(msg == -1){
+                	swal({
+                        title: "温馨提示!",
+                        text: "该账号已停用，请联系网站客服",
+                        type: "info",
+                        confirmButtonText: "关 闭",
+                        timer: 3000
+                    });
+                }else if(msg == 1){
+                    location.href = "{:U('Index/mypage_user')}";
+                }else if ( msg == 2 ) {
+                    location.href = "{:U('Index/mypage_co')}";
+                }else if(msg == 3){
+                    location.href = "{:U('Agent/Index/mypage_tmc')}";
+                }
+            }
+        });
+    }
+    $(function () {
+        document.onkeydown = function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+            	logoutQQ();
+            	toServer();
+            }
+        };
+
+        $('#loginNo').blur(function () {
+            var loginNo = $('#loginNo').val() || '';
+            var pattern = /^[\u4e00-\u9fa50-9a-z\-[\](\)]{2,20}$/i;
+            if ( !pattern.test(loginNo) ) {
+                $(this).parent('.loginContOneBox').removeClass('success').addClass('warning animated wobble');
+                $(this).attr('placeholder', '用户名不能为空');
+                $('#mybutton1').unbind('click');
+            } else {
+                $('#mybutton1').unbind('click').bind('click', function () {
+                    toServer();
+                });
+                $(this).parent('.loginContOneBox').removeClass('warning animated wobble').addClass('success');
+            }
+        });
+        $('#password').blur(function () {
+            var password = $('#password').val();
+            if ( password.length >= 5 && password.length <= 16 ) {
+                $('#mybutton1').unbind('click').bind('click', function () {
+                    toServer();
+                });
+                $(this).parent('.loginContTwoBox').removeClass('warning animated wobble').addClass('success');
+
+            } else {
+                $(this).parent('.loginContTwoBox').removeClass('success').addClass('warning animated wobble');
+                $(this).attr('placeholder', '密码不能为空');
+                $('#mybutton1').unbind('click');
+            }
+        });
+
+        
+        //QQ登陆 师兄
+        QC.Login({
+        	  btnId : "qqLoginBtn",//插入按钮的html标签id
+        	  size : "A_M",//按钮尺寸
+        	  scope : "get_user_info",//展示授权，全部可用授权可填 all
+        	  display : "pc"//应用场景，可选
+        	 });
+        
+        
+        (function(){
+			//如果已登录
+			if( QC.Login.check() ){   
+				QC.Login.getMe(function(openId, accessToken){
+					//alert(["当前登录用户的", "openId为："+openId, "accessToken为："+accessToken].join("\n"));
+				    //var openId = '139A9824C352BC98893735743F55F964' ;
+				    //alert(openId);
+					$.ajax({
+						url:"{:U('OpenId/getOpenId')}",
+						data:{openId: openId},
+						dataType:"JSON",
+						type:"POST",
+						success:function(msg){
+							if(msg==0){
+								alert('您的QQ号尚未与本网站的账号进行绑定，请先绑定您的账号。');
+								window.opener.location.href = "{:U('OpenId/bindOpenIdPage')}";
+								window.close();
+							}
+							else if(msg==1){
+								window.opener.location.href = "{:U('Index/mypage_user')}";    //emp用QQ成功登陆后即跳转到个人主页
+								window.close();
+							}
+							else if(msg==2){
+								window.opener.location.href = "{:U('Index/mypage_co')}";      //企业用QQ成功登陆后即跳转到企业主页
+								window.close();
+							}
+						}
+					});
+					
+				});
+				
+				    
+			}
+        
+    	}());
+    });
+
+
+    
+    
+</script>
+
+
+
+</body>
+</html>

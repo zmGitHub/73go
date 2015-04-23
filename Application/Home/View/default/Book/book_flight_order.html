@@ -1,0 +1,693 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>机票订单填写</title>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link href="js/sweetAlert/css/sweet-alert.css" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+td.align_right {
+	text-align: right;
+}
+</style>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src='js/moment/moment.js'></script>
+<script src='js/fulldate/artTemplate.js'></script>
+<script src='js/fulldate/fullcalendar.js'></script>
+<script src='js/fulldate/zh-cn.js'></script>
+<script src='js/addressPlugin/jquery.cityselect.js'></script>
+<!--百度统计js代码-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?9e8dc4308f6255aaab3aadc413a1846e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+<body>
+
+	<div class="header">
+		<div class="mininav">
+			<div class="cont">
+				<span class="lefttxt"> 欢迎来73GO！
+				   <if condition="LI('userName') neq null">
+					   <!--  <a href="javascript:void(0)">{:LI('userName')}</a><a href="{:U('Index/login')}"> 退出</a></span>-->
+					   <if condition="session('user_type') eq   '1' " >
+						   <a href="{:U('Index/mypage_user')}">
+							   <elseif condition="session('user_type') eq  '2' "/>
+							   <a href="{:U('Index/mypage_co')}">
+								   <else />
+								   <a href="{:U('Agent/Config/config_tmcinfo_account')}">
+					   </if>
+					   {:LI('userName')}</a><a href="{:U('Index/logout')}"> 退出</a>
+					   <else />
+					   <a href="{:U('Index/login')}">请登录</a><a href="{:U('Index/register_user')}"> 注册</a>
+				   </if>
+				</span>
+			</div>
+		</div>
+		<div class="headtop">
+			<div class="logoMark"></div>
+			<div class="logo">
+				<a href="{:U('Home/Index/index')}"><img src="images/logo.jpg" width="191" height="43" alt="轻松行" /></a>
+			</div>
+			<div class="txt"></div>
+		</div>
+		<div class="nav">
+			<div class="menu">
+				<div class="navcate indexFlag">
+					<div class="navNews" style="right: -280px;"></div>
+					<div class="kc_title">
+						<a href="javaScript: void (0);">马上出行,轻松出行!</a>
+					</div>
+					<div class="all-sort-list">
+						<div class="sub_i_bg"></div>
+					</div>
+				</div>
+				<ul class="menu_ul">
+					<li><a href="{:U('Home/Index/index')}" class="on">首页</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+
+	<div class="cent_order">
+		<div class="card_nav"></div>
+		<div class="card_navz mb_10">
+			<ul>
+				<li>订单填写</li>
+				<li class="card_mlr card_text">订单支付</li>
+				<li class="card_text">支付完成</li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div>
+			<p class="ml_80">
+				<input name="tmc_id" type="hidden"  value="{$tmc_id}" />
+				<input name="FlightName" type="hidden"  value="{$FlightName}" />
+				<input name="FlightNo" type="hidden"  value="{$FlightNo}" />
+				<input name="FromAirport" type="hidden"  value="{$FromAirport}" />
+				<input name="ToAirport" type="hidden"  value="{$ToAirport}" />
+				<input name="dt" type="hidden"  value="{$dt}" />
+				<input name="at" type="hidden"  value="{$at}" />
+				<input name="cabin" type="hidden"  value="{$cabin}" />
+				<input name="price" type="hidden"  value="{$price}" />
+				<input name="fuelCosts" type="hidden"  value="{$fuelCosts}" />
+				<input name="airraxFloat" type="hidden"  value="{$airraxFloat}" />
+				<input name="serviceCost" type="hidden"  value="{$serviceCost}" />
+				<input name="content" type="hidden"  value="{$content}" />
+
+				<input type="checkbox" name="is_accept"   checked />
+				我已知晓并接受此物价机票的 <a href="#" class="tex_blue">退改签</a> 限制。
+			</p>
+			<div>
+				<table class="order_step1_table">
+					<tr>
+						<th rowspan="15" class="yd_bg w110">差旅信息</th>
+					</tr>
+					<tr>
+						<th class="w100">出差申请号</th>
+						<td>
+
+                        <input name="tr_num" type="text" class="text01 fl_left" value=""
+                        <if condition="$without_app eq '1'">disabled</if>
+                        >
+                        <span class="spanblock_t10" style="color:<if condition=" $emergency_booking eq false">gray
+                        <else/>
+                        red</if>">
+                        <input type="checkbox" name="is_emergency" id="is_emergency" class="ml_5"
+                        <if condition="$emergency_booking eq false">disabled="true"</if>
+                        />
+                        这是紧急预订</span></td>
+                </tr>
+                <tr>
+                    <th>知会领导</th>
+                    <td>
+                        <input name="note_name" type="text" class="text01 fl_left w80 c_tx2" placeholder="姓名" value=""/>
+                        <input name="note_phone" type="text" class="text01 fl_left ml_5 w100 c_tx2" placeholder="手机号码"
+                               value=""/>
+                        <input name="note_email" type="text" class="text01 fl_left ml_5 w100 c_tx2" placeholder="Email"
+                               value=""/>
+                        <input type="button" value="搜索"
+                               onclick="staff_pop(getNotInfo,'{:U('home/pop/find_user')}',true)" class="btn_b5 ml_5"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>支付方式</th>
+                    <!--<th align="left"><span class="mt_10"> <input
+                            name="pay_type" type="radio" value="0"<if condition="$pay_type eq 0">checked</if>/> </span> 现付 <span
+                        class="mt_10"> <input name="pay_type" type="radio"
+                            value="1"<if condition="$pay_type eq 0">disabled="true"<else />checked</if>/>
+                        </span> 月结</th>-->
+                    <th align="left">
+                            <span class="mt_10">
+                                <input name="pay_type" type="radio" value="0">
+                            现付</span>
+                            <if condition="$pay_type eq 1">
+                                <span class="mt_10">
+                                    <input name="pay_type" type="radio" value="1">
+                                    月结</span>
+                                </if>
+                        </th>
+
+                </tr>
+            </table>
+            <table class="order_step1_table">
+                <tr>
+                    <th rowspan="15" class="yd_bg w110">保险信息</th>
+                </tr>
+                <tr>
+                    <th class="w100"><input type="checkbox" name="is_insure"
+                                            id="is_insure" value="1"/>航空意外险
+                    </th>
+                    <td><select name="p_id" id="p_id"
+                                class="text02 fl_left c_tx2">
+                        <option selected="selected" value="">无</option>
+                        <foreach name="insures" item="vo">
+                            <option value="{$vo.id}">{$vo.price}元保{$vo.cov_amount}万</option>
+                        </foreach>
+                    </select></td>
+                </tr>
+            </table>
+            <table class="order_step1_table">
+                <tr>
+                    <th rowspan="15" class="yd_bg w110">乘机人</th>
+                    <th colspan="2" align="left">
+                        <input type="submit" value="从系统中查找" class="btn_b5 pa_lr_15" onclick="staff_pop(getBusInfo,'{:U('home/pop/find_user')}')"/>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="w100">姓名</th>
+                    <td><input name="name" type="text" class="text01 c_tx2" placeholder="中文/英文" value=""/></td>
+                </tr>
+                <tr>
+                    <th>证件信息</th>
+                    <td><select name="id_type" id="id_type" class="text02 fl_left w110 c_tx2">
+                        <option selected="selected" value="0">大陆居民身份证</option>
+                        <option value="1">护照</option>
+                        <option value="8">外国人居住证</option>
+                    </select><input name="id_no" type="text" class="text01 fl_left ml_5 c_tx2" placeholder="证件号码" value=""/></td>
+                </tr>
+                <tr>
+                    <th>手机号码</th>
+                    <td><input name="phone" type="text" class="text01 fl_left c_tx2" placeholder="手机号码" value=""/></td>
+                </tr>
+                <tr>
+                    <th style="border-bottom: none;">&nbsp;</th>
+                    <td style="border-bottom: none;"><a href="javascript:void(0)" id="add" class="btn_sure">添加乘机人</a>
+                    </td>
+                </tr>
+            </table>
+            <table class="order_step1_table">
+                <tr>
+                    <th rowspan="13" class="yd_bg w110">乘机人信息</th>
+                </tr>
+                <tr>
+                    <th colspan="2" align="left">
+                        <table width="100%" border="0"
+                               cellspacing="0" cellpadding="0" class="table_fund bg_tab" id="orderUser">
+                            <tr>
+                                <th width="14%">姓名</th>
+                                <th width="25%">证件类型</th>
+                                <th width="25%">证件号码</th>
+                                <th width="25%">手机号码</th>
+                                <th>操作</th>
+                            </tr>
+                        </table>
+                    </th>
+                </tr>
+            </table>
+            <table class="order_step1_table">
+                <tr>
+                    <th rowspan="15" class="yd_bg w110">报销凭证</th>
+                </tr>
+                <!-- <tr>
+                    <th colspan="2" align="left"><input type="checkbox"
+                        name="checkbox6" id="checkbox6" /> 需要报销凭证</th>
+                </tr> -->
+                <tr>
+                    <th colspan="2" align="left" valign="top"><p class="mt_10">配送方式{$pay_type}</p>
+
+                        <p class="mt_10">
+                            <input name="dispatch" type="radio" value="0"
+
+                            onchange="change_dispatch()"/> 不配送 <strong
+                                class="pa_lr_40 tex_g"></strong><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不需要报销单据</span>
+                        </p>
+                        <p class="mt_10">
+                            <input name="dispatch" type="radio" value="1"
+                            <if condition="$pay_type eq 0">disabled="true"
+                                <else/>
+                                checked
+                            </if>
+                            onchange="change_dispatch()"/> 商旅配送 <strong
+                                class="pa_lr_40 tex_g">免费</strong><span>根据公司设置的固定配送地址和时间点，定期上门配送。</span>
+                        </p>
+                        <p class="mt_10">
+                            <input name="dispatch" type="radio" value="2"
+                            <if condition="$pay_type eq 0">checked
+                                <else/>
+                                checked
+                            </if>
+                            onchange="change_dispatch()"/> 快递<span
+                                style="padding: 0 11px;"> </span><strong class="pa_lr_40 tex_r">￥
+                            10</strong><span>起飞后次日寄出，2-5天寄达。</span>
+                        </p>
+							<span id="address">
+							<p class="mt_10">
+								填写邮寄地址 <a href="#" class="tex_blue ml_25">选择常用邮寄地址</a>
+							</p>
+							<p class="mt_10">
+                                <span class="pa_lr_20 ml_14">收件人</span> <input name="post_name"
+                                                                               type="text" class="text01 c_tx2"
+                                                                               placeholder="中文/英文" value=""/>
+                            </p>
+							<p class="mt_10">
+
+							<span class="pa_lr_20">邮寄地址</span>
+ 							<span id="userTmc_area">
+			                    <select name="province" class="prov text02 w122"></select>
+			                    <select name="city" class="city text02 w122"  disabled="disabled"></select>
+			                </span>
+
+							</p>
+
+							<p class="mt_10">
+                                <span class="pa_lr_20">详细地址</span> <input name="post_address"
+                                                                          type="text" class="text01 c_tx2"
+                                                                          placeholder="详细地址" value=""/>
+                            </p>
+							<p class="mt_10">
+                                <span class="pa_lr_20">手机号码</span> <input name="post_phone"
+                                                                          type="text" class="text01 c_tx2"
+                                                                          placeholder="手机号码" value=""/>
+                            </p>
+							<p class="mt_10">
+                                <span class="pa_lr_20">邮政编码</span> <input name="post_postcode"
+                                                                          type="text" class="text01 c_tx2"
+                                                                          placeholder="邮政编码" value=""/>
+                            </p>
+							</span>
+							</th>
+					</tr>
+				</table>
+			</div>
+			<p align="center" class="mt_22">
+				<a href="javascript:void(0)" id="submit" class="btn_sure">提 交</a>
+			</p>
+		</div>
+
+
+</div>
+<div class="footer">
+    <div class="copyiright">
+        Copyright © 2015 版权所有 深圳市轻松行科技有限公司 <a href="http://www.miitbeian.gov.cn" target="_blank">粤ICP备14072826号</a>
+
+        <p>
+    </div>
+</div>
+
+	<include file="Home@Public:staff_pop" />
+
+    <script type="text/javascript" src="js/sweetAlert/js/sweet-alert.min.js"></script>
+<script>
+
+    var nameState = 0;
+    var id_noState = 0;
+    var phoneState = 0;
+    var data=0;
+
+$("#userTmc_area").citySelect({
+    prov: "广东",
+    city: "深圳"
+});
+
+function getBusInfo(lst){
+	var html = $('#orderUser').html();
+	var str ='';
+	for(var i=0,len = lst.length;i<len;i++){
+		str+=lst[i].u_id+',';
+	}
+	$.ajax({
+		url:"{:U('pop/employee_info')}",
+		data:"str="+str,
+		dataType:"text",
+		type:"POST",
+		success:function(result){
+			data=eval("("+result+")");
+            var a = new Array();//定义a数组
+            var b = new Array();//定义b数组
+            $('#orderUser :input').each(function(index){
+                b[index] = $(this).val();//取到并保存页面已经存在的登机人
+            });
+			for(var i=0,len = data.length;i<len;i++){
+                a[i] = ' '+data[i].id;//复选框选中人员的id给a数组
+                var k =0;
+                if(b.length!=0){
+                    for(var j = 0;j<b.length;j++){  //a数组与b数组的id比较，相同就不添加
+                        if(a[i]==b[j]){
+                            k=1;
+                            break;
+                        }
+                    }
+                    if(k==0){
+                        html+='<tr><td><input name="emp_id" type="hidden" value=" '+data[i].id+'"> '+data[i].name+'</td><td>'+data[i].d_value+'</td><td>'+data[i].id_num+'</td><td>'+data[i].phone+'</td><td class="tex_blue"><a href="javascript:void(this);" onclick="delRow(this)">删除</a></td></tr>';
+                    }
+                }else{     //第一次添加页面数据为0条，所以b数组中没有数据
+                    html+='<tr><td><input name="emp_id" type="hidden" value=" '+data[i].id+'"> '+data[i].name+'</td><td>'+data[i].d_value+'</td><td>'+data[i].id_num+'</td><td>'+data[i].phone+'</td><td class="tex_blue"><a href="javascript:void(this);" onclick="delRow(this)">删除</a></td></tr>';
+                }
+            }
+            
+			$('#orderUser').html(html);
+		}
+	});
+
+
+}
+
+    function getNotInfo(lst) {
+        var notinfo = lst[0];
+        $("input[name='note_name']").val(notinfo['name']);
+        $("input[name='note_phone']").val(notinfo['phone']);
+        $("input[name='note_email']").val(notinfo['email']);
+    }
+
+	function delRow (row) {
+		$(row).parent().parent().remove();
+		}
+
+    /**
+     * 增加配送方式————不配送
+     * 修改者：王月
+     * 2015-3-19
+     */
+    function change_dispatch() {
+        var dispatch = $("input[name='dispatch']:checked").val();
+        if (dispatch == 1) {
+            $('#address').css('display', 'none');
+        } else if (dispatch == 0) {
+            $('#address').css('display', 'none');
+        } else {
+            $('#address').css('display', 'block')
+        }
+        ;
+    }
+
+	$("#submit").click(function () {
+		var is_accept = $("input[name='is_accept']").is(':checked');//是否知晓退改签政策
+		if(is_accept==false)return;
+
+		var tmc_id = $("input[name='tmc_id']").val();
+		var FlightName = $("input[name='FlightName']").val();
+		var FlightNo = $("input[name='FlightNo']").val();
+		var FromAirport = $("input[name='FromAirport']").val();
+		var ToAirport = $("input[name='ToAirport']").val();
+		var dt = $("input[name='dt']").val();
+		var at = $("input[name='at']").val();
+		var cabin = $("input[name='cabin']").val();
+		var price = $("input[name='price']").val();
+		var fuelCosts = $("input[name='fuelCosts']").val();
+		var airraxFloat = $("input[name='airraxFloat']").val();
+		var serviceCost = $("input[name='serviceCost']").val();
+		var rfn = $("input[name='rfn']").val();
+		var rrn = $("input[name='rrn']").val();
+		var edn = $("input[name='edn']").val();
+
+		var tr_num = $("input[name='tr_num']").val();//出差申请号
+		var is_emergency = $("input[name='is_emergency']").is(':checked');//是否为紧急预定
+		var note_name = $("input[name='note_name']").val();//知会人姓名
+		var note_phone = $("input[name='note_phone']").val();//知会人手机
+		var note_email = $("input[name='note_email']").val();//知会人邮箱
+		var pay_type = $("input[name='pay_type']:checked").val();//支付方式
+		var is_insure_isck =  $("input[name='is_insure']").is(':checked');//是否购买航空意外险
+		var is_insure=2;
+		if(is_insure_isck==true){
+			is_insure=1;
+		}
+		var p_id = $("select[name='p_id']").val();//航空意外险
+		var emp_id = [];//乘机人
+		$("input[name='emp_id'").each(function(){
+			var val = $(this).val();
+			emp_id.push(val);
+		});
+
+		var dispatch = $("input[name='dispatch']:checked").val();//配送方式
+        var post_name = $("input[name='post_name']").val();//收件人
+        var post_province = $("select[name='province']").find("option:selected").text();
+        var post_city = $("select[name='city']").find("option:selected").text();
+
+        var post_address = $("input[name='post_address']").val();
+        var post_phone = $("input[name='post_phone']").val();
+        var post_postcode = $("input[name='post_postcode']").val();
+
+        var isAddUser = $("#orderUser").find('tr').hasClass("addUserInfo");
+        if(!isAddUser && data===0){
+
+               swal({
+                   title: "温馨提示!",
+                   text: "请添加乘机人!!",
+                   type: "error",
+                   confirmButtonText: "关 闭"
+               });
+
+        } else {
+            $.ajax({
+                url: "{:U('book/submit_order')}",
+                data: "tr_num=" + tr_num + "&is_emergency= " + is_emergency + "&note_name= " + note_name + "&note_phone= " + note_phone + "&note_email= " + note_email + "&pay_type= " + pay_type + "&is_insure= " + is_insure + "&p_id= " + p_id +  "&emp_id= " + emp_id + "&dispatch= " + dispatch + "&post_name= " + post_name + "&post_province= " + post_province + "&post_city= " + post_city + "&post_address= " + post_address + "&post_phone= " + post_phone + "&post_postcode= " + post_postcode+ "&tmc_id= " + tmc_id + "&FlightName= " + FlightName + "&FlightNo= " + FlightNo + "&FromAirport= " + FromAirport + "&ToAirport= " + ToAirport + "&dt= " + dt + "&at= " + at + "&cabin= " + cabin + "&price= " + price + "&fuelCosts= " + fuelCosts + "&airraxFloat= " + airraxFloat + "&serviceCost= " + serviceCost + "&rfn= " + rfn + "&rrn= " + rrn + "&edn= " + edn,
+                dataType: "text",
+                type: "POST",
+                success: function (msg) {
+                    var result = parseInt(msg) || 0;
+                    if ( result == 1 ) {
+                        swal({
+                            title: "温馨提示!",
+                            text: "订单提交成功!!",
+                            type: "success",
+                            confirmButtonText: "关 闭"
+                        }, function () {
+                            location.href = "{:U('Order/order_list_6')}";
+                        });
+
+                    } else {
+                        swal({
+                            title: "温馨提示!",
+                            text: "订单提交失败!!",
+                            type: "error",
+                            confirmButtonText: "关 闭"
+                        });
+                    }
+
+                }
+
+            });
+        }
+    });
+
+    /**
+     * 知会人信息验证
+     * 创建人：王月
+     * 创建时间：2015-3-25
+     */
+    $(function () {
+        //姓名验证
+        $("input[name='note_name']").blur(function () {
+            var pattern = /([\u4E00-\u9FA5]{1,7})|([a-zA-Z]{1,10})/;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if (pattern.test(userName)) {
+                _this.removeClass('warning').parent('span').removeClass('warning');
+            } else {
+                _this.addClass('warning').parent('span').addClass('warning');
+            }
+        });
+        //电话验证
+        $("input[name='note_phone']").blur(function () {
+            var pattern = /^\d{6,11}$/i;
+            var phone = $(this).val();
+            var _this = $(this);
+            if (pattern.test(phone)) {
+                phoneState = 1;
+                _this.removeClass('warning').parent('span').removeClass('warning');
+            } else {
+                phoneState = 0;
+                _this.addClass('warning').parent('span').addClass('warning');
+            }
+        });
+        //邮箱验证
+        $("input[name='note_email']").blur(function() {
+            var pattern = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+            var email = $(this).val();
+            var _this = $(this);
+            if(pattern.test(email)) {
+                _this.removeClass('warning').parent('span').removeClass('warning');
+            } else {
+                _this.addClass('warning').parent('span').addClass('warning');
+            }
+        });
+    });
+
+    /**
+     * 乘机人信息验证
+     * 创建人：王月
+     * 创建时间：2015-3-25
+     */
+    $(function () {
+        //姓名验证
+        $("input[name='name']").blur(function () {
+            var pattern = /([\u4E00-\u9FA5]{1,7})|([a-zA-Z]{1,10})/;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if (pattern.test(userName)) {
+                nameState = 1;
+                _this.removeClass('warning').parent('span').removeClass('warning');
+            } else {
+                nameState = 0;
+                _this.addClass('warning').parent('span').addClass('warning');
+            }
+        });
+
+        //证件验证
+        $("input[name='id_no']").blur(function () {
+            var pattern = /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/;
+            var id_no = $(this).val() || '';
+            var _this = $(this);
+            var id_type = $("select[name='id_type']").val();
+            if (id_type == 0) {
+                if (pattern.test(id_no)) {
+                    id_noState = 1;
+                    _this.removeClass('warning').parent('span').removeClass('warning');
+                } else {
+                    id_noState = 0;
+                    _this.addClass('warning').parent('span').addClass('warning');
+                }
+            } else {
+                if (id_no = '') {
+                    id_noState = 0;
+                    _this.addClass('warning').parent('span').addClass('warning');
+                } else {
+                    id_noState = 1;
+                    _this.removeClass('warning').parent('span').removeClass('warning');
+                }
+            }
+        });
+        $("select[name='id_type']").blur(function () {
+            var id_type = $(this).val();
+            var id_no = $("input[name='id_no']").val() || '';
+            if (id_type == 0) {
+                var pattern = /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/;
+                if (pattern.test(id_no)) {
+                    id_noState = 1;
+                    $("input[name='id_no']").removeClass('warning').parent('span').removeClass('warning');
+                } else {
+                    id_noState = 0;
+                    $("input[name='id_no']").addClass('warning').parent('span').addClass('warning');
+                }
+            } else {
+                if (id_no = '') {
+                    id_noState = 0;
+                    $("input[name='id_no']").addClass('warning').parent('span').addClass('warning');
+                } else {
+                    id_noState = 1;
+                    $("input[name='id_no']").removeClass('warning').parent('span').removeClass('warning');
+                }
+            }
+        });
+
+        //手机号验证
+        $("input[name='phone']").blur(function () {
+            var pattern = /^\d{6,11}$/i;
+            var phone = $(this).val();
+            var _this = $(this);
+            if (pattern.test(phone)) {
+                phoneState = 1;
+                _this.removeClass('warning').parent('span').removeClass('warning');
+            } else {
+                phoneState = 0;
+                _this.addClass('warning').parent('span').addClass('warning');
+            }
+        });
+
+        //"添加乘机人"
+        $('#add').click(function () {
+            if (nameState == 1 && id_noState == 1 && phoneState == 1) {
+                var html = $('#orderUser').html();
+                html += '<tr class="addUserInfo"><td>' + $("input[name='name']").val() + '</td><td>' + $("select[name='id_type']").find("option:selected").text() + '</td><td>' + $("input[name='id_no']").val() + '</td><td>' + $("input[name='phone']").val() + '</td><td class="tex_blue"><a href="javascript:void(this);" onclick="delRow(this)">删除</a></td></tr>';
+                $('#orderUser').html(html);
+            } else {
+                swal({
+                    title: "温馨提示!",
+                    text: "请完善乘机人信息!!",
+                    type: "error",
+                    confirmButtonText: "关 闭"
+                });
+            }
+        });
+    });
+
+    /**
+     * 快递信息验证
+     * 创建人：王月
+     * 创建时间：2015-3-25
+     */
+    $(function () {
+        var post_name = $("input[name='post_name']").val();//收件人
+        var post_province = $("select[name='province']").find("option:selected").text();
+        var post_city = $("select[name='city']").find("option:selected").text();
+
+        var post_address = $("input[name='post_address']").val();
+        var post_phone = $("input[name='post_phone']").val();
+        var post_postcode = $("input[name='post_postcode']").val();
+        //收件人姓名验证
+        $("input[name='post_name']").blur(function () {
+            var post_name = $(this).val() || '';
+            var _this = $(this);
+            var pattern = /([\u4E00-\u9FA5]{1,7})|([a-zA-Z]{1,10})/;
+            if (pattern.test(post_name)) {
+                _this.removeClass('warning').parent('span').removeClass('warning');
+            } else {
+                _this.addClass('warning').parent('span').removeClass('warning');
+            }
+        });
+        //详细地址
+        $("input[name='post_address']").blur(function () {
+            var post_address = $(this).val() || '';
+            var _this = $(this);
+            if (post_address = '') {
+                _this.addClass('warning').parent('span').removeClass('warning');
+            } else {
+                _this.removeClass('warning').parent('span').removeClass('warning');
+            }
+        });
+        //手机号码
+        $("input[name='post_phone']").blur(function () {
+            var post_phone = $(this).val() || '';
+            var _this = $(this);
+            var pattern = /^\d{6,11}$/i;
+            if (pattern.test(post_phone)) {
+                _this.removeClass('warning').parent('span').removeClass('warning');
+            } else {
+                _this.addClass('warning').parent('span').removeClass('warning');
+            }
+        });
+        //邮政编码
+        $("input[name='post_postcode']").blur(function () {
+            var post_postcode = $(this).val();
+            var _this = $(this).val() || '';
+            var pattern = /^\d{6}$/i;
+            if (pattern.test(post_postcode)) {
+                _this.removeClass('warning').parent('span').removeClass('warning');
+            } else {
+                _this.addClass('warning').parent('span').removeClass('warning');
+            }
+        });
+    });
+</script>
+</body>
+</html>

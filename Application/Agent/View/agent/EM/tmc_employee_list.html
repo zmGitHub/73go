@@ -1,0 +1,336 @@
+<link rel="stylesheet" type="text/css" href="./treeview/jquery.treeview.css"/>
+<script language="javascript" src="./treeview/lib/jquery.cookie.js"></script>
+<script language="javascript" src="./treeview/jquery.treeview.js"></script>
+<script src="./treeview/jquery.treeview.async.js" type="text/javascript"></script>
+<script src="js/brtoolbar.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+	
+	var brId = 0;
+	var brName = "";
+	function nodeClick(el) {
+		/**** 引发员工列表改变！ ****/
+		dockToolbarToElement(el);
+		brId = eval(el.getAttribute('br_id'));
+		
+		brName = $(el).html();
+		chickbranch(brId);//查询员工信息
+	}
+	
+	
+	function initTrees() {
+		$("#br_tree").treeview({
+			//url: "{:U('Tree/tmcBranches')}"
+			url: "{:U('Tree/tmcBranches')}?tmc_id={:LI('tmcId')}",
+			itemclick: function(){
+			 	nodeClick(this);
+			}
+		});
+	}
+	//刷新部门界面
+	function refreshTree() {
+		$("#br_tree").html("");
+		initTrees();
+	}
+	
+	function dockToolbarToCompany() {
+		showBrToolbar(
+			document.getElementById("toolbar"), 
+			document.getElementById("company_span"), 
+			document.getElementById("toobar_base"));
+	}
+	
+	function dockToolbarToElement(el) {
+		showBrToolbar(
+			document.getElementById("toolbar"), 
+			el, 
+			document.getElementById("toobar_base"));
+	}
+	</script>
+
+ <div class="main_right">
+   <div id="toobar_base" class="inner_plane">
+     <div id="toolbar" class="br_toolbar" width="100%"><table>
+    <tr>
+      <td width="4px"></td>
+      <td><a href="javascript:void(0);" onclick="addbarch()">创建部门</a></td>
+      <td width="10px"></td>
+      <td><a href="javascript:void(0);">修改部门</a></td>
+      <td width="10px"></td>
+      <td><a href="javascript:void(0);">删除部门</a></td>
+      <td width="4px"></td>
+    </tr>
+    </table></div>
+  </div>
+
+  <div class="r_hd">
+            <h3 class="r_tit">部门和员工信息管理</h3>
+            <div class="r_hd_extra">
+              <a href="{:U('EM/showBSAll')}" class="current" >部门管理</a>
+              <a href="{:U('TmcGroup/showTmcGroup')}">工作组管理</a>
+            </div>
+   	  </div>
+        
+      <div  class="BoxHeight mb_10" ></div>
+      <div class="btitle border_none mt_22">
+     
+     <h4><span id="company_span" class="branch_node">{$tmclist.name}</span></h4>
+    
+    </div><div class="clear"></div>
+
+      <div class="st_tree" style="width:100%;"> 
+</div>
+
+    <ul id="br_tree">
+	</ul>
+
+      
+      <div class="mt_10">
+ <input type="submit" value="导入部门和员工信息" class="btn_b5" />&nbsp;&nbsp; </div> 
+      
+     
+     <div class="btitle mt_22"> 
+     <h4> 
+    	 <input name="input4" type="text" id="eplike" class="text01 h20 c_tx2" placeholder="工号/姓名/电话/邮箱/证件号码" />
+  		 <input type="button" onclick="find()" value="查找" class="btn_b5 ml_5" />
+  	</h4>
+      </div>
+      
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab" id="tb_addtenameemp">
+        
+        <tr>
+          <th width="5%">&nbsp;</th>
+          <th width="12%">工号</th>
+          <th>姓名&nbsp;</th>
+          <th width="15%">部门</th>
+          <th width="12%">手机号</th>
+          <th width="20%">邮箱</th>
+          <th width="12%">用户角色</th>
+          <th width="8%">操作</th>
+        </tr>
+        
+        <foreach name="bs" item="b">
+        <tr>
+       		<td width="5%">&nbsp;</td>
+			<td width="12%">{$b.emp_code}</td>
+			<td>{$b.name}</td>
+			<td width="15%">咨询</td>
+			<td width="12%">{$b.phone}</td>
+			<td width="20%">{$b.email}</td>
+			<td width="12%">员工</td>
+          <td class="tex_blue"><a href="#">详情</a></td>
+        </tr>
+       </foreach>
+      </table>
+      
+      
+      <div class=" mt_10">操作：
+        <input type="submit" onclick="deletebarch()" value="删除选中员工" class="btn_b5 ml_5" />
+        <input type="submit" onclick="addtebarch()" value="添加员工" class="btn_b5 ml_5" />
+      </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+<!---popup 添加部弹出浮层 start --->
+        
+<div id="bardd" class="popup popup_pos1 w400" style="display: none;">
+	        <a href="javascript:void(0)" class="btn_close" id="addtename_close" ></a>
+           <div class="pop_title">添加部门</div>
+           <div class="popup_cont2">
+             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+               <tr class="border_none">
+                 <td class="td1">部门编号</td>
+                 <td><input name="ddbarchcoid" id="ddbarchcoid" type="text" class="text01" /></td>
+               </tr>
+               <tr class="border_none">
+                 <td class="td1">部门名称</td>
+                 <td><input name="ddbarchname" id="ddbarchname" type="text" class="text01" /></td>
+               </tr>
+             </table>
+                   <div class="text_cent"><a href="javascript:void(0);" onclick="getbardd()" class="btn_sure">确定</a></div>
+                   
+</div>
+        </div>
+
+    <!---popup 添加部门弹出浮层 end ---> 
+
+<script language="javascript">
+$(function(){
+		
+	initTrees();
+
+	$("#company_span").click(function() {
+		brId = 0;
+		brName = "";
+		dockToolbarToElement(this);
+		
+	});
+	$("#company_span").click();
+});
+</script>
+        
+<script type="text/javascript">
+	function chickbranch(id){
+		$.ajax({
+    		url:"{:U('EM/showbranchemp')}", 
+    		data:"id="+id,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+
+    			var emps = eval("(" + data + ")");
+    			var tb_addtenameemp=$('#tb_addtenameemp');
+    			$('#tb_addtenameemp').eq(0).empty().append(tr2);   //清除内容
+    			var tr1="<tr>"+
+    			"<th width='4%'></th>"+
+      			"<th width='12%'>"+"工号"+"</th>"+
+      			"<th width='12%'>"+"姓名"+"</th>"+
+      			"<th width='12%'>"+"联系电话"+"</th>"+
+      			"<th width='12%'>"+"邮箱"+"</th>"+
+      			"<th width='12%'>"+"操作"+"</th>"+
+    			"</tr>"
+    			tb_addtenameemp.append(tr1);
+    			for(var i=0;i<emps.length;i++){
+    				var tr2=
+    					"<tr>"+
+    					  "<td>"+"<input type='checkbox' name='checkall1' id='checkall1' value='"+emps[i].id+"' />"+"</td>"+
+    			          "<td>"+emps[i].emp_code+"</td>"+
+    			          "<td>"+emps[i].name+"</td>"+
+    			          "<td>"+emps[i].phone+"</td>"+
+    			          "<td>"+emps[i].email+"</td>"+
+    			          "<td>"+"<a href='{:U('EM/showupdatebranchempuser')}?emps_id="+emps[i].id+"' class='btn_b5 ml_5'>"+"详情"+"</a></td>"+
+    			        "</tr>"
+    			 tb_addtenameemp.append(tr2);   
+    			}
+    		}
+    	});
+	}
+	//模糊搜索
+	function find(){
+	var eplike=$('#eplike').val();
+	var tmcbarid=brId;
+	$.ajax({
+		url:"{:U('EM/shouwbranchempLike')}", 
+		data:"eplike="+eplike+"&tmcbarid="+tmcbarid,
+		dataType:"text",
+		type:"POST",
+		success:function(data){
+			
+			var emps = eval("(" + data + ")");
+			var tb_addtenameemp=$('#tb_addtenameemp');
+			$('#tb_addtenameemp').eq(0).empty().append(tr2);   //清除内容
+			var tr1="<tr>"+
+			"<th width='4%'></th>"+
+  			"<th width='12%'>"+"工号"+"</th>"+
+  			"<th width='12%'>"+"姓名"+"</th>"+
+  			"<th width='12%'>"+"联系电话"+"</th>"+
+  			"<th width='12%'>"+"邮箱"+"</th>"+
+  			"<th width='12%'>"+"操作"+"</th>"+
+			"</tr>"
+			tb_addtenameemp.append(tr1);
+			for(var i=0;i<emps.length;i++){
+				var tr2=
+					"<tr>"+
+					  "<td>"+"<input type='checkbox' name='checkall1' id='checkall1' value='"+emps[i].id+"' />"+"</td>"+
+			          "<td>"+emps[i].emp_code+"</td>"+
+			          "<td>"+emps[i].name+"</td>"+
+			          "<td>"+emps[i].phone+"</td>"+
+			          "<td>"+emps[i].email+"</td>"+
+			          "<td>"+"详情"+"</td>"+
+			        "</tr>"
+			 tb_addtenameemp.append(tr2);   
+			}
+		
+		}
+	});
+	
+}
+	//删除选中的员工信息
+	function deletebarch(){
+		var str="";
+        $("input[name='checkall1']:checkbox").each(function(){ 
+            if($(this).attr("checked")){
+                str= $(this).val();
+            }
+        })
+    	$.ajax({
+    		url:"{:U('EM/delebranchempuser')}", 
+    		data:"str="+str,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+					swal({
+						title: "温馨提示!",
+						text: "删除成功!!",
+						type: "success",
+						confirmButtonText: "关 闭"
+					});
+    			}else{
+					swal({
+						title: "温馨提示!",
+						text: "删除失败!!!",
+						type: "error",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+    			}
+    		}
+    	});
+	}
+	//添加员工信息
+	function addtebarch(){
+		location.href = "{:U('EM/showaddbranchempuser')}";
+	}
+	//添加部门信息
+	function addbarch(){
+		$("#bardd").show();
+		refreshTree();
+	}
+	$("#addtename_close").click(function(){
+		$('#bardd').css("display","none");
+	});
+	
+	function close(){
+		$('#bardd').css("display","none");
+	}
+	//添加部门提交按钮
+	function getbardd(){
+		
+		var ddbarchcoid=$('#ddbarchcoid').val();
+		var ddbarchname=$('#ddbarchname').val();
+		var p_id=brId;
+    	
+		$.ajax({
+    		url:"{:U('EM/addbran')}", 
+    		data:"ddbarchcoid="+ddbarchcoid+"&ddbarchname="+ddbarchname+"&p_id="+p_id,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+					swal({
+						title: "温馨提示!",
+						text: "添加部门成功!!",
+						type: "success",
+						confirmButtonText: "关 闭"
+					});
+    				close();
+    				refreshTree();
+    			}else{
+					swal({
+						title: "温馨提示!",
+						text: "添加部门失败!!!",
+						type: "error",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+    			}
+    		}
+    	});
+	}
+	
+</script>

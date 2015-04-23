@@ -1,0 +1,424 @@
+ <div class="main_right">
+  <div class="r_hd">
+            <h3 class="r_tit">工作组信息管理</h3>
+            <div class="r_hd_extra">
+              <a href="{:U('EM/showBSAll')}">部门管理</a>
+              <a href="{:U('EG/index')}" class="current" >工作组管理</a>
+            </div>
+    </div>
+        
+      <div  class="BoxHeight mb_10" ></div><div class="clear"></div>
+    <div class="mt_10">
+    <span><img src="images/add.jpg" width="17" height="17" /></span><span class="tex_blue ml_5 tex_16"> <a href="javascript:void(0)" id="my_addteam">添加组</a></span></div>
+   
+    <foreach name="tsnamelist" item="ts">
+    <div>
+    <div class="btitle mt_22">
+      <h4>{$ts.name}<em class="fl_right">
+      <a href="javascript:void(0)" class="btn_b5 ml_5" onclick="delteam({$ts.id})" >删除组</a>
+      <a href="javascript:void(0)" class="btn_b5 ml_5" onclick="updatename({$ts.id})" >重命名</a>
+    </em>
+        <div class="clear"></div></h4>
+    </div>
+    
+   
+    <div class="register_mod_form_row">
+       <div class="register_mod_form_label">成员</div>
+		<div class="register_mod_form_cnt">
+		
+		<!-- 成员 -->
+        <div class="news_mod_form_cnt dt_time01 dt_time_xz w400" id="order_service">
+         <foreach name="ts.gro" item="tt">
+         <a href="javascript:void(0)" id="ateamname" value="{$tt.bid}">{$tt.ename}</a>
+         </foreach>
+        </div>
+        <span style=" margin-top:15px; display:block;" class="fl_left"><a href="javascript:void(0)" class="tex_blue" onclick="addname(({$ts.id}),({$ts.tmc_id}))">+ 添加组员</a></span>
+        <div class="clear"></div></div>
+	</div>
+    <div class="register_mod_form_row">
+      <div class="register_mod_form_label">服务企业</div>
+      <div class="register_mod_form_cnt">
+      
+      	<!--企业-->
+        <div class="news_mod_form_cnt dt_company02 dt_time_xz w400" id="order_service_co"> 
+        <foreach name="ts.com" item="rr">
+        <a href="javascript:void(0)" value="{$rr.cid}">{$rr.ccname}</a> 
+        </foreach>
+        </div>
+        <span style=" margin-top:15px; display:block;" class="fl_left"><a href="javascript:void(0)" class="tex_blue" onclick="addco({$ts.id})">+ 添加企业</a></span>
+        <div class="clear"></div>
+      </div>
+    </div>
+    
+    </div>
+    
+    </foreach>
+    
+    
+    <div class="clear"></div>
+   
+ 
+  </div>
+    <div class="clear"></div>
+</div>
+
+<!---popup 添加组弹出浮层 start --->
+        
+<div id="addtame" class="popup popup_pos1" style="display:none;">
+	       <a href="javascript:void(0)" class="btn_close" id="btn_close" ></a>
+           <div class="pop_title">添加工作组</div>
+           <div class="popup_cont2">
+             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+               <tr class="border_none yd_bg">
+               </tr>
+               <tr class="border_none">
+               </tr>
+               <tr class="border_none">
+                 <td class="td1">工作组名称</td>
+                 <td><input name="teamname" type="text" class="text01" id="teamname"  /></td>
+               </tr>
+               <tr class="border_none">
+               </tr>
+             </table>
+       		<div class="text_cent"><a href="javascript:void(0)" id="getaddtame"  class="btn_sure">确定</a></div>  
+		</div> 
+</div>
+
+<!---popup 重命名组弹出浮层 start --->
+        
+<div id="updatename" class="popup popup_pos1" style="display:none;">
+	       <a href="javascript:void(0)" class="btn_close" id="updatename_close" ></a>
+           <div class="pop_title">重命名工作组名</div>
+           <div class="popup_cont2">
+             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+               <tr class="border_none yd_bg">
+               </tr>
+               <tr class="border_none">
+               </tr>
+               <tr class="border_none">
+               	 <td><input name="teamupdateid" type="hidden" class="text01" id="teamupdateid" /></td>
+                 <td class="td1">工作组名称</td>
+                 <td><input name="teamupdatename" type="text" class="text01" id="teamupdatename"  /></td>
+               </tr>
+               <tr class="border_none">
+               </tr>
+             </table>
+       		<div class="text_cent"><a href="javascript:void(0)" id="getupdatetame"  class="btn_sure">确定</a></div>  
+		</div> 
+</div>
+<!---popup 添加组员弹出浮层 start --->
+<div id="addtename" class="popup popup_pos1" style="display:none;">
+	       <a href="javascript:void(0)" class="btn_close" id="addtename_close" ></a>
+           <div class="pop_title">添加工作组成员</div>
+           <div class="popup_cont2">
+               
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab mt_10" id="tb_addtenameemp">
+                     <tr>
+                       <th width="5%">&nbsp;</th>
+                       <th width="9%">工号</th>
+                       <th width="9%">姓名</th>
+                       <th width="90">联系电话</th>
+                       <th width="90">邮箱</th>
+                     </tr>
+                </table>
+
+       		<div class="text_cent"><a href="javascript:void(0)" id="getaddtamename"  class="btn_sure">确定</a></div>  
+		</div> 
+</div>
+<!---popup 搜索弹出浮层 end ---> 
+
+<!---popup 添加组企业弹出浮层 start --->
+<div id="addtenaco" class="popup popup_pos1" style="display:none;">
+	       <a href="javascript:void(0)" class="btn_close" id="addtenaco_close" ></a>
+           <div class="pop_title">添加工作组成员</div>
+           <div class="popup_cont2">
+               
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab mt_10" id="tb_addtenaco">
+                     <tr>
+                       <th width="5%">&nbsp;</th>
+                       <th width="9%">工号</th>
+                       <th width="9%">姓名</th>
+                       <th width="90">联系电话</th>
+                       <th width="90">邮箱</th>
+                     </tr>
+                </table>
+
+       		<div class="text_cent"><a href="javascript:void(0)" id="getaddtameco"  class="btn_sure">确定</a></div>  
+		</div> 
+</div>
+<!---popup 搜索弹出浮层 end --->
+     
+    
+<script type="text/javascript">
+//添加按钮弹出查找界面
+	$('#my_addteam').click(function(){
+		$("#addtame").show();
+	});
+	$("#btn_close").click(function(){
+		$('#addtame').css("display","none");
+	});
+	$("#getaddtame").click(function(){
+		var teamname=$("#teamname").val();
+		
+		$.ajax({
+    		url:"{:U('EG/addteam')}", 
+    		data:"teamname="+teamname,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+    				alert("添加成功");
+    				location.href = "{:U('EG/index')}";
+    			}
+    			else{
+    				alert("添加失败");
+    			}
+    		}
+    	});
+        
+	});
+	//删除组
+	function delteam(id){
+		$.ajax({
+    		url:"{:U('EG/updateteam')}", 
+    		data:"id="+id,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+    				alert("删除成功");
+    				location.href = "{:U('EG/index')}";
+    			}
+    			else{
+    				alert("删除失败");
+    			}
+    		}
+    	});
+	}
+	//弹出重命名界面
+	function updatename(id,name){
+		$('#teamupdateid').val(id);
+		$("#updatename").show();
+	}
+	//重命名
+	$("#getupdatetame").click(function(){
+		var id = $('#teamupdateid').val();
+		var teamname=$('#teamupdatename').val();
+        $.ajax({
+    		url:"{:U('EG/unpdateteam')}", 
+    		data:"id="+id+"&teamname="+teamname,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+    				alert("重命名成功");
+    				location.href = "{:U('EG/index')}";
+    			}
+    			else{
+    				alert("重命名失败");
+    			}
+    		}
+    	});
+        
+	});
+	
+	$("#updatename_close").click(function(){
+		$('#updatename').css("display","none");
+	});
+
+	//添加组成员
+	function addname(id,tmc_id){
+		$.ajax({
+    		url:"{:U('EG/showteamnumber')}", 
+    		data:"id="+id+"&tmc_id="+tmc_id,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+
+    			var emps = eval("(" + data + ")");
+    			var tb_addtenameemp=$('#tb_addtenameemp');
+    			$('#tb_addtenameemp').eq(0).empty().append(tr2);   //清除内容
+    			var tr1="<tr>"+
+    			"<th width='4%'></th>"+
+      			"<th width='12%'>"+"工号"+"</th>"+
+      			"<th width='12%'>"+"姓名"+"</th>"+
+      			"<th width='12%'>"+"联系电话"+"</th>"+
+      			"<th width='12%'>"+"邮箱"+"</th>"+
+    			"</tr>"
+    			tb_addtenameemp.append(tr1);
+    			for(var i=0;i<emps.length;i++){
+    				var tr2=
+    					"<tr>"+
+    					  "<td>"+"<input type='checkbox' name='checkall1' id='checkall1' value='"+emps[i].id+"' />"+"</td>"+
+    			          "<td>"+emps[i].emp_code+"</td>"+
+    			          "<td>"+emps[i].name+"</td>"+
+    			          "<td>"+emps[i].phone+"</td>"+
+    			          "<td>"+emps[i].email+"</td>"+
+    			        "</tr>"
+    			 tb_addtenameemp.append(tr2);   
+    			}
+    			
+    			$("#addtename").show();	
+    		}
+    	});
+		
+	}
+	$("#addtename_close").click(function(){
+		$('#addtename').css("display","none");
+	});
+	
+	$("#getaddtamename").click(function(){
+		var str="";
+        $("input[name='checkall1']:checkbox").each(function(){ 
+            if($(this).attr("checked")){
+                str += $(this).val()
+            }
+        })
+        $.ajax({
+    		url:"{:U('EG/addteamnumber')}", 
+    		data:"str="+str,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+    				alert("添加成功");
+    				location.href = "{:U('EG/index')}";
+    			}
+    			else{
+    				alert("添加失败");
+    			}
+    		}
+    	});
+        
+	});
+//添加组成员
+
+	function addco(id){
+		$.ajax({
+    		url:"{:U('EG/showteamco')}", 
+    		data:"id="+id,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			var emps = eval("(" + data + ")");
+    			var tb_addtenaco=$('#tb_addtenaco');
+    			$('#tb_addtenaco').eq(0).empty().append(tr2);   //清除内容
+    			var tr1="<tr>"+
+    			"<th width='4%'></th>"+
+      			"<th width='12%'>"+"企业编号"+"</th>"+
+      			"<th width='12%'>"+"全名"+"</th>"+
+      			"<th width='12%'>"+"联系人"+"</th>"+
+      			"<th width='12%'>"+"联系电话"+"</th>"+
+    			"</tr>"
+    			tb_addtenaco.append(tr1);
+    			for(var i=0;i<emps.length;i++){
+    				var tr2=
+    					"<tr>"+
+    					  "<td>"+"<input type='checkbox' name='checkall1' id='checkall1' value='"+emps[i].id+"' />"+"</td>"+
+    			          "<td>"+emps[i].co_code+"</td>"+
+    			          "<td>"+emps[i].name+"</td>"+
+    			          "<td>"+emps[i].contact_name+"</td>"+
+    			          "<td>"+emps[i].contact_phone+"</td>"+
+    			        "</tr>"
+    			 tb_addtenaco.append(tr2);   
+    			}
+    			
+    			$("#addtenaco").show();	
+    		}
+    	});
+	
+	}
+	$("#addtenaco_close").click(function(){
+		$('#addtenaco').css("display","none");
+	});
+	$("#getaddtameco").click(function(){
+		var str="";
+        $("input[name='checkall1']:checkbox").each(function(){ 
+            if($(this).attr("checked")){
+                str += $(this).val()
+            }
+        })
+        $.ajax({
+    		url:"{:U('EG/addteamco')}", 
+    		data:"str="+str,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+    				alert("添加成功");
+    				location.href = "{:U('EG/index')}";
+    			}
+    			else{
+    				alert("添加失败");
+    			}
+    		}
+    	});
+        
+	});
+	//删除工作组成员
+	$("#order_service a").on("click", function(){
+		
+		if( $(this).data("is") == 1 ){
+			$(this).data("is", 0);
+			var userid=$(this).attr('value');
+	       
+			$.ajax({
+	    		url:"{:U('EG/deletemember')}", 
+	    		data:"userid="+userid,
+	    		dataType:"text",
+	    		type:"POST",
+	    		success:function(data){
+	    			data = ajaxGet(data);
+	    			if(data==1){
+	    				alert("删除成功");
+	    				location.href = "{:U('EG/index')}";
+	    			}
+	    			else{
+	    				alert("删除失败");
+	    			}
+	    		}
+	    	});
+		}else{
+			$(this).data("is", 1);
+			var userid=$(this).attr('value');
+		}
+		$(this).toggleClass("current2");
+	})
+	
+	//删除工作组企业
+	$("#order_service_co a").on("click", function(){
+		
+		if( $(this).data("is") == 1 ){
+			$(this).data("is", 0);
+			var userid=$(this).attr('value');
+	       
+			$.ajax({
+	    		url:"{:U('EG/deleteco')}", 
+	    		data:"userid="+userid,
+	    		dataType:"text",
+	    		type:"POST",
+	    		success:function(data){
+	    			data = ajaxGet(data);
+	    			if(data==1){
+	    				alert("删除成功");
+	    				location.href = "{:U('EG/index')}";
+	    			}
+	    			else{
+	    				alert("删除失败");
+	    			}
+	    		}
+	    	});
+		}else{
+			$(this).data("is", 1);
+			var userid=$(this).attr('value');
+		}
+		$(this).toggleClass("current2");
+	})
+	
+	
+</script>

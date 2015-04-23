@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>轻松行商旅-TMC业务</title>
+<link rel="stylesheet" type="text/css" href="Agent/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="Agent/css/style_yq.css"/>
+<link href="js/sweetAlert/css/sweet-alert.css" rel="stylesheet" type="text/css"/>
+<link rel="shortcut icon" href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/favicon.ico" />
+<script src="Agent/js/jquery-1.9.1.min.js"></script>
+<script src="Agent/js/sco.collapse.js"></script>
+<script src="Agent/js/artTemplate/template.js"></script>
+	<script src="js/searchPlugin/dataPicker/laydate.dev.js"></script>
+	<script src="js/addressPlugin/jquery.cityselect.js"></script>
+	<script type="text/javascript" src="{:U('Home/Resource/jsBase')}"></script>
+<script src="js/functions_73go.js"></script>
+
+<script>
+	function ShowMenu(MenuID){
+		if(MenuID.style.display=="none"){
+			MenuID.style.display="";
+		}
+		else{
+			MenuID.style.display="none";
+		}
+	}
+</script>
+
+<!--百度统计js代码-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?9e8dc4308f6255aaab3aadc413a1846e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+
+<body>
+<div class="header">
+    <div class="mininav">
+      <div class="cont"> <span class="lefttxt"> 欢迎来<if condition="getHostedTmcInfo('name') neq null ">{:getHostedTmcInfo('name')}<else/>73GO</if>！
+      
+      <if condition="LI('userName') neq null">
+       <!--  <a href="javascript:void(0)">{:LI('userName')}</a><a href="{:U('Index/login')}"> 退出</a></span>-->
+	      <if condition="LI('userType') eq   '3' " >
+		  		<a href="{:U('Index/mypage_tmc')}">
+		  <elseif condition="LI('userType') eq  '4' "/>
+		  		<a href="{:U('Index/mypage_op')}">
+		  </if>
+     	{:LI('userName')}</a><a href="{:U('Index/logout')}"> 退出</a>
+
+     <else />
+     <a href="{:U('Index/login_tmc')}">请登录</a><a href="{:U('Index/register_tmc')}"> 注册</a>
+     </if></span></div>
+    </div>
+    <div class="headtop">
+            <div class="logoMark"></div>
+            <div class="logo"><a href="{:U('Home/Index/index')}"><img src=<if condition="getHostedTmcInfo('small_logo') neq null ">"{:getHostedTmcInfo('large_logo')}"<else/>"images/logo.jpg"</if> width="191" height="43" alt="轻松行" /></a></div>
+            <div class="txt"></div>
+            <div class="iphone"></div>
+        </div>
+    <div class="nav">
+    	<div class="menu">
+        	<div class="navcate indexFlag" >
+            	<div class="navNews" style="right:-280px;"></div>
+           	  <div class="kc_title"><a href="javaScript:void(0);">我的菜单</a></div>
+                <div class="all-sort-list" ><div class="sub_i_bg"></div></div>
+            </div>
+            <!--<ul class="menu_ul">-->
+                <!--<li><a href="{:U('Agent/Index/index')}" class="on">首页</a></li>-->
+            <!--</ul>-->
+         </div>
+	</div>
+</div>
+<div class="main">
+  {:UserMenu_73go()}
+  
+<!-- TMC 用户的内容的部分开始 -->
+
+{__CONTENT__}
+
+<!-- TMC用户的内容不认结束 -->
+</div>
+<div class="footer">
+	<div class="copyiright">
+		Copyright © 2015 版权所有 深圳市轻松行科技有限公司 <a href="http://www.miitbeian.gov.cn" target="_blank">粤ICP备14072826号</a><p>
+	</div>
+</div>
+<script type="text/javascript" src="js/sweetAlert/js/sweet-alert.min.js"></script>
+</body>
+</html>

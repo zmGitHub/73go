@@ -1,0 +1,264 @@
+
+    <div class="main_right">
+    	<div class="r_hd">
+            <h3 class="r_tit">企业信息</h3>
+          <div class="r_hd_extra">
+              <a href="{:U('Index/config_coinfo_account')}" class="current">登录账户</a>
+              <a href="{:U('Index/config_coinfo_basicinfo')}" >企业信息</a>
+            </div>
+    	</div>
+        
+        <div  class="BoxHeight mb_10" ></div>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4">
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="230" align="right">企业编号 </td>
+            <td><input name="co_code" type="text" class="text01" value="{$co_info.0.co_code}" disabled="disabled" /></td>
+          </tr>
+          <tr>
+            <td align="right">企业注册名 </td>
+            <td><input name="name" type="text" class="text01" value="{$co_info.0.name}" disabled="disabled" /></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+      </table>
+      <!--<form action="{:U('User/mod_password')}"  method="post">-->
+
+       <div class="btitle">
+        <h4>
+            <label for="check">
+                <input type="checkbox" name="checkbox" id="check" /><span>修改密码</span>
+            </label>
+        </h4>
+      </div>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4">
+        <tr>
+          <td width="130"></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">原密码 </td>
+          <td>
+              <input name="password" type="password" id="password" class="text01 fl_left" disabled placeholder="请填写登陆密码"/>
+              <div class="mod_tips_inner" id="pass1" style="display:none">
+                  <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+              </div>
+
+              <div class="mod_tips_inner" id="pass2" style="display:none">
+                  <i class="mod_tico_x16 mod_tico_warn_x16" ></i>密码不正确
+              </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">新密码 </td>
+          <td><input name="newpassword" type="password" class="text01 fl_left" disabled placeholder="输入新密码"/>
+          <div class="mod_tips_inner" id = "newpass1" style="display:none">
+              <i class="mod_tico_x16 mod_tico_warn_x16"></i>密码长度必须是5~16个字符
+          </div>
+          <div class="mod_tips_inner" id="newpass2" style="display:none">
+              <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+          </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">再次输入新密码</td>
+          <td><input name="repassword" type="password" class="text01 fl_left" disabled placeholder="再次输入密码"/>
+              <div class="mod_tips_inner" id = "repass1" style="display:none">
+                  <i class="mod_tico_x16 mod_tico_warn_x16"></i>两次密码不一致
+              </div>
+              <div class="mod_tips_inner" id="repass2" style="display:none">
+                  <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+              </div>
+
+          </td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;</td>
+          <td><!--<a href="#" class="btn_sure mt_10">保存修改</a>-->
+          <input type="button" id ="btnSaveRoad" class="btn_sure btn-sure1" value="保存修改" disabled></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </div>
+    <div class="clear"></div>
+</div>
+ <script>
+     var error0 = 0;
+     var error1 = 0;
+     var error2 = 0;
+
+     function toServer(){
+         var newpassword = $(":input[name=newpassword]").val() || '';
+
+         if(!error0){
+             $("#pass1").css('display','none');
+             return;
+         }
+         if(!error1){
+             $("#newpass1").css('display','none');
+             return;
+         }
+
+         if(!error2){
+             $("#repass1").css('display','none');
+             return;
+         }
+         $.ajax({
+             url: "{:U('User/mod_password')}",
+             data: "newpassword=" + newpassword,
+             dataType: "text",
+             type: "POST",
+             success: function (msg) {
+                 if ( msg ) {
+                     swal({
+                         title: "温馨提示!",
+                         text: "密码修改成功!!!",
+                         type: "success",
+                         confirmButtonText: "关 闭"
+                     });
+                     $(":input[name=password]").val('').attr("disabled", "disabled");;
+                     $(":input[name=newpassword]").val('').attr("disabled", "disabled");
+                     $(":input[name=repassword]").val('').attr("disabled", "disabled");
+                     $('#check').attr("checked", false);
+                     $("#pass1").css('display','none');
+                     $("#newpass2").css('display','none');
+                     $("#repass2").css('display','none');
+                     $("input").removeClass('warning').parent('td').removeClass('warning');
+                     $(".mod_tips_inner").css('display','none');
+                     $('#frmSaveRoad')[0].reset();
+                 } else {
+                     swal({
+                         title: "温馨提示!",
+                         text: "密码修改失败!",
+                         type: "error",
+                         confirmButtonText: "关 闭"
+                     });
+                 }
+
+             }
+
+         });
+     }
+
+     document.onkeydown = function(e){
+         var ev = document.all ? window.event : e;
+         if(ev.keyCode==13) {
+             toServer();
+         }
+     };
+
+ 	$(function(){
+        $('#check').click(function () {
+            var result = this.checked || false;
+            if ( result ) {
+                $("#btnSaveRoad").removeAttr("disabled");
+                $(":input[name=password]").removeAttr("disabled");
+                $(":input[name=password]").focus();
+                $(":input[name=newpassword]").removeAttr("disabled");
+                $(":input[name=repassword]").removeAttr("disabled");
+            } else {
+                $("#btnSaveRoad").attr("disabled", true);
+                $("#btnSaveRoad").attr("disabled", "disabled");
+                $(":input[name=password]").attr("disabled", "disabled").val('');
+                $(":input[name=newpassword]").attr("disabled", "disabled").val('');
+                $(":input[name=repassword]").attr("disabled", "disabled").val('');
+                $("input").removeClass('warning').parent('td').removeClass('warning');
+                $(".mod_tips_inner").css('display','none');
+                $('#frmSaveRoad')[0].reset();
+
+            }
+
+        });
+ 		$("#password").blur(function(){
+ 			
+ 			var password = $("#password").val();
+
+            var _this = $(this);
+
+            if ( password.length >= 5 && password.length <= 16 ) {
+                $.ajax({
+                    url:"{:U('User/check_password')}",
+                    data:"password="+password,
+                    dataType:"text",
+                    type:"POST",
+                    success:function(msg){
+                        if(msg==0){
+                            error0 = 1;
+                            $("#pass2").css('display','none');
+                            $("#btnSaveRoad").unbind('click').bind('click', function () {
+                                toServer();
+                            });
+                            _this.removeClass('warning').parent('td').removeClass('warning');
+                        }else{
+                            error0 = 0;
+                            $("#btnSaveRoad").unbind('click');
+                            _this.addClass('warning').parent('td').addClass('warning');
+                            $("#pass2").css('display','block');
+                        }
+
+                    }
+
+                });
+            } else {
+                error0 = 0;
+                _this.addClass('warning').parent('td').addClass('warning');
+                $('#pass2').css("display", "block");
+                $('#pass1').css("display", "none");
+
+            }
+
+
+ 		});
+ 			//===================验证密码====================//
+ 			$(":input[name=newpassword]").blur(function(){
+                var _this = $(this);
+ 				if($(this).val().length>=6 && $(this).val().length<=16){
+                    error1 = 1;
+ 					$('#newpass1').css("display","none");
+                    $("#btnSaveRoad").unbind('click').bind('click', function () {
+                        toServer();
+                    });
+                    _this.removeClass('warning').parent('td').removeClass('warning');
+ 				}else{
+                    error1 = 0;
+                    $("#btnSaveRoad").unbind('click');
+                    _this.addClass('warning').parent('td').addClass('warning');
+ 					$('#newpass1').css("display","block");
+
+ 				}
+ 			});
+ 		
+ 			//==============验证密码是否一致======================//
+ 			$(":input[name=repassword]").blur(function(){
+                var _this = $(this);
+                if($(this).val()==$(":input[name=newpassword]").val() && $(this).val()!=""){
+                    error2 = 1;
+                    $('#repass1').css("display","none");
+                    $("#btnSaveRoad").unbind('click').bind('click', function () {
+                        toServer();
+                    });
+                    _this.removeClass('warning').parent('td').removeClass('warning');
+                }else{
+                    error2 = 0;
+                    $("#btnSaveRoad").unbind('click');
+                    $('#repass1').css("display","block");
+                    _this.addClass('warning').parent('td').addClass('warning');
+                }
+ 						
+
+ 			});
+ 		
+ 	})
+ </script>

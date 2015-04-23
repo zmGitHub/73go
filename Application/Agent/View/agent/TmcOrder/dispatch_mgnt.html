@@ -1,0 +1,162 @@
+
+  <div class="main_right">
+  <div class="r_hd">
+            <h3 class="r_tit">配送管理</h3>
+            <div class="r_hd_extra"> <a href="book_self.html"></a><a href="book_self2.html"></a> </div>
+  </div>
+  
+  <form action=""  method="">
+    <div class="BoxHeight mb_10" ></div>
+    <div class="mt_10">
+      <p>配送请求处理状态：
+        <!-- 
+        <input type="submit" value="所有" class="btn_b5 ml_5" />
+        <input type="submit" value="所有" class="btn_b5 ml_5" />
+        <input type="submit" value="未处理" class="btn_b5 ml_5" />
+         -->
+        <a href="{:U('TmcOrder/dispatch_mgnt')}" class="btn_b5 ml_5">所有</a>
+        <a href="{:U('TmcOrder/option_dispatch_mgnt',array('status'=>0))}" class="btn_b5 ml_5">未处理</a>
+        <a href="{:U('TmcOrder/option_dispatch_mgnt',array('status'=>1))}" class="btn_b5 ml_5">已处理</a>
+        
+      </p>
+      <div  class="BoxHeight" ></div>
+      <p>
+          <input name="input4" type="text" id="info" class="text01 h20 c_tx2"  value=""  placeholder="订单号/收件人" />
+          <input type="button" value="查找"  id="search_btn"    class="btn_b5 ml_5" />
+      </p>
+    </div>
+    
+<div>    
+<div class="clear"></div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab mt_10">
+	  <thead>
+	      <tr>
+	        <th width="12%">订单号</th>
+	        <th width="10%">订单时间</th>
+	        <th width="12%">收件人</th>
+	        <th>收件地址<br /></th>
+	        <th width="8%">状态<br /></th>
+	        <th width="10%">操作<br /></th>
+	      </tr>	  
+	  </thead>
+      <tbody id="apply_show">
+	      <volist name="data"  id="vo">
+	      		<if condition="$i%2==1">
+	      			<tr>
+	      		<else/>
+	      			<tr class="tb_bg">
+	      		</if>	
+	       <td><a href="oeder_detail.html" class="tex_blue">{$vo.order_num}</a></td>
+	        <td>{$vo.time|substr=0,11}</td>
+	        <td>{$vo.name}</td>
+	        <td>{$vo.address}<br /></td>
+	        
+	        <if condition ="$vo.status eq  '0'">
+	       		 <td>未处理</td>
+	        <elseif condition="$vo.status eq  '1'" />
+	        	<td>已处理</td>
+	        </if>	
+	        
+	        <td><a href="{:U('TmcOrder/change_dispatch_mgnt',array('id'=>$vo['id']))}" class="tex_blue">进行处理</a></td>
+	      </tr>
+	
+	      </volist>	      
+      </tbody>    
+    </table>
+    
+    </div>
+    
+   </form> 
+   
+<div class="BoxHeight" ></div>
+<p>&nbsp;</p>
+  </div>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<script style="javascript:void(0)">
+
+
+function search(){
+	//获取查询框中的值
+	var info=$("#info").val();	
+		$.ajax({
+			url:"{:U('TmcOrder/search_dispatch_mgnt')}",
+			data:'info='+info,
+			dataType:"text",
+			type:"POST",
+			success:function(data){
+   				var data = eval("("+data+")");
+					
+				var html="";
+				//如果查询没有数据；
+				if(data==''){	
+
+					 html="<div style='font-size:20px;margin-left:280px;'>"+"暂无查询记录"+"</div>";
+
+					$("#apply_show").html(html);
+					//$("#big_Content").css('display','none');
+				}else{
+					//如果查询有数据将数据显现出来
+					$.each(data,function(i,res){
+						//console.log(res['tr_id']);
+						var index = i+1;
+						var div='';
+						var sTime = ("" + res.time).substr(0, 10);
+						
+						if(res.status=='0'){
+							div="<td>"+"未处理"+"</td>";
+							
+						}else if(res.status=='1'){
+							
+							div="<td>"+"已处理"+"</td>";
+
+						}
+					if(index%2==0){
+						 html+="<div class='clear'>"+
+					        "</div>"+
+					              "<tr class='tb_bg'>"+
+					                "<td>"+res.order_num+"</td>"+
+					                "<td>"+sTime+"</td>"+
+					                "<td>"+res.name+"</td>"+
+					                "<td>"+res.address+"</td>"+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+					                 div+
+					                "<td>"+"<a href='{:U('TmcOrder/dispatch_mgnt')}?id="+res.id+" ' class='tex_blue' >"+"进行处理"+"</a>"+"</td>"+
+					              "</tr>";	
+					}else{
+						 html+="<div class='clear'>"+
+					        "</div>"+
+					              "<tr>"+
+					                "<td>"+res.order_num+"</td>"+
+					                "<td>"+sTime+"</td>"+
+					                "<td>"+res.name+"</td>"+
+					                "<td>"+res.address+"</td>"+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+					                 div+
+					                "<td>"+"<a href='{:U('TmcOrder/dispatch_mgnt')}?id="+res.id+" ' class='tex_blue' >"+"进行处理"+"</a>"+"</td>"+
+					              "</tr>";	
+					}
+		           
+
+					});
+
+					$("#apply_show").html(html);
+					//$("#big_Content").css("display","none");
+				}
+
+			}
+
+		})
+}
+
+$("#search_btn").click(function(){
+	var info=$('#info').val();
+	//alert(info);
+	search();
+});
+
+
+
+</script>
+
+

@@ -1,0 +1,204 @@
+
+  
+  
+  <div class="main_right">
+  <div class="r_hd">
+            <h3 class="r_tit">我的出差申请</h3>
+   	  </div>
+    <div class="BoxHeight mt_10"></div>
+   <!--  <div class="mt_10">申请单状态：
+        <input type="submit" value="所有" class="btn_b5 ml_5" />
+        <input type="submit" value="审批通过" class="btn_b5 ml_5" />
+        <input type="submit" value="审批未通过" class="btn_b5 ml_5" />
+      <input type="submit" value="未审批" class="btn_b5 ml_5" />
+    </div>--> 
+    
+    <div class="mt_10">申请单状态：
+			<a href="{:U('Approval/my_tr_request_list')}" class="btn_b5 ml_5" >所有</a>
+			<a href="{:U('Approval/apply_status',array('status'=>4))}" class="btn_b5 ml_5" >审批转移</a>
+			<a href="{:U('Approval/apply_status',array('status'=>3))}" class="btn_b5 ml_5" >审批通过</a>
+			<a href="{:U('Approval/apply_status',array('status'=>1))}" class="btn_b5 ml_5" >审批未通过</a>
+			<a href="{:U('Approval/apply_status',array('status'=>0))}" class="btn_b5 ml_5" >未审批</a>
+    </div>
+    
+    
+    <div class="btitle mt_22">
+        <h4>
+          <input name="input4" type="text" id="info" class="text01 h20 c_tx2"  value=""  placeholder="申请单号/出差人" />
+          <input type="button" value="查找"  id="search_btn"    class="btn_b5 ml_5" />
+      </h4>
+    </div>
+    
+    <!-- 开始遍历该人相关的申请记录 -->
+     <div id="apply_show">
+    <volist name="result" id="res">
+    
+   	
+    <div class="order"   >
+ 		<if condition="$res['status'] eq '0' or ($res['status']  eq '')">   
+      		<div class="order_tit"><span class="mr_8">{$res.time|substr=0,10}</span>申请单号：<em>{$res.apply_num}</em><em class="fl_right"><a href="{:U('Approval/del_request',array('tr_id'=>$res['tr_id']))}" class="btn_b5 ml_5">删除</a><a href="{:U('Approval/mod_tr_request',array('tr_id'=>$res['tr_id']))}"  class="btn_b5 ml_5" >修改</a></em></div>
+   		<else />
+   			 <div class="order_tit"><span class="mr_8">{$res.time|substr=0,10}</span>申请单号：<em>{$res.apply_num}</em><em class="fl_right"></em></div>
+   		</if>	
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab">
+          <tr>
+            <th width="20%">出差人</th>
+            <th width="15%">出差时间</th>
+            <th width="15%">费用预算</th>
+            <th>审批人</th>
+            <th width="10%">审批状态</th>
+          </tr>
+          <tr>
+            <td>{$res.tr_name}</td>
+            <td>{$res.leave_date|substr=0,10}<br />
+              -<br />
+              	{$res.back_date|substr=0,10}</td>
+            <td>{$res.cost}</td>
+            <!-- <td>小强 -&gt; 小敏 -&gt;小华</td> -->
+            <td>{$res.aname}</td>
+            <!-- 根据不同的状态判断不同的审批状态 -->
+            
+           
+            <if condition="$res['status'] eq '0' or ($res['status']  eq '')">
+            	<td><a href="javascript:void(0)" class="tex_blue">未审批</a><br /></td>
+            <elseif condition="$res['status'] eq '1' " />
+            	<td><a href="javascript:void(0)" class="tex_blue">审批未通过</a><br /></td>
+            <elseif condition="$res['status'] eq '2' "/>
+            	<td><a href="javascript:void(0)" class="tex_blue">审批通过</a><br /></td>
+            <elseif condition="$res['status'] eq '4' "/>
+            	<td><a href="javascript:void(0)" class="tex_blue">审批转移</a><br /></td>	
+            <elseif condition="$res['status'] eq '3' "/>
+            	<td><a href="javascript:void(0)" class="tex_blue">审批通过</a><br /></td>	            		
+			</if>
+            	
+          </tr>
+        </table>
+        <div class="pa_15 tex_14 c_tx2"><strong class="c_tx1">出差事由：</strong>
+        <br />{$res.description}</div>
+      </div>
+      
+     
+      </volist>
+        <!-- 分页的样式 和数量的显现  开始-->
+            <div class="meneame">
+		    {$Page}
+		    </div></p>
+             </div>
+        	 <style>
+			/*css meneame style pagination*/
+			div.meneame{padding:3px;font-size:80%;margin:3px;color:#ff6500;text-align:center;}
+			div.meneame a{border:#ff9600 1px solid;padding:5px 7px;background-position:50% bottom;background-image:url(../images/meneame.jpg);margin:0 3px 0 0;text-decoration:none;}
+			div.meneame a:hover{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame a:active{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame span.current{border:#ff6500 1px solid;padding:5px 7px;font-weight:bold;color:#ff6500;margin:0 3px 0 0;background-color:#ffbe94;}
+			div.meneame span.disabled{border:#ffe3c6 1px solid;padding:5px 7px;color:#ffe3c6;margin:0 3px 0 0;}
+			</style>
+      
+      
+      	 </div>
+          <!-- 查询相关的记录完毕 -->
+
+
+
+  </div>
+  
+  
+
+  			
+
+  
+ 
+  <div class="clear"></div>
+</div>
+
+<script style="javascript:void(0)">
+
+
+function search(){
+	//获取查询框中的值
+	var info=$("#info").val();	
+		$.ajax({
+			url:"{:U('Approval/search_apply')}",
+			data:'info='+info,
+			dataType:"text",
+			type:"POST",
+			success:function(data){
+   				var data = eval("("+data+")");
+   				
+   					
+				var html="";
+				//如果查询没有数据；
+				if(data==''){	
+
+					 html="<div  style='font-size:20px;margin-left:280px;'>"+"暂无申请单"+"</div>";
+
+					$("#apply_show").html(html);
+					//$("#big_Content").css('display','none');
+				}else{
+					//如果查询有数据将数据显现出来
+					$.each(data,function(i,res){
+						//console.log(res['tr_id']);
+
+						var div='';
+						var sTime = ("" + res.time).substr(0, 10);
+						if(res.status == 0 || res.status  == ''){
+							
+							div="<div class='order_tit'>"+
+							"<span class='mr_8'>"+ sTime +"</span>"+
+							"申请单号："+"<em>"+res.apply_num+"</em>"+
+							"<em class='fl_right'>"+
+							"<a href='{:U('Approval/del_request')}?tr_id="+res.tr_id+"' class='btn_b5 ml_5'>"+"删除"+"</a>"+
+							"<a href='{:U('Approval/mod_tr_request')}?tr_id="+res.tr_id+" ' class='btn_b5 ml_5' >"+"修改"+"</a>"+
+							"</em>"+"</div>"
+						}else{
+							div="<div class='order_tit'>"+
+							"<span class='mr_8'>"+ sTime +"</span>"+
+							"申请单号："+"<em>"+res.apply_num+"</em>"+
+							"<em class='fl_right'>"+"</em>"+"</div>"
+						}
+
+					 html+="<div class='order'>"+
+				        div+
+				        
+				        "<table width='100%' border='0' cellspacing='0' cellpadding='0' class='table_fund bg_tab'>"+
+				             "<tr>"+
+				                "<th width='20%'>"+"出差人"+"</th>"+
+				                "<th width='15%'>"+"出差时间"+"</th>"+
+				                "<th width='15%'>"+"费用预算"+"</th>"+
+				                "<th>"+"审批人"+"</th>"+
+				                "<th width='10%'>"+"审批状态"+"</th>"+
+				              "</tr>"+
+				              "<tr>"+
+				                "<td>"+res.tr_name+"</td>"+
+				                "<td>"+res.leave_date+"<br />"+
+				                  "-"+"<br />"+
+				                  	res.back_date+"</td>"+
+				                "<td>"+res.cost+"</td>"+
+				                "<td>"+res.aname+"</td>"+
+				                "<td>"+"<a href='#' class='tex_blue'>"+"未审批"+"</a>"+"<br />"+"</td>"+
+				              "</tr>"+
+				            "</table>"+
+				            "<div class='pa_15 tex_14 c_tx2'>"+"<strong class='c_tx1'>"+"出差事由："+"</strong>"+res.description+"</div>"+
+				          "</div>";
+
+					})
+
+					$("#apply_show").html(html);
+					//$("#big_Content").css("display","none");
+				}
+
+			}
+
+		})
+}
+
+$("#search_btn").click(function(){
+	var info=$('#info').val();
+	//alert(info);
+	search();
+});
+
+
+
+</script>
+

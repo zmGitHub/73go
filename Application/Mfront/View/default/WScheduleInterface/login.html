@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="__ROOT__/Public/css/weixin/header.css" rel="stylesheet" type="text/css" />
+<link href="__ROOT__/Public/css/weixin/login.css" rel="stylesheet" type="text/css" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, target-densitydpi=medium-dpi" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>账户绑定</title>
+</head>
+
+<body>
+<header>
+<div class="new-header"><h2>账户快速绑定</h2></div>
+</header>
+<div class="login">
+<form action="http://weixin.73go.cn/Mfront/WScheduleInterface/addAccountBound" method="post">
+    <div class="loginContRight">
+      <div class="til tex_r">请输入您的用户名</div>
+      <div class="loginCont">
+      	<div><input type="hidden" name="openid" value="{$openid}" /><br /></div>
+        <div  class="loginContOneBox" >
+          <input name="website_name" type="text" class="loginContOne" id="loginNo" value="" placeholder="手机号"/>
+        </div>
+        <div class="BoxHeight" ></div>
+        <div class="loginContTwoBox">
+          <input name="website_pwd" type="password" class="loginContTwo" style="color: rgb(102, 102, 102); display: inline-block;" value=""  placeholder="登录密码" />
+          <input name="lPassword" type="password" class="loginContTwo" style="color:#000000;" />
+        </div>
+        <div class="BoxHeight" ></div>
+        <div class="clear"></div>
+      </div>
+      <div class="loginButton"><input name="提交" type="submit" value="绑 定"></div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

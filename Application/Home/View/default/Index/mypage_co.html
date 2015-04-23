@@ -1,0 +1,97 @@
+
+	<div class="main_right">
+      <div class="r_hd">
+            <h3 class="r_tit">我的主页</h3>
+    	</div>
+	  <div  class="BoxHeight mb_10" ></div>
+	  <div class="clear"></div>
+	  <div class="personal_infro">
+	    <div class="btitle"><a href="{:U('Index/config_coinfo_basicinfo')}" class="tc_btn_m01">修改</a>
+	      <h4>基本信息</h4>
+        </div>
+	    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+	      <tr>
+	        <td width="15%" class="td1">企业编号</td>
+	        <td>{$pages.co_code}</td>
+	        <td width="15%" class="td1">联&nbsp;&nbsp;系&nbsp;人</td>
+	        <td width="25%">{$pages.contact_name}</td>
+          </tr>
+	      <tr>
+	        <td class="td1">企业全称</td>
+	        <td>{$pages.name}</td>
+	        <td class="td1">企业简称</td>
+	        <td>{$pages.short_name}</td>
+          </tr>
+	      <tr>
+	        <td class="td1">部门总数</td>
+	        <td>{$pages.brcount}</td>
+	        <td class="td1">员工总数</td>
+	        <td>{$pages.empcount}</td>
+          </tr>
+        </table>
+	    <div class="btitle" style="border-top:none;"><a href="{:U('EP/co_tmc_mgnt')}" class="tc_btn_m01">修改</a>
+	      <h4></h4>
+        </div>
+	    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_personal">
+	      <tr>
+	        <td width="15%" class="td1">差旅政策</td>
+	        <td>
+	        <if condition="$pages.tr_co_id neq null"><a href="javascript:void(0);" class="tex_blue">已配置</a>
+	        <else /><a href="javascript:void(0);" class="tex_blue">未配置</a>
+	        </if>
+	        </td>
+	        <td width="15%" class="td1">协议TMC</td>
+	        <td width="25%"><if condition="$pages.tr_co_id neq null">{$pages.linkcount}<else />0</if>家 </td>
+          </tr>
+        </table>
+	    <div class="personal_box">
+	      <div class="floor">
+	        <div class="bd">
+	          <div class="top_grade_rec">
+	            <div class="detail_wrap">
+	              <h2>我的待办</h2>
+	              <div class="invest_info">
+	                <div class="info2 info_rate">
+	                  <h4>申请加入员工</h4>
+	                  <div class="value"><a href="{:U('DepartmentStaff/emp_reg_apprv')}" class="tex_r">{$pages.joincount}</a></div>
+                    </div>
+	                <div class="info2 info_time">
+	                  <h4>待创建系统登录账户人数</h4>
+	                  <div class="value"><a href="{:U('LogonUser/showLogonUser')}" class="tex_r">{$pages.nempcount}</a></div>
+                    </div>
+	              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+	    <div class="btitle"><a href="{:U('BulletinMgnt/co_bulletin_mgnt')}" class="tc_btn_m01">修改</a>
+	      <h4>差旅公告</h4>
+        </div>
+	    <div class="personal_box">
+	      <ul class="travel_bulletin">
+	      <foreach name="noticeList" item="no">
+	        <li><span><if condition="$no.level eq 12">置顶
+	      <else />{$no.time|substr=0,16}
+	      </if></span>
+	       <if condition="$no.level neq 1"> 
+	      		<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" class="tex_r" target="_blank">{$no.content}</a>
+	     	 	<else /><a href="javascript:void(0);" class="tex_r" target="_blank">{$no.content}</a>
+	     		 </if>
+	     	 <else />
+	     	 	<if condition="$no.content_link neq null">
+	      			<a href="{$no.content_link}" target="_blank">{$no.content}</a>
+	     	 	<else />{$no.content}
+	     		 </if>
+	      </if>
+	      
+	      </li>
+	     </foreach>
+          </ul>
+          
+          
+        </div>
+      </div>
+  </div>
+	<div class="clear"></div>

@@ -1,0 +1,405 @@
+<script id="userList" type="text/html">
+<*each lst*>
+
+<div class="order">
+  <div class="order_tit"><span class="mr_8"><*$value.time | formatTime*></span>申请单号：<em><*$value.apply_num*></em></div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab">
+    <tbody><tr>
+      <th width="20%">出差人</th>
+      <th width="15%">出差时间</th>
+      <th width="15%">费用预算</th>
+      <th>审批人</th>
+      <th width="10%">审批状态</th>
+    </tr>
+	    <tr>
+	      <td><*$value.tr_name*></td>
+	      	<td><*$value.leave_date*><br />
+	       	 -<br />
+	        <*$value.back_date*></td>
+	      	<td><*$value.cost*></td>
+	     	 <td><*$value.appro_name*></td>
+	     	 <td>
+	      	 <*if $value.status==0*>
+					<a href="javascript:void(0)" onclick="pass(<*$value.id*>)" class="tex_blue">通过</a><br />
+	       	       <a href="javascript:void(0)" onclick="refuse(<*$value.id*>)" class="tex_O">不通过</a><br />
+	               <a href="javascript:void(0)" onclick="search1(<*$value.tr_id*>,<*$value.id*>)" class="tex_O">转移给他人</a><br /></td>
+             <*else if $value.status==1*>
+					<a href="javascript:void(0)" class="tex_O">审批未通过</a><br />
+             <*else if $value.status==3*>
+					<a href="javascript:void(0)"  class="tex_O">审批已通过</a><br />
+             <*else*>
+					<a href="javascript:void(0)"  class="tex_O">审批已转移</a><br /></td>
+	       	<*/if*>
+
+
+	       </td>
+	    </tr>
+	  </tbody></table>
+	  <div class="pa_15 tex_14 c_tx2"><strong class="c_tx1">出差事由：</strong></br><*$value.description*></div>
+	  </div>
+<*/each*>
+
+</script>
+
+
+<div class="main_right">
+ <div class="r_hd">
+            <h3 class="r_tit">待我审批</h3>
+   	  </div>
+    <div class="BoxHeight mt_10"></div>
+    <div class="mt_10">审批单状态：
+        <!-- 
+        <input type="submit" value="所有" class="btn_b5 ml_5" />
+        <input type="submit" value="已处理" class="btn_b5 ml_5" />
+        <input type="submit" value="未处理" class="btn_b5 ml_5" />
+         -->
+         <a href="{:U('Approval/my_approval_list',array('status'=>2))}" class="btn_b5 ml_5" >所有</a>
+		 <a href="{:U('Approval/my_approval_list',array('status'=>1))}" class="btn_b5 ml_5" >已处理</a>
+		 <a href="{:U('Approval/my_approval_list',array('status'=>0))}" class="btn_b5 ml_5" >未处理</a>
+
+    </div>
+    <div class="btitle mt_22">
+        <h4>
+          <input type="text" name="info" id="info" class="text01 h20 c_tx2" placeholder="申请单号/出差人" />
+          <input type="button" name='search' value="查找"   id="search_btn"  class="btn_b5 ml_5" />
+        </h4>
+    </div>
+    
+ <div id="userTemp">
+  <volist name="data" id="vo">
+  <div class="order">
+  <div class="order_tit"><span class="mr_8">{$vo.time|substr=0,10}</span>申请单号：<em>{$vo.apply_num}</em></div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab">
+    <tr>
+      <th width="20%">出差人</th>
+      <th width="15%">出差时间</th>
+      <th width="15%">费用预算</th>
+      <th>审批人</th>
+      <th width="10%">审批状态</th>
+    </tr>
+    <tr>
+      <td>{$vo.tr_name}</td>
+      <td>{$vo.leave_date}<br />
+        -<br />
+        {$vo.back_date}</td>
+      <td>{$vo.cost}</td>
+      <td>{$vo.approver_user}</td>
+      <td>
+      
+      <if condition="$vo.status eq 0 ">
+        <a href="javascript:void(0)" onclick="pass({$vo.id})" class="tex_blue">通过</a><br />
+        <a href="javascript:void(0)" onclick="refuse({$vo.id})" class="tex_O">不通过</a><br />
+     <!--     <a href="javascript:void(0)" onclick="search1({$vo.tr_id},{$vo.id})" class="tex_O">转移给他人</a> -->
+             <a href="javascript:void(0)"   onclick="staff_pop(getExamInfo,'{:U('home/pop/find_user')}',true,false,[{$vo.tr_id},{$vo.id}])" class="tex_O">转移给他人</a>
+       
+         <br /></td>
+       <elseif condition="$vo.status eq 1"/>
+       <a href="javascript:void(0)" class="tex_O">审批未通过</a><br />
+      <elseif condition="$vo.status eq 3"/>
+      <a href="javascript:void(0)"  class="tex_O">审批已通过</a><br />
+       <else /> 
+        <a href="javascript:void(0)"  class="tex_O">审批已转移</a><br /></td>
+       </if>
+       </td>
+    </tr>
+  </table>
+	  <div class="pa_15 tex_14 c_tx2"><strong class="c_tx1">出差事由：</strong><br/>{$vo.description}</div>
+    </div>
+
+</volist>
+ </div>
+        <!-- 分页的样式 和数量的显现  开始-->
+            <div class="meneame">
+		    {$Page}
+		    </div></p>
+             </div>
+        	 <style>
+			/*css meneame style pagination*/
+			div.meneame{padding:3px;font-size:80%;margin:3px;color:#ff6500;text-align:center;}
+			div.meneame a{border:#ff9600 1px solid;padding:5px 7px;background-position:50% bottom;background-image:url(../images/meneame.jpg);margin:0 3px 0 0;text-decoration:none;}
+			div.meneame a:hover{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame a:active{border:#ff9600 1px solid;background-image:none;color:#ff6500;background-color:#ffc794;}
+			div.meneame span.current{border:#ff6500 1px solid;padding:5px 7px;font-weight:bold;color:#ff6500;margin:0 3px 0 0;background-color:#ffbe94;}
+			div.meneame span.disabled{border:#ffe3c6 1px solid;padding:5px 7px;color:#ffe3c6;margin:0 3px 0 0;}
+			</style>
+
+      	 </div>
+          <!-- 查询相关的记录完毕 -->
+
+
+
+  </div>
+  <div class="clear"></div>
+</div>
+        
+   <div class="popup popup_pos1" id ="box1" style="display: none;">
+	       <a href="javascript:void(0)" id ="shut1" class="btn_close"></a>
+           <div class="pop_title">企业员工搜索</div>
+           <div class="popup_cont2">
+             <input name="info" type="text" id="info1"  class="text01 h20 c_tx2" value="" placeholder="工号/姓名/电话/邮箱/证件号码">
+             <input type="button" value="查找" id="search_2" class="btn_b5 ml_5">
+             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab mt_10">
+				 <div id='tab1' style="height: 350px;overflow-y: scroll"></div>
+			 </table>
+             <div class=" mt_10">操作：
+               <input type="submit" value="全选" class="btn_b5 ml_5">
+             </div>
+<div class="news_mod_form_cnt dt_time01 dt_time_xz" id="boxs1"> 
+</div><div class="clear"></div>
+                   <div class="text_cent"><a href="javascript:void(0)" id="button1" class="btn_sure">确定</a></div>
+                   
+	</div>
+    </div> 
+  
+ 
+<include file="Home@Public:staff_pop" />
+
+<script type="text/javascript" >
+
+function getExamInfo(lst,parameter){
+	var tr_id = parameter['0'];//出差申请ID
+	var id = parameter['1'];//审批单ID
+	var notinfo = lst[0];
+	var e_id = notinfo['u_id'];
+	
+	$.ajax({
+		url:"{:U('Approval/turn')}",
+			data:'id='+e_id+'&tr_id='+tr_id+'&a_id='+id,
+			dataType:"text",
+			type:"POST",
+			success: function(data){
+				var data=eval("("+data+")");
+				var status = data[0];
+				if(status == 0){
+					alert('操作成功');
+				location.reload();
+				}else if(status == 1){
+					alert('不能将申请转移给自己');
+				}
+				else{
+					alert('操作未完成，请重新操作');
+					location.reload();
+				};	
+             }
+	})
+	
+}
+
+
+//----------添加待我审批的搜索功能-------------------
+template.config('openTag','<*');
+template.config('closeTag','*>');
+template.helper('formatTime', function(data){
+	if(data){
+		return data.split(' ')[0] || '';
+	}else {
+		return '';
+	}
+});
+
+$(function(){
+		
+	$("input[name='search']").click(function(){
+		var str=$("input[name='info']").val() || '';
+		str = $.trim(str);
+	
+		$.ajax({
+			url:"{:U('Approval/search_approval')}",
+			data:'info='+str,
+			type:'POST',
+			typeData:'json',
+			success:function(result){
+				var obj={};
+				obj.lst=result;
+				var temp=template('userList',obj);
+				document.getElementById('userTemp').innerHTML=temp;
+
+			}
+
+		});
+
+	});
+
+});
+
+
+
+
+	//审核通过
+	function pass(id){
+		
+		$.ajax({
+			url:"{:U('Approval/pass')}",
+			data:'id='+id,
+			dataType:"text",
+			type:"POST",
+			success: function(data){
+				var data=eval("("+data+")");
+				var status = data[0];
+			if(status == 0){
+				alert('审核通过');
+				location.reload();
+				
+			}else{
+				alert('审批未完成，请重新申请');
+				location.reload();
+				
+			};
+				
+			}
+		});
+		
+	}
+	//审核不通过
+	function refuse(id){
+		$.ajax({
+			url:"{:U('Approval/refuse')}",
+			data:'id='+id,
+			dataType:"text",
+			type:"POST",
+			success: function(data){
+				
+				var data=eval("("+data+")");
+				var status = data[0];
+				//alert(status);
+				if(status == 0){
+				alert('操作成功');
+				location.reload();
+				
+				}else{
+				alert('操作未完成，请重新操作');
+				location.reload();
+				
+				};
+				
+			}
+				
+			
+		});
+		
+		
+	};
+	/*弹出查询审批人员*/
+	function search1(id,aid){
+		//var a = $(":input[name=approval_name]").val();
+		var appr_id = id;
+		var aid = aid;
+	
+		//alert(appr_id);
+		var info = $('#info1').val();
+		$('#box1').css('display','block');
+		$("#boxs1").html('');
+		var html = '<tr><th width="5%">&nbsp;</th><th width="9%">工号</th> <th width="9%">姓名</th><th width="20%">员工编号</th><th width="90">部门</th><th width="90">手机号</th><th width="90">邮箱</th><th width="90">角色</th><th width="90">操作</th></tr>' ;
+		$.ajax({
+			url:"{:U('Approval/find_user')}",
+				data:'info='+info,
+				dataType:"text",
+				type:"POST",
+				success: function(data){
+					//alert(123);
+					var html = '<tr><th width="5%">&nbsp;</th><th width="9%">工号</th> <th width="9%">姓名</th><th width="20%">员工编号</th><th width="90">部门</th><th width="90">手机号</th><th width="90">邮箱</th><th width="90">角色</th><th width="90">操作</th></tr>' ;   //清空resText里面的所有内容
+					var data=eval("("+data+")");
+					if(data==null){
+						
+						$('#tab').html(html);
+					}else{
+					//转换为json对象 
+					$.each(data,function(i, item){  
+						   html+='<tr id="1'+item.id+'"><td><input type="checkbox" onclick="check1('+item.id+','+appr_id+','+aid+')"  ></td><td>'+item.emp_code+'</td> <td id="name1_'+item.id+'">'+item.name+'</td><td>000000001</td><td>MKT 一部</td> <td id="phone_'+item.id+'">'+item.phone+'</td> <td id="email_'+item.id+'">'+item.email+'</td><td class="tex_blue">员工</td><td class="tex_blue"><a href="config_employee_detail.html">详情</a></td></tr>';  
+						}) 
+				
+					$('#tab1').html(html);
+					}
+	             }
+		})
+	};
+	/*选中*/
+	function check1(id,appr_id,aid){
+		
+		var name = $('#name1_'+id).html();
+		var node =$('#boxs1').children();
+		var length = node.length;
+		//alert(length);
+		if(length > 0){
+			alert('只能选一个审批人');
+			$('#1'+id+' input:checked').removeAttr("checked");
+			
+		}else{
+		$('#1'+id).hide();//隐藏tr
+		$('#1'+id+' input:checked').removeAttr("checked");
+		$("#boxs1").append( '<a class="current" title="'+aid+'" rel="'+id+'" id="'+appr_id+'"  href="javascript:void(0)">'+name+'</a>');//容器包含
+	}
+		//var obj = $(this).parent().html();
+		//alert(obj);
+		
+		
+	};
+	//删除人员使得恢复原来的tr进行显现
+	$("#boxs1 a").live("click",function(){
+		var id = $(this).attr("rel");	//获取当前id
+		//alert(number);  exit;
+		$(this).remove();//将点击这个东西进行消失的处理
+		//将消失的数据进行恢复处理
+		$('#1'+id).show ();
+		
+		
+	});
+	//提交数据
+	$('#button1').click(function(){
+		
+		$('#box1').css('display','none');
+		var node =$('#boxs1').children();
+		var id='';
+		var appr_id='';
+		var a_id = '';
+		
+		for(var i = 0; i < node.length; i++) {
+			//if(name=''){
+				id = node[i]['rel'];
+				appr_id+=	node[i]['id'];
+				a_id+= node[i]['title'];
+			//}else{
+			//	name+=","+node[i]['innerHTML'];
+			//} 
+		 }
+		//console.log(a_id);
+		$.ajax({
+			url:"{:U('Approval/turn')}",
+				data:'id='+id+'&appr_id='+appr_id+'&a_id='+a_id,
+				dataType:"text",
+				type:"POST",
+				success: function(data){
+					var data=eval("("+data+")");
+					var status = data[0];
+					//alert(status);
+					if(status == 0){
+					alert('操作成功');
+					location.reload();
+					
+					}else{
+					alert('操作未完成，请重新操作');
+					location.reload();
+					
+					};	
+	             }
+		})
+		//console.log(id);
+		//$('#msg1').css('display','none');
+		//var name1 = $('#name1_'+id).html();
+		//var phone = $('#phone_'+id).html();
+		//var email = $('#email_'+id).html();
+		//$(":input[name=approval_id]").val(id);
+		//$(":input[name=approval_name]").val(name1); 
+		//$(":input[name=approval_phone]").val(phone); 
+		//$(":input[name=approval_email]").val(email);  
+	
+	});
+		
+	
+	$('#shut1').click(function(){
+		$('#box1').css('display','none');	
+	});
+	
+</script>
+
+

@@ -1,0 +1,37 @@
+{__NOLAYOUT__}
+<?php 
+  $counter = 0;
+?>
+<div class="main_left">
+	<volist name="group_list" id="group">
+<?php 
+  if ($counter > 0) {
+?>
+    <div class="left_nav_line"></div>
+<?php 
+  }
+?>
+    <div class="left_nav">
+      <div class="left_nav_tit left_nav_current"> <i class="ico_people"></i>
+        <h3>
+        <notempty name="group['action']">
+          <a href="{:U($group['module'].'/'.$group['controller'].'/'.$group['action'])}"
+             class="<if condition="$group['is_curr']">tex_O </if> tex_b">{$group['caption']}</a>
+        <else />
+        {$group['caption']}
+        </notempty>
+        </h3>
+      </div>
+      <present name="group['items']">
+      <ul class="left_nav_list">
+		<volist name="group['items']" id="item">
+        <li <if condition="$item['is_curr']">class="current"</if> ><a href="{:U($item['module'].'/'.$item['controller'].'/'.$item['action'])}">{$item['caption']}</a><i></i>
+        </volist>
+      </ul>
+      </present>
+    </div>
+<?php 
+  $counter++;
+?>
+    </volist>
+</div>

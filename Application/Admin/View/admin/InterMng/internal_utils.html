@@ -1,0 +1,137 @@
+<html>
+<head>
+<base href="__ROOT__/Public/" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+<style type="text/css">
+	.dummy-test {}
+</style>
+
+<script src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="{:U('Home/Resource/jsBase')}"></script>
+	<script type="text/javascript" src="js/functions_73go.js"></script>
+
+<script language="javascript">
+/** 创建系统菜单表中的数据项 **/
+function buildMenus() {
+	if (confirm("    重建所有系统菜单项，将会清除当前数据库中对应的表的数据。\r\r    确定要重建吗？")) {
+		alert("确定！");
+		$.ajax({
+			url:"{:U('InterMng/buildMenus')}",
+			data:"",
+			dataType:"json",
+			type:"POST",
+			success: function(msg){
+				alert(msg);
+/**				
+				var data = eval("(" + msg + ")");
+				if (isArray(data)) data = data[0];
+			if(msg==1){
+			}
+			if(msg==2){
+			}
+				**/
+			} 
+		});
+	}
+	
+}
+
+function testFunc() {
+	var a = new Array();
+	a[a.length] = 1;
+	a[a.length] = 2;
+	
+	alert(isArray(a));
+	
+}
+
+function testAjaxReturn() {
+	$.ajax({
+		url:"{:U('InterMng/ajaxTest')}",
+		data:"",
+		dataType:"json",
+		type:"POST",
+		success: function(msg){
+			msg = ajaxGet(msg);
+			alert(msg['name']);
+		}
+	});
+}
+
+function a() {
+	var privF = 1234;
+	
+	this.aa = function() {
+		alert(privF);
+	}
+	
+}
+
+a.prototype = {
+	a1: function(msg) {
+		alert(msg);
+	}
+};
+
+function b() {
+	
+}
+
+b.prototype = new a();
+$.extend(b.prototype, {
+	b1: function() {
+		return "I am b1";
+	},
+	b2: function() {
+		alert(this.b1());
+	}
+});
+
+
+function testMerge() {
+	var b1 = new b();
+	b1.aa(b1.b1());
+	b1.b2();
+
+}
+
+</script>
+</head>
+
+<body>
+<p>研发支撑工具</p>
+<p>1.<a href="{:U('InterMng/buildMenus')}">菜单表内容生成</a></p>
+<p>2.<a href="javascript:testAjaxReturn();">AjaxReturn&lt;-&gt;ajaxGet调试</a></p>
+<p>3.菜单生成测试</p>
+<form name="form1" method="post" action="{：U('Home/Test/testMenu')}">
+系统<select name="sysNames">
+  <option value="CoUser">企业用户</option>
+
+
+</select>
+</form>
+
+<div class="dummy-test">
+	<input type="hidden" name="model.name" value="employee"/>
+	<input type="hidden" name="model.key.id" value="3"/>
+	<input type="text" name="name" />
+	<input type="text" name="co_id" />
+	<input type="text" name="br_id" />
+</div>
+
+
+<p>4.<a href="{:U('InterMng/tempTest')}">临时测试</a></p>
+<a href="javascript: testMerge()">Call testMerge</a><br/>
+
+<p>
+
+<div style="display: none">
+<a href="javascript: testFunc()">Call TestFunc</a><br/>
+
+</div> 
+</p>
+
+</body>
+</html>

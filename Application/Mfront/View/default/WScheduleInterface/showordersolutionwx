@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="__ROOT__/Public/css/weixin/header.css" rel="stylesheet" type="text/css" />
+<link href="__ROOT__/Public/css/weixin/order_detail.css" rel="stylesheet" type="text/css" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, target-densitydpi=medium-dpi" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+</head>
+
+<body>
+<header>
+<div class="new-header">
+  <h2>我的订单</h2></div>
+</header>
+<div class="order xxzx_list">
+  <div class="contTwo">
+    <dl>
+	  <dt>
+		<h4>我的需求</h4>
+	  </dt>
+      <dd>
+		<p>我的行程要求：上海——南京 <br />
+        出发时间：2014-10-10 <br />
+        起飞的时段：早上（9:00-11:00）<br />
+        需要服务：酒店，旅店 <br />
+      其他要求：没有 </p>
+	  </dd>
+	</dl>
+    <dl>
+	  <dt>
+		<h4>方案A</h4>
+	  </dt>
+      <dd>
+		<p>我的行程要求：上海——南京 <br />
+        出发时间：2014-10-10 <br />
+        起飞的时段：早上（9:00-11:00）<br />
+        需要服务：酒店，旅店 <br />
+      其他要求：没有 </p>
+	  </dd>
+	</dl>
+    <dl>
+	  <dt>
+		<h4>方案B</h4>
+	  </dt>
+      <dd>
+		<p>我的行程要求：上海——南京 <br />
+        出发时间：2014-10-10 <br />
+        起飞的时段：早上（9:00-11:00）<br />
+        需要服务：酒店，旅店 <br />
+      其他要求：没有 </p>
+		</dd>
+	</dl>
+  </div>
+  
+</div>
+<div class="order_nav"> 我选择：<input name="提交" type="submit" value="方案Ａ">
+    <input name="提交2" type="submit" value="方案B" />
+    <input name="提交3" type="submit" value="方案C" />
+    <p class="mt2">
+      <input name="提交4" type="submit" value="全不满意 请重新设计方案" />
+      <input name="提交5" type="submit" value="抱歉，我要终止" />
+    </p>
+  </div>
+</body>
+</html>

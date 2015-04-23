@@ -1,0 +1,2169 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta content="all" name="robots">
+    <meta name="robots" content="index,follow">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <title>轻松行-酒店预订</title>
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/js/searchPlugin/hotelDate/hoteles.css"/>
+    <!--[if lt IE 9]>
+    <script type="text/javascript">
+        if (screen.width >= 1200) {
+            var link = document.createElement('link');
+            link.rel = "stylesheet";
+            link.type="text/css";
+            link.href="http://www.elongstatic.com/hotels/201502121815/css/hotelsList_w_2013.css?t=201503061415";
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<!-- ===================== header start ===================== -->
+
+<div class="header">
+    <div class="mininav">
+        <div class="cont">
+			<span class="lefttxt"> 欢迎来73GO!
+			   <if condition="LI('userName') neq null">
+                   <!--  <a href="javascript:void(0)">{:LI('userName')}</a><a href="{:U('Index/login')}"> 退出</a></span>-->
+                   <if condition="session('user_type') eq   '1' " >
+                       <a href="{:U('Index/mypage_user')}">
+                           <elseif condition="session('user_type') eq  '2' "/>
+                           <a href="{:U('Index/mypage_co')}">
+                               <else />
+                               <a href="{:U('Agent/Config/config_tmcinfo_account')}">
+                   </if>
+                   {:LI('userName')}</a><a href="{:U('Index/logout')}"> 退出</a>
+                   <else />
+                   <a href="{:U('Index/login')}">请登录</a><a href="{:U('Index/register_user')}"> 注册</a>
+               </if>
+			</span>
+        </div>
+    </div>
+    <div class="headtop">
+        <div class="logoMark"></div>
+        <div class="logo">
+            <a href="{:U('Home/Index/index')}"><img src="__ROOT__/Public/images/logo.jpg" width="191" height="43" alt="轻松行"/></a>
+        </div>
+        <div class="txt"></div>
+    </div>
+    <div class="nav">
+        <div class="menu">
+            <div class="navcate indexFlag">
+                <div class="navNews" style="right:-280px;"></div>
+                <div class="kc_title"><a href="{:U('Home/book/index')}">我的菜单</a></div>
+                <div class="all-sort-list">
+                    <div class="sub_i_bg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<!-- ===================== header end ===================== -->
+
+
+
+<div>
+    <div>
+
+        <div class="breadcrumb">
+            <div id="spanLatestOrder" class="info" style="display: block;"><i class="recent"></i>26分钟前有人预订了该酒店</div>
+            <a href="http://www.elong.com">首页</a>
+            &gt;
+            <a href="/">酒店</a>
+            &gt;
+
+            <a href="/beijing/">
+                北京酒店</a> &gt;
+            北京饭店
+
+        </div>
+
+        <div class="detailBox">
+            <!-- Hotel BriefInfo start -->
+
+            <div class="h-brief clx">
+
+                <ul class="hotelName">
+                    <li class="name">
+
+                        <h1>
+                            <i id="hotelGrade" class="crown"></i>
+                            北京饭店
+                        </h1>
+                        <div class="left">
+
+                            <span title="5星级酒店" class="dx dx5"></span>
+
+                            <p id="hotelFavDetail" handle="favorHotelSpan" isfavhotel="false" class="hotel_col" hotelid="50101002">
+                                <i class="icon"></i><span class="sum"><em class="add" style="display: none">+1</em></span><font>点击收藏</font></p>
+
+                        </div>
+                    </li>
+
+                    <li class="addr"><span title="东城区东长安街33号(地铁王府井站A口西侧)">
+            地址：东城区东长安街33号(地铁王府井站A口西侧)</span>
+
+                        <a class="area" target="_blank" title="王府井商业区" href="/beijing/center010103/">
+                            王府井商业区</a>
+
+                        &nbsp;<a id="mapDetial" class="map" href="#?" rel="nofollow"><i></i>地图</a>&nbsp;
+
+                        <a class="street ml10" href="#?" id="sosoMap" rel="nofollow"><i></i>街景</a>
+
+                    </li>
+                </ul>
+                <div id="divHotelPrice" class="hotelPrice"><span class="c9" method="aftercoupon" data="70">698返70</span><span class="price"><span class="fh">¥</span>628<span class="fb">起</span></span><span weifang="true" class="iconLastMinute"></span><a method="GoLowestPriceRoom" href="#room" lowroomid="1046" lowrpid="199409"><span class="btn">立即预订</span></a></div>
+            </div>
+
+            <!-- Hotel BriefInfo end -->
+            <div class="detailMain">
+                <!-- Hotel Pic start -->
+
+                <div class="h-pic">
+                    <div id="ImageDiv" class="img">
+                        <div id="bigPicArea" class="focus cp">
+                            <div class="apartpic-type">
+                                <i id="longLeaseIcon" class="aparticon-save" title="超高性价比、超值新体验，含7天以上价或30天价。" "="" style="display:none;"></i>
+
+                            </div>
+
+                            <div class="manip">
+                                <div class="cor">
+                                    共42张图片</div>
+                            </div>
+
+
+                            <img id="bigImage350" method="showImagePop" alt="酒店外观" sourcetype="1" imageid="16e56701-7500-4b37-8a01-04638d5e2ece" src="http://pavo.elongstatic.com/i/Hotel350_350/0000ckvw.jpg" onerror="this.src='http://www.elongstatic.com/hotels/pic/detailpic_no.png'" width="310" height="220">
+                        </div>
+                        <div id="ImgArea" class="box">
+                            <div class="top">
+
+                                <div class="posi160 left mr">
+                                    <div handle="playImageItem" index="-1" class="no160 post" bigimgurl="http://pavo.elongstatic.com/i/Hotel350_350/0000i6v6.jpg" bigimgdesc="大堂/接待台">
+                                        <div class="manip">
+                                            <div class="cor">
+                                                大堂/接待台</div>
+                                        </div>
+                                        <a id="imageItem0" href="javascript:void(0);" rel="nofollow" class="pic-wrap">
+                                            <img src="http://pavo.elongstatic.com/i/Hotel180_135/0000i6v6.jpg" alt="大堂/接待台" sourcetype="1" imageid="c5ae7474-fef1-4c27-83d2-6aeb0f08d15e" method="showImagePop" onerror="document.getElementById('imageItem0').className ='pic-wrap noimg';this.src = 'http://www.elongstatic.com/hotels/pic/detailpic_no.png';">
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="posi120 left">
+                                    <div handle="playImageItem" index="0" class="no120 post" bigimgurl="http://pavo.elongstatic.com/i/Hotel350_350/0000eMJz.jpg" bigimgdesc="会议室">
+                                        <div class="manip">
+                                            <div class="cor">
+                                                会议室</div>
+                                        </div>
+                                        <a id="imageItem1" href="javascript:void(0);" rel="nofollow" class="pic-wrap">
+                                            <img src="http://pavo.elongstatic.com/i/Hotel180_135/0000eMJz.jpg" alt="会议室" sourcetype="1" imageid="6c001b97-8bb5-4e0e-923a-99dc47d6b2d1" method="showImagePop" onerror="document.getElementById('imageItem1').className ='pic-wrap noimg';this.src = 'http://www.elongstatic.com/hotels/pic/detailpic_no.png';">
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="posi135 right">
+                                    <div handle="playImageItem" index="1" class="no135 post" bigimgurl="http://pavo.elongstatic.com/i/Hotel350_350/0000i3p4.jpg" bigimgdesc="客房">
+                                        <div class="manip">
+                                            <div class="cor">
+                                                客房</div>
+                                        </div>
+                                        <a id="imageItem2" href="javascript:void(0);" rel="nofollow" class="pic-wrap">
+                                            <img src="http://pavo.elongstatic.com/i/Hotel180_135/0000i3p4.jpg" alt="客房" sourcetype="1" imageid="c472e99a-27f8-4f7d-89b6-5584edca19ef" method="showImagePop" onerror="document.getElementById('imageItem2').className ='pic-wrap noimg';this.src = 'http://www.elongstatic.com/hotels/pic/detailpic_no.png';">
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="top topm">
+
+                                <div class="posi120 left mr">
+                                    <div handle="playImageItem" index="2" class="no120 post" bigimgurl="http://pavo.elongstatic.com/i/Hotel350_350/0000bJHG.jpg" bigimgdesc="客房">
+                                        <div class="manip">
+                                            <div class="cor">
+                                                客房</div>
+                                        </div>
+                                        <a id="imageItem3" href="javascript:void(0);" rel="nofollow" class="pic-wrap">
+                                            <img src="http://pavo.elongstatic.com/i/Hotel180_135/0000bJHG.jpg" alt="客房" sourcetype="1" imageid="24cbb6e1-9a92-41e0-bcb5-385851f6fb3a" method="showImagePop" onerror="document.getElementById('imageItem3').className ='pic-wrap noimg';this.src = 'http://www.elongstatic.com/hotels/pic/detailpic_no.png';">
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="posi160 left">
+                                    <div handle="playImageItem" index="3" class="no160 post" bigimgurl="http://pavo.elongstatic.com/i/Hotel350_350/00004X1B.jpg" bigimgdesc="客房">
+                                        <div class="manip">
+                                            <div class="cor">
+                                                客房</div>
+                                        </div>
+                                        <a id="imageItem4" href="javascript:void(0);" rel="nofollow" class="pic-wrap">
+                                            <img src="http://pavo.elongstatic.com/i/Hotel180_135/00004X1B.jpg" alt="客房" sourcetype="3" imageid="94edb53f-5510-485b-a320-8787deadfc8c" method="showImagePop" onerror="document.getElementById('imageItem4').className ='pic-wrap noimg';this.src = 'http://www.elongstatic.com/hotels/pic/detailpic_no.png';">
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="posi135 right">
+                                    <div handle="playImageItem" index="4" class="no135 post" bigimgurl="http://pavo.elongstatic.com/i/Hotel350_350/0000iOJ6.jpg" bigimgdesc="客房">
+                                        <div class="manip">
+                                            <div class="cor">
+                                                客房</div>
+                                        </div>
+                                        <a id="imageItem5" href="javascript:void(0);" rel="nofollow" class="pic-wrap">
+                                            <img src="http://pavo.elongstatic.com/i/Hotel180_135/0000iOJ6.jpg" alt="客房" sourcetype="1" imageid="e36b18a2-4804-4cd8-b5f1-ac8085bc3870" method="showImagePop" onerror="document.getElementById('imageItem5').className ='pic-wrap noimg';this.src = 'http://www.elongstatic.com/hotels/pic/detailpic_no.png';">
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clx">
+                        <div id="imageToolDiv" class="tools">
+
+
+                            <a method="view360Image" imageid="default" sourcetype="3" href="javascript:void(0)" rel="nofollow" title="查看北京饭店360°全景图">
+                                360°全景</a> <span class="divide">| </span>
+
+                            <a method="imageAll" title="查看全部图片" href="#?" rel="nofollow">
+                                全部图片</a> (42)
+                            <span class="divide">| </span>
+
+                            <a id="uploadImage" title="上传图片" href="#?" rel="nofollow">
+                                上传图片</a>
+
+                        </div>
+                        <div class="facicon">
+
+                            <i class="facility_icon fi_wifi" title="公共区域免费WiFi"></i><i id="NetIcon" style="" class="facility_icon fi_broadband" title="宽带上网"></i><i id="NetIcon" style="display:none" class="facility_icon fi_broadband" title="宽带上网"></i><i class="facility_icon fi_gym" title="健身房"></i><i class="facility_icon fi_pool" title="游泳池"></i><i class="facility_icon fi_conference" title="会议室"></i><i class="facility_icon fi_businessCenter" title="商务中心"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel Pic end -->
+                <div id="divMasterSuggest" class="daren_tj" style="display: none;">
+
+                </div>
+
+                <a id="room" name="room"></a><a id="iTop" name="iTop"></a>
+
+                <ul class="detailTab" id="detailTab"><!--显示加 detailFix-->
+                    <div id="bookbut" class="fixPrice">
+                        <span id="tabButton" roomid="1046" sroomid="1058" rpid="199409" shotelid="50101002" producttype="1" style="display: block;"><a href="{:U('Hotel/payOrder')}" class="button" id="orderDes">预订</a></span> <span class="price" id="tabPrice"><dfn>¥</dfn>628<span class="f12">起</span></span>
+
+                        <p id="hotelFavDetailNav" class="hotel_col" hotelid="50101002">
+                            <i class="icon"></i><span class="sum"><em class="add" style="display: none">+1</em></span></p>
+
+        <span class="name">
+            北京饭店</span>
+                    </div>
+
+                    <li id="roomType" class="action">房型<span></span></li>
+                    <li id="photo" url="/search/50101002-photo/?PhotoPageImageType=All#room">图片<span></span></li>
+                    <li id="comment" class="">点评<span></span></li>
+
+
+                    <li class="right"><label method="aftercouponprice" for="chkAfterCouponPrice"><input type="checkbox" id="chkAfterCouponPrice" name="chkAfterCouponPrice" checked="">只看返后价</label></li>
+
+                </ul>
+
+                <div id="roomTypes" class="">
+                    <!--detailRpList-->
+
+                    <ul class="alterDate" id="dateRegion" style=" background:#fefefe;">
+                        <li>
+                            入住日期<input name="" id="checkInDateApply" method="checkInDateApply" type="text" class="dateTxt" value="2015-03-11">退房日期<input name="" type="text" id="checkOutDateApply" method="checkOutDateApply" class="dateTxt" value="2015-03-12"><input name="" type="button" class="button" id="Revise" method="modify" value="修改日期"></li>
+                        <li class="cuxiao" id="promotionHtml"></li>
+                    </ul>
+                    <!--detailRpList-->
+                    <div id="RpListArea">
+                        <div class="noRoom" id="noRoom" style="display: none;">
+                            <span class="icon"></span>对不起，该酒店在此期间部分日期没有空余房间了，建议您修改日期试试。</div>
+                        <div class="roomLoading" id="divRoomLoading" style="display: none;">
+                            <span class="loading"></span>正在为您努力加载中...</div>
+                        <div class="newDetailRP" id="divRoomList">
+                            <ul class="title clx">
+                                <li class="fx">
+                                    房型</li>
+                                <li class="zc">
+                                    早餐</li>
+                                <li class="qxzc">取消政策</li>
+                                <li class="rjj">
+                                    日均价</li>
+                            </ul>
+
+                            <div handle="room" class="rpBox" isshow="1" roomid="1046">
+                                <dl class="left">
+
+                                    <dt>
+                                        <img onerror="this.src='http://www.elongstatic.com/hotels/pic/no_pics_CN.gif'" width="70" height="50" bigimageurl="" ispanorama="false" alt="客房" method="RoomDetail" src="http://pavo.elongstatic.com/i/Hotel70_70/0000hDyu.jpg">
+                                    </dt>
+
+                                    <dd>
+
+                                        <a class="rpname" href="javascript:void(0);" rel="nofollow" method="RoomDetail">
+                                            标准房<span class="arrow"></span></a>
+
+                                    </dd>
+                                    <dd>
+
+                                        房间39㎡,
+                                        双床</dd>
+
+                                </dl>
+                                <div class="right">
+
+                                    <div handle="ratePlan" class="infoBox bors clx" sroomid="1058" rpid="199409" shotelid="50101002">
+                                        <p class="rpw1">
+                                            不含早（内宾）
+                                            <br>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            无早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>628</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            <span class="c9" method="aftercoupon" data="70" style="cursor:pointer">698返70</span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                                            <span class="iconDanbao" method="danbao"></span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a method="Order" title="" href="javascript:void(0);" rel="nofollow" class="button" shotelid="50101002">
+                                                预订</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                    <div handle="ratePlan" class="infoBox bors clx" sroomid="1058" rpid="855578" shotelid="50101002">
+                                        <p class="rpw1">
+                                            不含早（内宾预付）
+                                            <br>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            无早</p>
+                                        <p class="rpw3" method="cancel" canceltype="2">
+                                            不可取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>638</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                <span class="iconYufu" title="为保障您的预订，需要您预先在网上支付房费。">
+                </span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a method="Order" title="" href="javascript:void(0);" rel="nofollow" class="button" shotelid="50101002">
+                                                预订</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                    <div handle="ratePlan" class="infoBox bors clx" sroomid="1046" rpid="123945" shotelid="50101002">
+                                        <p class="rpw1">
+                                            不含早（内宾）
+                                            <br>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            无早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>667</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            <span class="c9" method="aftercoupon" data="91" style="cursor:pointer">758返91</span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a method="Order" title="" href="javascript:void(0);" rel="nofollow" class="button" shotelid="50101002">
+                                                预订</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                    <div handle="ratePlan" class="infoBox borst clx" sroomid="1054" rpid="328156" shotelid="50101002">
+                                        <p class="rpw1">
+                                            不含早（预付-内宾）
+                                            <br>
+
+                                            <span class="new_iconTiejia" method="tejia"></span>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            无早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>677</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                <span class="iconYufu" title="为保障您的预订，需要您预先在网上支付房费。">
+                </span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a method="Order" title="" href="javascript:void(0);" rel="nofollow" class="button" shotelid="50101002">
+                                                预订</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <div class="clear">
+                                </div>
+                                <div class="roomInfo wauto" mark="d" roomid="1046">
+                                    <span class="clos" method="RoomDetailClos"></span>
+                                    <ul class="imgList mb10 clx">
+
+                                        <li><img onerror="this.src='http://www.elongstatic.com/hotels/pic/no_pics_CN.gif'" width="90" height="90" bigimageurl="http://pavo.elongstatic.com/i/Hotel350_350/0000hDyu.jpg" ispanorama="False" alt="客房" method="ShowImage" src="http://pavo.elongstatic.com/i/Hotel120_120/0000hDyu.jpg"></li>
+
+                                    </ul>
+                                    <p class="roomTxt">
+
+                                        床型：双床1.3米&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        最多入住人数：2人&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        楼层：3层-6层&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        上网方式：宽带[<span class="green">免费</span>]
+
+                                    </p>
+
+                                    <div class="clear">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div handle="room" class="rpBox" isshow="1" roomid="1047">
+                                <dl class="left">
+
+                                    <dt>
+                                        <img onerror="this.src='http://www.elongstatic.com/hotels/pic/no_pics_CN.gif'" width="70" height="50" bigimageurl="" ispanorama="false" alt="客房" method="RoomDetail" src="http://pavo.elongstatic.com/i/Hotel70_70/0000bJHG.jpg">
+                                    </dt>
+
+                                    <dd>
+
+                                        <a class="rpname" href="javascript:void(0);" rel="nofollow" method="RoomDetail">
+                                            高级标准房<span class="arrow"></span></a>
+
+                                    </dd>
+                                    <dd>
+
+                                        房间39㎡,
+                                        双床</dd>
+
+                                    <dd class="wifi">
+                                        免费WIFI<span class="icon"></span></dd>
+
+                                </dl>
+                                <div class="right">
+
+                                    <div handle="ratePlan" class="infoBox bors clx" sroomid="1047" rpid="64239" shotelid="50101002">
+                                        <p class="rpw1">
+                                            不含早
+                                            <br>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            无早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>755</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            <span class="c9" method="aftercoupon" data="103" style="cursor:pointer">858返103</span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a method="Order" title="" href="javascript:void(0);" rel="nofollow" class="button" shotelid="50101002">
+                                                预订</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                    <div handle="ratePlan" class="infoBox borst clx" sroomid="1055" rpid="328157" shotelid="50101002">
+                                        <p class="rpw1">
+                                            不含早（预付）
+                                            <br>
+
+                                            <span class="new_iconTiejia" method="tejia"></span>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            无早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>765</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                <span class="iconYufu" title="为保障您的预订，需要您预先在网上支付房费。">
+                </span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a method="Order" title="" href="javascript:void(0);" rel="nofollow" class="button" shotelid="50101002">
+                                                预订</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <div class="clear">
+                                </div>
+                                <div class="roomInfo wauto none" mark="d" roomid="1047">
+                                    <span class="clos" method="RoomDetailClos"></span>
+                                    <ul class="imgList mb10 clx">
+
+                                        <li><img onerror="this.src='http://www.elongstatic.com/hotels/pic/no_pics_CN.gif'" width="90" height="90" bigimageurl="http://pavo.elongstatic.com/i/Hotel350_350/0000bJHG.jpg" ispanorama="False" alt="客房" method="ShowImage" src="http://pavo.elongstatic.com/i/Hotel120_120/0000bJHG.jpg"></li>
+
+                                    </ul>
+                                    <p class="roomTxt">
+
+                                        床型：双床1.3米&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        最多入住人数：2人&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        楼层：7层-15层&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        上网方式：无线/宽带[<span class="green">免费</span>]
+
+                                    </p>
+
+                                    <div class="clear">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div handle="room" class="rpBox" isshow="1" roomid="1035">
+                                <dl class="left">
+
+                                    <dt>
+                                        <img onerror="this.src='http://www.elongstatic.com/hotels/pic/no_pics_CN.gif'" width="70" height="50" bigimageurl="" ispanorama="false" alt="客房" method="RoomDetail" src="http://pavo.elongstatic.com/i/Hotel70_70/0000i3p4.jpg">
+                                    </dt>
+
+                                    <dd>
+
+                                        <a class="rpname" href="javascript:void(0);" rel="nofollow" method="RoomDetail">
+                                            小套房(A座、大床)<span class="arrow"></span></a>
+
+                                    </dd>
+                                    <dd>
+
+                                        房间75㎡,
+                                        大床</dd>
+
+                                    <dd class="wifi">
+                                        免费WIFI<span class="icon"></span></dd>
+
+                                </dl>
+                                <div class="right">
+
+                                    <div handle="ratePlan" class="infoBox bors clx" sroomid="1035" rpid="123945" shotelid="50101002">
+                                        <p class="rpw1">
+                                            不含早（内宾）
+                                            <br>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            无早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>1779</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            <span class="c9" method="aftercoupon" data="201" style="cursor:pointer">1980返201</span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a method="Order" title="" href="javascript:void(0);" rel="nofollow" class="button" shotelid="50101002">
+                                                预订</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                    <div handle="ratePlan" class="infoBox borst clx" sroomid="1057" rpid="328156" shotelid="50101002">
+                                        <p class="rpw1">
+                                            不含早（预付-内宾）
+                                            <br>
+
+                                            <span class="new_iconTiejia" method="tejia"></span>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            无早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>1782</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                <span class="iconYufu" title="为保障您的预订，需要您预先在网上支付房费。">
+                </span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a method="Order" title="" href="javascript:void(0);" rel="nofollow" class="button" shotelid="50101002">
+                                                预订</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <div class="clear">
+                                </div>
+                                <div class="roomInfo wauto none" mark="d" roomid="1035">
+                                    <span class="clos" method="RoomDetailClos"></span>
+                                    <ul class="imgList mb10 clx">
+
+                                        <li><img onerror="this.src='http://www.elongstatic.com/hotels/pic/no_pics_CN.gif'" width="90" height="90" bigimageurl="http://pavo.elongstatic.com/i/Hotel350_350/0000i3p4.jpg" ispanorama="False" alt="客房" method="ShowImage" src="http://pavo.elongstatic.com/i/Hotel120_120/0000i3p4.jpg"></li>
+                                        <li><img onerror="this.src='http://www.elongstatic.com/hotels/pic/no_pics_CN.gif'" width="90" height="90" bigimageurl="http://pavo.elongstatic.com/i/Hotel350_350/0000jcgc.jpg" ispanorama="False" alt="客房" method="ShowImage" src="http://pavo.elongstatic.com/i/Hotel120_120/0000jcgc.jpg"></li>
+
+                                    </ul>
+                                    <p class="roomTxt">
+
+                                        床型：大床2米&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        最多入住人数：2人&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        楼层：3层-6层&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        上网方式：无线/宽带[<span class="green">免费</span>]
+
+                                    </p>
+
+                                    <div class="clear">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div handle="room" class="rpBox" isshow="1" roomid="1018">
+                                <dl class="left">
+
+                                    <dt>
+                                        <img src="http://www.elongstatic.com/hotels/pic/room_no.png" width="70" height="50"></dt>
+
+                                    <dd>
+
+                                        <a class="rpname" href="javascript:void(0);" rel="nofollow" method="RoomDetail">
+                                            高级套间<span class="arrow"></span></a>
+
+                                    </dd>
+                                    <dd>
+
+                                        房间70-110㎡,
+                                        大床</dd>
+
+                                    <dd class="wifi">
+                                        免费WIFI<span class="icon"></span></dd>
+
+                                </dl>
+                                <div class="right">
+
+                                    <div handle="ratePlan" class="infoBox bors clx" sroomid="1056" rpid="328157" shotelid="50101002">
+                                        <p class="rpw1">
+                                            不含早（预付）
+                                            <br>
+
+                                            <span class="new_iconTiejia" method="tejia"></span>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            无早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>3080</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                <span class="iconYufu" title="为保障您的预订，需要您预先在网上支付房费。">
+                </span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a method="Order" title="" href="javascript:void(0);" rel="nofollow" class="button" shotelid="50101002">
+                                                预订</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                    <div handle="ratePlan" class="infoBox borst clx" sroomid="1018" rpid="64239" shotelid="50101002">
+                                        <p class="rpw1">
+                                            不含早
+                                            <br>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            无早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>3299</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            <span class="c9" method="aftercoupon" data="201" style="cursor:pointer">3500返201</span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a method="Order" title="" href="javascript:void(0);" rel="nofollow" class="button" shotelid="50101002">
+                                                预订</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <div class="clear">
+                                </div>
+                                <div class="roomInfo  none" mark="d" roomid="1018">
+                                    <span class="clos" method="RoomDetailClos"></span>
+                                    <ul class="imgList mb10 clx">
+
+
+                                    </ul>
+                                    <p class="roomTxt">
+
+                                        床型：大床2米&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        最多入住人数：2人&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        楼层：7层-15层&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        上网方式：无线/宽带[<span class="green">免费</span>]
+
+                                    </p>
+
+                                    <div class="clear">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div handle="room" class="rpBox" isshow="1" roomid="1049">
+                                <dl class="left">
+
+                                    <dt>
+                                        <img onerror="this.src='http://www.elongstatic.com/hotels/pic/no_pics_CN.gif'" width="70" height="50" bigimageurl="" ispanorama="false" alt="客房" method="RoomDetail" src="http://pavo.elongstatic.com/i/Hotel70_70/00004X1B.jpg">
+                                    </dt>
+
+                                    <dd>
+
+                                        <a class="rpname" href="javascript:void(0);" rel="nofollow" method="RoomDetail">
+                                            A座行政房<span class="arrow"></span></a>
+
+                                    </dd>
+                                    <dd>
+
+                                        房间40㎡,
+                                        大床</dd>
+
+                                </dl>
+                                <div class="right">
+
+                                    <div handle="ratePlan" class="infoBox bors clx" sroomid="1049" rpid="125101" shotelid="50101002">
+                                        <p class="rpw1">
+                                            (单人入住)含单早
+                                            <br>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            单早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>1364</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            <span class="c9" method="aftercoupon" data="186" style="cursor:pointer">1550返186</span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a href="javascript:void(0);" rel="nofollow" title="该期间房间已满，可修改日期重新预订。" class="nobut">
+                                                订完</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                    <div handle="ratePlan" class="infoBox bors clx" sroomid="1053" rpid="328163" shotelid="50101002">
+                                        <p class="rpw1">
+                                            含单早(单人入住-预付)
+                                            <br>
+
+                                            <span class="new_iconTiejia" method="tejia"></span>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            单早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>1382</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                <span class="iconYufu" title="为保障您的预订，需要您预先在网上支付房费。">
+                </span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a href="javascript:void(0);" rel="nofollow" title="该期间房间已满，可修改日期重新预订。" class="nobut">
+                                                订完</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                    <div handle="ratePlan" class="infoBox bors clx" sroomid="1049" rpid="125092" shotelid="50101002">
+                                        <p class="rpw1">
+                                            (双人入住)含双早
+                                            <br>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            双早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>1549</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            <span class="c9" method="aftercoupon" data="201" style="cursor:pointer">1750返201</span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a href="javascript:void(0);" rel="nofollow" title="该期间房间已满，可修改日期重新预订。" class="nobut">
+                                                订完</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                    <div handle="ratePlan" class="infoBox borst clx" sroomid="1053" rpid="328160" shotelid="50101002">
+                                        <p class="rpw1">
+                                            含双早(双人入住-预付)
+                                            <br>
+
+                                            <span class="new_iconTiejia" method="tejia"></span>
+
+                                        </p>
+                                        <p class="rpw2">
+                                            双早</p>
+                                        <p class="rpw3" method="cancel" canceltype="1">
+                                            限时取消</p>
+                                        <p class="rpw4">
+
+                <span class="price" method="AvgPrice"><dfn>
+                    ¥</dfn>1558</span>
+
+
+                                        </p>
+                                        <p class="rpw5">
+
+
+                                            &nbsp;</p>
+                                        <p class="rpw6">
+
+                <span class="iconYufu" title="为保障您的预订，需要您预先在网上支付房费。">
+                </span>
+
+                                            &nbsp;</p>
+                                        <p class="rpw7">
+
+
+                                            <a href="javascript:void(0);" rel="nofollow" title="该期间房间已满，可修改日期重新预订。" class="nobut">
+                                                订完</a>
+
+                                            <br>
+
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <div class="clear">
+                                </div>
+                                <div class="roomInfo wauto none" mark="d" roomid="1049">
+                                    <span class="clos" method="RoomDetailClos"></span>
+                                    <ul class="imgList mb10 clx">
+
+                                        <li><img onerror="this.src='http://www.elongstatic.com/hotels/pic/no_pics_CN.gif'" width="90" height="90" bigimageurl="http://pavo.elongstatic.com/i/Hotel350_350/00004X1B.jpg" ispanorama="False" alt="客房" method="ShowImage" src="http://pavo.elongstatic.com/i/Hotel120_120/00004X1B.jpg"></li>
+                                        <li><img onerror="this.src='http://www.elongstatic.com/hotels/pic/no_pics_CN.gif'" width="90" height="90" bigimageurl="http://pavo.elongstatic.com/i/Hotel350_350/0000c1IC.jpg" ispanorama="False" alt="客房" method="ShowImage" src="http://pavo.elongstatic.com/i/Hotel120_120/0000c1IC.jpg"></li>
+
+                                    </ul>
+                                    <p class="roomTxt">
+
+                                        床型：大床2米&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        最多入住人数：2人&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        楼层：16层-17层&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        上网方式：宽带[<span class="green">免费</span>]
+
+                                    </p>
+
+                                    <div class="clear">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="clear">
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--detailRpList end-->
+
+                    <!--设施介绍 开始-->
+
+                    <div class="mainDiv mt10">
+                        <h2 class="detTitle">
+
+                            <a class="ch_qus" href="#?" id="checkHotelInfoError"><i></i>我要纠错</a>
+
+        <span>
+            酒店设施</span></h2>
+                        <ul class="contentUl">
+
+                            <li><span class="title">酒店电话</span>
+                                <p>
+                                    <span class="hotelphone">010-65137766</span>
+
+                                    <span class="elongphone">艺龙电话预订：4009-333-333</span>
+
+                                </p>
+
+                            </li>
+
+                            <li id="netAndwifi" class="clx"><span class="title">上网服务</span><p>酒店提供宽带上网，公共区域提供<strong class="green">免费</strong>WiFi</p></li>
+
+                            <li><span class="title">
+            停车场</span><p>酒店提供收费停车位</p>
+                            </li>
+
+                            <li><span class="title">酒店服务</span><p class="fw">
+
+                <span>
+                    <strong class="green">免费</strong>Wifi</span>
+                <span>
+                    收费停车</span>
+                <span>
+                    游泳池</span>
+                <span>
+                    健身房</span>
+                <span>
+                    商务中心</span>
+                <span>
+                    会议室</span>
+                <span>
+                    西餐厅</span>
+                <span>
+                    洗衣服务</span>
+                <span>
+                    租车服务</span>
+                <span>
+                    专职行李员</span>
+                <span>
+                    前台保险柜</span>
+                <span>
+                    咖啡厅</span>
+                <span>
+                    宴会厅</span>
+                <span>
+                    棋牌室</span>
+                <span>
+                    桑拿浴室</span>
+                <span>
+                    台球室</span>
+                <span>
+                    SPA</span>
+                <span>
+                    按摩保健</span>
+                <span>
+                    网球场</span>
+                            </p>
+                            </li>
+
+                            <li><span class="title">房间设施</span><p>国内长途电话、收费提供一次性洗漱用品、电热水壶、拖鞋、电视、吹风机、迷你酒吧、<strong class="green">免费</strong>瓶装水、浴衣、熨斗/熨衣板、无烟房、可做无烟处理、咖啡机/茶具、房间<strong class="green">免费</strong>报纸、电热水器、提供直饮水、公共洗浴间、淋浴、<strong class="green">免费</strong>提供一次性洗漱用品</p>
+                            </li>
+
+                            <li><span class="title">餐饮设施</span><p>
+                                谭家厅（谭家菜）、中华礼仪厅（上海菜）、五人百姓日本餐厅（日餐）、阳光咖啡厅（西餐）</p>
+                            </li>
+
+                            <li><span class="title">康体娱乐</span><p>
+                                棋牌麻将、网球、台球、桑拿按摩、SPA、健身房、室内游泳池</p>
+                            </li>
+
+                            <li><span class="title">会议设施</span><p>
+                                C座大宴会厅：可容纳1000人；<br>A座二层多功能厅：可容纳120人；<br>A座楼层会议室：可容纳20-30人。</p>
+                            </li>
+
+                            <li><span class="title">酒店简介</span><p style="display: none;" id="Introduce">
+                                北京饭店位于北京市中心长安街黄金地段，是座历史悠久的大型豪华饭店，紧邻市中心王府井商业街。饭店交融了东西方文化，曾接待过多个国家和地区的首脑。饭店房间高大宽敞，豪华典雅。饭店拥有各类中西餐厅及风味独特的谭家菜。饭店周边完善的地面及地铁交通设施为宾客的商务出行节省了宝贵的时间，同时现代化的...
+                                <a class="open" href="#?" rel="nofollow" id="IntroduceMore">展开<i></i></a>
+
+                            </p>
+                                <p id="IntroduceAll">
+                                    北京饭店位于北京市中心长安街黄金地段，是座历史悠久的大型豪华饭店，紧邻市中心王府井商业街。饭店交融了东西方文化，曾接待过多个国家和地区的首脑。饭店房间高大宽敞，豪华典雅。饭店拥有各类中西餐厅及风味独特的谭家菜。饭店周边完善的地面及地铁交通设施为宾客的商务出行节省了宝贵的时间，同时现代化的酒店会议设施及服务可为宾客商务会谈和宴请提供更加广泛的空间。<br>　　北京饭店是2008北京奥运大家庭总部饭店，连续多年荣获了由美国优质服务科学学会颁发的“五星钻石奖”。<br>　　饭店开业时间1900年，新近装修时间2008年，主楼19层，客房总数733间（套）。<br><br>【温馨提示】<br>1、您预订了N间房，请您提供不少于N位的入住客人姓名；<br>2、按照酒店规定：12点前到店无法安排入住<br>3、预订此酒店务必留入住客人真实姓名否则酒店不予确认请提示客人。
+                                    <a class="open" href="#?" rel="nofollow" id="PackUp">收起<i class="on"></i></a>
+                                </p>
+                            </li>
+
+                            <li class="last"><span class="title">可接受的信用卡</span><p class="card">
+
+                                <span class="visa" title="境外发行信用卡--威士（VISA）"></span>
+
+                                <span class="unionpay" title="国内发行银联卡"></span>
+
+                                <span class="master" title="境外发行信用卡--万事达（Master）"></span>
+
+                                <span class="amex" title="境外发行信用卡--运通（AMEX）"></span>
+
+                                <span class="dinersclub" title="境外发行信用卡--大莱（Diners Club）"></span>
+
+                                <span class="jcb" title="境外发行信用卡--JCB"></span>
+
+                            </p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--设施介绍 结束-->
+                    <!--交通信息 开始-->
+
+                    <input type="hidden" id="MapAPIPrefix" value="/">
+                    <div class="mainDiv" method="TrafficInformationDiv">
+                        <h2 class="detTitle">
+                            <span>交通位置</span>
+                        </h2>
+                        <div class="near mt10">
+
+                            <i class="map"></i>
+                            东城区东长安街33号(地铁王府井站A口西侧)
+
+                            <div class="pomap" method="map" style="width:994px;height:514px;position:absolute;left:0;top:0;_left:-23px;background-color:white;display:none;">
+                                <span class="close"></span>
+                                <div class="loadbox" method="mapLoading">
+                                    <dl class="load">
+                                        <dt class="loading"></dt>
+                                        <dd class="bold">小艺正在为您努力加载中...</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="route mt10 h-element">
+                            <ul class="ro_details">
+
+                                <li method="showRoute" lat="39.797571" lng="116.403545" distance="13151"><b></b><i class="plane"></i><span>北京南苑机场</span>约13km</li>
+
+                                <li method="showRoute" lat="40.061075" lng="116.621192" distance="23802" class="sec"><b></b><i></i><span>北京首都国际机场</span>约24km</li>
+
+                                <li method="showRoute" lat="39.909806" lng="116.433643" distance="1537"><b></b><i class="train"></i><span>北京站</span>约2km</li>
+
+                                <li method="showRoute" lat="39.87113" lng="116.385521" distance="5603"><b></b><i></i><span>北京南站</span>约6km</li>
+
+                                <li method="showRoute" lat="39.948758" lng="116.360284" distance="6118"><b></b><i></i><span>北京北站</span>约6km</li>
+
+                                <li method="showRoute" lat="39.908693" lng="116.491176" distance="6367"><b></b><i></i><span>北京东站</span>约6km</li>
+
+                                <li method="showRoute" lat="39.901712" lng="116.327874" distance="7767" class="sec"><b></b><i></i><span>北京西站</span>约8km</li>
+
+                                <li method="showRoute" lng="116.401017" lat="39.889775" distance="3147"> <b></b> <i class="bus"></i> <span>天桥长途汽车站</span>  约3.1km  </li>  <li method="showRoute" lng="116.442681" lat="39.947299" distance="4178"> <b></b> <i></i> <span>东直门交通枢纽</span>  约4.2km  </li>  <li method="showRoute" class="sec" lng="116.44462" lat="39.949864" distance="4508"> <b></b> <i></i> <span>东直门长途汽车站</span>  约4.5km  </li>
+
+                                <li method="showRoute" lat="39.914398" lng="116.417796" distance="112"><b></b><i class="subway"></i><span>王府井</span>约112m</li>
+
+                                <li method="showRoute" lat="39.91512052" lng="116.4259268" distance="754"><b></b><i></i><span>东单</span>约754m</li>
+
+                                <li method="showRoute" lat="39.91461303" lng="116.4074567" distance="826"><b></b><i></i><span>天安门东</span>约826m</li>
+
+                                <li method="showRoute" lat="39.90788183" lng="116.4232644" distance="975"><b></b><i></i><span>崇文门</span>约975m</li>
+
+                                <li method="showRoute" lat="39.92401093" lng="116.4236582" distance="1125"><b></b><i></i><span>灯市口</span>约1km</li>
+
+                                <li method="showRoute" lat="39.9119095" lng="116.4330773" distance="1414"><b></b><i></i><span>北京站</span>约1km</li>
+
+                                <li method="showRoute" lat="39.90698137" lng="116.4038354" distance="1459"><b></b><i></i><span>前门</span>约1km</li>
+
+                                <li method="showRoute" lat="39.91431481" lng="116.3975964" distance="1668"><b></b><i></i><span>天安门西</span>约2km</li>
+
+                                <li method="showRoute" lat="39.899012" lng="116.4149" distance="1817"><b></b><i></i><span>桥湾</span>约2km</li>
+
+                                <li method="showRoute" lat="39.93097664" lng="116.4234732" distance="1833"><b></b><i></i><span>东四</span>约2km</li>
+
+                                <li method="showRoute" lat="39.899545" lng="116.424108" distance="1848" class="sec"><b></b><i></i><span>磁器口</span>约2km</li>
+
+
+                            </ul>
+                            <ul class="ro_details" style="display:none;">
+                                <!--景点样式
+                                <li><b></b><i class="view"></i><span>天安门广场</span>100km</li>
+                                <li><b></b><i></i><span>天安门广场</span>100km</li>
+                                <li><b></b><i></i><span>天安门广场</span>100km</li>
+                                <li><b></b><i></i><span>天安门广场</span>100km</li>
+                                -->
+                                <li><b></b><i class="plane"></i><span>天安门广场天安门广场</span>1000km</li>
+                                <li><b></b><i></i><span>天安门广场</span>100km</li>
+                                <li><b></b><i></i><span>天安门广场</span>100km</li>
+                                <li class="sec"><b></b><i></i><span>天安门广场</span>100km</li>
+                                <li class="sec"><b></b><i class="train"></i><span>天安门广场</span>100km</li>
+                                <li class="sec"><b></b><i class="subway"></i><span>天安门广场</span>100km</li>
+                                <li class="sec"><b></b><i class="bus"></i><span>天安门广场</span>100km</li>
+                                <li><b></b><i></i><span>天安门广场</span>100km</li>
+                            </ul>
+
+                            <div class="ro_map map" method="showMap">
+                                <img width="500" height="280" rel="nofollow" onerror="this.src = 'http://www.elongstatic.com/hotels/pic/detailmap_no.png';" src="http://api.map.baidu.com/staticimage?width=500&amp;height=280&amp;zoom=14&amp;markers=116.417099,39.915251&amp;markerStyles=-1,http://www.elongstatic.com/hotels/pic/mapIconHotel4.png">
+                                <span class="tip">查看详情<i class="arrow"></i></span>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <script id="coachStationTpl" type="text/x-jquery-tmpl">
+<#
+var results = $Model.results;
+var count = results.length;
+if (count > 3) count = 3;
+if (count > 0) {
+#>
+    <#
+        for (var i=0; i < count; i++)
+        {
+            var result = results[i];
+            var lng = result.location.lng;
+            var lat = result.location.lat;
+            var distance = result.distance != null ? result.distance : null;
+            var distanceDesc = "";
+            if (distance != null) {
+                if (distance < 1000) {
+                    distanceDesc = "约" + distance + "m";
+                }
+                else {
+                    distanceDesc = "约" + (Math.round(distance / 100) / 10) + "km";
+                }
+            }
+    #>
+    <li method="showRoute"<#=i==count-1?" class='sec'":""#> lng="<#=lng#>" lat="<#=lat#>" distance="<#=distance#>">
+        <b></b>
+        <i<#=i==0?" class='bus'":""#>></i>
+        <span><#=result.name#></span>
+        <#
+            if (distance != null) {
+        #>
+        <#=distanceDesc#>
+        <#
+            }
+        #>
+    </li>
+    <#
+        }
+    #>
+<#
+}
+#>
+</script>
+
+                    <!--交通信息 结束-->
+                </div>
+                <!--酒店点评 开始-->
+
+                <div class="h-review" id="commentDiv">
+                    <h2 class="detTitle">
+        <span>
+            点评
+        </span>
+                    </h2>
+                    <!-- summary start -->
+
+                    <div class="summary clx">
+                        <div class="rate">
+                            好评率：<span class="num num_small">89<span class="unit">%</span></span>
+                        </div>
+                        <div class="rank" id="rankTitle" style="display: none;">
+                            同星级酒店排名：<span id="rankingsSpanId" hotelid="50101002" cityid="0101" areaid="0000" areatype="0" star="5" goodrate="89">
+            </span><a href="/beijing/district0000/5/rating.html" method="recomhotel" class="phb" target="_blank">
+                            排行榜</a>
+                        </div>
+
+                        <a type="button" class="btn" id="btnAddComment" onfocus="this.blur()">我来点评</a>
+
+                        <div class="slogan">
+                            点评均来自真实入住用户！</div>
+                    </div>
+                    <!-- summary end -->
+                    <!-- sub tab start -->
+                    <div class="h-subtab clx">
+                        <ul id="tab">
+                            <li class="on" mth="all">全部<span>(3115)</span><i></i></li>
+                            <li class="divide">|</li>
+
+                            <li mth="good"><a href="javascript:void(0);" rel="nofollow" mth="good">推荐<span>(2473)</span></a><i></i></li>
+
+                            <li class="divide">|</li>
+
+                            <li mth="bad"><a href="javascript:void(0);" rel="nofollow" mth="bad">不推荐<span>(328)</span></a><i></i></li>
+
+                        </ul>
+                        <ul style="display: none" id="ulTemp">
+                            <li mth="all"><a href="javascript:void(0);" rel="nofollow" mth="all">全部<span>(3115)</span></a><i></i></li>
+                            <li class="divide">|</li>
+
+                            <li mth="good"><a href="javascript:void(0);" rel="nofollow" mth="good">推荐<span>(2473)</span></a><i></i></li>
+
+                            <li class="divide">|</li>
+
+                            <li mth="bad"><a href="javascript:void(0);" rel="nofollow" mth="bad">不推荐<span>(328)</span></a><i></i></li>
+
+                        </ul>
+                    </div>
+                    <!-- sub tab end -->
+                    <div class="filter clx" id="keywordsDiv">
+                    </div>
+                    <!-- filter start -->
+
+                    <!-- filter end -->
+                    <!-- review start -->
+                    <div class="roomLoading" id="loading">
+                        <span class="loading"></span>正在为您努力加载中...
+                    </div>
+                    <ul class="list" id="list">
+                    </ul>
+
+
+                    <div class="law_tips mb10">
+                        <p>
+                            点评内容知识产权归属艺龙网所有,未经许可,严禁转载</p>
+                    </div>
+                    <!--分页 start-->
+
+                    <div class="h-pagination pb20" id="pagerDown">
+
+                    </div>
+
+                    <!--分页 end-->
+                </div>
+
+                <script id="reviewPopListTemp" type="text/x-jquery-tmpl">
+<#
+    var allComments = [];
+    if ($Model.MarrowGoodCommentList) Array.prototype.push.apply(allComments, $Model.MarrowGoodCommentList);
+    if ($Model.CommentList) Array.prototype.push.apply(allComments, $Model.CommentList);
+    if (allComments.length > 0)
+    {
+        var hotelId=$Model.HotelId;
+        for (var i = 0; i < allComments.length; i++)
+        {
+            var comment = allComments[i];
+            var haveReply=(comment.ReplyList != null && comment.ReplyList.length > 0);
+            var divide=(haveReply&&comment.CommentSourceId == 200)?"<span class='divide'>|</span>":"";
+            var iconHtml="";
+            var isShowReply ="none";
+            var replyIcon="";
+            var TravelDesc = "";
+            comment.Content = comment.Content.replace("\n", "<br />").replace("\r\n", "<br/>");
+            var date=new Date(comment.CreatedTime);
+            date.setUTCHours(date.getUTCHours() + 8);
+            var createdTime=date.getUTCFullYear() + "-" +
+                    ((date.getUTCMonth()+1)<10?("0"+(date.getUTCMonth()+1)):(date.getUTCMonth()+1)) + "-"+
+                    (date.getUTCDate()<10?("0"+date.getUTCDate()):date.getUTCDate());
+            switch(comment.TravelType){
+                case 1:
+                TravelDesc = "带小孩";
+                break;
+                case 2:
+                TravelDesc = "情侣";
+                break;
+                case 3:
+                TravelDesc = "团体";
+                break;
+                case 4:
+                TravelDesc = "商务";
+                break;
+                case 5:
+                TravelDesc = "独自旅行";
+                break;
+            }
+            switch (comment.RecommendType)
+            {
+                case 0:
+                    iconHtml=String.isNullOrEmpty(comment.Title) ? "":("<dd class='t14 bold mb5'>"+comment.Title+"</dd>");
+                    replyIcon="查看酒店回复<span class='expandIcon'></span>";
+                    break;
+                case -1:
+                    iconHtml="<dd class='t14 bold mb5'><span class='badIcon'></span>"+(String.isNullOrEmpty(comment.Title) ? "不推荐" : comment.Title)+"</dd>";
+                    replyIcon="酒店回复<span class='collapseIcon'></span>";
+                    isShowReply="";
+                    break;
+                case 1:
+                    iconHtml="<dd class='t14 bold mb5'><span class='goodIcon'></span>"+(String.isNullOrEmpty(comment.Title) ? "推荐" : comment.Title)+"</dd>";
+                    replyIcon="查看酒店回复<span class='expandIcon'></span>";
+                    break;
+                default:
+                    break;
+            }#>
+            <li class="clx">
+            <#
+                var hrank = "";
+                var hcount=0;
+                if (comment.CommentUser){
+                    hrank = comment.CommentUser.Rank;
+                    hcount = comment.CommentUser.CommentCount;
+                }
+            #>
+            <div class="user" nikiname="<#=comment.MemberName#>" rank="<#=hrank#>" count="<#=hcount#>" travel="<#=TravelDesc#>">
+                <div class="avatar">
+                    <#
+                        if(comment.TravelType >= 1 && comment.TravelType <= 6)
+                        {
+                    #>
+                    <span class="trip_degree_c<#=comment.TravelType#>" method="user"></span>
+                    <#
+                        }
+                        else
+                        {
+                    #>
+                    <span class="trip_degree_c7" method="user"></span>
+                    <#
+                        }
+                    #>
+                    <#
+                        if (comment.CommentUser) {
+                            var commentCountDesc = "";
+                            if (comment.CommentUser.CommentCount > 0) {
+                                commentCountDesc = comment.CommentUser.CommentCount + "条点评";
+                            }
+                    #>
+                    <#
+                        switch (comment.CommentUser.Rank) {
+                            case 1:
+                    #>
+                    <a class="comment_level_icon comment_level_icon1" title="点评新人，<#=commentCountDesc#>" href="javascript:void(0)">点评新人</a>
+                    <#
+                            break;
+                            case 2:
+                    #>
+                    <a class="comment_level_icon comment_level_icon2" title="点评达人，<#=commentCountDesc#>" href="javascript:void(0)">点评达人</a>
+                    <#
+                            break;
+                            case 3:
+                    #>
+                    <a class="comment_level_icon comment_level_icon3" title="点评专家，<#=commentCountDesc#>" href="javascript:void(0)">点评专家</a>
+                    <#
+                            break;
+                        }
+                    #>
+                    <#
+                        }
+                    #>
+                </div>
+                <p><#=comment.MemberName#></p>
+                <div class='comment_level'>
+                </div>
+            </div>
+            <div class="attitude">
+                <#if (comment.RecommendType == 1)
+                  {#>
+                <i class="good" title="推荐"></i>
+                <#  }
+                  else if (comment.RecommendType == -1)
+                  {
+                #>
+                <i class="bad" title="不推荐"></i>
+                <#  }#>
+            </div>
+            <div class="box">
+                <#
+                    if (comment.IsMarrow) {
+                #>
+                <div class="high_grade_icon" method="marrow"></div>
+                <#
+                    }
+                #>
+                <div class="content">
+                    <#=comment.Content#>
+                </div>
+                <#
+                    if (comment.Images && comment.Images.length > 0) {
+                #>
+                <div class='des_pic clx'>
+                    <#
+                        for (var j = 0; j < comment.Images.length; j++) {
+                            var image = comment.Images[j];
+                            if (image.Path) {
+                                for (var k = 0; k < image.Path.length; k++) {
+                                    var path = image.Path[k];
+                                    if (path.SpecId == 401) {
+                    #>
+                        <span class='img_60'>
+                          <img src="<#=path.Url#>" width="60" height="60" alt="" method="image" />
+                          <#
+                                        for (var l = 0; l < image.Path.length; l++) {
+                                            var path2 = image.Path[l];
+                                            if (path2.SpecId == 403) {
+                          #>
+                          <div class="ho_thum_boxt" method="BigImage" style="position:absolute; left:0; top:60px; z-index:999; display:none;">
+                            <div class="boxpic">
+                              <img src="<#=path2.Url#>"></div>
+                          </div>
+                          <#
+                                                break;
+                                            }
+                                        }
+                          #>
+                        </span>
+                    <#
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    #>
+                </div>
+                <#
+                    }
+                #>
+                <div class="clx">
+                    <span class="info">
+                        <#if (comment.CommentSourceId == 1 || comment.CommentSourceId == 2 || comment.CommentSourceId == 900)
+                          {#>
+                        <span class="pr10">来自 <a href="http://www.elong.com/promotion/web/elongiphone/index.html" target="_blank" title="来自APP的点评">手机App</a></span>
+                        <#  } #>
+                        <#if (comment.CommentSourceId == 3 || comment.CommentSourceId == 200)
+                          {#>
+                            <span class="pr10">来自短信</span>
+                        <#  } #>
+                        <#=createdTime#>&nbsp;&nbsp;<#=TravelDesc#>
+                        <# if (!String.isNullOrEmpty(comment.RoomTypeName)){#>
+                            <a href="#?" class="pl10" method="roomTypeLink" <#if(comment.RoomTypeId) {#>roomTypeId="<#=comment.RoomTypeId#>"<#}#>><#=comment.RoomTypeName#></a>
+                        <#}#>
+                        <#if (comment.RoomNum) {#>
+                        <span class='pl10'>房间号：<#=comment.RoomNum#></span>
+                        <#}#>
+                    </span>
+                    <div class="function">
+                        <#if (haveReply)
+                        {#>
+                            <span class="response" method="showReply" commentId="<#=comment.Id#>"><i class="ico_response"></i>酒店回复</span>
+                        <#}#>
+                        <span class="like" method="useFul" hotelid="<#=hotelId #>" commentid="<#=comment.Id #>"><i class="ico_like"><i class="like_plus" style="display: none;
+                            margin-top: -20px;" method="showAdd">+1</i></i>有用<span class="counts" <#=(comment.UsefulTotal == 0 ? "style='display:none'" : "style='display:inline'") #>>(<#=comment.UsefulTotal #>)</span></span>
+                    </div>
+                </div>
+
+                <#if (haveReply)
+                  {#>
+                <div class="responseBox" forCid="<#=comment.Id#>" style="display:<#=isShowReply#>" s="<#=isShowReply#>">
+                    <div class="arrow">
+                        <em>◆</em> <span>◆</span>
+                    </div>
+                    <#for (var j = 0; j < comment.ReplyList.length; j++)
+                          {
+                          var replyItem = comment.ReplyList[j];
+                          var replyDate=new Date(replyItem.CreatedTime);
+                          replyDate.setUTCHours(replyDate.getUTCHours() + 8);
+                          var replyTime=replyDate.getUTCFullYear() + "-" +
+                            ((replyDate.getUTCMonth()+1)<10?("0"+(replyDate.getUTCMonth()+1)):(replyDate.getUTCMonth()+1)) + "-"+
+                            (replyDate.getUTCDate()<10?("0"+replyDate.getUTCDate()):replyDate.getUTCDate());
+                          #>
+                    <p class="text">
+                        <span class="bold">酒店回复：</span><#=replyItem.Content #></p>
+                    <p class="time">
+                        <#=replyTime #></p>
+                    <#  } #>
+                </div>
+                <#   }#>
+
+            </div>
+            </li>
+<# }}#>
+</script>
+
+                <!--酒店点评 结束 -->
+
+                <!-- 看过XXX的人也在看 开始 -->
+
+
+                <div class="in faci" loadedreview="false" loadedseenhotel="false" id="SeenHotelList">
+                </div>
+                <script id="SeenHotelHtml" type="text/x-jquery-tmpl">
+<div class="h-recommend">
+        <#var hotel=$Model;
+          var cityNameEn = HotelDetailNewController.AjaxPropertys.CityNameEn;
+          cityNameEn = FilterPinyinForUrl(cityNameEn); #>
+        <#for(var i=0;i< hotel.length ;i++){
+          if(i<3){
+            var item=hotel[i];
+            var hotelUrl = new Template(HotelDetailNewController.UrlConfig.HotelDetailViewUrl).eval({ "cityNameEn" : cityNameEn, "hotelId": item.HotelId });
+            hotelUrl = String.format("{0}{1}fr=elrc_dt_mr_{2}_{3}", hotelUrl,hotelUrl.indexOf("?")!=-1?"&":"?", i+1, item.HotelId);
+            var hotellistUrl = new Template(HotelDetailNewController.UrlConfig.Hotel_List).eval({ language: "cn", cityid: item.LocationCityID });
+            if (hotellistUrl.indexOf("?")>-1) {
+                hotellistUrl = hotellistUrl + "&PoiName=" + encodeURIComponent(item.LocationHotelName);
+            }
+            else {
+                hotellistUrl = hotellistUrl + "?PoiName=" + encodeURIComponent(item.LocationHotelName);
+            }
+            #>
+            <#if(i == 0){#>
+
+                  <h2 class="detTitle pl10 pr10"><a target="_blank" href=<#=hotellistUrl#> class="more">更多周边酒店>></a>看过<#=$Model[0].LocationHotelName #>的人也在看</h2>
+
+            <#}#>
+                <#if(i!= 2) { #>
+                 <div class="hotel mr">
+                <#}else{#>
+                    <div class="hotel">
+                <#}#>
+                        <div class="pic">
+                            <a title="<#=item.HotelName#>" target="_blank" href="<#=hotelUrl#>" hotelid="<#=item.HotelId#>" onclick="var json={hotelid:$(this).attr('hotelid'), hotelname:$(this).attr('title'),m1:''};Elong.evTJ('browsergather',json);">
+                            <#if(item.BigImage350 == null || item.BigImage350 == undefined || item.BigImage350 == ""){
+                                item.BigImage350 = "http://www.elongstatic.com/hotels/pic/detailrecom_no.png";
+                             }#>
+                                <img src2="<#=item.BigImage350#>" onerror="this.src='http://www.elongstatic.com/hotels/pic/detailrecom_no.png'"/>
+                            </a>
+                            <#if(item.RecentOrder == null || item.RecentOrder == undefined || item.RecentOrder == ""){#>
+                            <div class="none">
+                            <#}else{#>
+                            <div class="mask clx">
+                            <#}#>
+                                <span class="major"></span>
+                                <span class="minor"><#=item.RecentOrder#></span>
+                            </div>
+                        </div>
+                        <p>
+                            <a class="name" title="<#=item.HotelName#>" target="_blank" href="<#=hotelUrl#>" hotelid="<#=item.HotelId#>" onclick="var json={hotelid:$(this).attr('hotelid'), hotelname:$(this).attr('title'),m1:''};Elong.evTJ('browsergather',json);"><#=item.HotelName#></a>
+                        </p>
+                        <div class="clx">
+                            <#if(item.RateComment>50){ #><div class="review"><#=item.RateComment#>%好评</div><#} #>
+                            <div class="price">
+                            <#if(item.LowestPrice > 0) {#>
+
+                                    <span class="fh"><#=item.MoneySymbol#></span><#=item.LowestPrice#><span class="fb">起</span>
+
+                            <# } #>
+                            </div>
+                        </div>
+                    </div>
+                <# }
+             } #>
+    <div class="clear"></div>
+</div>
+</script>
+
+
+                <!-- 看过XXX的人也在看 结束 -->
+
+                <!-- 详细页底部SEO展示 开始 -->
+
+                <div class="seo">
+                    <div class="tab clx">
+                        <ul>
+                            <li id="SimilarHotel" class="on">
+                                与北京饭店相似的酒店
+                                <div class="arrow">
+                                    <em>◆</em> <span>◆</span>
+                                </div>
+                            </li>
+
+                            <li class="divide">|</li>
+                            <li id="Partner">合作伙伴
+                                <div class="arrow">
+                                    <em>◆</em> <span>◆</span>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div id="SimilarHotels" class="box">
+                        <a title="北京酒店预订" href="/beijing/">
+                            北京酒店</a>
+                        |<a title="北京五星级酒店预订" href="/beijing/star5.html">
+                        北京五星级酒店</a>
+
+                        |<a title="北京王府井商业区五星级酒店预订" href="/beijing/center010103/star5.html">
+                        北京王府井商业区五星级酒店</a>
+
+                        |<a title="北京王府井商业区酒店预订" href="/beijing/center010103/">
+                        北京王府井商业区酒店</a>
+
+                    </div>
+                    <div id="Partners" style="display: none;" class="box">
+                        <a title="七营火车站" href="http://huoche.mipang.com/qiying-zhan.html">七营火车站</a>
+                        |
+                        <a title="北京饭店" href="http://jiudian.kuxun.cn/beijing-beijing_68-jiudian.html">北京饭店</a>
+                        |
+                        <a title="蘑菇小巷" href="http://www.mogoxx.com">蘑菇小巷</a>
+                        |
+                        <a title="北京饭店" href="http://www.zhuna.cn/hotel-14496.html">北京饭店</a>
+                        <br>
+
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+
+                <!-- 详细页底部SEO展示 结束 -->
+            </div>
+            <div class="detailSidebar">
+                <!-- Hotel Element start -->
+
+                <!-- Hotel Comment start -->
+
+                <div class="h-element">
+                    <div id="rightCommentDiv" reviewurl="/beijing/50101002/review.html#iTop" class="review">
+
+                        <div class="info">
+                            好评率：<span class="num">89<span class="unit">%</span></span><span class="counts"><strong>
+                            3115</strong> 人 </span>真实评价
+                        </div>
+                        <div class="item clx">
+                            <div class="avatar">
+                            </div>
+                            <blockquote>老品牌、服务好，就是设施老点</blockquote>
+                            <i class="before"></i><i class="after"></i>
+                        </div>
+
+                    </div>
+                    <!-- Hotel Comment end -->
+                    <!-- Hotel Map start -->
+
+                    <div class="map">
+                        <img id="imageMapShow" src="http://api.map.baidu.com/staticimage?width=240&amp;height=140&amp;zoom=14&amp;markers=116.417099,39.915251&amp;markerStyles=-1,http://www.elongstatic.com/hotels/pic/markers_icon.png" realsrc="http://api.map.baidu.com/staticimage?width=240&amp;height=140&amp;zoom=14&amp;markers=116.417099,39.915251&amp;markerStyles=-1,http://www.elongstatic.com/hotels/pic/markers_icon.png" onerror="document.getElementById('imageMapDiv').className ='nomap';this.src = 'http://www.elongstatic.com/hotels/pic/detailmap_no.png';" width="240" height="140" rel="nofollow">
+                        <div class="box" id="imageMapDiv">
+                            <span class="tip">查看位置和路线<i class="arrow"></i></span>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Hotel Map end -->
+
+                <div id="mapPopup" class="popMap" style="position: absolute; top: 86px; left: 0px; z-index: 200; display: none;" data-mapmvt="1">
+                    <span class="clos" id="closs"></span>
+                    <div id="mapLoading" class="poploading"><span></span><br><br>小艺正在为您努力加载中...</div>
+                </div>
+
+
+                <div id="sosoViewMap" class="popMap" style="position: absolute; top: 86px; left: 0px; z-index: 200; display: none;">
+                    <span class="clos" id="sosoViewMapClose"></span>
+                    <div id="sosoMapLoading" class="poploading"><span></span><br><br>小艺正在加载中...</div>
+                </div>
+
+
+                <!-- Hotel Element end -->
+                <!--酒店服务指数-->
+
+                <div class="t6" id="serviceIndex"><span class="fuicon"></span>服务指数：<span class="sz">4.7</span><span class="zs">/5分</span><span class="g ml15"></span>于同城22%</div>
+                <div class="clear">
+                </div>
+
+                <!--周边酒店推荐 开始-->
+                <div class="hotelDiv" id="nearHotelsDiv" style=""><h3><i class="tj"></i>周边酒店推荐</h3><ul class="hotelUl"><li class="clx"><a target="_blank" title="北京创世商务酒店" href="/beijing/40101849/?fr=elrc_dt_nb_1_40101849"><img class="img" src="http://pavo.elongstatic.com/i/Hotel70_70/0000cp1s.jpg" onerror="this.src='http://www.elongstatic.com/hotels/pic/detailaround_no.png'" with="60" height="60"></a><dl><dt><a target="_blank" title="北京创世商务酒店" href="/beijing/40101849/?fr=elrc_dt_nb_1_40101849">北京创世商务酒店</a></dt><dd class="jl">直线距离约0.1公里</dd><dd> <span class="price"><span class="price">338</span></span>元起</dd></dl></li><li class="clx"><a target="_blank" title="北京王府半岛酒店（原王府饭店）" href="/beijing/50101008/?fr=elrc_dt_nb_2_50101008"><img class="img" src="http://pavo.elongstatic.com/i/Hotel70_70/0000cq82.jpg" onerror="this.src='http://www.elongstatic.com/hotels/pic/detailaround_no.png'" with="60" height="60"></a><dl><dt><a target="_blank" title="北京王府半岛酒店（原王府饭店）" href="/beijing/50101008/?fr=elrc_dt_nb_2_50101008">北京王府半岛酒店（原...</a></dt><dd class="jl">直线距离约0.1公里</dd><dd> <span class="price"><span class="price">799</span></span>元起</dd></dl></li><li class="clx"><a target="_blank" title="北京王府井远洋酒店" href="/beijing/30101016/?fr=elrc_dt_nb_3_30101016"><img class="img" src="http://pavo.elongstatic.com/i/Hotel70_70/0000cmiZ.jpg" onerror="this.src='http://www.elongstatic.com/hotels/pic/detailaround_no.png'" with="60" height="60"></a><dl><dt><a target="_blank" title="北京王府井远洋酒店" href="/beijing/30101016/?fr=elrc_dt_nb_3_30101016">北京王府井远洋酒店</a></dt><dd class="jl">直线距离约0.1公里</dd><dd> <span class="price"><span class="price">468</span></span>元起</dd></dl></li><li class="clx"><a target="_blank" title="北京丽晶酒店" href="/beijing/50101454/?fr=elrc_dt_nb_4_50101454"><img class="img" src="http://pavo.elongstatic.com/i/Hotel70_70/0000clat.jpg" onerror="this.src='http://www.elongstatic.com/hotels/pic/detailaround_no.png'" with="60" height="60"></a><dl><dt><a target="_blank" title="北京丽晶酒店" href="/beijing/50101454/?fr=elrc_dt_nb_4_50101454">北京丽晶酒店</a></dt><dd class="jl">直线距离约0.1公里</dd><dd> <span class="price"><span class="price">1001</span></span>元起</dd></dl></li><li class="last clx"><a target="_blank" title="北京励骏酒店" href="/beijing/50101486/?fr=elrc_dt_nb_5_50101486"><img class="img" src="http://pavo.elongstatic.com/i/Hotel70_70/0000cpcn.jpg" onerror="this.src='http://www.elongstatic.com/hotels/pic/detailaround_no.png'" with="60" height="60"></a><dl><dt><a target="_blank" title="北京励骏酒店" href="/beijing/50101486/?fr=elrc_dt_nb_5_50101486">北京励骏酒店</a></dt><dd class="jl">直线距离约0.2公里</dd><dd> <span class="price"><span class="price">1199</span></span>元起</dd></dl></li></ul></div>
+                <!--周边酒店推荐 结束-->
+                <!--浏览过的酒店 开始-->
+                <div class="hotelDiv" id="historyBrowseHotelDiv" style=""><h3><i class="ls"></i>浏览过的酒店</h3><ul class="hotelUl clx"><li><span hotelid="50101002" title="删除此条记录" method="delSeenHotel" class="del"></span><span class="h_price"><span>¥638</span></span><a href="/beijing/50101002/?fr=elrc_dt_vw_1_50101002" target="_blank" title="北京饭店">北京饭店</a></li><li class="last"><span hotelid="40501048" title="删除此条记录" method="delSeenHotel" class="del"></span><span class="h_price"><span>¥550</span></span><a href="/beijing/40501048/?fr=elrc_dt_vw_2_40501048" target="_blank" title="北京工体A酒店">北京工体A酒店</a></li></ul></div>
+                <!--浏览过的酒店 结束-->
+                <!--艺龙承诺开始-->
+                <div class="hotelDiv" style="display: none;">
+                    <h3><i class="cn"></i>艺龙承诺</h3>
+                    <dl class="whyus">
+                        <dt><i class="price"></i>超值优惠</dt>
+                        <dd>订酒店返现金高达20%，最高可返1050元</dd>
+                    </dl>
+                    <dl class="whyus">
+                        <dt><i class="service"></i>优质服务</dt>
+                        <dd>7X24小时服务；到店无房最高赔付首晚房费</dd>
+                    </dl>
+                    <dl class="whyus">
+                        <dt><i class="many"></i>海量酒店</dt>
+                        <dd>提供全球30万家酒店预订服务</dd>
+                    </dl>
+                </div>
+                <!--艺龙承诺结束-->
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popImg" id="ImageBoxContent" style="display: none">
+    <span class="clos" mth="close"></span>
+    <div class="clear">
+    </div>
+    <div class="left">
+        <div class="controls">
+            <a href="javascript:void(0);" rel="nofollow" class="prev" mth="prev" title="上一张">
+            </a><a href="javascript:void(0);" rel="nofollow" class="next" mth="next" title="下一张">
+        </a>
+        </div>
+        <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" class="table">
+            <tbody><tr>
+                <td align="center" height="400">
+                    <div id="bigImgBox" style="width:100%;height:100%;">
+
+                        <img alt="酒店外观" src4="http://pavo.elongstatic.com/i/Hotel350_350/0000ckvw.jpg">
+
+                    </div>
+                    <div id="QQPanoramaBox" style="display:none;width:100%;height:100%;"></div>
+                </td>
+            </tr>
+            </tbody></table>
+        <div class="js" id="ImgDesc">
+            酒店外观
+
+        </div>
+    </div>
+    <div class="right">
+        <div class="sta">
+            <strong>
+                北京饭店</strong><br>
+
+            共有42张照片，其中网友拍摄的照片17张，全景照片4张</div>
+        <div class="list">
+            <ul class="tab">
+                <li class="mr" mth="liTab" mark="all">
+                    酒店(25)</li>
+                <li mth="liTab" mark="member">
+                    网友拍摄(17)</li><li mth="liTab" mark="360">
+                360°全景照片</li>
+            </ul>
+            <div class="liImgbox" id="liImgBox">
+                <ul class="liImg" id="allLiImg">
+
+                    <li index="0" imgid="16e56701-7500-4b37-8a01-04638d5e2ece" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000ckvw.jpg" imgdesc="酒店外观">
+                        <img alt="酒店外观" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000ckvw.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="1" imgid="9070eee4-6de2-45f5-b2c5-dd9ff6e592d0" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000fEWl.jpg" imgdesc="酒店外观">
+                        <img alt="酒店外观" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000fEWl.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="2" imgid="808b2d1b-df39-40c1-88e5-351325bfa87f" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000fmi1.jpg" imgdesc="酒店外观">
+                        <img alt="酒店外观" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000fmi1.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="3" imgid="768c3db6-242b-4d15-95bf-8d5dae0fffe8" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000f9iU.jpg" imgdesc="酒店外观">
+                        <img alt="酒店外观" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000f9iU.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="4" imgid="03fde6df-cc7a-43a0-ac78-0295f3459505" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/00009sKB.jpg" imgdesc="酒店外观">
+                        <img alt="酒店外观" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/00009sKB.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="5" imgid="c5ae7474-fef1-4c27-83d2-6aeb0f08d15e" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000i6v6.jpg" imgdesc="大堂/接待台">
+                        <img alt="大堂/接待台" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000i6v6.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="6" imgid="2586a291-dadd-402d-a3de-9c240df3e648" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000bLke.jpg" imgdesc="大堂/接待台">
+                        <img alt="大堂/接待台" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000bLke.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="7" imgid="f3e91c0d-5392-4706-a7ab-c7f53b58939b" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000jmIt.jpg" imgdesc="大堂/接待台">
+                        <img alt="大堂/接待台" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000jmIt.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="8" imgid="6e7c4998-4028-4a35-a881-ff7c77a43ba5" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000eS3Q.jpg" imgdesc="大堂/接待台">
+                        <img alt="大堂/接待台" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000eS3Q.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="9" imgid="6c001b97-8bb5-4e0e-923a-99dc47d6b2d1" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000eMJz.jpg" imgdesc="会议室">
+                        <img alt="会议室" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000eMJz.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="10" imgid="c472e99a-27f8-4f7d-89b6-5584edca19ef" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000i3p4.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000i3p4.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="11" imgid="01d52591-a01a-499d-877c-ed0b83976486" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/00009kwp.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/00009kwp.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="12" imgid="24cbb6e1-9a92-41e0-bcb5-385851f6fb3a" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000bJHG.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000bJHG.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="13" imgid="c1ba46ed-6c95-4799-aff2-69de6b1c332d" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000hWAO.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000hWAO.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="14" imgid="2cf2dcd5-7a40-423d-8053-061c762f809b" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000c1IC.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000c1IC.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="15" imgid="e36b18a2-4804-4cd8-b5f1-ac8085bc3870" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000iOJ6.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000iOJ6.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="16" imgid="fb15f2f7-8eda-4fec-887e-59afe28ee576" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000jcgc.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000jcgc.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="17" imgid="450f2b3e-9f8a-4b87-b861-4c5a72089357" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000daMB.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000daMB.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="18" imgid="700a4f3e-6d0c-40b7-a0c9-7c933a0aff58" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000eVyM.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000eVyM.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="19" imgid="eb21e99b-e4dc-4795-beda-7c2afebb1493" imagesource="2" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000hDyu.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000hDyu.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="20" imgid="60bb4d04-ffb9-4ff5-bcbf-96c958d28836" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000ep6z.jpg" imgdesc="休闲">
+                        <img alt="休闲" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000ep6z.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="21" imgid="f27532d2-3d71-47f4-86e9-6c6e3d9e877b" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000jmaz.jpg" imgdesc="休闲">
+                        <img alt="休闲" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000jmaz.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="22" imgid="3547737c-f8d0-4283-b9a0-cb4da2615987" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000cD4P.jpg" imgdesc="休闲">
+                        <img alt="休闲" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000cD4P.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="23" imgid="d66c5eb6-c280-450d-ad0e-df33d4afd9e3" imagesource="1" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000izMT.jpg" imgdesc="休闲">
+                        <img alt="休闲" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000izMT.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="24" imgid="41de3928-f0c4-469b-ab70-bdc48e98cbd2" imagesource="2" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/000074tF.jpg" imgdesc="休闲">
+                        <img alt="休闲" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/000074tF.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                </ul>
+                <ul class="liImg" id="memberLiImg" style="display: none">
+
+                    <li index="0" imgid="c91f3047-baa7-47cc-9f0e-d2440128ea83" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000ifbl.jpg" imgdesc="酒店外观">
+                        <img alt="酒店外观" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000ifbl.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="1" imgid="bc3c0da6-459c-40e8-958b-c1ce6210e680" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000h1C4.jpg" imgdesc="酒店外观">
+                        <img alt="酒店外观" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000h1C4.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="2" imgid="b3b19be8-7e60-470d-9a3d-db06db74ad26" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000gmAT.jpg" imgdesc="酒店外观">
+                        <img alt="酒店外观" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000gmAT.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="3" imgid="00ce2419-420b-4f80-96a5-c7da2cd1221c" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/00009glk.jpg" imgdesc="酒店外观">
+                        <img alt="酒店外观" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/00009glk.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="4" imgid="7153f7d6-487d-4af9-ac8a-e1f307ceb1dc" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000eYju.jpg" imgdesc="大堂/接待台">
+                        <img alt="大堂/接待台" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000eYju.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="5" imgid="7b552be7-7653-4f84-b15a-ee7fdb5497a5" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/00007Esg.jpg" imgdesc="大堂/接待台">
+                        <img alt="大堂/接待台" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/00007Esg.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="6" imgid="4343ac66-bcb0-427a-bcef-22fa583e178a" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000t5i5.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000t5i5.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="7" imgid="b540cda8-8037-49fe-aec7-e97988183b03" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000t5i3.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000t5i3.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="8" imgid="39144a0e-25dd-450b-a3cc-590e97d8b4f5" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000cLuI.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000cLuI.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="9" imgid="4fb77c2b-19d0-4d15-96ea-7000ce6fda58" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000dPgY.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000dPgY.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="10" imgid="6fc7ec34-0213-4dfe-a713-8449e00af435" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000eUNU.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000eUNU.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="11" imgid="9ed35f0c-ec51-4412-b501-3fb7b1e9233d" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000fWOV.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000fWOV.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="12" imgid="ade3ab63-b011-445b-8db5-94ad6f749708" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000gfOK.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000gfOK.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="13" imgid="40fb418e-fb75-43f2-8354-6f008849b83e" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000d2lY.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000d2lY.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="14" imgid="94edb53f-5510-485b-a320-8787deadfc8c" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/00004X1B.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/00004X1B.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="15" imgid="5977fd38-df78-4a50-9b92-861603d6fac9" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000eabA.jpg" imgdesc="餐厅">
+                        <img alt="餐厅" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000eabA.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="16" imgid="3d52c124-5b36-403e-be7b-379ff87f660a" imagesource="3" cardno="" uploaddate="0001-01-01" imgtype="1" bigimgsrc="http://pavo.elongstatic.com/i/Hotel560_380/0000t5i1.jpg" imgdesc="其他">
+                        <img alt="其他" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/0000t5i1.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                </ul>
+
+                <ul class="liImg" id="360LiImg" style="display: none">
+
+                    <li index="0" imgid="1395ef49-deb3-4fed-acd3-a71b51fe9f5a" imagesource="" cardno="" uploaddate="" imgtype="3" bigimgsrc="fileName=http://pavo.elongstatic.com/i/ori/00004qFs.jpg" imgdesc="大堂/接待台">
+                        <img alt="大堂/接待台" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/00004qFs.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="1" imgid="d8bc27d0-0891-477f-b8ed-c09e91ebe08a" imagesource="" cardno="" uploaddate="" imgtype="3" bigimgsrc="fileName=http://pavo.elongstatic.com/i/ori/00005opN.jpg" imgdesc="餐厅">
+                        <img alt="餐厅" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/00005opN.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="2" imgid="4e23f853-6ddd-4982-ae69-0cab22773102" imagesource="" cardno="" uploaddate="" imgtype="3" bigimgsrc="fileName=http://pavo.elongstatic.com/i/ori/00004bo0.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/00004bo0.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                    <li index="3" imgid="e38e9a05-dcf7-4186-9c98-c4e46a73cfd8" imagesource="" cardno="" uploaddate="" imgtype="3" bigimgsrc="fileName=http://pavo.elongstatic.com/i/ori/00005sHl.jpg" imgdesc="客房">
+                        <img alt="客房" mth="selectPic" src4="http://pavo.elongstatic.com/i/Hotel70_70/00005sHl.jpg" onerror="this.src='http://www.elongstatic.com/hotels/201502121815/pic/no_pics_CN.gif?t=201503061415'"></li>
+
+                </ul>
+
+            </div>
+        </div>
+        <ul class="hotelPrice" id="imgPopupPrice"><a method="GoLowestPriceRoom" href="#room" lowroomid="1046" lowrpid="199409"><span class="btn">立即预订</span></a><li class="high"><span class="price"><span class="fh">¥</span>628<span class="fb">起</span></span></li><li><span class="iconFan" method="coupon">70元</span><span class="none"><div class="sf_voucher"><!--<span class="fanIcon_help mt5" style="cursor:auto; vertical-align:top"></span>--><span>现在预订此房型，每间房每晚返还70元现金！结账后3个工作日内可至您的艺龙账户提现。&nbsp;</span><div class="clear"></div></div></span></li></ul>
+    </div>
+</div>
+
+<!--返回顶部-->
+
+
+<!--返回顶部end-->
+<!--cms zhaoliu-->
+<div class="detailBox" style="display: none;" id="dvNewMember">
+    <div class="adv_leftfixed" id="adv_leftfixed">
+        <div class="close_org" method="close">
+        </div>
+        <div class="adv_leftfixed_bg">
+        </div>
+        <div class="adv_leftfixed_login">
+            <a method="log">登录</a><span class="blue"> | </span><a method="reg">注册</a></div>
+        <div class="text">
+            <div class="text_title">
+                新人首订礼</div>
+            <p>
+                新用户福利来啦！首次下单可享受“新人首订礼“，在您成功入住结账后5-7个工作日，小艺会给您账户额外赠送订单金额10%的礼品卡！最高可返200元哦！</p>
+        </div>
+    </div>
+</div>
+
+<!--cms end-->
+
+<!--实时数据模版-->
+<div id="RealTimeBrowserDataContainer" class="com_hotresults com_realtime viebornoe" style="display: none;">
+    <div class="viewsPor"><span class="clos"></span><div class="conBox">有<span class="di">1</span>位用户在浏览该酒店</div></div></div>
+
+<div class="item_dialog item_chk" id="errorCorrection" style="display:none;">
+    <div class="item_dialog-titlebar">
+        <span class="item_dialog-title">我要纠错</span>
+        <a class="item_dialog-titlebar-close" method="close"><span>close</span></a>
+    </div>
+    <div class="item_dialog-content">
+        <!-- form start -->
+
+
+        <form action="">
+            <ul>
+                <li><label for="">酒店名称</label><input method="hotelName" class="text" type="text" srcval="北京饭店" value="北京饭店"></li>
+                <li><label for="">酒店位置</label><textarea method="hotelAddr" class="item_pos" cols="30" rows="10" srcval="东城区东长安街33号(地铁王府井站A口西侧)">东城区东长安街33号(地铁王府井站A口西侧)</textarea></li>
+                <li><label for="">酒店电话</label><input method="hotelPhone" class="text" type="text" srcval="010-65137766" value="010-65137766"></li>
+                <li><label for="">其他补充</label><textarea method="hotelAddInfo" cols="30" rows="10" srcval="您补充的信息，我们会尽快同酒店核实。">您补充的信息，我们会尽快同酒店核实。 </textarea></li>
+                <li>感谢您的建议，欢迎您留下您的邮箱：</li>
+                <li><label for="">您的姓名</label><input method="userName" class="text" type="text"></li>
+                <li><label for="">您的邮箱</label><input method="userEmail" class="text" type="text"></li>
+                <li class="tr"><input class="item_submit mr5" type="button" method="submit" value="提交"></li>
+            </ul>
+        </form>
+        <!-- form end -->
+    </div>
+</div>
+
+<!--无房提示-->
+<div id="showBuy5Send1" style="display: none">
+    <div class="bk_1" style="width: 450px; border: none; padding: 0;">
+        <!--html 部分-->
+        <dl class="qr_fu fuc_n vp_plan clx">
+            <dt></dt>
+            <dd>
+                <p class="c555">
+                    即日起至2015年3月31日，每位艺龙个人会员通过艺龙官方网站（www.<br>
+                    elong.com）及无线客户端成功预订标有“会员奖励”字样的酒店房间且如约实际入住的，每达到5个间夜即可获赠与该5间夜房间平均价格相等金额的艺龙酒店礼品卡。
+                </p>
+                <p class="vp_plan_dotted">
+                    获赠礼品卡将在每月10日前充值到本人艺龙账户，礼品卡有效期1年，活动可累加，多住多送。<a target="_blank" href="http://www.elong.com/promotion/web/membership/index.html">详细说明&gt;&gt;</a></p>
+            </dd>
+        </dl>
+        <!--html 部分 结束 -->
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="NoRoomTemplate" style="display: none;">
+    <div class="noRoom">
+        <p>
+            此酒店的价格不对外公开，请致电酒店预订中心{0}查询，我们会竭诚为您服务。</p>
+    </div>
+</div>
+
+<!-- ===================== footer start ===================== -->
+
+
+
+
+
+
+
+<!-- ===================== footer end ===================== -->
+
+
+</body>
+</html>

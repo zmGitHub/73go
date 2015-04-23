@@ -1,0 +1,95 @@
+
+  <div class="main_right">
+   	  <div class="r_hd">
+            <h3 class="r_tit">差旅企业详细信息</h3>
+   	  </div>
+        
+      <div  class="BoxHeight mb_10" ></div>
+        <table width="600" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+          <tr>
+            <td width="200" height="20">&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">企业ID</td>
+            <td width="240"><span class="text_left_25_yq">{$com.id}</span></td>
+            <td width="262">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">系统用户ID</td>
+            <td><span class="text_left_25_yq">{$com.u_id}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">企业编号</td>
+            <td><span class="text_left_25_yq">{$com.co_code}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">全名</td>
+            <td><span class="text_left_25_yq">{$com.name}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">简称</td>
+            <td><span class="text_left_25_yq">{$com.short_name}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">省</td>
+            <td><span class="text_left_25_yq">{$com.province}</span></td>
+            
+          </tr>
+          <tr>
+            <td align="right">市</td>
+            <td colspan="2"><span class="text_left_25_yq">{$com.city}</span></td>
+          </tr>
+          <tr>
+            <td align="right">地址</td>
+            <td><span class="text_left_25_yq">{$com.address}</span>
+           </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">行业</td>
+            <td><span class="text_left_25_yq">{$com.industry}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">规模</td>
+            <td><span class="text_left_25_yq">{$com.scale}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">公司网址</td>
+            <td><span class="text_left_25_yq">{$com.website}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">联系人</td>
+            <td><span class="text_left_25_yq">{$com.contact_name}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+       <tr>
+            <td align="right">联系人电话</td>
+            <td><span class="text_left_25_yq">{$com.contact_phone}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">联系人邮箱</td>
+            <td><span class="text_left_25_yq">{$com.contact_email}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">状态</td>
+            <td><span class="text_left_25_yq"><if condition="$com.status eq 0">正常
+  		<elseif condition="$com.status eq 99"/> 停用</if></span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <td>&nbsp;</td>
+        </table>
+    </div>
+    <div class="clear"></div>
+</div>
+
+

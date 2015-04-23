@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="http://weixin.73go.cn/index.php/Home/Proxy/addScheme"
+	method="post"><foreach name="scheme" item="s"> 订单序号1:<input
+	type="text" name="fromusername" value="{$s.fromusername}" /><br />
+订单序号:<input type="text" name="orderid" disabled="disabled"
+	value="{$s.id}" /><br />
+订单编号:<input type="text" name="msgID" value="{$s.msgID}" /><br />
+订单时间:<input type="text" disabled="disabled" name="createtime"
+	value="{$s.createtime}" /><br />
+订单人:<input type="text" disabled="disabled" name="nickname"
+	value="{$s.nickname}" /><br />
+订单人国家:<input type="text" disabled="disabled" name="country"
+	value="{$s.country}" /><br />
+订单人省份:<input type="text" disabled="disabled" name="province"
+	value="{$s.province}" /><br />
+订单人城市:<input type="text" disabled="disabled" name="city"
+	value="{$s.city}" /><br />
+订单内容:<input type="text" disabled="disabled" name="recognition"
+	value="{$s.recognition}" /><br />
+制作方案:<input type="text" name="scheme" value="" /><br />
+<input type="submit" value="提交" />&nbsp;&nbsp; <input type="reset"
+	value="重 置" /> </foreach></form>
+
+</body>
+</html>

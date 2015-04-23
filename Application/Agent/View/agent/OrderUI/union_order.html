@@ -1,0 +1,33 @@
+<div class="mb_5 ticket_tt"> <label for="orderCount" style="float: right;">
+<!--       <strong class="c_tx1">订单总金额：</strong>
+        <input name="ou_amount" contentEditable="false" disabled   type="text" class="text01 c_tx2 w80 h20" style="width:110px;" value="" />
+        
+        <img name="calcAmount" src="Agent/images/counter.jpg" width="15" height="22" alt="重算订单金额" style="cursor: pointer"/> -->
+        <input type="button" value="提交订单" id="btn_submit_ou" class="btn_b5 fl_right" />
+      </label>
+      <label for="TR"><strong>TR号：</strong>
+        <input name="tr_num"  type="text" class="text01 c_tx2 w81 h20" style="width:120px;" value="">
+      </label>
+    <label for="order_booker">
+        <input type="button" value="选择订单预订人" class="btn_b5 ml_5" name="get_booker" style="display: none"/>
+        <span name="order_booker"></span>
+    </label>
+</div>
+  <div class="sz73go_union_order"></div>
+
+<div class="pa_15 tex_14 c_tx2 tb_bg"><strong class="c_tx1">订单产品总金额：</strong>
+<em class="mb_10"> 
+<input name="odr_amount"  type="text" class="text01 c_tx2 w80 h20" value="" /> 
+<strong class="c_tx1">差旅预订服务费：</strong> <em class="mb_10">
+ <input name="odr_service_price"   type="text" class="text01 c_tx2 w80 h20" value="" />
+</em>
+<span class="fl_right">
+ <img name="calcAmount" src="Agent/images/counter.jpg" width="15" height="22" alt="重算订单金额" style="cursor: pointer"/>
+  <strong class="c_tx1">订单总金额：</strong>
+        <input name="ou_amount" contentEditable="false" disabled   type="text" class="text01 c_tx2 w80 h20" style="width:110px;" value="" />
+</em> </span></div>
+<p style="display: none">
+  <input type="button" value="添加订单" class="btn_b5" name="add_order"/>
+</p>
+<div class="text_cent"><a href="javascript: void(0);" class="btn_sure mt_10"
+                          onclick="$('#btn_submit_ou').click();">提交订单</a></div>

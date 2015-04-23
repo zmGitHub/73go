@@ -1,0 +1,1904 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta content="all" name="robots">
+    <meta name="robots" content="index,follow">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <title>轻松行-酒店预订</title>
+    <link rel="stylesheet" type="text/css" href="__ROOT__/Public/js/searchPlugin/hotelDate/hoteles.css"/>
+    <link rel="stylesheet" href="__ROOT__/Public/js/searchPlugin/addressSearchCode/css/cityquery.css"/><!--城市插件样式-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript">
+        if (screen.width >= 1200) {
+            var link = document.createElement('link');
+            link.rel = "stylesheet";
+            link.type="text/css";
+            link.href="http://www.elongstatic.com/hotels/201502121815/css/hotelsList_w_2013.css?t=201503061415";
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
+    <![endif]-->
+
+
+
+</head>
+<body>
+<!-- ===================== header start ===================== -->
+
+<div class="header">
+    <div class="mininav">
+        <div class="cont">
+			<span class="lefttxt"> 欢迎来73GO!
+			   <if condition="LI('userName') neq null">
+                   <!--  <a href="javascript:void(0)">{:LI('userName')}</a><a href="{:U('Index/login')}"> 退出</a></span>-->
+                   <if condition="session('user_type') eq   '1' " >
+                       <a href="{:U('Index/mypage_user')}">
+                           <elseif condition="session('user_type') eq  '2' "/>
+                           <a href="{:U('Index/mypage_co')}">
+                               <else />
+                               <a href="{:U('Agent/Config/config_tmcinfo_account')}">
+                   </if>
+                   {:LI('userName')}</a><a href="{:U('Index/logout')}"> 退出</a>
+                   <else />
+                   <a href="{:U('Index/login')}">请登录</a><a href="{:U('Index/register_user')}"> 注册</a>
+               </if>
+			</span>
+        </div>
+    </div>
+    <div class="headtop">
+        <div class="logoMark"></div>
+        <div class="logo">
+            <a href="{:U('Home/Index/index')}"><img src="__ROOT__/Public/images/logo.jpg" width="191" height="43" alt="轻松行"/></a>
+        </div>
+        <div class="txt"></div>
+    </div>
+    <div class="nav">
+        <div class="menu">
+            <div class="navcate indexFlag">
+                <div class="navNews" style="right:-280px;"></div>
+                <div class="kc_title"><a href="{:U('Home/book/index')}">我的菜单</a></div>
+                <div class="all-sort-list">
+                    <div class="sub_i_bg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<!-- ===================== header end ===================== -->
+
+
+
+<div class="listBox">  <!--问题就是在这里了-->
+
+
+    <div class="pt5">
+
+
+        <a title="轻松行" href="http://www.elong.com">
+            首页
+        </a>
+        &gt;
+
+        <a title="酒店" href="/">
+            酒店
+        </a>
+
+        &gt;
+        <a title="深圳酒店" href="/shenzhen/">
+            深圳酒店
+        </a>
+        &gt;
+        <h1 class="breadcrumb" id="lastbread">
+            深圳酒店
+        </h1>
+    </div>
+
+
+    <div class="aiOneNew">
+
+        <label for="fromcity">
+            目的地
+            <input type="text" id="fromcity" class="intxt city" name="fromcity">
+        </label>
+
+        <label>
+            入住
+            <input type="text" id="J_DepDate" class="intxt date" name="J_DepDate" value="2015-03-11" method="beginDate">
+        </label>
+        <label>
+            退房
+            <input type="text" id="J_EndDate" class="intxt date" name="J_EndDate" value="2015-03-12" method="endDate">
+        </label>
+        <label>
+            关键字
+            <input type="text" class="intxt c9 txtAll" name="allInOne" method="allInOne" value="输入 位置 酒店名 或品牌" maxlength="20" style="color: rgb(0, 0, 0);">
+        </label>
+        <input type="button" class="serchBut cf fw" value="搜索" method="search">
+    </div>
+
+    <div class="newFilter newFiltermvt1" method="filterArea">
+        <div class="boxcolor showPosition">
+            <div class="wBox" method="locationFilterDiv">
+                <p class="title">位置：</p>
+                <div class="rBox">
+                    <div class="notto" method="locationTab" data-tab="unlimited">
+                        <a href="javascript:void(0)" class="cur">不限</a>
+                    </div>
+                    <ul class="place">
+
+                        <li method="locationTab" data-tab="businessArea" class="active">
+                            <a href="javascript:void(0)" rel="nofollow">
+                                商圈
+                                <span class="iconjt"></span>
+                            </a>
+                        </li>
+
+                        <li method="locationTab" data-tab="districtArea" class="">
+                            <a href="javascript:void(0)" rel="nofollow">
+                                行政区
+                                <span class="iconjt"></span>
+                            </a>
+                        </li>
+
+                        <li class="" method="locationTab" data-tab="1">
+                            <a href="javascript:void(0)" rel="nofollow">
+                                机场/火车站
+                                <span class="iconjt"></span>
+                            </a>
+                        </li>
+
+                        <li class="" method="locationTab" data-tab="2">
+                            <a href="javascript:void(0)" rel="nofollow">
+                                地铁站
+                                <span class="iconjt"></span>
+                            </a>
+                        </li>
+
+                        <li class="" method="locationTab" data-tab="31">
+                            <a href="javascript:void(0)" rel="nofollow">
+                                大学
+                                <span class="iconjt"></span>
+                            </a>
+                        </li>
+
+                        <li class="activeks" method="locationTab" data-tab="72">
+                            <a href="javascript:void(0)" rel="nofollow">
+                                周边游
+                                <span class="iconjt"></span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="filterShow" style="display:block;" method="businessAreaDiv" data-type="tab">
+                    <span class="cols" style="display: none;" method="closeLocation"></span>
+                    <ul class="normal">
+
+                        <li style="">
+                            <label title="深圳罗湖火车站、罗湖口岸酒店" method="locationFilter" data-typeid="3" data-id="200301" data-name="罗湖火车站、罗湖口岸">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                罗湖火车站、罗湖口岸
+                            </label>
+                        </li>
+
+                        <li style="">
+                            <label title="深圳会展中心、福田CBD酒店" method="locationFilter" data-typeid="3" data-id="200306" data-name="会展中心、福田CBD">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                会展中心、福田CBD
+                            </label>
+                        </li>
+
+                        <li style="">
+                            <label title="深圳华侨城酒店" method="locationFilter" data-typeid="3" data-id="200309" data-name="华侨城">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                华侨城
+                            </label>
+                        </li>
+
+                        <li style="">
+                            <label title="深圳华强北酒店" method="locationFilter" data-typeid="3" data-id="200303" data-name="华强北">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                华强北
+                            </label>
+                        </li>
+
+                        <li style="">
+                            <label title="深圳机场、福永酒店" method="locationFilter" data-typeid="3" data-id="200310" data-name="机场、福永">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                机场、福永
+                            </label>
+                        </li>
+
+                        <li style="">
+                            <label title="深圳东门、水贝酒店" method="locationFilter" data-typeid="3" data-id="200312" data-name="东门、水贝">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                东门、水贝
+                            </label>
+                        </li>
+
+                        <li style="">
+                            <label title="深圳科技园酒店" method="locationFilter" data-typeid="3" data-id="200329" data-name="科技园">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                科技园
+                            </label>
+                        </li>
+
+                        <li style="">
+                            <label title="深圳深圳北站、龙华新区酒店" method="locationFilter" data-typeid="3" data-id="200304" data-name="深圳北站、龙华新区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                深圳北站、龙华新区
+                            </label>
+                        </li>
+
+                        <li style="">
+                            <label title="深圳福田口岸、皇岗口岸酒店" method="locationFilter" data-typeid="3" data-id="200330" data-name="福田口岸、皇岗口岸">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                福田口岸、皇岗口岸
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳宝安中心区、前海酒店" method="locationFilter" data-typeid="3" data-id="200341" data-name="宝安中心区、前海">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                宝安中心区、前海
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳大小梅沙、东部华侨城酒店" method="locationFilter" data-typeid="3" data-id="200322" data-name="大小梅沙、东部华侨城">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                大小梅沙、东部华侨城
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳蛇口酒店" method="locationFilter" data-typeid="3" data-id="200318" data-name="蛇口">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                蛇口
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳海岸城、深圳湾口岸酒店" method="locationFilter" data-typeid="3" data-id="200353" data-name="海岸城、深圳湾口岸">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                海岸城、深圳湾口岸
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳龙岗中心区酒店" method="locationFilter" data-typeid="3" data-id="200336" data-name="龙岗中心区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                龙岗中心区
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳布吉、深圳东站酒店" method="locationFilter" data-typeid="3" data-id="200326" data-name="布吉、深圳东站">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                布吉、深圳东站
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳京基100、万象城酒店" method="locationFilter" data-typeid="3" data-id="200314" data-name="京基100、万象城">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                京基100、万象城
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳西丽、大学城酒店" method="locationFilter" data-typeid="3" data-id="200323" data-name="西丽、大学城">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                西丽、大学城
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳西涌、东涌酒店" method="locationFilter" data-typeid="3" data-id="200327" data-name="西涌、东涌">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                西涌、东涌
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳竹子林、车公庙酒店" method="locationFilter" data-typeid="3" data-id="200302" data-name="竹子林、车公庙">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                竹子林、车公庙
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳南澳酒店" method="locationFilter" data-typeid="3" data-id="200340" data-name="南澳">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                南澳
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳坂田、平湖酒店" method="locationFilter" data-typeid="3" data-id="200344" data-name="坂田、平湖">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                坂田、平湖
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳较场尾、大鹏所城酒店" method="locationFilter" data-typeid="3" data-id="200320" data-name="较场尾、大鹏所城">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                较场尾、大鹏所城
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳沙井、松岗酒店" method="locationFilter" data-typeid="3" data-id="200307" data-name="沙井、松岗">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                沙井、松岗
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳观澜酒店" method="locationFilter" data-typeid="3" data-id="200308" data-name="观澜">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                观澜
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳沙头角、中英街酒店" method="locationFilter" data-typeid="3" data-id="200350" data-name="沙头角、中英街">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                沙头角、中英街
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳葵涌酒店" method="locationFilter" data-typeid="3" data-id="200347" data-name="葵涌">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                葵涌
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳坪山新区酒店" method="locationFilter" data-typeid="3" data-id="200352" data-name="坪山新区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                坪山新区
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳光明新区酒店" method="locationFilter" data-typeid="3" data-id="200305" data-name="光明新区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                光明新区
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳杨梅坑酒店" method="locationFilter" data-typeid="3" data-id="200333" data-name="杨梅坑">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                杨梅坑
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳莲塘、梧桐山酒店" method="locationFilter" data-typeid="3" data-id="200311" data-name="莲塘、梧桐山">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                莲塘、梧桐山
+                            </label>
+                        </li>
+
+                        <li style="display: none;">
+                            <label title="深圳石岩酒店" method="locationFilter" data-typeid="3" data-id="200313" data-name="石岩">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                石岩
+                            </label>
+                        </li>
+
+                        <li class="more" method="moreBusinessArea">
+                            更多
+                            <span class="jt"></span>
+                        </li>
+
+                    </ul>
+                    <div class="clear">
+                    </div>
+                </div>
+                <div class="filterShow" style="display: none;" method="districtAreaDiv" data-type="tab">
+                    <span class="cols" method="closeLocation"></span>
+                    <ul class="normal">
+
+                        <li>
+                            <label title="深圳福田区酒店" method="locationFilter" data-typeid="6" data-id="0001" data-name="福田区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                福田区
+                            </label>
+                        </li>
+
+                        <li>
+                            <label title="深圳罗湖区酒店" method="locationFilter" data-typeid="6" data-id="0002" data-name="罗湖区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                罗湖区
+                            </label>
+                        </li>
+
+                        <li>
+                            <label title="深圳南山区酒店" method="locationFilter" data-typeid="6" data-id="0004" data-name="南山区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                南山区
+                            </label>
+                        </li>
+
+                        <li>
+                            <label title="深圳盐田区酒店" method="locationFilter" data-typeid="6" data-id="0005" data-name="盐田区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                盐田区
+                            </label>
+                        </li>
+
+                        <li>
+                            <label title="深圳宝安区酒店" method="locationFilter" data-typeid="6" data-id="0006" data-name="宝安区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                宝安区
+                            </label>
+                        </li>
+
+                        <li>
+                            <label title="深圳龙岗区酒店" method="locationFilter" data-typeid="6" data-id="0007" data-name="龙岗区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                龙岗区
+                            </label>
+                        </li>
+
+                        <li>
+                            <label title="深圳光明新区酒店" method="locationFilter" data-typeid="6" data-id="0008" data-name="光明新区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                光明新区
+                            </label>
+                        </li>
+
+                        <li>
+                            <label title="深圳坪山新区酒店" method="locationFilter" data-typeid="6" data-id="0009" data-name="坪山新区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                坪山新区
+                            </label>
+                        </li>
+
+                        <li>
+                            <label title="深圳大鹏新区酒店" method="locationFilter" data-typeid="6" data-id="0010" data-name="大鹏新区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                大鹏新区
+                            </label>
+                        </li>
+
+                        <li>
+                            <label title="深圳龙华新区酒店" method="locationFilter" data-typeid="6" data-id="0011" data-name="龙华新区">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                龙华新区
+                            </label>
+                        </li>
+
+                        <li>
+                            <label title="深圳宝安国际机场酒店" method="locationFilter" data-typeid="6" data-id="0012" data-name="宝安国际机场">
+                                <input type="radio" name="locationFilter" checked="checked">
+                                宝安国际机场
+                            </label>
+                        </li>
+
+                    </ul>
+                    <div class="clear">
+                    </div>
+                </div>
+                <div class="filterShow" style="display: none;" method="dynamicLocationDiv" data-type="tab"></div>
+                <div class="clear">
+                </div>
+            </div>
+            <div class="wBox" method="priceFilterDiv">
+                <p class="title">房价：</p>
+                <div class="rBox">
+                    <div class="notto" method="priceFilter" data-low="unlimited" data-high="unlimited">
+                        <a href="javascript:void(0)" class="cur">不限</a>
+                    </div>
+                    <ul class="place prices">
+
+                        <li method="priceFilter" data-low="0" data-high="150">
+                            <input type="radio" name="priceFilter" checked="checked">
+                            <label title="深圳150元以下酒店">150元以下</label>
+                        </li>
+
+                        <li method="priceFilter" data-low="150" data-high="300">
+                            <input type="radio" name="priceFilter" checked="checked">
+                            <label title="深圳150-300元酒店">150-300元</label>
+                        </li>
+
+                        <li method="priceFilter" data-low="301" data-high="450">
+                            <input type="radio" name="priceFilter" checked="checked">
+                            <label title="深圳301-450元酒店">301-450元</label>
+                        </li>
+
+                        <li method="priceFilter" data-low="451" data-high="600">
+                            <input type="radio" name="priceFilter" checked="checked">
+                            <label title="深圳451-600元酒店">451-600元</label>
+                        </li>
+
+                        <li method="priceFilter" data-low="600" data-high="0">
+                            <input type="radio" name="priceFilter" checked="checked">
+                            <label title="深圳600元以上酒店">600元以上</label>
+                        </li>
+
+                    </ul>
+                    <div class="optional">
+                        自定义
+                        <input type="text" class="priTxt" method="lowPrice">
+                        到
+                        <input type="text" class="priTxt" method="highPrice">
+                        <input type="button" class="priBut" value="确定" method="confirmPrice">
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <div class="wBox" method="starFilterDiv">
+                <p class="title">星级：</p>
+                <div class="rBox">
+                    <div class="notto" method="starFilter" data-star="unlimited">
+                        <a href="javascript:void(0)" class="cur">不限</a>
+                    </div>
+                    <ul class="place prices">
+
+                        <li method="starFilter" data-star="2" data-name="经济/客栈">
+                            <input type="checkbox" name="starFilter" checked="checked"><label title="深圳经济/客栈酒店">经济/客栈</label>
+                        </li>
+
+                        <li method="starFilter" data-star="3" data-name="三星/舒适">
+                            <input type="checkbox" name="starFilter" checked="checked"><label title="深圳三星/舒适酒店">三星/舒适</label>
+                        </li>
+
+                        <li method="starFilter" data-star="4" data-name="四星/高档">
+                            <input type="checkbox" name="starFilter" checked="checked"><label title="深圳四星/高档酒店">四星/高档</label>
+                        </li>
+
+                        <li method="starFilter" data-star="5" data-name="五星/豪华">
+                            <input type="checkbox" name="starFilter" checked="checked"><label title="深圳五星/豪华酒店">五星/豪华</label>
+                        </li>
+
+                        <li method="starFilter" data-star="11" data-name="公寓酒店">
+                            <input type="checkbox" name="starFilter" checked="checked"><label title="深圳公寓酒店">公寓</label>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+
+            <div class="wBox" method="brandFilterDiv">
+                <p class="title">品牌：</p>
+                <div class="rBox">
+                    <div class="notto" method="brandFilter" data-brand="unlimited">
+                        <a href="javascript:void(0)" class="cur">不限</a>
+                    </div>
+                    <ul class="place prver">
+
+                        <li method="brandFilter" data-brand="316">
+                            <input type="checkbox" name="brandFilter" checked="checked">
+                            <label title="深圳皇冠假日酒店">皇冠假日</label>
+                        </li>
+
+                        <li method="brandFilter" data-brand="313">
+                            <input type="checkbox" name="brandFilter" checked="checked">
+                            <label title="深圳喜来登酒店">喜来登</label>
+                        </li>
+
+                        <li method="brandFilter" data-brand="15">
+                            <input type="checkbox" name="brandFilter" checked="checked">
+                            <label title="深圳洲际酒店">洲际</label>
+                        </li>
+
+                        <li method="brandFilter" data-brand="97">
+                            <input type="checkbox" name="brandFilter" checked="checked">
+                            <label title="深圳维也纳酒店">维也纳</label>
+                        </li>
+
+                        <li method="brandFilter" data-brand="21">
+                            <input type="checkbox" name="brandFilter" checked="checked">
+                            <label title="深圳港中旅维景酒店">港中旅维景</label>
+                        </li>
+
+                        <li method="brandFilter" data-brand="32">
+                            <input type="checkbox" name="brandFilter" checked="checked">
+                            <label title="深圳如家酒店">如家</label>
+                        </li>
+
+                        <li method="brandFilter" data-brand="56">
+                            <input type="checkbox" name="brandFilter" checked="checked">
+                            <label title="深圳汉庭酒店">汉庭</label>
+                        </li>
+
+                        <li method="brandFilter" data-brand="53">
+                            <input type="checkbox" name="brandFilter" checked="checked">
+                            <label title="深圳7天酒店">7天</label>
+                        </li>
+
+                        <li method="brandFilter" data-brand="35">
+                            <input type="checkbox" name="brandFilter" checked="checked">
+                            <label title="深圳莫泰酒店">莫泰</label>
+                        </li>
+
+                        <li class="more" method="moreBrand">
+                            更多
+                            <span class="jt"></span>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+
+            <div class="poi-popup" style="display: none; z-index: 1200;" method="moreBrandDiv">
+                <div class="box">
+                    <div class="cnt">
+                        <div class="p10">
+                            <div class="Htitle">
+                                <a class="com_close right" href="javascript:void(0)" rel="nofollow" onfocus="this.blur()" method="close" title="关闭"></a>
+                                更多品牌酒店
+                            </div>
+                            <ul class="movePinp clx">
+
+                                <li data-brand="316">
+                                    <label title="深圳皇冠假日酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">皇冠假日</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="313">
+                                    <label title="深圳喜来登酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">喜来登</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="15">
+                                    <label title="深圳洲际酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">洲际</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="97">
+                                    <label title="深圳维也纳酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">维也纳</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="21">
+                                    <label title="深圳港中旅维景酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">港中旅维景</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="32">
+                                    <label title="深圳如家酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">如家</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="56">
+                                    <label title="深圳汉庭酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">汉庭</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="53">
+                                    <label title="深圳7天酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">7天</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="35">
+                                    <label title="深圳莫泰酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">莫泰</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="29156">
+                                    <label title="深圳福朋喜来登酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">福朋喜来登</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="11">
+                                    <label title="深圳香格里拉酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">香格里拉</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="45">
+                                    <label title="深圳凯宾斯基酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">凯宾斯基</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="330">
+                                    <label title="深圳智选假日酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">智选假日</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="7">
+                                    <label title="深圳锦江酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">锦江</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="621">
+                                    <label title="深圳美爵酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">美爵</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="29154">
+                                    <label title="深圳假日酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">假日</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="488">
+                                    <label title="深圳丽思卡尔顿酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">丽思卡尔顿</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="547">
+                                    <label title="深圳诺富特酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">诺富特</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="36">
+                                    <label title="深圳雅诗阁（Ascott）酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">雅诗阁（Ascott）</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="29316">
+                                    <label title="深圳希尔顿花园酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">希尔顿花园</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="4080">
+                                    <label title="深圳朗廷酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">朗廷</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="422">
+                                    <label title="深圳君悦酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">君悦</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="29270">
+                                    <label title="深圳JW万豪酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">JW万豪</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="751">
+                                    <label title="深圳格兰云天酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">格兰云天</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="17">
+                                    <label title="深圳粤海酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">粤海</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="2192">
+                                    <label title="深圳中南海滨酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">中南海滨</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="34">
+                                    <label title="深圳锦江之星酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">锦江之星</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="98">
+                                    <label title="深圳城市客栈酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">城市客栈</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="44">
+                                    <label title="深圳格林豪泰酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">格林豪泰</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="41">
+                                    <label title="深圳速8酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">速8</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="901">
+                                    <label title="深圳悦来客栈酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">悦来客栈</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="61">
+                                    <label title="深圳富驿酒店酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">富驿酒店</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="74">
+                                    <label title="深圳山水时尚酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">山水时尚</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="355">
+                                    <label title="深圳岭南佳园酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">岭南佳园</a>
+                                    </label>
+                                </li>
+
+                                <li data-brand="429">
+                                    <label title="深圳金广快捷酒店" method="brandFilter">
+                                        <input type="checkbox" name="brandFilter" checked="checked">
+                                        <a href="javascript:void(0)">金广快捷</a>
+                                    </label>
+                                </li>
+
+                            </ul>
+                            <div class="clear">
+                            </div>
+                            <div class="tr clx">
+                                <input type="button" class="Hbot" value="确定" method="ok">
+                            </div>
+                            <div class="clear">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wBox nobor" method="capacityFilterDiv">
+                <p class="title">人数：</p>
+                <div class="rBox">
+                    <div class="notto" method="capacityFilter" data-capacity="unlimited">
+                        <a href="javascript:void(0)" class="cur">不限</a>
+                    </div>
+                    <ul class="place prver">
+
+                        <li method="capacityFilter" data-capacity="1">
+                            <input type="radio" name="capacityFilter" checked="checked">
+                            <label>1人</label>
+                        </li>
+
+                        <li method="capacityFilter" data-capacity="2">
+                            <input type="radio" name="capacityFilter" checked="checked">
+                            <label>2人</label>
+                        </li>
+
+                        <li method="capacityFilter" data-capacity="3">
+                            <input type="radio" name="capacityFilter" checked="checked">
+                            <label>3人</label>
+                        </li>
+
+                        <li method="capacityFilter" data-capacity="4">
+                            <input type="radio" name="capacityFilter" checked="checked">
+                            <label>4人</label>
+                        </li>
+
+                        <li method="capacityFilter" data-capacity="5">
+                            <input type="radio" name="capacityFilter" checked="checked">
+                            <label>5人</label>
+                        </li>
+
+                        <li method="capacityFilter" data-capacity="6">
+                            <input type="radio" name="capacityFilter" checked="checked">
+                            <label>6人</label>
+                        </li>
+
+                        <li method="capacityFilter" data-capacity="7">
+                            <input type="radio" name="capacityFilter" checked="checked">
+                            <label>6人以上</label>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+
+            <div class="wBox" style="display: none;" method="facilityFilterDiv">
+                <p class="title">设施：</p>
+                <div class="rBox">
+                    <div class="notto" method="facilityFilter" data-facility="unlimited">
+                        <a href="javascript:void(0)" class="cur">不限</a>
+                    </div>
+                    <ul class="place prver">
+
+                        <li method="facilityFilter" data-facility="1">
+                            <input type="checkbox" name="facilityFilter" checked="checked">
+                            <label title="免费WiFi">
+                                免费WiFi
+
+                                <tt class="new"></tt>
+
+                            </label>
+                        </li>
+
+                        <li method="facilityFilter" data-facility="0">
+                            <input type="checkbox" name="facilityFilter" checked="checked">
+                            <label title="免费宽带">
+                                免费宽带
+
+                            </label>
+                        </li>
+
+                        <li method="facilityFilter" data-facility="5">
+                            <input type="checkbox" name="facilityFilter" checked="checked">
+                            <label title="免费停车场">
+                                免费停车场
+
+                            </label>
+                        </li>
+
+                        <li method="facilityFilter" data-facility="11">
+                            <input type="checkbox" name="facilityFilter" checked="checked">
+                            <label title="健身房">
+                                健身房
+
+                            </label>
+                        </li>
+
+                        <li method="facilityFilter" data-facility="7">
+                            <input type="checkbox" name="facilityFilter" checked="checked">
+                            <label title="免费接机">
+                                免费接机
+
+                            </label>
+                        </li>
+
+                        <li method="facilityFilter" data-facility="9">
+                            <input type="checkbox" name="facilityFilter" checked="checked">
+                            <label title="游泳池">
+                                游泳池
+
+                            </label>
+                        </li>
+
+                        <li method="facilityFilter" data-facility="14">
+                            <input type="checkbox" name="facilityFilter" checked="checked">
+                            <label title="餐厅">
+                                餐厅
+
+                            </label>
+                        </li>
+
+                        <li method="facilityFilter" data-facility="13">
+                            <input type="checkbox" name="facilityFilter" checked="checked">
+                            <label title="会议室">
+                                会议室
+
+                            </label>
+                        </li>
+
+                        <li method="facilityFilter" data-facility="12">
+                            <input type="checkbox" name="facilityFilter" checked="checked">
+                            <label title="商务中心">
+                                商务中心
+
+                            </label>
+                        </li>
+
+                        <li class="more" method="moreFacility">
+                            更多
+                            <span class="jt"></span>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+
+            <div class="poi-popup" style="display: none; z-index: 1200;" method="moreFacilityDiv">
+                <div class="box">
+                    <div class="cnt">
+                        <div class="p10">
+                            <div class="Htitle">
+                                <a class="com_close right" href="javascript:void(0)" rel="nofollow" onfocus="this.blur()" method="close" title="关闭"></a>
+                                更多设施
+                            </div>
+                            <ul class="movePinp clx">
+
+                                <li data-facility="1">
+                                    <label title="免费WiFi" method="facilityFilter">
+                                        <input type="checkbox" name="facilityFilter" checked="checked">
+                                        <a href="javascript:void(0)" rel="nofollow">免费WiFi</a>
+                                    </label>
+                                </li>
+
+                                <li data-facility="0">
+                                    <label title="免费宽带" method="facilityFilter">
+                                        <input type="checkbox" name="facilityFilter" checked="checked">
+                                        <a href="javascript:void(0)" rel="nofollow">免费宽带</a>
+                                    </label>
+                                </li>
+
+                                <li data-facility="5">
+                                    <label title="免费停车场" method="facilityFilter">
+                                        <input type="checkbox" name="facilityFilter" checked="checked">
+                                        <a href="javascript:void(0)" rel="nofollow">免费停车场</a>
+                                    </label>
+                                </li>
+
+                                <li data-facility="11">
+                                    <label title="健身房" method="facilityFilter">
+                                        <input type="checkbox" name="facilityFilter" checked="checked">
+                                        <a href="javascript:void(0)" rel="nofollow">健身房</a>
+                                    </label>
+                                </li>
+
+                                <li data-facility="7">
+                                    <label title="免费接机" method="facilityFilter">
+                                        <input type="checkbox" name="facilityFilter" checked="checked">
+                                        <a href="javascript:void(0)" rel="nofollow">免费接机</a>
+                                    </label>
+                                </li>
+
+                                <li data-facility="9">
+                                    <label title="游泳池" method="facilityFilter">
+                                        <input type="checkbox" name="facilityFilter" checked="checked">
+                                        <a href="javascript:void(0)" rel="nofollow">游泳池</a>
+                                    </label>
+                                </li>
+
+                                <li data-facility="14">
+                                    <label title="餐厅" method="facilityFilter">
+                                        <input type="checkbox" name="facilityFilter" checked="checked">
+                                        <a href="javascript:void(0)" rel="nofollow">餐厅</a>
+                                    </label>
+                                </li>
+
+                                <li data-facility="13">
+                                    <label title="会议室" method="facilityFilter">
+                                        <input type="checkbox" name="facilityFilter" checked="checked">
+                                        <a href="javascript:void(0)" rel="nofollow">会议室</a>
+                                    </label>
+                                </li>
+
+                                <li data-facility="12">
+                                    <label title="商务中心" method="facilityFilter">
+                                        <input type="checkbox" name="facilityFilter" checked="checked">
+                                        <a href="javascript:void(0)" rel="nofollow">商务中心</a>
+                                    </label>
+                                </li>
+
+                                <li data-facility="bigbed">
+                                    <label title="大床" method="facilityFilter">
+                                        <input mark="bigbed" type="checkbox" name="facilityFilter" checked="checked">
+                                        <a href="javascript:void(0)" rel="nofollow">大床</a>
+                                    </label>
+                                </li>
+                                <li data-facility="doublebed">
+                                    <label title="双床" method="facilityFilter">
+                                        <input mark="doublebed" type="checkbox" name="facilityFilter" checked="checked">
+                                        <a href="javascript:void(0)" rel="nofollow">双床</a>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="clear">
+                            </div>
+                            <div class="tr clx">
+                                <input type="button" class="Hbot" method="ok" value="确定"></div>
+                            <div class="clear">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wBox nobor" style="display: none;" method="themeFilterDiv">
+                <p class="title">主题：</p>
+                <div class="rBox">
+                    <div class="notto" method="themeFilter" data-theme="unlimited">
+                        <a href="javascript:void(0)" class="cur">不限</a>
+                    </div>
+                    <ul class="place prver">
+
+                        <li method="themeFilter" data-theme="97">
+                            <input type="checkbox" name="themeFilter" checked="checked">
+                            <label title="客栈">
+                                客栈
+
+                            </label>
+                        </li>
+
+                        <li method="themeFilter" data-theme="98">
+                            <input type="checkbox" name="themeFilter" checked="checked">
+                            <label title="家庭旅馆">
+                                家庭旅馆
+
+                            </label>
+                        </li>
+
+                        <li method="themeFilter" data-theme="99">
+                            <input type="checkbox" name="themeFilter" checked="checked">
+                            <label title="青年旅舍">
+                                青年旅舍
+
+                            </label>
+                        </li>
+
+                        <li method="themeFilter" data-theme="100">
+                            <input type="checkbox" name="themeFilter" checked="checked">
+                            <label title="精品酒店（设计师酒店）">
+                                精品酒店（设计师酒店）
+
+                            </label>
+                        </li>
+
+                        <li method="themeFilter" data-theme="101">
+                            <input type="checkbox" name="themeFilter" checked="checked">
+                            <label title="情侣酒店">
+                                情侣酒店
+
+                            </label>
+                        </li>
+
+                        <li method="themeFilter" data-theme="105">
+                            <input type="checkbox" name="themeFilter" checked="checked">
+                            <label title="园林庭院">
+                                园林庭院
+
+                            </label>
+                        </li>
+
+                        <li method="themeFilter" data-theme="103">
+                            <input type="checkbox" name="themeFilter" checked="checked">
+                            <label title="海景">
+                                海景
+
+                            </label>
+                        </li>
+
+                        <li method="themeFilter" data-theme="106">
+                            <input type="checkbox" name="themeFilter" checked="checked">
+                            <label title="农家乐">
+                                农家乐
+
+                            </label>
+                        </li>
+
+                        <li method="themeFilter" data-theme="102">
+                            <input type="checkbox" name="themeFilter" checked="checked">
+                            <label title="温泉酒店">
+                                温泉酒店
+
+                            </label>
+                        </li>
+
+                        <li class="more" method="moreTheme">
+                            更多
+                            <span class="jt"></span>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+
+            <div class="poi-popup" style="display: none; z-index: 1200;" method="moreThemeDiv">
+                <div class="box">
+                    <div class="cnt">
+                        <div class="p10">
+                            <div class="Htitle">
+                                <a class="com_close right" href="javascript:void(0)" onfocus="this.blur()" method="close" title="关闭"></a>
+                                更多主题
+                            </div>
+                            <ul class="movePinp clx">
+
+                                <li data-theme="97">
+                                    <label title="客栈" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">客栈</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="98">
+                                    <label title="家庭旅馆" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">家庭旅馆</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="99">
+                                    <label title="青年旅舍" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">青年旅舍</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="100">
+                                    <label title="精品酒店（设计师酒店）" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">精品酒店（设计师酒店）</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="101">
+                                    <label title="情侣酒店" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">情侣酒店</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="105">
+                                    <label title="园林庭院" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">园林庭院</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="103">
+                                    <label title="海景" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">海景</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="106">
+                                    <label title="农家乐" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">农家乐</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="102">
+                                    <label title="温泉酒店" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">温泉酒店</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="104">
+                                    <label title="高尔夫酒店" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">高尔夫酒店</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="107">
+                                    <label title="四合院" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">四合院</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="259">
+                                    <label title="别墅" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">别墅</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="260">
+                                    <label title="聚会做饭" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">聚会做饭</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="261">
+                                    <label title="商旅之家" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">商旅之家</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="262">
+                                    <label title="休闲情调" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">休闲情调</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="265">
+                                    <label title="看病就医" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">看病就医</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="264">
+                                    <label title="度假休闲" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">度假休闲</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="266">
+                                    <label title="培训学习" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">培训学习</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="267">
+                                    <label title="聚会" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">聚会</a>
+                                    </label>
+                                </li>
+
+                                <li data-theme="268">
+                                    <label title="蜜月出行" method="themeFilter">
+                                        <input type="checkbox" name="themeFilter" checked="checked">
+                                        <a href="javascript:void(0)">蜜月出行</a>
+                                    </label>
+                                </li>
+
+                            </ul>
+                            <div class="clear">
+                            </div>
+                            <div class="tr clx">
+                                <input type="button" class="Hbot" method="ok" value="确定"></div>
+                            <div class="clear">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="boxbut" method="showAllFilters" style="display: block;"><a href="javascript:void(0)">展开设施和主题</a><span class="xlicon"></span></div>
+            <div class="boxbut" method="hideSomeFilters" style="display: none;"><a href="javascript:void(0)">收起设施和主题</a><span class="xliconz"></span></div>
+        </div>
+        <div class="fBox fBoxmvt1" id="conditionsUl">
+            <div class="title">
+                <strong id="HotelCountN">577</strong>家酒店满足条件
+            </div>
+            <ul class="tiaojian tiaojianmvt1" method="conditionsUl" style="_position:relative;"><li method="deleteCondition" data-type="allInOne">深圳站<span title="删除此条件"></span></li></ul>
+            <div class="del delmvt1">
+                <a href="javascript:void(0)" rel="nofollow" method="cleanConditions">清空条件</a>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="listMain" id="contentId">
+
+        <!--List Booked Start-->
+        <div id="divBookRating" class="listRoomRing mt10" style="display: none;">
+        </div>
+        <!--List Booked End-->
+
+        <div class="sort" method="sortArea">
+            <ul>
+                <li class="def" method="sort" data-type="elong"><a href="javascript:void(0)" rel="nofollow" class="on" onfocus="this.blur();">
+                    艺龙推荐</a></li>
+                <li method="sort" data-type="popu"><a href="javascript:void(0)" rel="nofollow" class="down" onfocus="this.blur();" title="点击按好评由高到低">
+                    口碑</a></li>
+                <li method="sort" data-type="distance"><a href="javascript:void(0)" rel="nofollow" class="up" onfocus="this.blur();" title="点击按距离由近到远">
+                    距离</a></li>
+                <li class="" method="sort" data-type="priceAsc"><a href="javascript:void(0)" rel="nofollow" class="up" onfocus="this.blur();" title="点击按价格由低到高">
+                    价格</a></li>
+
+                <li class="backafter" title="只看返后价"><label method="aftercouponprice"><input type="checkbox" id="chkDiscountPrice" checked="">只看返后价</label></li>
+
+            </ul>
+            <div class="preOptions" method="advancedFilterDiv">
+
+                当前促销：
+                <label method="promotion" data-promotion="cashBack" title="入住后获得返现">
+                    <input type="checkbox">
+                    返现
+                </label>
+
+                <label method="promotion" data-promotion="prepay" title="我要在线支付房费，获得更低价格">
+                    <input type="checkbox">
+                    预付更优惠
+                </label>
+                <label method="promotion" data-promotion="rushSale" title="我要订四五星高端酒店，享受限时大促">
+                    <input type="checkbox">
+                    限时抢
+                </label>
+                <tt><a class="h_close" method="moreBox" href="#">更多</a>
+                    <div class="more_box none">
+
+                        <label method="promotion" data-promotion="rushSale" title="我要订四五星高端酒店，享受限时大促">
+                            <input type="checkbox">限时抢</label>
+                        <label method="promotion" data-promotion="IsAdvanceSave">
+                            <input type="checkbox">早订省</label>
+                        <label method="promotion" data-promotion="IsStaySave">
+                            <input type="checkbox">连住省</label>
+                    </div>
+                </tt>
+
+            </div>
+        </div>
+
+        <div class="saleHotel mt20 mb20" style="display: block;" id="divTodayTejiaHotels" groupindex="0">
+
+            <div class="title left"> <span class="icon"></span>
+                <h1><a href="#" target="_blank">今日特卖</a></h1>
+            </div>
+            <ul class="h_info">
+                <li class="close" mth="close">close</li>
+
+                <li class="infor">
+                    <div class="pic left">
+
+                        <a href="#" target="_blank"><img src="__ROOT__/Public/images/hotelPic.jpg" onerror="__ROOT__/Public/images/nopic.png'" alt="深圳万事达酒店(宝安港隆城店)" height="100"></a>
+                    </div>
+                    <div class="infoBox">
+                        <a href="#" target="_blank">深圳万事达酒店(宝安港隆城店)
+                            <span title="艺龙用户评定为舒适型酒店" class="medal me-30"></span>
+                        </a>
+                        <p class="addr">宝安中心区、前海</p>
+
+                    </div>
+                </li>
+
+                <li class="infor">
+                    <div class="pic left">
+
+                        <a href="#" target="_blank"><img src="__ROOT__/Public/images/hotelPic.jpg" onerror="__ROOT__/Public/images/nopic.png'" alt="深圳鸿隆明华轮酒店(蛇口地标海上世界)" height="100"></a>
+                    </div>
+                    <div class="infoBox">
+                        <a href="#" target="_blank">深圳鸿隆明华轮酒店(蛇口地标海上世界)
+                            <span title="艺龙用户评定为高档型酒店" class="medal me-40"></span>
+                        </a>
+                        <p class="addr">蛇口</p>
+
+                        <p class="rev"><span class="price">¥500<span class="fb">起</span></span></p>
+
+                    </div>
+                </li>
+
+                <li class="change">
+
+                    <a href="#?" mth="changeTejia" c="4">换一换</a><span class="c9">|</span><a href="#" target="_blank">更多&gt;&gt;</a>
+                </li>
+            </ul>
+
+        </div>
+
+
+
+
+        <div id="HotApartment" style="display: none;">
+            <!--<A style="MARGIN: 10px 0px; WIDTH: 100%; DISPLAY: inline-block; BACKGROUND: url(http://www.elongstatic.com/images/hotels/jiabanner.jpg) no-repeat right 50%; HEIGHT: 60px" href="http://jia.elong.com/?keycoid=shaixuan20140123"></A>-->
+        </div>
+        <div id="hotelList">
+            <div class="newHotelInfo clx" id="hotel42003255" hotelid="42003255">
+                <div class="t1">
+                    <div class="newHotelIcon">
+                        <span class="t1_lc" mth="showLongCuiTag"></span>
+
+                    </div>
+                    <a target="_blank" href="#" mth="clickDot">
+                        <img hotelname="深圳市广珅大酒店(原广晟国际大酒店)" onerror="__ROOT__/Public/images/nopic.png'" src="__ROOT__/Public/images/hotelPic.jpg" alt="深圳市广珅大酒店(原广晟国际大酒店)" mth="bigpic" mark="img_42003255">
+                    </a>
+                    <div class="com_bigpic" mark="big_img_42003255" style="display: none;"> <div class="box"> <div class="cnt_dom"></div> </div> </div></div>
+
+                <dl class="t2">
+                    <dt><tt class=""></tt><a class="name" mth="clickDot" target="_blank" href="/shenzhen/42003255/" title="深圳市广珅大酒店(原广晟国际大酒店)">
+                        深圳市广珅大酒店(原广晟国际大酒店)</a>
+
+                                <span class="dx dx3 title_cx" title="国家旅游局评定星级为3星级">
+
+                           </span>
+
+                    </dt>
+                    <dd class="t2_addr_hide">
+                        距离<span class="cf60">深圳站</span>的直线距离约<span class="cf60">0.1</span>公里
+                        <a class="bh mr10" href="#?" rel="nofollow" mth="showMap" tab="map" style="" title="深圳市广珅大酒店(原广晟国际大酒店)地图" hotelid="42003255" lat="22.539483" lng="114.122984" sosoid="10041049140115121305900" heading="69" pitch="-1" room="1" isgoogle="False" x="22.53306181" y="114.1164279"><span class="mapicon" mth="showMap" tab="map" title="深圳市广珅大酒店(原广晟国际大酒店)地图" hotelid="42003255" lat="22.539483" lng="114.122984" sosoid="10041049140115121305900" heading="69" pitch="-1" room="1"></span>地图</a><a class="bh" href="#?" rel="nofollow" mth="showSosoMap" tab="soso" title="深圳市广珅大酒店(原广晟国际大酒店)街景" hotelid="42003255" lat="22.539483" lng="114.122984" sosoid="10041049140115121305900" heading="69" pitch="-1" room="1"><span class="jjicon" mth="showSosoMap" tab="soso" title="深圳市广珅大酒店(原广晟国际大酒店)街景" hotelid="42003255" lat="22.539483" lng="114.122984" sosoid="10041049140115121305900" heading="69" pitch="-1" room="1"></span>街景</a>
+
+                    </dd>
+
+                    <dd class="new_order" id="new_order42003255">
+
+                        <span class="new_wifi" title="WIFI"></span>
+
+                        <span class="new_parking" title="停车场"></span>
+
+                        3小时前有人预订了该酒店</dd>
+                </dl>
+
+                <div class="t4 new_price" id="priceRegion_42003255">
+
+                            <span class="price" id="dynaLP_42003255" mth="priceUrl" roomhotelid="42003255" rpid="102498" roomid="0032">
+                                <span class="fh">¥</span>188<span class="fb">起</span>
+
+
+                            </span>
+                    <br>
+
+
+                </div>
+
+                <div class="t3 new_dp">
+                    <font color="#555">好评率：</font><a target="_blank" href="/shenzhen/42003255/review.html" title="查看深圳市广珅大酒店(原广晟国际大酒店)评论">
+                                       <span class="bfb">
+                                           80%</span></a><br>
+                    来自606条点评
+
+                    <div class="t6 new_service" confirmrate="86" successrate="99" complaintsrate="0" mth="serviceindex">
+                        服务指数:<span class="sz">4.9</span><span class="zs">/5分</span>
+                    </div>
+
+                    <p class="col" style="display: none;" hotelid="42003255" hotelname="深圳市广珅大酒店(原广晟国际大酒店)" isfavhotel="False" iscomparehotel="false"> <s><i></i><font handle="ElongFavor">收藏</font><em class="add" style="display:none">+1</em></s></p>
+
+                </div>
+                <div class="clear">
+                </div>
+
+                <div class="RpList mvtRp01" style="display: block;" stu="two">
+                    <ul class="roomTypes">
+
+                        <li class="rbox" roomid="0032" sroomid="0043" mhotelid="42003255" rpid="102498" sid="19690" producttype="3" shotelid="42003255" isgroup="False" style="">
+                            <p class="rw1">
+
+                                <a mth="roomUrl" href="javascript:void(0)" rel="nofollow">
+                                    经济特惠房
+
+                                </a>
+
+                            </p>
+                            <p class="rw2">
+                                大床
+                            </p>
+                            <p class="rw9">
+                                无早
+                            </p>
+                            <p class="rw10" mth="cancel" canceltype="1">
+                                限时取消
+                            </p>
+                            <p class="rw4">
+
+                        <span class="price" mth="avgPrice"><dfn>
+                            ¥</dfn>188</span>
+
+
+                            </p>
+                            <p class="rw5">
+
+                                <span class="c9" mth="aftercoupon" data="30" style="cursor:pointer">218返30</span>
+
+                            </p>
+                            <p class="rw8">
+                                &nbsp;
+                            </p>
+                            <p class="rw6">
+                                &nbsp;
+
+                            </p>
+                            <p class="rw7">
+
+                                <a href="{:U('Hotel/hotelDetail')}"  class="button">
+                                    查看
+                                </a>
+
+                            </p>
+                        </li>
+
+                        <li class="rbox" roomid="0008" sroomid="0008" mhotelid="42003255" rpid="102498" sid="19690" producttype="3" shotelid="42003255" isgroup="False" style="">
+                            <p class="rw1">
+
+                                <a mth="roomUrl" href="javascript:void(0)" rel="nofollow">
+                                    标准单人房
+
+                                </a>
+
+                            </p>
+                            <p class="rw2">
+                                大床
+                            </p>
+                            <p class="rw9">
+                                无早
+                            </p>
+                            <p class="rw10" mth="cancel" canceltype="1">
+                                限时取消
+                            </p>
+                            <p class="rw4">
+
+                        <span class="price" mth="avgPrice"><dfn>
+                            ¥</dfn>198</span>
+
+
+                            </p>
+                            <p class="rw5">
+
+                                <span class="c9" mth="aftercoupon" data="50" style="cursor:pointer">248返50</span>
+
+                            </p>
+                            <p class="rw8">
+                                &nbsp;
+                            </p>
+                            <p class="rw6">
+                                &nbsp;
+
+                            </p>
+                            <p class="rw7">
+
+                                <a mth="roomUrl" href="{:U('Hotel/hotelDetail')}" rel="nofollow" class="button" func="">
+                                    查看
+                                </a>
+
+                            </p>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="rpMore new_rpMore" hotelid="42003255" style="display: block;">
+
+                    <a class="closed" href="javascript:void(0);" rel="nofollow" mth="ShowAll" count="20">
+                        查看全部房型</a>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div id="screenList" index="4" class="clear loa" style="display: none;">
+            <span class="loading"></span>
+        </div>
+
+
+        <!--paging-->
+        <div id="pageDivDownWrapper">
+
+            <div class="EL_page pt15 mb20" id="pageDivDown">
+                <ul class="right">
+                    <li id="li_pagedown">共15页</li>
+
+                    <li class="page_btn grey" method="first"><a title="首页">首页</a></li>
+                    <li class="page_btn grey" method="prev"><a title="上一页">&lt;上一页</a></li>
+                    <li class="page_on">1</li><li method="unWorkPage"><a href="#">2</a></li><li method="unWorkPage"><a href="#">3</a></li><li method="unWorkPage"><a href="#">4</a></li><li method="unWorkPage"><a href="#">5</a></li><li method="unWorkPage"><a href="#">6</a></li><li method="unWorkPage"><a href="#">7</a></li><li method="lastP"><a href="#">...15</a></li>
+                    <li class="page_btn" method="next"><a title="下一页">下一页&gt;</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <!--paging end-->
+    </div>
+    <div class="listSidebar">
+
+        <div class="wherelive mt10" id="dvLookWhere">
+            <a><b></b><i></i>看看大家住哪</a>
+        </div>
+
+        <div class="sidebarMap" id="sidebarMap">
+
+            <div class="mapRightBut" id="listMapDiv">
+                    <span class="mvtMapBut" mth="GoBigMap"><span class="buticon"></span>大地图找酒店 <i class="arrowmvt">
+                    </i></span><span class="addFixed"><em>
+                <input type="checkbox" id="chkMapIsFloat" checked="checked" mth="MapFloat">跟随浮动</em></span>
+            </div>
+            <div class="map mapnew mt10 mb10" id="rightMap" style="overflow: hidden; position: relative; z-index: 0; color: rgb(0, 0, 0); text-align: left; background-color: rgb(243, 241, 236);"><div style="overflow: visible; position: absolute; z-index: 0; left: 317px; top: -378px; cursor: url(http://api.map.baidu.com/images/openhand.cur) 8 8, default;"><div class="BMap_mask" style="position: absolute; left: -317px; top: 378px; z-index: 9; overflow: hidden; -webkit-user-select: none; width: 360px; height: 430px;"></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 200;"><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 800;"></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 700;"></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 600;"></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 500;"><label class="BMapLabel" unselectable="on" style="position: absolute; display: inline; cursor: inherit; border: 0px; padding: 1px; white-space: nowrap; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: arial, sans-serif; z-index: 50; -webkit-user-select: none; left: -122px; top: 705px; background: none;"><div id="label_poi_0" class="mapIconHotel3"><div class="xinxi" title="深圳站">深圳站<span class="s1"></span></div></div></label><label class="BMapLabel" unselectable="on" style="position: absolute; display: inline; cursor: inherit; border: 0px; padding: 1px; white-space: nowrap; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: arial, sans-serif; z-index: 10; -webkit-user-select: none; left: -172px; top: 423px; background: none;"><div id="label_42003255" class="mapIconHotel6"><div class="xinxi" title="市广珅">市广珅<span class="s1"></span></div></div></label></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 400;"></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 300;"></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 201;"></div><div style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 200;"></div></div><div style="position: absolute; overflow: visible; top: 0px; left: 0px; z-index: 1;"><div style="position: absolute; overflow: visible; z-index: -100; left: -137px; top: 593px;"><img src="http://online4.map.bdimg.com/tile/?qt=tile&amp;x=99251&amp;y=19998&amp;z=19&amp;styles=pl&amp;udt=20140928" style="position: absolute; border: none; width: 256px; height: 256px; left: -270px; top: -94px; max-width: none; opacity: 1;"><img src="http://online4.map.bdimg.com/tile/?qt=tile&amp;x=99252&amp;y=19997&amp;z=19&amp;styles=pl&amp;udt=20140928" style="position: absolute; border: none; width: 256px; height: 256px; left: -14px; top: 162px; max-width: none; opacity: 1;"><img src="http://online3.map.bdimg.com/tile/?qt=tile&amp;x=99251&amp;y=19997&amp;z=19&amp;styles=pl&amp;udt=20140928" style="position: absolute; border: none; width: 256px; height: 256px; left: -270px; top: 162px; max-width: none; opacity: 1;"><img src="http://online1.map.bdimg.com/tile/?qt=tile&amp;x=99252&amp;y=19999&amp;z=19&amp;styles=pl&amp;udt=20140928" style="position: absolute; border: none; width: 256px; height: 256px; left: -14px; top: -350px; max-width: none; opacity: 1;"><img src="http://online0.map.bdimg.com/tile/?qt=tile&amp;x=99251&amp;y=19999&amp;z=19&amp;styles=pl&amp;udt=20140928" style="position: absolute; border: none; width: 256px; height: 256px; left: -270px; top: -350px; max-width: none; opacity: 1;"><img src="http://online0.map.bdimg.com/tile/?qt=tile&amp;x=99252&amp;y=19998&amp;z=19&amp;styles=pl&amp;udt=20140928" style="position: absolute; border: none; width: 256px; height: 256px; left: -14px; top: -94px; max-width: none; opacity: 1;"></div></div><div style="position: absolute; overflow: visible; top: 0px; left: 0px; z-index: 2;"></div></div><div class=" anchorBL" style="height: 32px; position: absolute; z-index: 10; bottom: 0px; right: auto; top: auto; left: 1px; display: none;"><a title="到百度地图查看此区域" target="_blank" href="http://map.baidu.com/?sr=1" style="outline: none;"><img style="border:none;width:77px;height:32px" src="http://api.map.baidu.com/images/copyright_logo.png"></a></div><div id="zoomer" style="position:absolute;z-index:0;top:0px;left:0px;overflow:hidden;visibility:hidden;cursor:url(http://api.map.baidu.com/images/openhand.cur) 8 8,default"><div class="BMap_zoomer" style="top:0;left:0;"></div><div class="BMap_zoomer" style="top:0;right:0;"></div><div class="BMap_zoomer" style="bottom:0;left:0;"></div><div class="BMap_zoomer" style="bottom:0;right:0;"></div></div><div unselectable="on" class=" BMap_stdMpCtrl BMap_stdMpType3 BMap_noprint anchorTL" style="width: 22px; height: 42px; bottom: auto; right: auto; top: 10px; left: 10px; position: absolute; z-index: 1100;"><div class="BMap_stdMpPan"><div class="BMap_button BMap_panN" title="向上平移"></div><div class="BMap_button BMap_panW" title="向左平移"></div><div class="BMap_button BMap_panE" title="向右平移"></div><div class="BMap_button BMap_panS" title="向下平移"></div><div class="BMap_stdMpPanBg BMap_smcbg"></div></div><div class="BMap_stdMpZoom" style="height: 42px; width: 22px;"><div class="BMap_button BMap_stdMpZoomIn" title="放大一级" style="left: 0px;"><div class="BMap_smcbg"></div></div><div class="BMap_button BMap_stdMpZoomOut" title="缩小一级" style="top: 21px; left: 0px;"><div class="BMap_smcbg"></div></div><div class="BMap_stdMpSlider" style="height: 0px;"><div class="BMap_stdMpSliderBgTop" style="height: 0px;"><div class="BMap_smcbg"></div></div><div class="BMap_stdMpSliderBgBot"></div><div class="BMap_stdMpSliderMask" title="放置到此级别"></div><div class="BMap_stdMpSliderBar" title="拖动缩放" style="cursor: url(http://api.map.baidu.com/images/openhand.cur) 8 8, default;"><div class="BMap_smcbg"></div></div></div><div class="BMap_zlHolder"><div class="BMap_zlSt"><div class="BMap_smcbg"></div></div><div class="BMap_zlCity"><div class="BMap_smcbg"></div></div><div class="BMap_zlProv"><div class="BMap_smcbg"></div></div><div class="BMap_zlCountry"><div class="BMap_smcbg"></div></div></div></div></div><div unselectable="on" class=" BMap_scaleCtrl BMap_noprint anchorBL" style="bottom: 18px; right: auto; top: auto; left: 81px; width: 45px; position: absolute; z-index: 10; display: block;"><div class="BMap_scaleTxt" unselectable="on" style="color: black; background-color: transparent;">20&nbsp;米</div><div class="BMap_scaleBar BMap_scaleHBar" style="background-color: black;"><img style="border:none" src="http://api.map.baidu.com/images/mapctrls.png"></div><div class="BMap_scaleBar BMap_scaleLBar" style="background-color: black;"><img style="border:none" src="http://api.map.baidu.com/images/mapctrls.png"></div><div class="BMap_scaleBar BMap_scaleRBar" style="background-color: black;"><img style="border:none" src="http://api.map.baidu.com/images/mapctrls.png"></div></div><div unselectable="on" class=" BMap_cpyCtrl BMap_noprint anchorBL" style="cursor: default; white-space: nowrap; color: black; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 11px; line-height: 15px; font-family: arial, sans-serif; bottom: 2px; right: auto; top: auto; left: 81px; position: absolute; z-index: 10; display: none; background: none;"><span _cid="1" style="display: inline;"><span style="font-size:11px">© 2015 Baidu&nbsp;- Data © <a target="_blank" href="http://www.navinfo.com/" style="display:inline;">NavInfo</a> &amp; <a target="_blank" href="http://www.cennavi.com.cn/" style="display:inline;">CenNavi</a> &amp; <a target="_blank" href="http://www.365ditu.com/" style="display:inline;">道道通</a></span></span></div></div>
+
+            <!-- 我浏览过的酒店 end -->
+
+            <div id="listRightInfoDiv" style="" class="wrap">
+
+
+                <!-- 我浏览过的酒店 start -->
+                <div class="divide" id="HistoryBrowseHotelContainer" style="display: none;" seenedtag="0">
+                </div>
+                <!-- 热卖酒店 start -->
+                <div class="divide" id="hotSellHotel" style="display: block;" seenedtag="1">
+                    <h2><tt class="hotsale"></tt>本周热卖</h2> <dl class="hotsale"><dt><tt>1</tt><a href="/search/02003005-hotel/" target="_blank" class="hotelname" title="">如家快捷酒店(深圳竹子林店)</a><span class="price" title="超值低价">¥217</span></dt></dl> <dl class="hotsale"><dt><tt>2</tt><a href="/search/02003233-hotel/" target="_blank" class="hotelname" title="">如家快捷酒店(深圳南山区南山大道店)</a><span class="price" title="超值低价">¥159</span></dt></dl> <dl class="hotsale"><dt><tt>3</tt><a href="/search/92003005-hotel/" target="_blank" class="hotelname" title="">如家快捷酒店(深圳罗湖火车站店)</a><span class="price" title="超值低价">¥151</span></dt></dl> <dl class="hotsale"><dt><tt class="alt">4</tt><a href="/search/42003221-hotel/" target="_blank" class="hotelname" title="">深圳金皇大酒店(原皇廷假日酒店)</a><span class="price" title="超值低价">¥210</span></dt></dl> <dl class="hotsale"><dt><tt class="alt">5</tt><a href="/search/90582306-hotel/" target="_blank" class="hotelname" title="">深圳领航精品酒店(新机场店)</a><span class="price" title="超值低价">¥90</span></dt></dl></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--POI-->
+
+
+
+    <!-- loading search-->
+    <div class="p15" id="divSearch" style="display: none;">
+        <!--loading -->
+        <div class="ht-load">
+            <style>
+                .hotel_loading .loading{ width:85px; height:71px;background: url(http://img.elongstatic.com/other/festival/01/loadingv1.gif) no-repeat;margin-left: 70px;}
+                .hotel_loading dd{ width:200px; line-height:50px;}
+            </style>
+            <dl id="com_loading" class="hotel_loading">
+                <dt class="loading">
+                </dt><dd class="bold pt10">小艺正在为您努力加载中...</dd></dl>
+        </div>
+        <!--loading -->
+    </div>
+    <!-- loading search-->
+    <!-- 实时浏览 Author:meng chen1 Date:2014.03.11-->
+    <div id="RealTimeBrowserDataContainer" style="display: none;" class="com_hotresults com_realtime viebornoe">
+        <div class="viewsPor" id="RealTimeBrowserData">
+        </div>
+    </div>
+</div>
+
+<div style="display: none; height: 0;" isloaddata="0">
+    <div class="popwlivebox" style="z-index: 1001; display: block; position: fixed; left: 50%;
+        top: 50%;">
+        <div class="popwlive">
+            <!------------------title------------------>
+            <div class="popwlive_title">
+                <a class="close">close</a><span>大家都住哪儿</span></div>
+            <!------------------住哪 start------------------>
+            <div class="popwlive_con">
+                <!----------位置列表start---------->
+                <div class="popwlive_main">
+                    <!-------------list start----------->
+                    <!-------------list end----------->
+                </div>
+                <!----------位置列表end---------->
+            </div>
+            <!------------------住哪 end------------------>
+        </div>
+    </div>
+    <div style="display: none; z-index: 1000; top: 0px; left: 0px; position: fixed; height: 100%;
+        width: 100%; background-color: rgb(204, 204, 204); opacity: 0.5;" id="dvDownChorme">
+    </div>
+    <div style="z-index: 1000; position: fixed; filter: alpha(opacity:50); background-color: #cccccc;
+        width: 100%; display: none; height: 100%; top: 0px; left: 0px;" id="dvDownMsIe">
+    </div>
+</div>
+
+<div id="dvAllStayWhere" style="display: none;" isloaddata="0">
+    <div class="popwlive_main">
+        <!-------------list start----------->
+        <!-------------list end----------->
+    </div>
+</div>
+
+
+
+
+
+</body>
+<script src="__ROOT__/Public/js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script><!--jquery-1.9.1.min.js-->
+<script src="__ROOT__/Public/js/searchPlugin/addressSearchCode/js/citylist.js" type="text/javascript" charset="utf-8"></script><!--城市插件-->
+<script src="__ROOT__/Public/js/searchPlugin/addressSearch/js/querycity.js" type="text/javascript" charset="utf-8"></script><!--城市插件-->
+<script type="text/javascript" src="__ROOT__/Public/js/searchPlugin/hotelDate/yui-min.js" charset="utf-8"></script><!--时间插件-->
+<script type="text/javascript">
+    /*页面数据初始化*/
+    var labelFromcity = new Array();
+    labelFromcity ['热门城市'] = new Array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19);
+    labelFromcity ['ABCDEF'] = new Array(4,7,9,12,17,19,21,23,25,27,29,30,32,33,35,37,39,41,42,44,46,47,49,51,53,60,63,68,78,85,87,91,94,97,110,112,117,119,121,123,132,136,141,148,150,153,157,159,161,164);
+    labelFromcity ['GHIJ'] = new Array(2,5,6,13,16,43,46,49,52,54,55,57,59,61,63,65,66,68,70,72,74,75,77,79,80,82,92,95,109,110,118,121,123,128,130,140,143,144,151,158,172,173,175,181,184,185,187,198,200,202);
+    labelFromcity ['KLMN'] = new Array(38,49,53,59,61,63,71,74,83,85,86,88,90,92,94,96,98,100,102,104,105,107,109,111,113,114,116,122,126,131,138,144,145,149,150,152,162,169,180,183,188,191,195,201,211);
+    labelFromcity ['PQRSTUVW'] = new Array(44,47,49,65,69,74,80,83,89,93,96,106,111,115,118,120,121,123,125,127,129,131,133,135,137,139,141,142,144,145,147,150,151,160,166,170,174,176,178,182,184,188,192,194,196);
+    labelFromcity ['XYZ'] = new Array(2,5,7,11,14,15,17,32,34,36,40,45,51,54,56,58,70,73,75,77,78,82,86,90,95,98,100,102,104,107,116,118,124,126,129,130,133,139,146,148);
+
+    $(function () {
+
+        /*地区选择插件*/
+        $('#fromcity').querycity({'data':citysFlight,'tabs':labelFromcity});
+
+
+
+        $("#search").click(function () {
+            /*出发城市*/
+            var startcity = $("#fromcity").val() || '';
+            if (startcity != '' && startcity!='中文/拼音') {
+                $("#fromcity").removeClass('warning').parent('td').removeClass('warning');
+                $('#goCity1').css('display', 'none');
+            } else {
+                $("#fromcity").val('');
+                $("#fromcity").addClass('warning').parent('td').addClass('warning');
+                $('#goCity1').css('display', 'block');
+                return;
+            }
+            /*到达城市*/
+            var toCity = $("#J_DepDate").val() || '';
+
+            if (toCity != '' && toCity!='中文/拼音') {
+                $("#J_DepDate").removeClass('warning').parent('td').removeClass('warning');
+                $('#endCity1').css('display', 'none');
+            } else {
+                $("#J_DepDate").val('');
+                $("#J_DepDate").addClass('warning').parent('td').addClass('warning');
+                $('#endCity1').css('display', 'block');
+                return;
+            }
+            /*出发时间*/
+            var startdate = $('#J_EndDate').val();
+            if (startdate != '') {
+                $("#J_EndDate").removeClass('warning').parent('td').removeClass('warning');
+                $('#endCity2').css('display', 'none');
+            } else {
+                $("#J_EndDate").addClass('warning').parent('td').addClass('warning');
+                $('#endCity2').css('display', 'block');
+                return;
+            }
+
+            //关键字
+            var keyWord = $('#keyWord').val();
+            if (keyWord != '') {
+                $("#keyWord").removeClass('warning').parent('td').removeClass('warning');
+                $('#keyWordTip').css('display', 'none');
+            } else {
+                $("#keyWord").addClass('warning').parent('td').addClass('warning');
+                $('#keyWordTip').css('display', 'block');
+                return;
+            }
+            $("#searchBox").submit();
+        });
+    });
+
+    YUI({
+        modules: {
+            'trip-calendar': {
+                fullpath: '__ROOT__/Public/js/searchPlugin/hotelDate/trip-calendar.js',
+                type    : 'js',
+                requires: ['trip-calendar-css']
+            },
+            'trip-calendar-css': {
+                fullpath: '__ROOT__/Public/js/searchPlugin/hotelDate/trip-calendar.css',
+                type    : 'css'
+            }
+        }
+    }).use('trip-calendar', function(Y) {
+
+        new Y.TripCalendar({
+            minDate         : new Date,     //最小时间限制
+            triggerNode     : '#J_DepDate', //第一个触节点
+            finalTriggerNode: '#J_EndDate'  //最后一个触发节点
+        });
+    });
+
+    //http://www.ijavascript.cn/tools/codedemo/css-xuanxiangka-458/index.htm#
+</script>
+</html>

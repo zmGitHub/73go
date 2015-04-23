@@ -1,0 +1,361 @@
+<div class="main_right">
+  <div class="r_hd">
+    <h3 class="r_tit">员工信息</h3>
+  </div>
+
+  <div  class="BoxHeight mb_10" ></div>
+  <table width="600" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+    <tr>
+      <td width="200" height="20">&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="right">工号<input name="empid" id="empid" type="hidden" class="text01" value="{$tmcemp.id}" /></td>
+      <td><input name="emp_code" id="emp_code" type="text" value="{$tmcemp.emp_code}" class="text01" placeholder="请填写员工工号" /></td>
+      <td>
+        <div id="runNumber1" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+          <i class="mod_tico_x16 mod_tico_warn_x16"></i>工号不正确(长度0-15)
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">姓名</td>
+      <td width="240"><input name="name" id="name" value="{$tmcemp.name}" type="text" class="text01" placeholder="请填写身份证上的姓名" /></td>
+      <td width="262">
+        <div id="uname" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+          <i class="mod_tico_x16 mod_tico_warn_x16"></i>姓名格式不正确
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">性别</td>
+      <td><span class="tex_blue">
+            <select name="sex" id="sex" class="text02">
+              <option value="M"
+              <if condition="$tmcemp['sex'] eq 'M'">selected</if> >男</option>
+              <option value="F"
+              <if condition="$tmcemp['sex'] eq 'F'">selected</if> >女</option>
+            </select>
+          </span></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="right">所在部门</td>
+      <td><span class="tex_blue">
+             <select id="barch" name="barch"  class="text02">
+               <foreach name="branchtree" item="bt">
+                 <option value="{$bt.id}"<if condition="$bt['id'] eq $tmcemp['tmcbr_id']">selected</if>>{$bt.levelhtml}{$bt.name}</option>
+               </foreach>
+             </select>
+          </span>
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td align="right">手机</td>
+      <td><input name="phone" id="phone"type="text" value="{$tmcemp.phone}" class="text01" placeholder="请填写常用联系电话" /></td>
+      <td>
+        <div id="tel" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+          <i class="mod_tico_x16 mod_tico_warn_x16"></i>手机格式不正确
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">QQ</td>
+      <td><input name="qq" id="qq" type="text" class="text01" value="{$tmcemp.qq}" placeholder="请填写常用qq"></td>
+      <td>
+        <div id="tmcQQ" style="display:none" class="mod_tips_inner mt_2 fl_left">
+          <i class="mod_tico_x16 mod_tico_warn_x16"></i>QQ格式不正确
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">电子邮箱</td>
+      <td><input name="email" id="email" value="{$tmcemp.email}" type="text" class="text01" placeholder="请填写电子邮箱" /></td>
+      <td>
+        <div id="eml" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+          <i class="mod_tico_x16 mod_tico_warn_x16"></i>电子邮箱格式不正确
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">证件号</td>
+      <td colspan="2"><span class="tex_blue">
+            <select name="select6" id="id_type" class="text02">
+              <!--<option value="-1" selected="selected">证件类型</option>-->
+              <!--有了默认的身份类型 dx 15-3-19-->
+              <volist name="grouplist" id="vo">
+                <option id="idNum" value="{$vo.id}" <if condition="$tmcemp['id_type']==$vo['id']">selected</if> >{$vo.d_value}</option>
+              </volist>
+            </select>
+            </span>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td width="226px"><input name="id_num" id="id_num" value="{$tmcemp.id_num}" type="text" class="text01" placeholder="请填写证件号码" /></td>
+      <td>
+        <div id="idNumber" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+          <i class="mod_tico_x16 mod_tico_warn_x16"></i>证件号码长度为15~18位
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">所在城市</td>
+      <td>
+            <span class="tex_blue">
+              <div id="user_area">
+                <select id="province" name="province" class="prov text02 w120"></select>
+                <select id="city" class="city text02 w120" name="city" disabled="disabled"></select>
+              </div>
+            </span>
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td colspan="2"><a id="confirmAdd" href="javascript:void(0)" class="btn_sure">保存</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="javascript: history.back();" class="btn_sure">返回</a></td>
+    </tr>
+  </table>
+</div>
+<div class="clear"></div>
+<script type="text/javascript">
+  //保存修改
+  $(function () {
+    var err1= 1,err2= 1,err3=1,err4= 1,err5= 1,err6=1;
+    //企业工号验证
+
+    $("input[name='emp_code']").blur(function () {
+      var pattern = /^[A-Za-z0-9]{1,15}$/;
+      var userNumber = $(this).val() || '';
+      var _this = $(this);
+      if ( pattern.test(userNumber) ) {
+        err1 = 1;
+        _this.removeClass('warning').parent('td').removeClass('warning');
+        $('#runNumber1').css('display', 'none');
+      } else {
+        err1 = 0;
+        _this.addClass('warning').parent('td').addClass('warning');
+        $('#runNumber1').css('display', 'block');
+      }
+    });
+
+
+    /*名称验证*/
+    $("input[name='name']").blur(function () {
+      //2-20 汉字 数字 字母 下划线
+      var pattern = /^[\u4e00-\u9fa5]{2,10}$/gi;
+      var userName = $(this).val() || '';
+      var _this = $(this);
+      if ( pattern.test(userName) ) {
+        err2 = 1;
+        _this.removeClass('warning').parent('td').removeClass('warning');
+        $('#uname').css('display', 'none');
+      } else {
+        err2 = 0;
+        _this.addClass('warning').parent('td').addClass('warning');
+        $('#uname').css('display', 'block');
+      }
+    });
+
+
+    /*号码验证*/
+    $("input[name='phone']").blur(function () {
+
+      var pattern = /^(\(\d{3,4}\)|\d{3,4}-)?\d{11,12}$/i;
+      var phone = $(this).val() || '';
+      var _this = $(this);
+      if ( pattern.test(phone) ) {
+        err3 = 1;
+        _this.removeClass('warning').parent('td').removeClass('warning');
+        $('#tel').css('display', 'none');
+      } else {
+        err3 = 0;
+        _this.addClass('warning').parent('td').addClass('warning');
+        $('#tel').css('display', 'block');
+      }
+    });
+
+    /*qq号码*/
+    $("input[name='qq']").blur(function () {
+      var pattern = /^[1-9][0-9]{4,9}$/;
+      var userQQ = $(this).val() || '';
+      var _this = $(this);
+      if ( pattern.test(userQQ)) {
+        err6 = 1;
+        _this.removeClass('warning').parent('td').removeClass('warning');
+        $("#btn_sure").removeAttr("disabled");
+        $('#tmcQQ').css('display', 'none');
+      } else {
+        err6 = 0;
+        $("#btn_sure").attr("disabled", true);
+        _this.addClass('warning').parent('td').addClass('warning');
+        $('#tmcQQ').css('display', 'block');
+      }
+    });
+
+    /*邮箱验证*/
+    $("input[name='email']").blur(function () {
+
+      var pattern = /^(?:\w+\.?)*\w+@(?:\w+\.)*\w+$/;
+      var email = $(this).val() || '';
+      var _this = $(this);
+      if ( pattern.test(email) ) {
+        err4 = 1;
+        _this.removeClass('warning').parent('td').removeClass('warning');
+        $('#eml').css('display', 'none');
+      } else {
+        err4 = 0;
+        _this.addClass('warning').parent('td').addClass('warning');
+        $('#eml').css('display', 'block');
+      }
+    });
+
+    //获取id
+    /*$("#id_type").change(function () {
+      var _this = $(this);
+      id_type= _this.val();
+    });*/
+
+    <!--证件号不显示，保存后证件号没有数据，所以暂时对bug做了修改 dx 15-3-19-->
+    /*证件号验证*/
+    var id_num = $("input[name='id_num']").val() || '';
+    if(id_num==''){
+      $("input[name='id_num']").focus();
+      $("input[name='id_num']").bind('blur',function () {
+        var pattern = /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/;
+        var codeId = $(this).val() || '';
+        var _this = $(this);
+        if (pattern.test(codeId)) {
+          err5 = 1;
+          _this.removeClass('warning').parent('td').removeClass('warning');
+          $('#idNumber').css('display', 'none');
+        } else {
+          err5 = 0;
+          _this.addClass('warning').parent('td').addClass('warning');
+          $('#idNumber').css('display', 'block');
+        }
+      });
+    }else{
+      $("input[name='id_num']").unbind('blur');
+      err5 = 1;
+      $("input[name='id_num']").removeClass('warning').parent('td').removeClass('warning');
+      $('#idNumber').css('display', 'none');
+    }
+
+    /*证件号验证*/
+   /* $('#idNum').focus();
+    $("#id_type").change(function () {
+      var type = $(this).val() || -1;
+      if(type==142){
+        $("input[name='id_num']").focus();
+        $("input[name='id_num']").bind('blur',function () {
+          var pattern = /^(\d{18,18}|\d{15,15}|\d{17,17}x)$/;
+          var codeId = $(this).val() || '';
+          var _this = $(this);
+          if (pattern.test(codeId) && codeId!='') {
+            err5 = 1;
+            _this.removeClass('warning').parent('td').removeClass('warning');
+            $('#idNumber').css('display', 'none');
+          } else {
+            err5 = 0;
+            _this.addClass('warning').parent('td').addClass('warning');
+            $('#idNumber').css('display', 'block');
+          }
+        });
+      } else {
+        $("input[name='id_num']").unbind('blur');
+        err5 = 1;
+        $("input[name='id_num']").removeClass('warning').parent('td').removeClass('warning');
+        $('#idNumber').css('display', 'none');
+      }
+
+    });*/
+
+    $("#confirmAdd").click(function(){
+      if(err1&&err2&&err3&&err4&&err5&&err6){
+        addbarchname();
+      }else{
+        swal({
+          title: "温馨提示!",
+          text: "员工信息不完整!!",
+          type: "info",
+          confirmButtonText: "关 闭"
+        });
+      }
+    });
+
+    document.onkeydown = function(e){
+      var ev = document.all ? window.event : e;
+      if(ev.keyCode==13) {
+        if ($("#barch  option:selected").val() == ''){
+          swal({
+            title: "温馨提示!",
+            text: "请选择部门!!",
+            type: "info",
+            confirmButtonText: "关 闭"
+          });
+        }
+        else if(err1&&err2&&err3&&err4&&err5&&err6) {
+          addbarchname();
+        }
+      }
+    };
+
+  });
+
+
+  function addbarchname() {
+    var empid=$("#empid").val();//获取员工id
+    var emp_code = $("#emp_code").val();//获取工号值
+    var name = $("#name").val();//获取姓名值
+    var barch = $("select[name='barch']").find("option:selected").val();//部门
+    var sex = $("#sex option:selected").val();//证件类型
+    var phone = $("#phone").val();//获取电话号码值
+    var qq = $('#qq').val();//获取qq的值
+    var email = $("#email").val();//获取邮箱值
+    var id_type = $("#id_type  option:selected").val();//证件类型
+    var id_num = $("#id_num").val();//证件号码
+    var province = $("#province").val();//省
+    var city = $("#city").val();//市
+    $.ajax({
+      url:"{:U('TmcDepartmentStaff/updateTmcStaff')}",
+      data:"empid="+empid+"&emp_code="+emp_code+"&name="+name+"&barch="+barch+"&sex="+sex+"&phone="+phone+"&qq="+qq+"&email="+email+"&id_type="+id_type+"&id_num="+id_num+"&province="+province+"&city="+city,
+      dataType: "JSON",
+      type: "POST",
+      success: function (data) {
+        data = ajaxGet(data);
+        if ( data ) {
+          swal({
+            title: "温馨提示!",
+            text: "员工信息修改成功!!!",
+            type: "success",
+            confirmButtonText: "关 闭"
+          }, function () {
+            location.href = "{:U('TmcDepartmentStaff/showTmcDepartment')}";
+          });
+        } else {
+          swal({
+            title: "温馨提示!",
+            text: "员工信息修改失败!",
+            type: "error",
+            confirmButtonText: "关 闭"
+          });
+        }
+      }
+    });
+  }
+
+
+  $("#user_area").citySelect({
+    prov: "{$tmcemp.province}",
+    city: "{$tmcemp.city}"
+  });
+</script>

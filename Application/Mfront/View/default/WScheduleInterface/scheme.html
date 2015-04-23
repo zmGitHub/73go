@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=1">
+    <title>选择方案预定</title>
+
+    <!-- Bootstrap -->
+    <link href="__ROOT__/Public/Mfront/css/bootstrap.min.css" rel="stylesheet">
+    <!--animate.css-->
+    <link href="__ROOT__/Public/Mfront/css/animate.css" rel="stylesheet">
+    <!--index.css-->
+    <link href="__ROOT__/Public/Mfront/css/index.css" rel="stylesheet"/>
+    <script src="__ROOT__/Public/Mfront/js/zepto.min.js" type="text/javascript"></script>
+    <script src="__ROOT__/Public/Mfront/js/app/artTemplate.js" type="text/javascript"></script>
+
+
+</head>
+<body>
+    <div class="container margin-15" id="listScheme">
+        <div class="row">
+            <div class="col-sm-12" id="showList">
+                <div class="panel panel-default panel-info text-white">
+					<if condition="$requestt.voice_txt == '' ">
+					<div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-5 text-center"><strong>{$requestt.from_city}</strong></div>
+                            <div class="col-xs-2 text-center"><i class="glyphicon glyphicon-send"></i><strong class="text-info"></strong></div>
+                            <div class="col-xs-5 text-center"><strong>{$requestt.to_city}</strong></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5 text-center"><strong>{$requestt.leave_date}<p><i class="glyphicon glyphicon-time text-warning"></i> 11:05</strong></p></div>
+                            <div class="col-xs-2 text-center"></div>
+                            <div class="col-xs-5 text-center"><strong>{$requestt.back_date}<p><i class="glyphicon glyphicon-time text-success"></i> 11:05</strong></p></div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="detail"><i class="glyphicon glyphicon-list-alt text-warning"></i> 其它需求:</label>
+                                    <textarea class="form-control detail-info" rows="5" id="detail" disabled>{$requestt.other_content}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					<else />
+					
+					<div class="panel-heading">
+						<div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="detail"><i class="glyphicon glyphicon-list-alt text-warning"></i> 语音需求:</label>
+                                    <textarea class="form-control detail-info" rows="5" id="detail" disabled>{$requestt.voice_txt}</textarea>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+					</if>
+					
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-time text-danger"></i> 22:21</div>
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-phone text-warning"></i> 155575466453</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-user text-info"></i> 周杰伦</div>
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-briefcase text-success"></i> xxxxxxxxx公司</div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="scheme">方案内容:</label>
+                                            <textarea class="form-control detail-info" rows="5" id="scheme" disabled>发生了附近拉丝机代理费暗示的肌肤拉丝机东方拉斯发生了附近拉丝机代理费暗示的肌肤拉丝机东方拉斯</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button type="button" class="btn btn-info pull-right">选择该方案</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-time text-danger"></i> 22:21</div>
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-phone text-warning"></i> 155575466453</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-user text-info"></i> 周杰伦</div>
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-briefcase text-success"></i> xxxxxxxxx公司</div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="scheme">方案内容:</label>
+                                            <textarea class="form-control detail-info" rows="5" id="scheme" disabled>发生了附近拉丝机代理费暗示的肌肤拉丝机东方拉斯发生了附近拉丝机代理费暗示的肌肤拉丝机东方拉斯</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button type="button" class="btn btn-info pull-right">选择该方案</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-time text-danger"></i> 22:21</div>
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-phone text-warning"></i> 155575466453</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-user text-info"></i> 周杰伦</div>
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-briefcase text-success"></i> xxxxxxxxx公司</div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="scheme">方案内容:</label>
+                                            <textarea class="form-control detail-info" rows="5" id="scheme" disabled>发生了附近拉丝机代理费暗示的肌肤拉丝机东方拉斯发生了附近拉丝机代理费暗示的肌肤拉丝机东方拉斯</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button type="button" class="btn btn-info pull-right">选择该方案</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-time text-danger"></i> 22:21</div>
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-phone text-warning"></i> 155575466453</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-user text-info"></i> 周杰伦</div>
+                                    <div class="col-xs-6 margin-5"><i class="glyphicon glyphicon-briefcase text-success"></i> xxxxxxxxx公司</div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="scheme">方案内容:</label>
+                                            <textarea class="form-control detail-info" rows="5" id="scheme" disabled>发生了附近拉丝机代理费暗示的肌肤拉丝机东方拉斯发生了附近拉丝机代理费暗示的肌肤拉丝机东方拉斯</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button type="button" class="btn btn-info pull-right">选择该方案</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

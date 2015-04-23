@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="description" content="轻松行微信">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="http://devwww.73go.cn/Public/images/favicon.ico">
+
+  <title>我的订单</title>
+
+  <link href="__PUBLIC__/Mfront/libs/ezgo/ezgo.css" rel="stylesheet">
+  <link href="__PUBLIC__/Mfront/css/common.css" rel="stylesheet">
+  <link href="__PUBLIC__/Mfront/css/orders.css" rel="stylesheet">
+
+
+  <!--[if IE]>
+  <script>
+    (function(){if(!/*@cc_on!@*/0)return;var e = "abbr,article,aside,audio,canvas,datalist,details,dialog,eventsource,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,time,video".split(','),i=e.length;while(i--){document.createElement(e[i])}})()
+  </script>
+  <![endif]-->
+</head>
+
+<body>
+
+<header class="app-head">
+
+  <div class="btn-group-wrapper">
+    <div class="btn-group btn-group-justified" role="group">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-app active">
+	  	<a href="{:U('WScheduleInterface/selectOrder')}">所有</a>	
+		</button>
+		</div>
+		<div class="btn-group" role="group">
+        <button type="button" class="btn btn-app">	
+		<a href="{:U('WScheduleInterface/selectOrder',array("Ostatus"=>6))}">待确认</a>
+		</button>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-app">
+		<a href="{:U('WScheduleInterface/selectOrder',array("Ostatus"=>11))}">待支付</a>
+		</button>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-app">		
+		<a href="{:U('WScheduleInterface/selectOrder',array("Ostatus"=>19))}">已取消</a>
+		</button>
+      </div>
+    </div>
+  </div>
+
+</header>
+<section class="app-content">
+
+  <ol class="order-list">
+
+    <foreach name="order" item="o" key="k">
+    <li class="order-item">
+      <div class="order-head">
+        <span>订单号：{$o.orderNum}</span>
+        <time class="pull-right">{$o.orderTime}</time>
+      </div>
+
+      <!-------------------查询机票订单是否为空----------------------------------------------->
+
+          <if condition="$o.flight neq null">
+
+                  <foreach name="o.flight" item="of" key="ofk">
+
+                        <ul class="order-meta">
+                            <li>
+                              <span class="order-meta-prop val"><b>机票订单需求</b></span>
+
+                            </li>
+                            <li>
+                              <span class="order-meta-prop val">{$o.uname}</span>
+                                <span class="order-meta-val">{$of.city_from}-{$of.city_to}
+                                    <span class="order-meta-apx"><span class="btn-fake btn-primary">{$solution_flight.d_value}</span></span>
+                                </span>
+                            </li>
+                            <li>
+                              <span class="order-meta-prop">订单状态：</span>
+                              <span class="order-meta-val">{$solution_flight.d_value}</span>
+                            </li>
+                            <li>
+                              <span class="order-meta-prop">起飞时间：</span>
+                              <span class="order-meta-val"><time>{$of.time_dep|substr=0,16}</time></span>
+                            </li>
+
+                            <li>
+                              <span class="order-meta-prop">到达时间：</span>
+                              <span class="order-meta-val">{$of.time_arv|substr=0,16}</span>
+                            </li>
+
+
+                            <li>
+                              <span class="order-meta-prop">航班号：</span>
+                                <span class="order-meta-val">{$of.airline_num}
+                                       <span class="order-meta-apx mark" style="font-size:15px;">￥{$of.allPrice}</span>
+                                </span>
+
+                            </li>
+                        </ul>
+
+                  </foreach>
+          </if>
+
+      <!-------------------查询酒店订单是否为空----------------------------------------------->
+
+          <if condition="$o.hotel neq null">
+
+                  <foreach name="o.hotel" item="oh" key="ohk">
+
+                        <ul class="order-meta">
+                              <li>
+                                <span class="order-meta-prop val"><b>酒店订单需求</b></span>
+
+                              </li>
+
+                              <li>
+                                <span class="order-meta-prop val">{$o.uname}</span>
+                                <span class="order-meta-val">
+                                 <span class="order-meta-apx"><span class="btn-fake btn-primary">{$solution_hotel.d_value}</span></span>
+                                 </span>
+                              </li>
+                              <li>
+                                <span class="order-meta-prop">订单状态：</span>
+                                <span class="order-meta-val">{$solution_hotel.d_value}</span>
+                              </li>
+                              <li>
+                                <span class="order-meta-prop">酒店名称：</span>
+                                <span class="order-meta-val"><time>{$oh.hotel_name}</time></span>
+                              </li>
+                              <li>
+                                <span class="order-meta-prop">入住时间：</span>
+                                <span class="order-meta-val">{$oh.date_ckin}</span>
+
+                              </li>
+                              <li>
+                                <span class="order-meta-prop">离开时间：</span>
+                                    <span class="order-meta-val">{$oh.date_ckout}
+                                    </span>
+
+                              </li>
+
+                              <li>
+                                <span class="order-meta-prop">房间类型</span>
+                                <span class="order-meta-val">{$oh.room_type}
+                                    <span class="order-meta-apx mark" style="font-size:15px;">￥{$oh.price}</span>
+                                </span>
+                              </li>
+
+
+
+                            </ul>
+
+                  </foreach>
+          </if>
+
+      <!-------------------查询火车订单是否为空----------------------------------------------->
+          <if condition="$o.train neq null">
+
+                  <foreach name="o.train" item="ot" key="otk">
+
+                          <ul class="order-meta">
+                              <li>
+                                <span class="order-meta-prop val"><b>火车订单需求</b></span>
+
+                              </li>
+                              <li>
+                                <span class="order-meta-prop val">{$o.uname}</span>
+                                <span class="order-meta-val">{$ot.station_dep}-{$ot.station_arv}
+									<span class="order-meta-apx"><span class="btn-fake btn-primary">{$solution_train.d_value}</span></span>
+                                </span>
+                              </li>
+                              <li>
+                                <span class="order-meta-prop">订单状态：</span>
+                                <span class="order-meta-val">{$solution_train.d_value}</span>
+                              </li>
+                              <li>
+                                <span class="order-meta-prop">出发时间：</span>
+                                <span class="order-meta-val"><time>{$ot.boarding_time|substr=0,16}</time></span>
+                              </li>
+
+                              <li>
+                                <span class="order-meta-prop">到达时间：</span>
+                                <span class="order-meta-val">{$ot.arrive_time|substr=0,16}</span>
+                              </li>
+
+                              <li>
+                                <span class="order-meta-prop">车次：</span>
+                                        <span class="order-meta-val">{$ot.train_num}
+                                               <span class="order-meta-apx mark" style="font-size:15px;">￥{$ot.price}</span>
+                                        </span>
+
+                              </li>
+                          </ul>
+
+
+                  </foreach>
+          </if>
+
+      <!-------------------查询其他订单是否为空----------------------------------------------->
+          <if condition="$o.other neq null">
+
+                <foreach name="o.other" item="oo" key="ook" >
+
+                          <ul class="order-meta">
+                              <li>
+                                <span class="order-meta-prop val"><b>其他订单需求</b></span>
+
+                              </li>
+                              <li>
+                                <span class="order-meta-prop val">{$o.uname}</span>
+                                   <span class="order-meta-val">
+                                	<span class="order-meta-apx"><span class="btn-fake btn-primary">{$solution_other.d_value}</span></span>
+                                   </span>
+                              </li>
+                              <li>
+                                <span class="order-meta-prop">订单状态：</span>
+                                <span class="order-meta-val">{$solution_other.d_value}</span>
+                              </li>
+                              <li>
+                                <span class="order-meta-prop">开始时间：</span>
+                                <span class="order-meta-val"><time>{$oo.time_start}</time></span>
+                              </li>
+                              <li>
+                                <span class="order-meta-prop">结束时间：</span>
+                                <span class="order-meta-val"><time>{$oo.time_end}</time></span>
+                              </li>
+
+                              <li>
+                                <span class="order-meta-prop">需求内容：</span>
+                                <span class="order-meta-val">{$oo.content}</span>
+                              </li>
+
+                              <li>
+
+                                <span class="order-meta-val">
+                                  <span class="order-meta-apx mark" style="font-size:15px;">￥{$oo.price}</span>
+                                </span>
+
+                              </li>
+                          </ul>
+								 
+
+                </foreach>
+          </if>
+
+
+    </li>
+	<div style="width:100%;text-align:right;">
+		<span class="order-meta-val">总共金额
+			<span class="order-meta-apx mark" style="font-size:18px;">￥{$o.amount}</span>
+		</span>			
+	</div>
+
+				 
+
+    </foreach>
+  </ol>
+
+</section>
+<footer class="app-menu">
+  {:W("Cate/footer")}
+</footer>
+
+<script src="/libs/ezgo/ezgo.all.js"></script>
+
+
+
+</body>
+</html>

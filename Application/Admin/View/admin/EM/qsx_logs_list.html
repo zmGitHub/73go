@@ -1,0 +1,241 @@
+<div class="main_right">
+    <div class="r_hd">
+        <h3 class="r_tit">系统用户列表</h3>
+
+    </div>
+
+    <div class="BoxHeight mb_10"></div>
+    <div class="clear"></div>
+    <div class="clear"></div>
+    <div class="clear"></div>
+    <div class="clear"></div>
+
+    <div class="clear"></div>
+
+    <div class="clear"></div>
+    <input type="radio" name="all" id="all" onclick="checkAll('logs')"/> 全选
+    <input type="radio" name="all" id="Checkbox1"
+           onclick="uncheckAll('logs')"/> 全不选
+    <input type="button" name="delete" value="删除选择的记录"
+           onclick="deletesomelogs()"/>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab">
+        <tr>
+            <th width="8%">选择</th>
+            <th width="20%">动作</th>
+            <th width="35%">事件</th>
+            <th width="20%">操作时间</th>
+            <th>操作用户</th>
+        </tr>
+        <foreach name="logs" item="log" key="k">
+            <tr>
+                <td><input type="checkbox" name="logs" value="{$log.id}"></td>
+                <td>
+                    <if condition="$log.type eq 1">登录网站
+                        <elseif condition="$log.type eq 2"/>
+                        添加数据
+                        <elseif condition="$log.type eq 3"/>
+                        修改数据
+                        <elseif condition="$log.type eq 4"/>
+                        删除数据
+                        <elseif condition="$log.type eq 5"/>
+                        上传文件
+                    </if>
+                </td>
+                <td>{$log.info}</td>
+                <td>{$log.date}</td>
+                <td>{$log.username}</td>
+            </tr>
+        </foreach>
+
+    </table>
+
+    <br>
+    <!-- 分页的样式 和数量的显现  开始-->
+    <div class="meneame">
+        {$Page}
+    </div>
+    <style>
+        /*css meneame style pagination*/
+        div.meneame {
+            padding: 3px;
+            font-size: 80%;
+            margin: 3px;
+            color: #ff6500;
+            text-align: center;
+        }
+
+        div.meneame a {
+            border: #ff9600 1px solid;
+            padding: 5px 7px;
+            background-position: 50% bottom;
+            background-image: url(../images/meneame.jpg);
+            margin: 0 3px 0 0;
+            text-decoration: none;
+        }
+
+        div.meneame a:hover {
+            border: #ff9600 1px solid;
+            background-image: none;
+            color: #ff6500;
+            background-color: #ffc794;
+        }
+
+        div.meneame a:active {
+            border: #ff9600 1px solid;
+            background-image: none;
+            color: #ff6500;
+            background-color: #ffc794;
+        }
+
+        div.meneame span.current {
+            border: #ff6500 1px solid;
+            padding: 5px 7px;
+            font-weight: bold;
+            color: #ff6500;
+            margin: 0 3px 0 0;
+            background-color: #ffbe94;
+        }
+
+        div.meneame span.disabled {
+            border: #ffe3c6 1px solid;
+            padding: 5px 7px;
+            color: #ffe3c6;
+            margin: 0 3px 0 0;
+        }
+    </style>
+</div>
+
+<div class="clear"></div>
+
+
+<!---popup 添加部弹出浮层 start --->
+
+<div class="popup popup_pos1 w400" style="display: none;">
+    <a href="#" class="btn_close"></a>
+
+    <div class="pop_title">添加部门</div>
+    <div class="popup_cont2">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+            <tr class="border_none yd_bg">
+                <td width="30%" valign="top" class="td1">上一级部门</td>
+                <td>深圳必达测控技术有限公司</td>
+            </tr>
+            <tr class="border_none">
+                <td valign="top" class="td1">部门名称</td>
+                <td>
+                    <div class="BoxHeight"></div>
+                    <input name="input2" type="text" class="text01"/>
+                    <span class="tex_r">*</span>
+
+                    <div class="mod_tips_inner mt_2"><i class="mod_tico_x16 mod_tico_warn_x16"></i>请输入您的企业代码</div>
+                </td>
+            </tr>
+            <tr class="border_none">
+                <td class="td1">部门编号</td>
+                <td><input name="input" type="text" class="text01"/></td>
+            </tr>
+            <tr class="border_none">
+                <td class="td1">部门描述</td>
+                <td>
+                    <div class="BoxHeight"></div>
+                    <p>部门描述您还可输入100个字</p>
+                    <textarea name="input3" rows="8" class="text01 h_80"></textarea>
+
+                    <div class="BoxHeight"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="text_cent"><a href="#" class="btn_sure">确定</a></div>
+
+    </div>
+</div>
+
+<!---popup 添加部门弹出浮层jquery --->
+
+<script type="text/javascript">
+
+    function startOrstop(suid, sustatus) {
+
+        $.ajax({
+            url: "{:U('EM/updateSUstatus')}",
+            data: "suid=" + suid + "&sustatus=" + sustatus,
+            dataType: "text",
+            type: "POST",
+            success: function (data) {
+                if (data) {
+                    location.href = "{:U('EM/showSysuser')}";
+                }
+            }
+        });
+
+    }
+    //复选框全选
+    function checkAll(formvalue) {
+        var roomids = document.getElementsByName(formvalue);
+        for (var j = 0; j < roomids.length; j++) {
+            if (roomids.item(j).checked == false) {
+                roomids.item(j).checked = true;
+            }
+        }
+    }
+
+    //复选框全不选
+    function uncheckAll(formvalue) {
+        var roomids = document.getElementsByName(formvalue);
+        for (var j = 0; j < roomids.length; j++) {
+            if (roomids.item(j).checked == true) {
+                roomids.item(j).checked = false;
+            }
+        }
+    }
+
+    function deletesomelogs() {
+
+        swal({
+            title: "确定删除?",
+            text: "这可能是一条重要数据！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的, 删除!",
+            cancelButtonText: "取消",
+            closeOnConfirm: false
+        }, function () {
+            var obj = document.getElementsByName('logs');  //选择所有name="aihao"的对象，返回数组
+            //取到对象数组后，我们来循环检测它是不是被选中
+            var s = '';
+            for (var i = 0; i < obj.length; i++) {
+                if (obj[i].checked) s += obj[i].value + ',';  //如果选中，将value添加到变量s中
+            }
+            $.ajax({
+                url: "{:U('Admin/EM/deletesomeLogs')}",
+                data: {ids: s},
+                dataType: "text",
+                type: "POST",
+                success: function (msg) {
+                    if (msg == -1) {
+                        swal({
+                            title: "温馨提示!",
+                            text: "删除成功!!",
+                            type: "success",
+                            confirmButtonText: "关 闭"
+                        }, function () {
+                            window.location.reload([true]);
+
+                        });
+
+                    }
+
+                }
+            });
+        });
+
+
+    }
+</script>
+        
+        
+        
+
+

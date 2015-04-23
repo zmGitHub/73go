@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>账户绑定</title>
+    <meta name="viewport" content="initial-scale=1.0,width=device-width"/>
+
+    <link href="__PUBLIC__/Mfront/lib/index.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/Mfront/lib/turbo.css" rel="stylesheet" type="text/css" />
+    <script src="__PUBLIC__/Mfront/lib/zepto.min.js"></script>
+
+    <!-- Mobiscroll JS and index.cssCSS Includes #1072e3-->
+
+</head>
+<body>
+<header class="app-logo"></header>
+<section>
+    <div class="padding-7">
+        <form action="#1">
+            <div class="clear"></div>
+            <div class="input-group">
+                <span class="bind-user no-bottom-border">轻松行账号</span>
+                <input type="text" id="username" name="username" class="form-control no-bottom-border" placeholder="请输入轻松行账号">
+            </div>
+            <div class="input-group">
+                <span class="bind-password">密码</span>
+                <input type="password" id="password" name="password" class="form-control" placeholder="请填写登陆密码">
+            </div>
+            <div class="clear"></div>
+            <botton class="btn">确 认 绑 定</botton>
+        </form>
+
+    </div>
+</section>
+
+{:W("Cate/footer")}
+
+</body>
+</html>
+<script type="application/javascript">
+$(function(){
+	$("#submit").click(function(){
+		if($("#username").val() == '' || $("#username").val() == null){
+			alert($("#username").attr("placeholder"));
+			return false;
+		}
+		
+		if($("#password").val() == '' || $("#password").val() == null){
+			alert($("#password").attr("placeholder"));
+			return false;
+		}
+		
+		$.post("http://weixin.73go.cn/Mfront/WScheduleInterface/addAccountBound",
+			{"username":$("#username").val(),"password":$("#password").val(),"openid":$("#openid").val()},
+			function(data){
+				data == 1 ? alert('绑定成功！') : alert('绑定失败！');				
+				location.reload(); 
+			});
+			
+		return false;	
+		
+	});
+	
+});
+</script>
+</body>
+</html>

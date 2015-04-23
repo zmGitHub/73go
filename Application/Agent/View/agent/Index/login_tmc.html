@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <base href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/Agent/"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>TMC用户登陆</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/animate.css"/>
+    <link href="../js/sweetAlert/css/sweet-alert.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="http://{$_SERVER['HTTP_HOST']}__ROOT__/Public/images/favicon.ico" />
+    <script src="../util/js/jquery-1.9.1.min.js"></script>
+    <!--百度统计js代码-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?9e8dc4308f6255aaab3aadc413a1846e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body class="loginWrap">
+<div class="header-index">
+
+    <div class="headtop">
+        <div class="logoMark"></div>
+        <div class="logo"><a href="{:U('Home/Index/index')}"><img src="images/logo.jpg" width="191" height="43" alt="轻松行"></a></div>
+        <div class="txt"></div>
+        <div class="iphone"></div>
+    </div>
+</div>
+<if condition="$data['user_type'] eq 3">
+
+    <div class="loginContRight">
+        <div class="BoxHeight mt_22"></div>
+        <!-- <div class="loginError" style="display: block;"></div> -->
+        <div class="loginError" id="message" style="color:red;"></div>
+        <div class="loginCont">
+            <div class="loginButton"><a href="{:U('Index/mypage_tmc')}">进入我的主页</a></div>
+            <div class="BoxHeight mt_22"></div>
+
+            <div class="loginCont">
+                <div class="loginContOneBox">
+                    <input name="username" type="text" class="loginContOne" id="loginNo"
+                           placeholder="个人用户名/企业注册名" >
+                </div>
+                <div class="BoxHeight"></div>
+                <div class="loginContTwoBox">
+                    <input name="password" id="password" type="password" class="loginContTwo"
+                           style="color: rgb(102, 102, 102); font-size: 14px; display: inline-block;"
+                           placeholder="登录密码"/>
+                </div>
+                <div class="BoxHeight"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="loginButton_h" id="mybutton1"><a href="javascript:void(0)">切换账户</a></div>
+            <div class="BoxHeight"></div>
+            <div class="clear"></div>
+        </div>
+        <div class="loginContNav"><a href="{:U('Index/register_tmc')}" target='_blank' style="color:#fe6a00; margin-left:35px;">免费注册</a>|<a
+                href="{:U('Home/Index/forget_password_email')}">忘记密码</a></div>
+    </div>
+
+
+    <elseif condition="$data['user_type'] eq 4" />
+
+    <div class="loginContRight">
+        <div class="BoxHeight mt_22"></div>
+        <!-- <div class="loginError" style="display: block;"></div> -->
+        <div class="loginError" id="message" style="color:red;"></div>
+        <div class="loginCont">
+            <div class="loginButton"><a href="{:U('Index/mypage_op')}">进入我的主页</a></div>
+            <div class="BoxHeight mt_22"></div>
+
+            <div class="loginCont">
+                <div class="loginContOneBox">
+                    <input name="username" type="text" class="loginContOne" id="loginNo"
+                           placeholder="个人用户名/企业注册名" >
+                </div>
+                <div class="BoxHeight"></div>
+                <div class="loginContTwoBox">
+                    <input name="password" id="password" type="password" class="loginContTwo"
+                           style="color: rgb(102, 102, 102); font-size: 14px; display: inline-block;"
+                           placeholder="登录密码"/>
+                </div>
+                <div class="BoxHeight"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="loginButton_h" id="mybutton1"><a href="javascript:void(0)">切换账户</a></div>
+            <div class="BoxHeight"></div>
+            <div class="clear"></div>
+        </div>
+        <div class="loginContNav"><a href="{:U('Index/register_tmc')}" target='_blank' style="color:#fe6a00; margin-left:35px;">免费注册</a>|<a
+               href="{:U('Home/Index/forget_password_email')}">忘记密码</a></div>
+    </div>
+
+
+
+    <else/>
+
+    <div class="loginContRight">
+        <!-- <div class="til tex_r">请登录</div> -->
+        <div class="til" style="font-size: 18px;">服务商登录</div>
+
+        <div class="loginError" style="display: block;"></div>
+        <div class="loginCont">
+            <div class="loginContOneBox">
+                <input name="username" type="text" class="loginContOne" id="loginNo" placeholder="企业注册名/员工账号" autofocus>
+            </div>
+            <div class="BoxHeight"></div>
+            <div class="loginContTwoBox">
+                <input id="password" name="password" type="password" class="loginContTwo"
+                       style="color: rgb(102, 102, 102); font-size: 14px; display: inline-block;"
+                       placeholder="登录密码">
+            </div>
+            <div class="BoxHeight"></div>
+            <div class="clear"></div>
+        </div>
+        <div class="loginButton" id="mybutton1"><a href="javascript:void(0)">立即登录</a></div>
+        <div class="loginContNav"><a href="{:U('Index/register_tmc')}" target='_blank'
+                                     style="color:#fe6a00; margin-left:35px;">免费注册</a>|<a href="{:U('Home/Index/forget_password_email')}">忘记密码</a>
+        </div>
+    </div>
+
+</if>
+
+<div class="BoxHeight"></div>
+
+<div class="footer-index">
+    <div class="copyiright">
+        Copyright © 2015 版权所有 深圳市轻松行科技有限公司 <a href="http://www.miitbeian.gov.cn" target="_blank">粤ICP备14072826号</a><p>
+    </div>
+</div>
+<!-- 验证登录信息是否合法 -->
+<script type="text/javascript" src="../js/sweetAlert/js/sweet-alert.min.js"></script>
+<script type="text/javascript">
+    function toServer(){
+        var username = $('#loginNo').val() || '';
+        var password = $('#password').val() || '';
+        if(username==''){
+            $('#loginNo').focus();
+            return;
+        }
+        if(password==''){
+            $('#password').focus();
+            return;
+        }
+        $.ajax({
+            url: "{:U('TMCUser/check_login')}",
+            data: "username=" + username + "&password=" + password,
+            dataType: "text",
+            type: "POST",
+            success: function (msg) {
+                if ( msg == 0 ) {
+                    swal({
+                        title: "温馨提示!",
+                        text: "账号或密码错误!!",
+                        type: "info",
+                        confirmButtonText: "关 闭"
+                    });
+                }else if(msg == -1){
+                	swal({
+                        title: "温馨提示!",
+                        text: "该账号已停用，请联系网站客服",
+                        type: "info",
+                        confirmButtonText: "关 闭",
+                        timer: 3000
+                    });
+                }else if ( msg == 1 ) {
+                    location.href = "{:U('Index/mypage_tmc')}";
+                }else if ( msg == 2 ) {
+                    location.href = "{:U('Index/mypage_op')}";
+                }else{
+                    location.href = "{:U('Index/mypage_user')}";
+                }
+
+            }
+        });
+
+
+    }
+    $(function () {
+
+        document.onkeydown = function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+                toServer();
+            }
+        };
+        $('#loginNo').blur(function () {
+            var loginNo = $('#loginNo').val() || '';
+            var pattern = /^[\u4e00-\u9fa50-9a-z[\](\)]{2,10}$/i;
+            if ( !pattern.test(loginNo) ) {
+                $(this).parent('.loginContOneBox').removeClass('success').addClass('warning animated rubberBand');
+                $(this).attr('placeholder', '用户名不能为空');
+                $('#mybutton1').unbind('click');
+            } else {
+                $('#mybutton1').unbind('click').bind('click', function () {
+                    toServer();
+                });
+                $(this).parent('.loginContOneBox').removeClass('warning animated rubberBand').addClass('success');
+            }
+        });
+        $('#password').blur(function () {
+            var password = $('#password').val() || '';
+            if ( password.length >= 5 && password.length <= 15 ) {
+                $('#mybutton1').unbind('click').bind('click', function () {
+                    toServer();
+                });
+                $(this).parent('.loginContTwoBox').removeClass('warning animated rubberBand').addClass('success');
+            } else {
+                $(this).parent('.loginContTwoBox').removeClass('success').addClass('warning animated rubberBand');
+                $(this).attr('placeholder', '密码不能为空');
+                $('#mybutton1').unbind('click');
+            }
+        });
+
+    });
+
+</script>
+</body>
+</html>
+
+
+
+

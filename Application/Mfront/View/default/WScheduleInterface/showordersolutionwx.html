@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>方案查询</title>
+<link href="__ROOT__/Public/css/weixin/header.css" rel="stylesheet" type="text/css" />
+<link href="__ROOT__/Public/css/weixin/order_detail.css" rel="stylesheet" type="text/css" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, target-densitydpi=medium-dpi" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+</head>
+
+<body>
+<header>
+<div class="new-header">
+  <h2>相应订单方案</h2></div>
+</header>
+<div class="order xxzx_list">
+ 现在为你提供{$con}个方案，更多的方案还在为您制作中，请谨慎选择
+  <div class="contTwo">
+    <dl>
+	  <dt>
+		<h4>我的需求</h4>
+	  </dt>
+      <foreach name="requestt" item="re">
+      <dd>
+		<p>{$re.othermark}</p>
+	  </dd>
+      </foreach>
+	</dl>
+    <foreach name="solution" item="so">
+    <dl>
+	  <dt>
+		<h4>方案</h4>
+	  </dt>
+      <dd>
+		<p>详情：{$so.details}</p>
+	  </dd>
+      <div style="clear:both;"></div>
+      <div><a href="http://weixin.73go.cn/Mfront/WScheduleInterface/addSolutionOrder?id={$so.psid}" style="padding:2% 2% 2% 2%; display:block; border:1px #ddd solid; margin-left:37%; margin-right:30%">
+      	同意此方案</a></div>
+	</dl>
+    </foreach>
+  </div>
+  
+</div>
+<!--<div class="order_nav" style=" margin-top:35%;"> 
+    <p class="mt2">
+      <input name="提交4" type="submit" value="全不满意 请重新设计方案" />
+      <input name="提交5" type="submit" value="抱歉，我要终止" />
+    </p>
+  </div>-->
+</body>
+</html>

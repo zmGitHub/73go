@@ -1,0 +1,605 @@
+<div class="main_right">
+    <div class="r_hd">
+        <h3 class="r_tit">企业信息</h3>
+
+        <div class="r_hd_extra">
+            <a href="{:U('Config/config_tmcinfo_account')}">登录账户</a>
+            <a href="{:U('Config/showconfig_tmcinfo_basicinfo')}" class="current">企业信息</a>
+            <a href="{:U('Config/config_tmcinfo_certificated')}">认证</a>
+        </div>
+    </div>
+
+    <div class="BoxHeight mb_10"></div>
+
+    <form name="basicinfo" id="basicinfo" action="{:U('Config/doconfig_tmcinfo_basicinfo')}" method="post">
+
+
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+            <tr>
+                <td width="200" height="20">&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="right">企业编号</td>
+                <td>
+                    <input name="tmc_code" type="text" class="text01" placeholder="{$result.tmc_code}"
+                           disabled="disabled"/>
+                </td>
+            </tr>
+            <!-- 判断开始 -->
+            <!--判断tmc企业处于认证的状态   已认证和待认证的时候  -->
+            <if condition="($result['cert_val'] eq 1) or ($result['cert_val'] eq 2)  ">
+
+                <tr>
+                    <td align="right">企业名称</td>
+                    <td>
+                        <input name="name" type="text" class="text01" value="{$result.name}" disabled/>
+                    </td>
+                    <td width="262">
+                        <div id="usermsg1" class="mod_tips_inner_small mt_2 fl_left" style="display:none" ;>
+                            ●名称必须是2~32个字符
+                        </div>
+                        <div id="usermsg2" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                            <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">简称</td>
+                    <td><input name="short_name" type="text" class="text01" value="{$result.short_name}" placeholder="请填写企业简称" disabled/></td>
+                </tr>
+                <tr>
+                    <td align="right" name="scale">规模</td>
+                    <td><span class="tex_blue">
+                     <select name="scale" class="text02" style="background-color: #EBEBE4;" disabled>
+                         <foreach name="data11" item="vo">
+                             <option value="{$vo.d_key}">{$vo.d_value}</option>
+                         </foreach>
+                     </select>
+            </span></td>
+                </tr>
+                <tr>
+                    <td align="right">网址</td>
+                    <td>
+                        <input name="website" type="text" class="text01" value="{$result.website}"placeholder="请填写企业网址" disabled/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">所在城市</td>
+                    <td><span class="tex_blue">
+                    <select name="province" class="prov text02 w120" style="background-color: #EBEBE4;" disabled>
+                        <option value="{$result.province}" selected>{$result.province}</option>
+                    </select>
+                    <select class="city text02 w120" name="city" style="background-color: #EBEBE4;" disabled>
+                        <option value="{$result.city}" selected>{$result.city}</option>
+                    </select>
+            </span></td>
+                </tr>
+                <tr>
+                    <td align="right">业务内容 <br/></td>
+                    <td>
+                        <div class="news_mod_form_cnt dt_time01 dt_time_xz">
+                            <!-- 判断是否有机票的服务 -->
+                            <if condition="$result.bu_1 eq 1">
+                                <a href="javascript:void(0)" class="current2">机票</a>
+                                <else/>
+                                <a href="javascript:void(0)">机票</a>
+                            </if>
+                            <!-- 判断是否有酒店的服务 -->
+                            <if condition="$result.bu_2 eq 1">
+                                <a href="javascript:void(0)" class="current2">酒店</a>
+                                <else/>
+                                <a href="javascript:void(0)">酒店</a>
+                            </if>
+                            <!-- 判断是否有火车的服务 -->
+                            <if condition="$result.bu_3 eq 1">
+                                <a href="javascript:void(0)"class="current2">火车</a>
+                                <else/>
+                                <a href="javascript:void(0)">火车</a>
+                            </if>
+                            <!-- 判断是否有租车的服务 -->
+                            <if condition="$result.bu_4 eq 1">
+                                <a href="javascript:void(0)" class="current2">租车</a>
+                                <else/>
+                                <a href="javascript:void(0)">租车</a>
+                            </if>
+                            <!-- 判断是否有签证的服务 -->
+                            <if condition="$result.bu_5 eq 1">
+                                <a href="javascript:void(0)"class="current2">签证</a>
+                                <else/>
+                                <a href="javascript:void(0)">签证</a>
+                            </if>
+                            <!-- 判断是否有MICE的服务 -->
+                            <if condition="$result.bu_6 eq 1">
+                                <a href="javascript:void(0)" class="current2">MICE</a>
+                                <else/>
+                                <a href="javascript:void(0)">MICE</a>
+                            </if>
+                            <!-- 判断是否有其他的服务 -->
+                            <if condition="$result.bu_7 eq 1">
+                                <a href="javascript:void(0)" class="current2">其它</a>
+                                <else/>
+                                <a href="javascript:void(0)">其它</a>
+                            </if>
+                            <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">公司地址</td>
+                    <td><input name="address" type="text" class="text01" disabled value="{$result.address}"
+                               placeholder="请填写企业地址"/></td>
+                    <td>
+                        <div id="usermsg7" class="mod_tips_inner_small mt_2 fl_left" style="display:none" ;>
+                            ●地址必须是3~20个字符
+                        </div>
+                        <div id="usermsg8" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                            <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">服务热线</td>
+                    <td><input name="hotline" type="text" class="text01" disabled value="{$result.hotline}"
+                               placeholder="请填写企业热线"/></td>
+                    <td>
+                        <div id="usermsg15" class="mod_tips_inner_small mt_2 fl_left" style="display:none" ;>
+                            ●服务热线为2~20位
+                        </div>
+                        <div id="usermsg16" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                            <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- 另外的情况-->
+                <else/>
+
+                <tr>
+                    <td align="right">企业名称</td>
+                    <td>
+                        <if condition="$result['cert_val'] eq 1">
+                            <input name="name" type="text" class="text01" value="{$result.name}" disabled/>
+                            <else/>
+                            <input name="name" type="text" class="text01" value="{$result.name}" placeholder="请填写企业名称"/>
+                        </if>
+                    </td>
+                    <td width="262">
+                        <div id="usermsg1" class="mod_tips_inner_small mt_2 fl_left" style="display:none" ;>
+                            ●名称必须是2~32个字符
+                        </div>
+                        <div id="usermsg2" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                            <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">简称</td>
+                    <td><input name="short_name" type="text" class="text01" value="{$result.short_name}"
+                               placeholder="请填写企业简称"/></td>
+                    <td>
+                        <div id="usermsg3" class="mod_tips_inner_small mt_2 fl_left" style="display:none" ;>
+                            ●简称必须是2~32个字符
+                        </div>
+                        <div id="usermsg4" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                            <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" name="scale">规模</td>
+                    <td><span class="tex_blue">
+                 <select name="scale" id="select3" class="text02">
+                     <foreach name="data11" item="vo">
+                         <option value="{$vo.d_key}" {$result[
+                         'scale']==$vo['d_key']?'selected':''}>{$vo.d_value}</option>
+                     </foreach>
+                 </select>
+            </span></td>
+                </tr>
+                <tr>
+                    <td align="right">网址</td>
+                    <td><input name="website" type="text" class="text01" value="{$result.website}"
+                               placeholder="请填写企业网址"/></td>
+                    <td>
+                        <div id="usermsg5" class="mod_tips_inner_small fl_left" style="display:none" ;>
+                            ●网址不正确
+                        </div>
+                        <div id="usermsg6" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                            <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">所在城市</td>
+                    <td><span class="tex_blue">
+
+
+                <div id="tmc_area">
+                    <select id="province" name="province" class="prov text02 w120"></select>
+                    <select class="city text02 w120" name="city" disabled="disabled"></select>
+                </div>
+            </span></td>
+                </tr>
+                <tr>
+                    <td align="right">业务内容 <br/></td>
+                    <td>
+                        <div class="news_mod_form_cnt dt_time01 dt_time_xz">
+                            <!-- 判断是否有机票的服务 -->
+                            <if condition="$result.bu_1 eq 1">
+                                <a href="javascript:void(0)" id="plan_service" class="current2 addService">机票</a>
+                                <else/>
+                                <a href="javascript:void(0)" id="plan_service" class="addService">机票</a>
+                            </if>
+                            <!-- 判断是否有酒店的服务 -->
+                            <if condition="$result.bu_2 eq 1">
+                                <a href="javascript:void(0)" id="hotel_service" class="current2 addService">酒店</a>
+                                <else/>
+                                <a href="javascript:void(0)" id="hotel_service" class="addService">酒店</a>
+                            </if>
+                            <!-- 判断是否有火车的服务 -->
+                            <if condition="$result.bu_3 eq 1">
+                                <a href="javascript:void(0)" id="train_service" class="current2 addService">火车</a>
+                                <else/>
+                                <a href="javascript:void(0)" id="train_service" class="addService">火车</a>
+                            </if>
+                            <!-- 判断是否有租车的服务 -->
+                            <if condition="$result.bu_4 eq 1">
+                                <a href="javascript:void(0)" id="rent_service" class="current2 addService">租车</a>
+                                <else/>
+                                <a href="javascript:void(0)" id="rent_service" class="addService">租车</a>
+                            </if>
+                            <!-- 判断是否有签证的服务 -->
+                            <if condition="$result.bu_5 eq 1">
+                                <a href="javascript:void(0)" id="visa_service" class="current2 addService">签证</a>
+                                <else/>
+                                <a href="javascript:void(0)" id="visa_service" class="addService">签证</a>
+                            </if>
+                            <!-- 判断是否有MICE的服务 -->
+                            <if condition="$result.bu_6 eq 1">
+                                <a href="javascript:void(0)" id="MICE_service" class="current2 addService">MICE</a>
+                                <else/>
+                                <a href="javascript:void(0)" id="MICE_service" class="addService">MICE</a>
+                            </if>
+                            <!-- 判断是否有其他的服务 -->
+                            <if condition="$result.bu_7 eq 1">
+                                <a href="javascript:void(0)" id="other_service" class="current2 addService">其它</a>
+                                <else/>
+                                <a href="javascript:void(0)" id="other_service" class="addService">其它</a>
+                            </if>
+                            <div class="clear"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">公司地址</td>
+                    <td><input name="address" type="text" class="text01" value="{$result.address}"
+                               placeholder="请填写企业地址"/></td>
+                    <td>
+                        <div id="usermsg7" class="mod_tips_inner_small mt_2 fl_left" style="display:none" ;>
+                            ●地址必须是3~20个字符
+                        </div>
+                        <div id="usermsg8" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                            <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">服务热线</td>
+                    <td><input name="hotline" type="text" class="text01" value="{$result.hotline}"
+                               placeholder="请填写企业热线"/></td>
+                    <td>
+                        <div id="usermsg15" class="mod_tips_inner_small mt_2 fl_left" style="display:none" ;>
+                            ●服务热线为2~20位
+                        </div>
+                        <div id="usermsg16" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                            <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                        </div>
+                    </td>
+                </tr>
+
+            </if>
+            <!-- 判断结束 -->
+            <tr>
+                <td align="right">联系人</td>
+                <td><input name="contact_name" type="text" class="text01" value="{$result.contact_name}"
+                           placeholder="请填写联系人"/></td>
+                <td>
+                    <div id="usermsg9" class="mod_tips_inner_small mt_2 fl_left" style="display:none" ;>
+                        ●名称必须是2~10个字符
+                    </div>
+                    <div id="usermsg10" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                        <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td align="right">联系电话</td>
+                <td><input name="contact_phone" type="text" class="text01" value="{$result.contact_phone}"
+                           placeholder="请填写联系电话"/></td>
+                <td>
+                    <div id="usermsg11" class="mod_tips_inner_small mt_2 fl_left" style="display:none" ;>
+                        ●联系电话为2~20位
+                    </div>
+                    <div id="usermsg12" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                        <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">电子邮箱</td>
+                <td><input name="contact_email" type="text" class="text01" value="{$result.contact_email}"
+                           placeholder="请填写企业邮箱地址"/></td>
+                <td>
+                    <div id="usermsg13" class="mod_tips_inner_small mt_2 fl_left" style="display:none" ;>
+                        ●电子邮箱不正确
+                    </div>
+                    <div id="usermsg14" style="display:none" class="mod_success_tips_inner mt_8 fl_left">
+                        <i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td id="add_button"><a href="javascript:void(0)" class="btn_sure">确定修改</a></td>
+            </tr>
+        </table>
+        <br/>
+
+    </form>
+
+</div>
+<div class="clear"></div>
+</div>
+
+
+<script>
+
+    document.onkeyup = function (e) {
+        var ev = document.all ? window.event : e;
+        if ( ev.keyCode == 13 ) {
+            $("#basicinfo").submit();
+        }
+    };
+
+
+    $(function () {
+
+        /*企业名称验证*/
+        $("input[name='name']").blur(function () {
+            //2-20 汉字 数字 字母 下划线
+            var pattern = /^[\u4e00-\u9fa50-9a-z[\](\)\-]{2,30}$/i;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userName) ) {
+                _this.removeClass('smallwarning').parent('td').removeClass('smallwarning');
+                $('#usermsg1').css('display', 'none');
+            } else {
+                _this.addClass('smallwarning').parent('td').addClass('smallwarning');
+                $('#usermsg1').css('display', 'block');
+            }
+        });
+        /*企业简称验证*/
+        $("input[name='short_name']").blur(function () {
+            //2-20 汉字 数字 字母 下划线
+            var pattern = /^[\u4e00-\u9fa50-9a-z]{2,20}$/i;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userName) ) {
+                _this.removeClass('smallwarning').parent('td').removeClass('smallwarning');
+                $('#usermsg3').css('display', 'none');
+            } else {
+                _this.addClass('smallwarning').parent('td').addClass('smallwarning');
+                $('#usermsg3').css('display', 'block');
+            }
+        });
+
+
+        /*企业网址验证*/
+        $("input[name='website']").blur(function () {
+            var patternStr = "^((https|http|ftp|rtsp|mms)?://)"
+                    + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@
+                    + "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184
+                    + "|" // 允许IP和DOMAIN（域名）
+                    + "([0-9a-z_!~*'()-]+\.)*" // 域名- www.
+                    + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名
+                    + "[a-z]{2,6})" // first level domain- .com or .museum
+                    + "(:[0-9]{1,4})?" // 端口- :80
+                    + "((/?)|"
+                    + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+            var pattern = new RegExp(patternStr);
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userName) ) {
+                _this.removeClass('smallwarning').parent('td').removeClass('smallwarning');
+                $('#usermsg5').css('display', 'none');
+            } else {
+                _this.addClass('smallwarning').parent('td').addClass('smallwarning');
+                $('#usermsg5').css('display', 'block');
+            }
+        });
+
+
+        /*企业地址验证*/
+        $("input[name='address']").blur(function () {
+            //2-20 汉字 数字 字母 下划线
+            var pattern = /^[\u4e00-\u9fa50-9a-z]{2,20}$/i;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userName) ) {
+                _this.removeClass('smallwarning').parent('td').removeClass('smallwarning');
+                $('#usermsg7').css('display', 'none');
+            } else {
+                _this.addClass('smallwarning').parent('td').addClass('smallwarning');
+                $('#usermsg7').css('display', 'block');
+            }
+        });
+
+        /*企业联系人电话验证 */
+        $("input[name='hotline']").blur(function () {
+
+            var pattern = /^\d{2,20}$/i;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userName) ) {
+                _this.removeClass('smallwarning').parent('td').removeClass('smallwarning');
+                $('#usermsg15').css('display', 'none');
+            } else {
+                _this.addClass('smallwarning').parent('td').addClass('smallwarning');
+                $('#usermsg15').css('display', 'block');
+            }
+        });
+
+
+        /*企业联系人验证*/
+        $("input[name='contact_name']").blur(function () {
+            //2-20 汉字 数字 字母 下划线
+            var pattern = /^[\u4e00-\u9fa50-9a-z]{2,20}$/i;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userName) ) {
+                _this.removeClass('smallwarning').parent('td').removeClass('smallwarning');
+                $('#usermsg9').css('display', 'none');
+            } else {
+                _this.addClass('smallwarning').parent('td').addClass('smallwarning');
+                $('#usermsg9').css('display', 'block');
+            }
+        });
+
+        /*企业联系人电话验证 */
+        $("input[name='contact_phone']").blur(function () {
+
+            var pattern = /^\d{2,20}$/i;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userName) ) {
+                _this.removeClass('smallwarning').parent('td').removeClass('smallwarning');
+                $('#usermsg11').css('display', 'none');
+            } else {
+                _this.addClass('smallwarning').parent('td').addClass('smallwarning');
+                $('#usermsg11').css('display', 'block');
+            }
+        });
+
+        $("input[name='contact_email']").blur(function () {
+
+            var pattern = /^(?:\w+\.?)*\w+@(?:\w+\.)*\w+$/;
+            var userName = $(this).val() || '';
+            var _this = $(this);
+            if ( pattern.test(userName) ) {
+                _this.removeClass('smallwarning').parent('td').removeClass('smallwarning');
+                $('#usermsg13').css('display', 'none');
+            } else {
+                _this.addClass('smallwarning').parent('td').addClass('smallwarning');
+                $('#usermsg13').css('display', 'block');
+            }
+        });
+
+
+        //进行数据添加的提交
+        $("#add_button").click(function () {
+            $("#basicinfo").submit();
+            swal({
+                title: "温馨提示!",
+                text: "保存成功!!!",
+                type: "success",
+                confirmButtonText: "关 闭"
+            });
+        });
+
+        //进行TMC业务内容处理内容js
+        $(".addService").bind("click", function () {
+            $(this).toggleClass("current2");
+        });
+
+        var yes = 1;
+        var no = 0;
+        //具有的飞机服务
+        $("#plan_service").click(function () {
+            if ( $("#plan_service").hasClass("current2") == true ) {
+                $(this).append("<input type='hidden' name='bu_1' value='" + yes + "' />");
+
+            } else {
+                $(this).append("<input type='hidden' name='bu_1' value='" + no + "' />")
+            }
+
+        });
+
+        //具有酒店服务
+        $("#hotel_service").click(function () {
+            if ( $("#hotel_service").hasClass("current2") == true ) {
+                $(this).append("<input type='hidden' name='bu_2' value='" + yes + "' />");
+
+            } else {
+                $(this).append("<input type='hidden' name='bu_2' value='" + no + "' />")
+            }
+
+        });
+
+
+        //具有火车服务
+        $("#train_service").click(function () {
+            if ( $("#train_service").hasClass("current2") == true ) {
+                $(this).append("<input type='hidden' name='bu_3' value='" + yes + "' />");
+
+            } else {
+                $(this).append("<input type='hidden' name='bu_3' value='" + no + "' />")
+            }
+
+        });
+
+        //具有租车服务
+        $("#rent_service").click(function () {
+            if ( $("#rent_service").hasClass("current2") == true ) {
+                $(this).append("<input type='hidden' name='bu_4' value='" + yes + "' />");
+
+            } else {
+                $(this).append("<input type='hidden' name='bu_4' value='" + no + "' />")
+            }
+
+        });
+
+        //具有签证服务
+        $("#visa_service").click(function () {
+            if ( $("#visa_service").hasClass("current2") == true ) {
+                $(this).append("<input type='hidden' name='bu_5' value='" + yes + "' />");
+
+            } else {
+                $(this).append("<input type='hidden' name='bu_5' value='" + no + "' />")
+            }
+
+        });
+
+        //具有MICE服务
+        $("#MICE_service").click(function () {
+            if ( $("#MICE_service").hasClass("current2") == true ) {
+                $(this).append("<input type='hidden' name='bu_6' value='" + yes + "' />");
+
+            } else {
+                $(this).append("<input type='hidden' name='bu_6' value='" + no + "' />")
+            }
+
+        });
+
+        //具有其他的服务
+        $("#other_service").click(function () {
+            if ( $("#other_service").hasClass("current2") == true ) {
+                $(this).append("<input type='hidden' name='bu_7' value='" + yes + "' />");
+
+            } else {
+                $(this).append("<input type='hidden' name='bu_7' value='" + no + "' />")
+            }
+
+        });
+
+        $("#tmc_area").citySelect({
+            prov: "{$result.province}",
+            city: "{$result.city}"
+        });
+    });
+
+</script>
+

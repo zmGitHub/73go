@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.btn_sure{ border:1px solid #ddd; padding:0px 30px; text-align:center; display:inline-block; height:38px; line-height:38px; font-size:14px; color:white; margin:10px 0 0 0;}
+.btn_tmc_store{ border:1px solid #999999; padding:0px 30px; text-align:center; display:inline-block; height:38px; line-height:38px; font-size:14px; color:#999999; margin:10px 0 0 0;}
+#content{
+ width:500px;
+ height:500px;
+ border:solid 1px black;
+ padding: 5px 5px;
+ overflow:auto;
+ border-radius:15px
+}
+</style>
+</head>
+<body>
+	<div class="main_right">
+    	<div class="r_hd">
+      		<h3 class="r_tit">TMC旗舰店的配置管理</h3>
+    	</div>
+    	<div  class="BoxHeight mb_10" ></div>
+    	
+    	<form action="{$data.sub_url}" method="post">
+    		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4">
+    			<tr>
+        			<td width="30%"></td>
+        			<td>&nbsp;</td>
+      			</tr>
+      			<tr>
+      				<td align="right">旗舰店专用网站<br /></td>
+      				<td><a href="{$data.sub_url}">{$data.sub_url}</a></td>
+      
+     			</tr>
+     			<tr>
+     				
+      				<td align="right">用户注册条款<br /></td>
+      				<td><textarea name="reg_agreement" id="reg_agreement" cols="60" rows="27" style="resize: none;padding: 10px">{$data.reg_agreement}
+						</textarea>
+					</td>
+      				
+     			</tr>
+     			<tr>
+					<td align="right">&nbsp;</td>
+					<td>
+						<label for="agrement">
+							<input type="checkbox" id="agrement"/>&nbsp;确定该注册条款
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">&nbsp;</td>
+					<td><input type="submit" id="update" value="去编辑" class="btn_tmc_store"/></td>
+				</tr>
+			</table>
+		</form>
+		
+	</div>
+	<div class="clear"></div>
+</body>
+<script type="text/javascript">
+	document.getElementById('agrement').addEventListener('click', function(){
+		var result = this.checked;
+		if(result) {
+			var check = document.getElementById('update');
+			check.disabled = false;
+			check.className = "btn_sure";
+		} else {
+	 		var check = document.getElementById('update');
+	 		check.disabled=true;
+			check.className = "btn_tmc_store";
+			
+		}
+	});
+</script>
+</html>

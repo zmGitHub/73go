@@ -1,0 +1,175 @@
+<div class="main_right">
+
+    <div class="BoxHeight mt_10"></div>
+    <div class="order">
+        <div class="order_tit"><span class="mr_8">订单号：<em>{$orderinfo.order_num}</em></span><span class="mr_8">{$orderinfo.order_time}</span><strong
+                class="ml_25">{$orderinfo.tmc_uname}</strong></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="70" align="center">
+                    {$o.uname}<br/>
+                </td>
+                <td>
+
+
+                    <!-- flight ticket information -->
+                    <if condition="$flightinfo neq null ">
+                        <table width="630" border="0" cellspacing="0" cellpadding="0"
+                               class="table_fund bg_tab table_pr td_yq">
+                            <tr>
+                                <td width="14%" rowspan="2" nowrap>{$flightinfo.time_dep|substr=0,10}
+                                    <if condition="$of.insurId neq null ">     <!-- 判断有没有保险 -->
+                                        <span class="bx_mr"><a class="a_buy_yq">保险</a></span>
+                                    </if>
+                                    <br/>
+                                    {$flightinfo.airline_co} {$flightinfo.airline_num}
+                                </td>
+                                <td rowspan="2"><span class="tex_20">{$flightinfo.time_dep|substr=11,5}</span><br/>
+                                    {$flightinfo.city_from}
+                                </td>
+                                <td width="8%" rowspan="2"><p><br/>
+                                </p>
+
+                                    <p>——</p>
+
+                                    <p></p>
+
+                                    <p>&nbsp;</p></td>
+                                <td rowspan="2"><span class="tex_20">{$flightinfo.time_arv|substr=11,5}</span><br/>
+                                    {$flightinfo.city_to}
+                                </td>
+                                <td width="8%"><br/>{$flightinfo.class}</td>
+                                <td width="5%" nowrap
+                                    onmouseover="flightPriceDetail({$flightinfo.price},{$flightinfo.baf},{$flightinfo.acf},{$flightinfo.tax})">
+                                    <br/>￥{$flightinfo.price}
+                                </td>
+
+
+                            </tr>
+                        </table>
+                    </if>
+
+                </td>
+            </tr>
+        </table>
+        <div class="pa_15 tb_bg">总金额：￥{$orderinfo.amount}
+        </div>
+    </div>
+
+    <div>
+        <h3>旅客信息</h3>
+
+        <div class="travelinfo" width="630" align="left">
+            <tr>
+                <th colspan="2" align="left">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab"
+                           id="travelinfo">
+                        <tr>
+                            <th width="14%">姓名</th>
+                            <th width="20%">证件类型</th>
+                            <th width="20%">证件号码</th>
+                            <th width="20%">手机号码</th>
+                        </tr>
+                        <foreach name="travelerinfo" item="a" key="ook">
+                            <tr>
+                                <td>{$a.name}</td>
+                                <td>{$a.id_type}</td>
+                                <td>{$a.id_no}</td>
+                                <td>{$a.phone}</td>
+                            </tr>
+                        </foreach>
+                    </table>
+                </th>
+            </tr>
+        </div>
+    </div>
+
+    <div>
+        <h3>票价信息：</h3>
+
+        <div class="pxbo">
+            <tr>
+                <th colspan="2" align="left">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab"
+                           id="travelinfo">
+                        <tbody>
+                        <tr>
+                            <th>机票价格</th>
+                            <th>机场建设费</th>
+                            <th>税费</th>
+                            <th>服务费</th>
+                            <th>保险费</th>
+                            <th>合计</th>
+                        </tr>
+                        <tr>
+                            <td>{$flightinfo.price}</td>
+                            <td>{$flightinfo.baf}</td>
+                            <td>{$flightinfo.acf}</td>
+                            <td>{$flightinfo.tax}</td>
+                            <td>{$flightinfo.service_price}</td>
+                            <td>{$orderinfo.amount} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </th>
+            </tr>
+        </div>
+        <div class="aline"></div>
+    </div>
+
+    <br/>
+    <if condition="($tradeStatus eq 1) OR ($tradeStatus eq 3)">
+        <div class="txth2">
+        <h3>请选择支付方式<if condition="$tradeStatus eq 1"><span class="pay-fail">支付失败！请重新支付！</span></if><input form="payInfo" name="totalPay" type="text" class="fl_right" placeholder="测试金额"></h3>
+
+        <div class="payonline">
+
+            <div class="ncpbox">
+                <div style="width:100%;height:35px;line-height:35px;background-color:#D6D6D6;">
+                    <span class="bank_name" style="margin-left:20px">第三方支付</span>
+                </div>
+                <div class="payTypes">
+                    <label for="alipay" class="alipay">
+                        <input id="alipay" type="radio" checked/>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <!--网上银行支付结束-->
+        <form action="{:U('Home/Payment/alipay')}" method="post" id="payInfo">
+            <input type="hidden" name="desc" value="{$flightinfo.city_from} - {$flightinfo.city_to}"/>
+            <input type="hidden" name="totalPay12" value="{$orderinfo.amount}"/>
+            <input type="hidden" name="orderNumber" value="{$orderinfo.order_num}"/>
+            <input type="hidden" name="tmc_partner_id" value="{$tmccount.alipay_partner_id}"/>
+            <input type="hidden" name="alipay_id" value="{$tmccount.alipay_id}"/>
+            <input type="hidden" name="rsa_key" value="{$tmccount.rsa_key}"/>
+            <div class="btn-right">
+                <input name="confirmPay" type="submit" class="btn_sure mt_10" value="确认支付">
+            </div>
+            <div class="btn-right margin-right-15">
+                <a href="{:U('Home/Order/order_list_6')}" class="btn_cancel mt_10">取消支付</a>
+            </div>
+        </form>
+        </div>
+        <else/>
+        <div class="txth2">
+            <p class="pay-success">支付成功！</p>
+            <div class="btn-right margin-right-15">
+                <a href="{:U('Home/Order/order_list_6')}" class="btn_cancel mt_10">返回订单列表</a>
+            </div>
+        </div>
+
+    </if>
+</div>
+</div>
+
+</div>
+<div class="clear"></div>
+
+
+
+
+
+
+

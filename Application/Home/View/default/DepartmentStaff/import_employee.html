@@ -1,0 +1,107 @@
+<div class="main_right">
+   	  <div class="r_hd">
+            <h3 class="r_tit">部门和员工信息管理</h3>
+            <div class="r_hd_extra"> <a href="{:U('DepartmentStaff/ExeclDepartment')}">导入部门</a>
+            <a href="{:U('DepartmentStaff/ExeclStaff')}" class="current">导入员工</a> </div>
+    </div>
+        
+      <div  class="BoxHeight mb_10" ></div><div class="clear"></div>
+      <div class="mt_10 tex_14"><a href="__ROOT__/Public/busitemp/{:urlencode('员工数据模板')}.xls" class="tex_blue fl_right">模板下载</a></div>
+      <div class="clear"></div>
+      
+ <form method="post" action="{:U('StaffExcel/runexcel')}" enctype="multipart/form-data">
+    <div class="mt_10"><span class="fl_left">员工信息文档：
+	    <input type="file" class="btn_b5 ml_5" name="file_stu" onchange="fileStaff();" /></span>
+	    <span class="mod_tips_inner"><i class="mod_tico_x16 mod_tico_warn_x16"></i>只支持 Excel98~2003格式文档（*.xls)</span>
+    </div>
+    <div class="text_cent"><input type="submit" id="fileUpload" style="display:none;"/></div>
+ </form>
+ 
+  <div class="clear"></div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab" style="border:1px solid #ddd;">
+      <tr>
+          <th width="3%">&nbsp;</th>
+          <th width="8%">工号</th>
+          <th width="10%">姓名</th>
+          <th width="10%">部门</th>
+          <th width="4%">性别</th>
+          <th width="10%">手机</th>
+          <th width="12%">邮箱</th>
+          <th width="8%">证件类型</th>
+          <th>证件号</th>
+          <th width="6%">所在省</th>
+          <th width="6%">所在市</th>
+      </tr>
+      <if condition ="$sta == '' ">
+	      <tr> 
+	          <td style="height:140px; font-size:18px; color:#999;" colspan="11">暂无数据</td>
+	      </tr>	
+      </if>
+       <volist name="sta" id="b">
+       	<if condition="$b.name == 1 ">
+	      <tr class="excelLst" data-lst="code:'{$b[0]}',name:'{$b[1]}',bar:'{$b[2]}',sex:'{$b[3]}',phone:'{$b[4]}',email:'{$b[5]}',type:'{$b[6]}',num:'{$b[7]}',province:'{$b[8]}',city:'{$b[9]}'">
+	          <td><i class="mod_tico_x16 mod_tico_succ_x16"></i></td>
+	          <td>{$b[0]}</td>
+	          <td>{$b[1]}</td>
+	          <td>{$b[2]}</td>
+	          <td>{$b[3]}</td>
+	          <td>{$b[4]}</td>
+	          <td>{$b[5]}</td>
+	          <td>{$b[6]}</td>
+	          <td>{$b[7]}</td>
+	          <td>{$b[8]}</td>
+	          <td>{$b[9]}</td>
+	      </tr>
+	      <else />
+	      <tr>
+	          <td><i class="mod_tico_x16 mod_tico_warn_x16"></i></td>
+	          <td>{$b[0]}</td>
+	          <td>{$b[1]}</td>
+	          <td>{$b[2]}</td>
+	          <td>{$b[3]}</td>
+	          <td>{$b[4]}</td>
+	          <td>{$b[5]}</td>
+	          <td>{$b[6]}</td>
+	          <td>{$b[7]}</td>
+	          <td>{$b[8]}</td>
+	          <td>{$b[9]}</td>
+	      </tr>
+	      </if>
+      </volist>
+    </table>
+      <div class="text_cent"><input type="button" name="import" class ="btn_sure btn-sure1" value="导入"/></div>
+ 
+ 
+ </div>
+ <div class="clear"></div>
+ <script language="javascript">
+ function fileStaff(){
+	 $('#fileUpload').click();
+ }
+ $(function(){
+		$("input[name='import']").click(function(){
+			var serverData = {};
+			var obj = [];			
+			$('.excelLst').each(function(){
+				var str = $(this).data('lst');
+				str = eval('({'+str+'})');
+				obj.push(str);			
+			});					
+			serverData.list = obj; /*这是给serverData对象添加了一个属性并赋值为一个obj对象数组*/
+			$.ajax({
+				url: "{:U('DepartmentStaff/addExeclStaff')}",
+				data: serverData,
+				type: 'POST',				
+				success: function(reuslt){
+					if(reuslt){
+						alert("导入员工信息成功");
+					}else{
+						alert("导入员工信息失败");						
+					}
+				}
+			});
+		});
+	});
+ 
+ </script>
+

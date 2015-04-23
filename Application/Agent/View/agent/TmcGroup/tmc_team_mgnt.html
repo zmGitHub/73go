@@ -1,0 +1,619 @@
+ <div class="main_right">
+  <div class="r_hd">
+            <h3 class="r_tit">工作组信息管理</h3>
+            <div class="r_hd_extra">
+              <a href="{:U('TmcDepartmentStaff/showTmcDepartment')}">部门管理</a>
+              <a href="{:U('TmcGroup/showTmcGroup')}" class="current" >工作组管理</a>
+            </div>
+    </div>
+        
+      <div  class="BoxHeight mb_10" ></div><div class="clear"></div>
+    <div class="mt_10">
+    <span><img src="images/add.jpg" width="17" height="17" /></span><span class="tex_blue ml_5 tex_16"> <a href="javaScript:void(0);" id="my_addteam">添加组</a></span></div>
+   
+    <foreach name="tsnamelist" item="ts">
+    <div>
+    <div class="btitle mt_22">
+      <h4>{$ts.name}<em class="fl_right">
+      <a href="javaScript:void(0);" class="btn_b5 ml_5" onclick="delteam({$ts.id})" >删除组</a>
+      <a href="javaScript:void(0);" class="btn_b5 ml_5" onclick="updatename({$ts.id}, '{$ts.name}')" >重命名</a>
+    </em>
+        <div class="clear"></div></h4>
+    </div>
+    
+   
+    <div class="register_mod_form_row">
+       <div class="register_mod_form_label">成员</div>
+		<div class="register_mod_form_cnt">
+		
+		<!-- 成员 -->
+        <div class="news_mod_form_cnt dt_time01 dt_time_xz w400" id="order_service">
+         <foreach name="ts.gro" item="tt">
+         <a href="javaScript:void(0);" id="ateamname" value="{$tt.bid}" title="{$tt.ename}">{$tt.ename}</a><span class="del_user" id="del_user"  data-e_id="{$tt.bid}">×</span>
+         </foreach>
+        </div>
+        <span style=" margin-top:15px; display:block;" class="fl_left">
+       <!--  <a href="javascript:void(0)" class="tex_blue" onclick="showPopupForAddMember('{$ts.id}')">+ 添加组员</a> -->
+        <a href="javaScript:void(0);" class="tex_blue" onclick="staff_pop(getBusInfo,'{:U('home/pop/find_tmcuser')}',false,false,[{$ts.id}])">+ 添加组员</a>
+        </span>
+        <div class="clear"></div></div>
+	</div>
+    <div class="register_mod_form_row">
+      <div class="register_mod_form_label">服务企业</div>
+      <div class="register_mod_form_cnt">
+      
+      	<!--企业-->
+        <div class="news_mod_form_cnt dt_company02 dt_time_xz w400" id="order_service_co"> 
+        <foreach name="ts.com" item="rr">
+        <a href="javaScript:void(0);" value="{$rr.cid}">{$rr.ccname}</a><span class="del_user" id="del_co"  data-co_id="{$rr.cid}">×</span>
+        </foreach>
+        </div>
+        <span style=" margin-top:15px; display:block;" class="fl_left">
+      <!--   <a href="javascript:void(0)" class="tex_blue" onclick="addco({$ts.id})">+ 添加企业</a> -->
+        <a href="javaScript:void(0);" class="tex_blue" onclick="com_pop(getComInfo,'{:U('home/pop/find_com')}',false,false,[{$ts.id}])">+ 添加企业</a>
+        </span>
+        <div class="clear"></div>
+      </div>
+    </div>
+    </div>
+    </foreach>
+  </div>
+    <div class="clear"></div>
+</div>
+
+<!---popup 添加组弹出浮层 start --->
+        
+<div id="addtame" class="popup popup_pos1" style="display:none;">
+	       <a href="javaScript:void(0);" class="btn_close" id="btn_close" ></a>
+           <div class="pop_title">添加工作组</div>
+           <div class="popup_cont2">
+             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+               <tr class="border_none yd_bg">
+               </tr>
+               <tr class="border_none">
+               </tr>
+               <tr class="border_none">
+                 <td class="td1">工作组名称</td>
+                 <td width="252"><input name="teamname" type="text" class="text01" id="teamname"/></td>
+                <td width="262">
+                  <div id="uname" class="mod_tips_inner mt_2 fl_left" style="display: none;">
+                    <i class="mod_tico_x16 mod_tico_warn_x16"></i>格式不正确，请输入！
+                  </div>
+                </td>
+               </tr>
+               <tr class="border_none">
+               </tr>
+             </table>
+       		<div class="text_cent"><a href="javaScript:void(0);" id="getaddtame"  class="btn_sure">确定</a></div>  
+		</div> 
+</div>
+
+<!---popup 重命名组弹出浮层 start --->
+        
+<div id="updatename" class="popup popup_pos1" style="display:none;">
+	       <a href="javaScript:void(0);" class="btn_close" id="updatename_close" ></a>
+           <div class="pop_title">重命名工作组名</div>
+           <div class="popup_cont2">
+             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table_personal">
+               <tr class="border_none yd_bg">
+               </tr>
+               <tr class="border_none">
+               </tr>
+               <tr class="border_none">
+               	 <td><input name="teamupdateid" type="hidden" class="text01" id="teamupdateid" /></td>
+                 <td class="td1">工作组名称</td>
+                 <td><input name="teamupdatename" type="text" class="text01" id="teamupdatename"  /></td>
+               </tr>
+               <tr class="border_none">
+               </tr>
+             </table>
+       		<div class="text_cent"><a href="javaScript:void(0);" id="getupdatetame"  class="btn_sure">确定</a></div>  
+		</div> 
+</div>
+
+     
+<include file="Home@Public:staff_pop" />
+<include file="Home@Public:com_pop" />
+<script type="text/javascript">
+
+function getBusInfo(lst,parameter){
+	var str = "";
+	var theGroup = parameter['0'];//出差申请ID
+	for(var i=0,len = lst.length;i<len;i++){
+		if (i > 0) str += ",";
+		str += lst[i].u_id;
+	}
+	$.ajax({
+		url:"{:U('TmcGroup/addTmcGroupNumber')}",
+		data:"g=" + theGroup + "&emps="+str,
+		dataType:"text",
+		type:"POST",
+		success:function(data){
+			data = ajaxGet(data);
+			if(data==1){
+				swal({
+					title: "温馨提示!",
+					text: "添加成功!!!",
+					type: "success",
+					confirmButtonText: "关 闭",
+					timer: 2000
+				});
+				location.reload(); // href = "{:U('TmcGroup/showTmcGroup')}";
+			}
+			else{
+				swal({
+					title: "温馨提示!",
+					text: "添加失败!!!",
+					type: "error",
+					confirmButtonText: "关 闭",
+					timer: 2000
+				});
+			}
+		}
+	});
+}
+
+function getComInfo(lst,parameter){
+	var str = "";
+	var team_id = parameter['0'];//出差申请ID
+	for(var i=0,len = lst.length;i<len;i++){
+		str+=lst[i].co_id+',';
+	}
+	 $.ajax({
+ 		url:"{:U('TmcGroup/addTmcGroupCompany')}", 
+ 		data:"str="+str + "&team_id="+team_id,
+ 		dataType:"text",
+ 		type:"POST",
+ 		success:function(data){
+ 			data = ajaxGet(data);
+ 			if(data==1){
+				swal({
+					title: "温馨提示!",
+					text: "添加成功!!!",
+					type: "success",
+					confirmButtonText: "关 闭",
+					timer: 2000
+				});
+ 				location.href = "{:U('TmcGroup/showTmcGroup')}";
+ 			}
+ 			else{
+				swal({
+					title: "温馨提示!",
+					text: "添加失败!!!",
+					type: "error",
+					confirmButtonText: "关 闭",
+					timer: 2000
+				});
+ 			}
+ 		}
+ 	});
+}
+
+//添加按钮弹出查找界面
+	$('#my_addteam').click(function(){
+		$("#addtame").show();
+	});
+	$("#btn_close").click(function(){
+		$('#addtame').css("display","none");
+	});
+	   $(function () {
+      var err2= 0;	
+      $("input[name='teamname']").blur(function () {
+        //2-20 汉字 数字 字母 下划线
+        var pattern = /^[\u4e00-\u9fa5|A-Za-z0-9]{2,20}$/gi;
+        var userName = $(this).val() || '';
+        var _this = $(this);
+        if ( pattern.test(userName) ) {
+          err2 = 1;
+		  _this.removeClass('warning').parent('input').removeClass('warning');
+		  $('#uname').css('display', 'none');
+        } else {
+          err2 = 0;
+		  _this.addClass('warning').parent('input').addClass('warning');
+		  $('#uname').css('display', 'block');
+        }
+      });
+	$("#getaddtame").click(function(){
+        if(err2){
+          addbarchname();
+        }else{
+          swal({
+            title: "温馨提示!",
+            text: "请输入工作组名称!!",
+            type: "info",
+            confirmButtonText: "关 闭"
+          });
+        }
+      });
+      document.onkeydown = function(e){
+        var ev = document.all ? window.event : e;
+        if(ev.keyCode==13) {
+          if(err2){
+            addbarchname();
+          }
+        }
+      };
+    });
+
+     function addbarchname() {
+		var teamname=$('#teamname').val();
+		$.ajax({
+    		url:"{:U('TmcGroup/addTmcGroup')}",
+    		data:"teamname="+teamname,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+					swal({
+						title: "温馨提示!",
+						text: "添加成功!!",
+						type: "success",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+    				location.href = "{:U('TmcGroup/showTmcGroup')}";
+    			}
+    			else{
+				swal({
+					title: "温馨提示!",
+					text: "添加失败!!工作组不能同名!!",
+					type: "error",
+					confirmButtonText: "关 闭"
+				}, function(){
+
+				});
+    			}
+    		}
+    	});
+        
+	};
+	//删除组
+	function delteam(id){
+		$.ajax({
+    		url:"{:U('TmcGroup/deleteTmcGroup')}", 
+    		data:"id="+id,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+					swal({
+						title: "温馨提示!",
+						text: "删除成功!!!",
+						type: "success",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+    				location.href = "{:U('TmcGroup/showTmcGroup')}";
+    			}
+    			else{
+					swal({
+						title: "温馨提示!",
+						text: "删除失败!!!",
+						type: "error",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+    			}
+    		}
+    	});
+	}
+	//弹出重命名界面
+	function updatename(id,name){
+		$('#teamupdateid').val(id);
+		$("#teamupdatename").val(name);
+		$("#updatename").show();
+	}
+	//重命名
+	$("#getupdatetame").click(function(){
+		var id = $('#teamupdateid').val();
+		var teamname=$('#teamupdatename').val();
+        $.ajax({
+    		url:"{:U('TmcGroup/updateTmcGroup')}", 
+    		data:"id="+id+"&teamname="+teamname,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			if(data==1){
+					swal({
+						title: "温馨提示!",
+						text: "重命名成功!!!",
+						type: "success",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+    				location.href = "{:U('TmcGroup/showTmcGroup')}";
+    			}
+    			else{
+					swal({
+						title: "温馨提示!",
+						text: "重命名失败!!!",
+						type: "error",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+    			}
+    		}
+    	});
+        
+	});
+	
+	$("#updatename_close").click(function(){
+		$('#updatename').css("display","none");
+	});
+
+	//添加组成员
+	function addname(id){
+		$.ajax({
+    		url:"{:U('TmcGroup/showTmcGroupNumber')}", 
+    		data:"id="+id,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			var emps = eval("(" + data + ")");
+    			var tb_addtenameemp=$('#tb_addtenameemp');
+    			$('#tb_addtenameemp').eq(0).empty().append(tr2);   //清除内容
+    			var tr1="<tr>"+
+    			"<th width='30px'></th>"+
+      			"<th width='24%'>"+"工号"+"</th>"+
+      			"<th width='24%'>"+"姓名"+"</th>"+
+      			"<th width='24%'>"+"联系电话"+"</th>"+
+      			"<th width='24%'>"+"邮箱"+"</th>"+
+    			"</tr>"
+    			tb_addtenameemp.append(tr1);
+    			for(var i=0;i<emps.length;i++){
+    				var tr2=
+    					"<tr>"+
+    					  "<td>"+"<input type='checkbox' name='checkall' id='checkall2' value='"+emps[i].id+"' />"+"</td>"+
+    			          "<td>"+emps[i].emp_code+"</td>"+
+    			          "<td>"+emps[i].name+"</td>"+
+    			          "<td>"+emps[i].phone+"</td>"+
+    			          "<td>"+emps[i].email+"</td>"+
+    			        "</tr>"
+    			 tb_addtenameemp.append(tr2);   
+    			}
+    			
+    			$("#addtename").show();	
+    		}
+    	});
+		
+	}
+	$("#addtename_close").click(function(){
+		$('#addtename').css("display","none");
+	});
+	
+	$("#getaddtamename").click(function(){
+		
+        var str=$("#checkall2").val();
+        
+        $.ajax({
+    		url:"{:U('TmcGroup/addTmcGroupNumber')}", 
+    		data:"str="+str,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+					swal({
+						title: "温馨提示!",
+						text: "添加成功!!!",
+						type: "success",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+    				location.href = "{:U('TmcGroup/showTmcGroup')}";
+    			}
+    			else{
+					swal({
+						title: "温馨提示!",
+						text: "添加失败!!!",
+						type: "error",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+    			}
+    		}
+    	});
+        
+	});
+//添加组企业
+
+	function addco(id){
+		$.ajax({
+    		url:"{:U('TmcGroup/showTmcGroupCompany')}", 
+    		data:"id="+id,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			var emps = eval("(" + data + ")");
+    			var tb_addtenaco=$('#tb_addtenaco');
+    			$('#tb_addtenaco').eq(0).empty().append(tr2);   //清除内容
+    			var tr1="<tr>"+
+    			"<th width='30px'></th>"+
+      			"<th width='14%'>"+"企业编号"+"</th>"+
+      			"<th width='40%'>"+"全名"+"</th>"+
+      			"<th width='20%'>"+"联系人"+"</th>"+
+      			"<th width='23%'>"+"联系电话"+"</th>"+
+    			"</tr>"
+    			tb_addtenaco.append(tr1);
+    			for(var i=0;i<emps.length;i++){
+    				var tr2=
+    					"<tr>"+
+    					  "<td>"+"<input type='checkbox' name='checkall1' id='checkaco' value='"+emps[i].id+"' />"+"</td>"+
+    			          "<td>"+emps[i].co_code+"</td>"+
+    			          "<td>"+emps[i].name+"</td>"+
+    			          "<td>"+emps[i].contact_name+"</td>"+
+    			          "<td>"+emps[i].contact_phone+"</td>"+
+    			        "</tr>"
+    			 tb_addtenaco.append(tr2);   
+    			}
+    			
+    			$("#addtenaco").show();	
+    		}
+    	});
+	
+	}
+	$("#addtenaco_close").click(function(){
+		$('#addtenaco').css("display","none");
+	});
+	$("#getaddtameco").click(function(){
+		
+		 var str=$("#checkaco").val();
+		 
+        $.ajax({
+    		url:"{:U('TmcGroup/addTmcGroupCompany')}", 
+    		data:"str="+str,
+    		dataType:"text",
+    		type:"POST",
+    		success:function(data){
+    			data = ajaxGet(data);
+    			if(data==1){
+					swal({
+						title: "温馨提示!",
+						text: "添加成功!!!",
+						type: "success",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+    				location.href = "{:U('TmcGroup/showTmcGroup')}";
+    			}
+    			else{
+					swal({
+						title: "温馨提示!",
+						text: "添加失败!!!",
+						type: "error",
+						confirmButtonText: "关 闭",
+						timer: 2000
+					});
+    			}
+    		}
+    	});
+        
+	});
+	//删除工作组成员
+	$("#order_service a").on("click", function(){
+		
+		if( $(this).data("is") == 1 ){
+			$(this).data("is", 0);
+			/* var userid=$(this).attr('value');
+	       
+			$.ajax({
+	    		url:"{:U('TmcGroup/deleteTmcGroupNumber')}", 
+	    		data:"userid="+userid,
+	    		dataType:"text",
+	    		type:"POST",
+	    		success:function(data){
+	    			data = ajaxGet(data);
+	    			if(data==1){
+						swal({
+							title: "温馨提示!",
+							text: "删除成功!!!",
+							type: "success",
+							confirmButtonText: "关 闭",
+							timer: 2000
+						});
+	    				location.href = "{:U('TmcGroup/showTmcGroup')}";
+	    			}
+	    			else{
+						swal({
+							title: "温馨提示!",
+							text: "删除失败!!!",
+							type: "error",
+							confirmButtonText: "关 闭",
+							timer: 2000
+						});
+	    			}
+	    		}
+	    	}); */
+		}else{
+			$(this).data("is", 1);
+			//var userid=$(this).attr('value');
+		}
+		$(this).toggleClass("current2");
+	})
+	
+	//删除工作组企业
+	$("#order_service_co a").on("click", function(){
+		
+		if( $(this).data("is") == 1 ){
+			$(this).data("is", 0);
+			/* var userid=$(this).attr('value');
+	       
+			$.ajax({
+				url:"{:U('TmcGroup/deleteTmcGroupCompany')}", 
+	    		data:"userid="+userid,
+	    		dataType:"text",
+	    		type:"POST",
+	    		success:function(data){
+	    			data = ajaxGet(data);
+	    			if(data==1){
+	    				alert("删除成功");
+	    				location.href = "{:U('TmcGroup/showTmcGroup')}";
+	    			}
+	    			else{
+	    				alert("删除失败");
+	    			}
+	    		}
+	    	}); */
+		}else{
+			$(this).data("is", 1);
+			//var userid=$(this).attr('value');
+		}
+		$(this).toggleClass("current2");
+	});
+	
+	 //删除添加的用户
+        $("#order_service span").click(function () {
+        	var e_id = $(this).data("e_id");//用户id
+            $.ajax({
+				url:"{:U('TmcGroup/deleteTmcGroupNumber')}", 
+	    		data:"userid="+e_id,
+	    		dataType:"text",
+	    		type:"POST",
+	    		success:function(data){
+	    			data = ajaxGet(data);
+	    			if(data==1){
+	    				location.href = "{:U('TmcGroup/showTmcGroup')}";
+	    			}
+	    			else{
+	    				  swal({
+	                            title: "温馨提示!",
+	                            text: "删除用户失败!!!",
+	                            type: "error",
+	                            confirmButtonText: "关 闭",
+	                            timer: 3000
+	                        }); 
+	    			}
+	    		}
+	    	});
+        });
+            
+            //删除添加的企业
+            $("#order_service_co span").click(function () {
+                var co_id = $(this).data("co_id");//企业id
+                $.ajax({
+    				url:"{:U('TmcGroup/deleteTmcGroupCompany')}", 
+    	    		data:"userid="+co_id,
+    	    		dataType:"text",
+    	    		type:"POST",
+    	    		success:function(data){
+    	    			data = ajaxGet(data);
+    	    			if(data==1){
+    	    				location.href = "{:U('TmcGroup/showTmcGroup')}";
+    	    			}
+    	    			else{
+    	    				  swal({
+    	                            title: "温馨提示!",
+    	                            text: "删除企业失败!!!",
+    	                            type: "error",
+    	                            confirmButtonText: "关 闭",
+    	                            timer: 3000
+    	                        }); 
+    	    			}
+    	    		}
+    	    	});
+            });
+
+</script>
+ 

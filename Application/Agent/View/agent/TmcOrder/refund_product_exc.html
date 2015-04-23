@@ -1,0 +1,510 @@
+
+  <div class="main_right">
+  <div class="r_hd">
+            <h3 class="r_tit">订单管理</h3>
+  </div>
+      <div class="BoxHeight mt_10"></div>
+      <div class="order" id="datas" data-reqid="{$reqDetail['id']}">
+        <div class="order_tit">
+        <span class="mr_8">订单号：<em><a href="{:U('Order/order_edit',array('type' => 2,'order_num' => $o['orderNum']))}"  class="btn_b5">{$o.orderNum}</a></em></span>
+        <span class="mr_8">{$o.orderTime}</span><span class="fl_right">{$o.comName}
+        <if condition="$o['choiceTag'] eq 1 ">
+            <em class="ml_25 tex_r">申请退单</em>
+        </if>
+        </span></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="70" align="center"> {$o.uname}<br/>
+                </td>
+            <td>
+            
+<!-- flight ticket information -->
+<if condition="$o.flight neq null ">
+     <foreach name="o.flight" item="of" key="ofk">
+              <table width="630" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab table_pr td_yq">
+          <tr>
+            <td width="14%" rowspan="2"  nowrap >{$of.time_dep|substr=0,10}
+            <if condition="$of.insurId neq null ">     <!-- 判断有没有保险 -->
+               <span class="bx_mr"><a class="a_buy_yq">保险</a></span>
+            </if>
+            <br />
+     {$of.airline_co} {$of.airline_num}</td>
+            <td rowspan="2" ><span class="tex_20">{$of.time_dep|substr=11,5}</span><br />
+     {$of.city_from}</td>
+            <td width="8%" rowspan="2"  ><p><br />
+            </p>
+            <p>——</p>
+              <p></p>
+            <p>&nbsp;</p></td>
+            <td rowspan="2" ><span class="tex_20">{$of.time_arv|substr=11,5}</span><br />
+    {$of.city_to}</td>
+            <td width="8%"><br/>{$of.class}</td>
+            <td width="5%" nowrap onmouseover = "flightPriceDetail({$of.price},{$of.baf},{$of.acf},{$of.tax})"><br/>￥{$of.allPrice}</td>
+            <td width="8%" rowspan="2" nowrap>
+<!--------- check flight status -------------------------------------->
+
+<!--------------------------- 这是机票现付的情景------------------------- -->
+            <if condition="$o['payType'] eq 0" >               <!-- 现付 -->
+
+	            	<!-- 订单状态为已取消[19]，订单状态为待支付[11],订单状态为待退款[8],订单状态为已退款[24],则产品状态无文字 -->
+	                <if condition="($o['orderStatus'] eq 19) or ($o['orderStatus'] eq 11) or ($o['orderStatus'] eq 8) or ($o['orderStatus'] eq 24)  " >      <!-- 订单状态为已取消，则产品状态无文字 -->
+	                	 		<a href="javascript:void(0)" class="tex_O"></a>
+	                   			 </td>
+	                <else />	                               
+	                         <if condition="$of['status'] eq 2" >       <!-- 待出票 -->
+                   			      <a href="javascript:void(0)" class="tex_O">待出票</a>
+                   			      </td>
+		                    <elseif condition="$of['status'] eq 14" />      <!-- 已出票 -->
+                   			     	 <a href="javascript:void(0)" class="tex_O">已出票</a>
+				                    </td>
+		                    <elseif condition="$of['status'] eq 4" />  <!-- 待改签 -->
+                   			      	<a href="javascript:void(0)" class="tex_O">待改签</a>                   			  		                    		
+					                </td>	                    				                    		
+		                    <elseif condition="$of['status'] eq 16" /> <!-- 已改签 -->		                    	
+                   			      	<a href="javascript:void(0)" class="tex_O">已改签</a>                   			  		                    		
+									</td>
+		                    <elseif condition="$of['status'] eq 1" />  <!-- 待补款 -->
+                   			      	<a href="javascript:void(0)" class="tex_O">待补款</a>                  			  		                    		
+									 </td>	
+																            		                    				                    		
+		                    <elseif condition="$of['status'] eq 13" /> <!-- 已补款 -->		                    	
+                   			      	<a href="javascript:void(0)" class="tex_O">已补款</a>
+									</td>
+		                    <elseif condition="$of['status'] eq 22" /> <!-- 已使用 -->
+                   			      	<a href="javascript:void(0)" class="tex_O">已使用</a>
+				                    </td>			                    				                    		
+		                    <elseif condition="$of['status'] eq 18" /> <!-- 已过期 -->
+                   			      	 <a href="javascript:void(0)" class="tex_O">已过期</a>
+		                   			</td>
+							 <elseif condition="$of['status'] eq 98" /> <!-- 查看详情 -->
+                   			      	 <a href="{:U('Order/order_edit',array('type' => 2,'order_num' => $o['orderNum']))}" class="tex_blue">查看详情</a>
+		                   			</td>	
+		                    <elseif condition="$of['status'] eq 9" />      <!-- 待退票 -->
+		                   	 		<a href="javascript:void(0)" class="tex_O">待退票</a>
+		                   	 		</td>
+                   			 <elseif condition="$of['status'] eq 26" /> <!-- 已退票 -->
+                   			 		<a href="javascript:void(0)" class="tex_O">已退票</a>
+                   			 		</td>
+               				 </if>
+					</if>
+            
+<!--------------------------- 这是机票月结的情景 ------------------------- -->               				 
+            <elseif condition="$o['payType'] eq 1" />  
+		            	 <!-- 订单状态为已取消，待确认,已退单,则产品状态无文字 -->             
+						<if condition="($o['orderStatus'] eq 19) or ($o['orderStatus'] eq 6) or ($o['orderStatus'] eq 23)" >     
+		                	 		<a href="javascript:void(0)" class="tex_O"></a>
+		                   			 </td>	
+						<else />	
+								
+							<if condition="$of['status'] eq 2" >       <!-- 待出票 -->
+                   			      <a href="javascript:void(0)" class="tex_O">待出票</a>
+                   			      </td>				                    	
+                   		                  
+		                    <elseif condition="$of['status'] eq 14" />      <!-- 已出票 -->
+		                    		<a href="javascript:void(0)" class="tex_O">已出票</a>
+				                    </td>	                    		
+		                    			
+		                    <elseif condition="$of['status'] eq 4" />  <!-- 待改签 -->
+		                    		<a href="javascript:void(0)" class="tex_O">待改签</a>
+					                </td>	                    		
+		                    		
+		                    <elseif condition="$of['status'] eq 16" /> <!-- 已改签 -->
+		                    		<a href="javascript:void(0)" class="tex_O">已改签</a>
+									</td>	                    		
+                  		
+		                    <elseif condition="$of['status'] eq 22" /> <!-- 已使用 -->
+		                    		<a href="javascript:void(0)" class="tex_O">已使用</a>
+				                    </td>		                    		
+		                    <elseif condition="$of['status'] eq 98" /> <!-- 查看详情 -->
+                   			      	 <a href="{:U('Order/order_edit',array('type' => 2,'order_num' => $o['orderNum']))}" class="tex_blue">查看详情</a>       			
+		                   			</td>		
+		                    <elseif condition="$of['status'] eq 18" /> <!-- 已过期 -->
+		                   			 <a href="javascript:void(0)" class="tex_O">已过期</a>
+		                   			</td>
+
+                   			 <elseif condition="$of['status'] eq 26" /> <!-- 已退票 -->
+                   			 		<a href="javascript:void(0)" class="tex_O">已退票</a>
+                   			 		</td>
+							 <elseif condition="$of['status'] eq 9" /> <!-- 待退票 -->
+                   			 		<a href="javascript:void(0)" class="tex_O">待退票</a>
+                   			 		</td> 	
+		                   	</if>										
+					</if> 
+            </if>
+           
+            <if condition="$of['choiceTag'] eq 1">
+                  <td width="12%" rowspan="2" >
+				          <span class="tex_r">申请退票</span>
+				  </td>
+		    <else />
+		          <td width="12%" rowspan="2" >
+				          <a href="javascript:void(0)" class="tex_r"></a>
+				  </td>
+		    </if>
+            
+           
+          </tr>
+          <tr>
+            <td colspan="2" ><a href="javascript:void(0)" class="tex_blue">退改签政策</a></td>
+          </tr>
+          </table>
+     </foreach>
+</if>          
+          
+<!-- hotel information    -->  
+<if condition="$o.hotel neq null ">
+     <foreach name="o.hotel" item="oh" key="ohk">           
+              <table width="630" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab table_pr td_yq">
+          <tr>
+    <td width="14%"  nowrap >{$oh.date_ckin}<br />
+      ↓<br />
+      {$oh.date_ckout}</td>
+    <td width="45%" >{$oh.hotel_name}<br />
+      {$oh.hotel_addr}</td>
+    <td width="19%"  nowrap >￥{$oh.price}
+    
+    <if condition="$oh.prepay_val neq 0 ">
+        <if condition="$oh.prepay_status eq 0 ">
+        <p class="db_mr">需预付</p>
+        <elseif condition="$oh.prepay_status eq 1 "/>
+        <p class="db_mr">已预付</p></if>
+    <else/>
+    </if>
+    
+    <if condition="$oh.crecard_val eq 1 ">
+        <if condition="$oh.crecard_status eq 0 ">
+        <p class="db_mr">需担保</p>
+        <elseif condition="$oh.crecard_status eq 1 "/>
+        <p class="db_mr">已担保</p></if>
+    <else/>
+    </if>
+
+    <br />{$oh.room_type}
+        <span>{$oh.count}</span></td>
+        <td width="12%" >
+               
+        <!-- ----------------------------这是酒店相关情况操作 ----------------------------------------->
+	        <!-- 订单状态为已取消[19]，待确认[6],则产品状态无文字 -->
+			        <if condition="($o['orderStatus'] eq 19) or ($o['orderStatus'] eq 6)" >      
+			        		 <a href="javascript:void(0)" class="tex_O"></a>    
+			        		 </td>
+			    			 <td  style="padding-right:10px;">   
+			    			        <if condition="$oh['choiceTag'] eq 1 ">    
+		          				           <span class="tex_r">申请退单</span>
+		          				    </if>
+			                 </td>
+			                 
+			       <else />
+			              
+			              <if condition="$oh['status'] eq 10" >       <!-- 待预定-->
+                   			      <a href="javascript:void(0)" class="tex_O">待预定</a>
+                   			      </td>
+								     <td  style="padding-right:10px;">
+			    			        <if condition="$oh['choiceTag'] eq 1 ">    
+		          				           <span class="tex_r">申请退单</span>
+		          				    </if>
+								     </td>				                    	
+        		
+         				 <elseif condition="$oh['status'] eq 25" />       <!-- 已预订 -->
+                   			      <a href="javascript:void(0)" class="tex_O">已预订</a>
+                   			      </td>
+								     <td  style="padding-right:10px;">
+			    			        <if condition="$oh['choiceTag'] eq 1 ">    
+		          				           <span class="tex_r">申请退单</span>
+		          				    </if>
+								     </td>
+								     
+						<elseif condition="$oh['status'] eq 3" />       <!--待改单 -->		     
+                   			      <a href="javascript:void(0)" class="tex_O">待改单</a>
+                   			      </td>
+								    <td  style="padding-right:10px;">
+			    			        <if condition="$oh['choiceTag'] eq 1 ">    
+		          				           <span class="tex_r">申请退单</span>
+		          				    </if>
+								    </td>						
+						
+						<elseif condition="$oh['status'] eq 15" />       <!--已改单 -->		     
+                   			      <a href="javascript:void(0)" class="tex_O">已改单</a>
+                   			      </td>
+								     <td  style="padding-right:10px;">
+			    			        <if condition="$oh['choiceTag'] eq 1 ">    
+		          				           <span class="tex_r">申请退单</span>
+		          				    </if>
+	          						 </td>	
+						<elseif condition="$oh['status'] eq 98" />       <!--查看详情 -->		     
+                   			      <a href="{:U('Order/order_edit',array('type' => 2,'order_num' => $o['orderNum']))}" class="tex_blue">查看详情</a>
+                   			      </td>
+								     <td  style="padding-right:10px;">
+			    			        <if condition="$oh['choiceTag'] eq 1 ">    
+		          				          <span class="tex_r">申请退单</span>
+		          				    </if>
+								     </td>						
+        		 
+        				<elseif condition="$oh['status'] eq 5" />       <!--待取消 -->   		
+                    			 <a href="javascript:void(0)" class="tex_O">待取消 </a>
+                   			      </td>
+								     <td  style="padding-right:10px;">
+			    			            <if condition="$oh['choiceTag'] eq 1 ">    
+		          				           <span class="tex_r">申请退单</span>
+		          				        </if>
+								     </td>
+								     
+						<elseif condition="$oh['status'] eq 8" />       <!--待退款 -->		     
+                    			 <a href="javascript:void(0)" class="tex_O">待退款 </a>
+                   			      </td>
+								    <td  style="padding-right:10px;">
+			    			        <if condition="$oh['choiceTag'] eq 1 ">    
+		          				           <span class="tex_r">申请退单</span>
+		          				    </if>
+								    </td>								     	       		
+        		
+ 						<elseif condition="$oh['status'] eq 19" />       <!--已取消 -->   		
+                    			 <a href="javascript:void(0)" class="tex_O">已取消 </a>
+                   			      </td>
+								   <td  style="padding-right:10px;">
+			    			        <if condition="$oh['choiceTag'] eq 1 ">    
+		          				           <span class="tex_r">申请退单</span>
+		          				    </if>
+								   </td>       				
+        				</if>	
+	        		</if>
+	        		
+	        		
+	        		
+                   </tr>
+              </table>
+     </foreach>
+</if>        
+        
+<!-- train ticket information  这是火车票的信息 --> 
+<if condition="$o.train neq null ">
+     <foreach name="o.train" item="ot" key="otk">
+     <table width="630" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab table_pr td_yq">
+          <tr>
+            <td width="14%" rowspan="2"  nowrap >{$ot.boarding_time|substr=0,10}<br />
+     {$ot.train_num}</td>
+            <td rowspan="2" ><span class="tex_20">{$ot.boarding_time|substr=11,5}</span><br />
+     {$ot.station_dep}</td>
+            <td width="8%" rowspan="2" class="tex_20 ">——</td>
+            <td rowspan="2" ><span class="tex_20">{$ot.arrive_time|substr=11,5}</span><br />
+     {$ot.station_arv}</td>
+            <td width="8%"><br/>{$ot.class_level}</td>
+            <td width="8%" nowrap ><br/>￥{$ot.price}</td>
+            <td width="8%" rowspan="2" nowrap>
+<!--------- check train status ------------------------------------->
+<!--------------------------- 这是火车现付的情景------------------------- -->
+           <if condition="$o['payType'] eq 0" >               <!-- 现付 -->
+            
+            <!-- 订单状态为已取消[19]，订单状态为待支付[11],订单状态为待退款[8],订单状态为已退款[24],则产品状态无文字 -->
+                <if condition="($o['orderStatus'] eq 19) or ($o['orderStatus'] eq 11) or ($o['orderStatus'] eq 8) or ($o['orderStatus'] eq 24)  " >      <!-- 订单状态为已取消，则产品状态无文字 -->
+                	 		<a href="javascript:void(0)" class="tex_O"></a>
+                   			 </td>
+                
+                <else />
+                
+ 							<if condition="$ot['status'] eq 2" >       <!-- 待出票 -->
+                   			      <a href="javascript:void(0)" class="tex_O">待出票</a>
+                   			      </td>			                    	
+                
+		                    <elseif condition="$ot['status'] eq 14" />      <!-- 已出票 -->
+		                    		<a href="javascript:void(0)" class="tex_O">已出票</a>
+				                    </td>		                    		
+		                    		
+		                    <elseif condition="$ot['status'] eq 4" />  <!-- 待改签 -->
+		                    		<a href="javascript:void(0)" class="tex_O">待改签</a>
+					                </td>                    		
+		                    		
+		                    <elseif condition="$ot['status'] eq 16" /> <!-- 已改签 -->
+		                    		<a href="javascript:void(0)" class="tex_O">已改签</a>
+									</td>	                    		
+		                    		
+		                    <elseif condition="$ot['status'] eq 1" />  <!-- 待补款 -->
+		                    		<a href="javascript:void(0)" class="tex_O">待补款</a>
+									 </td>	
+																            		                    				                    		
+		                    <elseif condition="$ot['status'] eq 13" /> <!-- 已补款 -->
+		                    		<a href="javascript:void(0)" class="tex_O">已补款</a>
+									</td>		                    		
+		                    		
+		                    <elseif condition="$ot['status'] eq 22" /> <!-- 已使用 -->
+		                    		<a href="javascript:void(0)" class="tex_O">已使用</a>
+				                    </td>		                    		
+		                    <elseif condition="$ot['status'] eq 98" />      <!-- 查看详情 -->
+		                   	 		<a href="{:U('Order/order_edit',array('type' => 2,'order_num' => $o['orderNum']))}" class="tex_blue">查看详情</a>
+		                   	 		</td>		
+		                    <elseif condition="$ot['status'] eq 18" /> <!-- 已过期 -->
+		                   			 <a href="javascript:void(0)" class="tex_O">已过期</a>
+		                   			</td>
+
+		                    <elseif condition="$ot['status'] eq 9" />      <!-- 待退票 -->
+		                   	 		<a href="javascript:void(0)" class="tex_O">待退票</a>
+		                   	 		</td>
+								     	
+                   			 <elseif condition="$ot['status'] eq 26" /> <!-- 已退票 -->
+                   			 		<a href="javascript:void(0)" class="tex_O">已退票</a>
+                   			 		</td>
+               				 </if>    	            
+
+				</if>	
+	
+
+                   		  
+ 
+<!--------------------------- 这是火车月结的情景 ------------------------- -->               				 
+            <elseif condition="$o['payType'] eq 1" />  
+	            	 <!-- 订单状态为已取消，待确认,待退款,则产品状态无文字 -->             
+					<if condition="($o['orderStatus'] eq 19) or ($o['orderStatus'] eq 6) or ($o['orderStatus'] eq 23)" >     
+	                	 		<a href="javascript:void(0)" class="tex_O"></a>
+	                   			 </td>
+					<else />	
+					
+							<if condition="$ot['status'] eq 2" >       <!-- 待出票 -->
+                   			      <a href="javascript:void(0)" class="tex_O">待出票</a>
+                   			      </td>			                    	
+                            
+		                    <elseif condition="$ot['status'] eq 14" />      <!-- 已出票 -->
+		                    		<a href="javascript:void(0)" class="tex_O">已出票</a>
+				                    </td>		                    		
+		                    		
+		                    <elseif condition="$ot['status'] eq 4" />  <!-- 待改签 -->
+		                    		<a href="javascript:void(0)" class="tex_O">待改签</a>
+					                </td>	                    		
+		                    		
+		                    <elseif condition="$ot['status'] eq 16" /> <!-- 已改签 -->
+		                    		<a href="javascript:void(0)" class="tex_O">已改签</a>
+									</td>	                    				                    		
+		                  
+		                    <elseif condition="$ot['status'] eq 22" /> <!-- 已使用 -->
+		                    		<a href="javascript:void(0)" class="tex_O">已使用</a>
+				                    </td>		                    		
+		                    		
+		                    <elseif condition="$ot['status'] eq 18" /> <!-- 已过期 -->
+		                   			 <a href="javascript:void(0)" class="tex_O">已过期</a>
+		                   			</td>
+
+		                    <elseif condition="$ot['status'] eq 9" />      <!-- 待退票 -->
+		                   	 		<a href="javascript:void(0)" class="tex_O">待退票</a>
+		                   	 		</td>
+							<elseif condition="$ot['status'] eq 98" />      <!-- 查看详情 -->
+		                   	 		     <a href="{:U('Order/order_edit',array('type' => 2,'order_num' => $o['orderNum']))}" class="tex_blue">查看详情</a>
+		                   	 		</td>
+								     
+                   			 <elseif condition="$ot['status'] eq 26" /> <!-- 已退票 -->
+                   			 		<a href="javascript:void(0)" class="tex_O">已退票</a>
+                   			 		</td>
+               				 </if>          			
+					</if>
+			
+            </if>
+            
+            <if condition="$ot['choiceTag'] eq 1">
+                  <td width="12%" rowspan="2" >
+				          <span class="tex_r">申请退票</span>
+				  </td>
+		    <else />
+		          <td width="12%" rowspan="2" >
+				          <a href="javascript:void(0)" class="tex_r"></a>
+				  </td>
+		    </if>
+            
+            
+          </tr>
+          <tr>
+            <td width="12%" colspan="2" ><a href="javascript:void(0)" class="tex_blue">退改签政策</a></td>
+          </tr>
+          </table>
+     </foreach>
+</if>
+          
+<!-- other products information -->
+<if condition="$o.other neq null ">
+     <foreach name="o.other" item="oo" key="ook">
+        <table width="630" border="0" cellspacing="0" cellpadding="0" class="table_fund bg_tab table_pr">    
+          <tr>
+          <td width="14%" nowrap >{$oo.time_start}<br />
+            ↓<br />
+          {$oo.time_end}</td>
+          <td width="53%">{$oo.content}</td>
+          <td width="14%" class="tex_blue" nowrap >￥{$oo.price}</td>
+          <td>
+          <a href="javascript:void(0)" class="tex_O"></a>          
+          </td>
+          <td width="12%">
+          <a href="javascript:void(0)" class="tex_blue"></a><br />
+          <a href="javascript:void(0)" class="tex_O"></a>
+          </td>
+        </tr>
+        </table>
+    </foreach>
+</if> 
+
+
+        </td>
+        </tr>
+        </table>
+<!-----------------------订单产品部分结束---------------------------------> 
+       
+<!-- 退改签部分 -->        
+        <div class="BoxHeight mb_10 line_dashed"></div>
+        <div class="register_mod_form_row mb_10 pa_lr_40">
+          <div class="register_mod_form_label">请求改单的人：</div>
+          <div class="register_mod_form_cnt">
+            <div class="news_mod_form_cnt dt_time01 dt_time_xz">
+            <foreach name="reqDetail['user_name']" item="name" key="userk">
+               <a href="javascript:void(0)" class="current2">{$name}</a>
+            </foreach>
+             </div>
+            <div class="clear"></div>
+            <div class="pa_15 border_ddd mt_10 w450 re_bg">{$reqDetail['user_req']}</div></div></div>
+            <div class="BoxHeight"></div>
+        <div class="register_mod_form_row pa_lr_40 mb_10">
+          <div class="register_mod_form_label">处理意见：</div>
+          <div class="register_mod_form_cnt">
+            <!-- <div class="pa_15 border_ddd w450 mb_10">&quot;订单退改签申请&quot;表中的&quot;退改签要求&quot;字段内容</div> -->
+            <textarea name="exit_content" style="width:450px;height:120px;" >{$reqDetail['opinion']}</textarea>
+            </div></div>
+    </div>
+        <div class="clear"></div>
+        <div class="text_cent">
+        <button name="refuse" class="btn_sure mt_10">拒绝</button>
+        <a href="{:U('Order/order_edit',array('type' => 2,'order_num' => $o['orderNum']))}" class="btn_sure mt_10 ml_25">同意并更改订单</a></div>
+   </div>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<script>
+$(function(){
+	var cacheData = $('#datas');
+	var reqId = cacheData.attr('data-reqid') || 0;
+	
+	
+	$("button[name='refuse']").click(function(){
+		var opinion = $("textarea[name='exit_content']").val() || '';
+		
+		$.ajax({
+			url:"{:U('TmcOrder/change_or_refund_refuse')}",
+			data: {reqId: parseInt(reqId),opinion: opinion},
+			dataType:"JSON",
+			type:"POST",
+			success:function(msg){
+				if(msg==0){
+					window.location.href="{:U('TmcOrder/order_list_all')}";
+				}
+				if(msg==1){
+					window.location.reload();
+				}		
+			}
+		});
+		
+		
+	});
+	
+
+});
+
+
+
+
+
+</script>									

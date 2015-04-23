@@ -1,0 +1,85 @@
+
+  <div class="main_right">
+   	  <div class="r_hd">
+            <h3 class="r_tit">差旅企业员工详细信息</h3>
+   	  </div>
+        
+      <div  class="BoxHeight mb_10" ></div>
+        <table width="600" border="0" cellpadding="0" cellspacing="0" class="table_p4" style="margin:0 auto;">
+          <tr>
+            <td width="200" height="20">&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">员工ID</td>
+            <td><span class="text_left_25_yq">{$emp.id}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">企业ID</td>
+            <td width="240"><span class="text_left_25_yq">{$emp.co_id}</span></td>
+            <td width="262">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">系统用户ID</td>
+            <td><span class="text_left_25_yq">{$emp.u_id}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">部门ID</td>
+            <td><span class="text_left_25_yq">{$emp.br_id}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">员工号</td>
+            <td><span class="text_left_25_yq">{$emp.emp_code}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">电话号码</td>
+            <td><span class="text_left_25_yq">{$emp.phone}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">电子邮箱</td>
+            <td><span class="text_left_25_yq">{$emp.email}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">证件类型</td>
+            <td colspan="2"><span class="text_left_25_yq">{$emp.id_type}</span></td>
+          </tr>
+          <tr>
+            <td align="right">证件号码</td>
+            <td><span class="text_left_25_yq">{$emp.id_num}</span>
+           </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">省</td>
+            <td><span class="text_left_25_yq">{$emp.province}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">市</td>
+            <td><span class="text_left_25_yq">{$emp.city}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">角色类别</td>
+            <td><span class="text_left_25_yq">{$emp.role}</span></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right">状态</td>
+            <td><span class="text_left_25_yq"><if condition="$emp.status eq 0">正常
+  		<elseif condition="$emp.status eq 99"/> 停用</if></span></td>
+            <td>&nbsp;</td>
+          </tr>
+       
+        </table>
+    </div>
+    <div class="clear"></div>
+</div>
+
+

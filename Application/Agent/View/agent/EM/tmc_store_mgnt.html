@@ -1,0 +1,98 @@
+
+  <div class="main_right">
+    <div class="r_hd">
+      <h3 class="r_tit">TMC旗舰店的配置管理</h3>
+    </div>
+    <div  class="BoxHeight mb_10" ></div>
+    
+    <Form action="{:U('EM/dotmc_store_mgnt')}" method="post" id="tmcMgnt_btn">
+    
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_p4">
+      <tr>
+        <td width="30%"></td>
+        <td>&nbsp;</td>
+      </tr>
+      <!-- 
+      <tr>
+        <td align="right">旗舰店专用网址 http://ip/tmc/</td>
+        <td>
+          <input name="sub_url" type="text" class="text01 fl_left" value=""/>
+          <i class="mod_tico_x16 mod_tico_info_x16 ml_5"></i><i class="mod_tico_x16 mod_tico_succ_x16 ml_5"></i>
+        <div class="mod_tips_inner"><i class="mod_tico_x16 mod_tico_warn_x16"></i>已被占用</div></td>
+      </tr>
+       -->
+      
+      <tr>
+      <td align="right">旗舰店专用网站<br /></td>
+      <td><a href="{$data.sub_url}">{$data.sub_url}</a></td>
+      
+      </tr>
+      <tr>
+        <td align="right">首页Logo图片<br /></td>
+        <td><span class="fl_left">
+	        <input id="testId" type="file" name="large_logo" class="text01 h26 hh26 c_tx2"/>
+          <input id="testSubmit" type="submit" value="上传" class="btn_b6 ml_5 ml_l5" />
+        </span></td>
+      </tr>
+      <tr>
+        <td align="right">&nbsp;</td>
+        <td>为保证最佳显示效果，请确保图片为100x100像素<br />
+          <br />
+          <img src="images/nopic.jpg" width="100" height="100" class="border_ddd" /></td>
+      </tr>
+      <tr>
+        <td align="right">小Logo图片</td>
+        <td><span class="fl_left">
+          <input id="testId" type="file" name="small_logo" class="text01 h26 hh26 c_tx2" value=""/>
+          <input id="testSubmit" type="submit" value="上传" class="btn_b6 ml_5 ml_l5" />
+        </span></td>
+      </tr>
+      <tr>
+        <td align="right">&nbsp;</td>
+        <td>为保证最佳显示效果，请确保图片为50x50像素<br />
+          <br />          
+        <img src="images/nopic.jpg" alt="" width="50" height="50" class="border_ddd" /></td>
+      </tr>
+      <tr>
+        <td align="right" valign="top">用户注册协议</td>
+        <td><textarea name="reg_agreement" rows="5" class="text01 w450 h_80 c_tx2" >{$data.reg_tmc}</textarea></td>
+      </tr>
+      <tr>
+        <td align="right">&nbsp;</td>
+        <td><a href="javascript:void(0)" class="btn_sure mt_10"  id="submit_btn">提交</a></td>
+      </tr>
+      <tr>
+        <td align="right">&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    
+    </Form>
+  </div>
+	<div class="clear"></div>
+</div>
+
+<script>
+
+$(function(){
+	//将form表单中的内容进行提交
+	$("#submit_btn").click(function(){
+		$("#tmcMgnt_btn").submit();
+	})
+	
+	
+	
+})
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
