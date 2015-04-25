@@ -23,15 +23,18 @@ class PaymentController extends Controller {
 	 * 修改时间：2015-3-25
 	 */
 	public function payment(){
-		layout("home");
-		$u_id = LI('userId');
+		$account = I('session.account');
 		//find order infomation
-		$orderid= $_GET['id'];
-		$order = D('order');
-		$orderinfo= $order->where("order_num='%s'",$orderid)->select();
+		$order_num =  $_POST['order_num'];
+		$map['account'] = $account;
+		$map['order_num'] = $order_num;
+		//查找订单信息
+		$m_order = M('orders');
+		$orderinfo= $m_order->where($map)->select();
 		//filght ticket
-		$flight= D('flight_ticket_info');
-		$flightinfo= $flight->where('o_id='.$orderinfo[0]['id'])->select();
+		//查找机票信息
+		$flight= M('flight');
+		$flightinfo= $flight->where($map)->select();
 		$class = $flightinfo[0]['class'];
 		if($class==' F'||$class == ' A') {
 			$flightinfo[0]['class'] = '头等舱';
@@ -42,19 +45,8 @@ class PaymentController extends Controller {
 			||$class==' Z'||$class==' V'||$class==' G'||$class==' S') {
 			$flightinfo[0]['class'] = '经济舱';
 		}
-		// traveler infomation
-		$orderuser= D('order_user');
-        $travelerinfo = $orderuser->where('o_id='.$orderinfo[0]['id'])->select();
-		//tmc infomation
-		$tmc = D('tmc_config_tbl');
-		$tmc_count_info = $tmc->where('tmc_id='.$orderinfo[0]['tmc_id'])->select();
-
-		$this->assign('orderinfo',$orderinfo[0]);
-		$this->assign('flightinfo',$flightinfo[0]);
-		$this->assign('travelerinfo',$travelerinfo);
-		$this->assign('tmccount',$tmc_count_info[0]);
-        $this->assign('tradeStatus',3);
-		$this->theme("default")->display("pay");
+		$order = array($orderinfo,$flightinfo) ;
+		$this->ajaxreturn($order,'JSON');
 	}
 
 	public function alipay(){
@@ -80,23 +72,23 @@ class PaymentController extends Controller {
 		$payment_type = "1";
 		//必填，不能修改
 		//服务器异步通知页面路径
-		$notify_url = "http://www.73go.cn/home/payment/notify";
+		$notify_url = "http://www.dddafeiji.com/home/payment/notify";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数
 		//页面跳转同步通知页面路径
-		$return_url = "http://www.73go.cn/home/payment/alireturn";
+		$return_url = "http://www.dddafeiji.com/home/payment/alireturn";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 		//卖家支付宝帐户
 		$seller_email = $_POST['alipay_id'];
 		//必填
 		//商户订单号
-		$out_trade_no = $_POST['orderNumber'];
+		$out_trade_no = $_POST['order_num'];
 		//商户网站订单系统中唯一订单号，必填
 		//订单名称
 		$subject = $_POST['desc'];
 		//必填
 		//付款金额
 		//$total_fee1 = $_POST['totalPay'];
-        $total_fee = $_POST['totalPay'];
+        $total_fee = $_POST['total_price'];
 		//必填
 		//订单描述
 		$body = "";
@@ -141,111 +133,60 @@ class PaymentController extends Controller {
         echo "提示信息！";
     }
 
-    public function alireturn(){
-        $tradeStatus = 1;
-        $out_trade_no = $_GET['out_trade_no']; //订单号
-        $order = D('order');
-        $tmc = D('tmc_config_tbl');
+    public function alireturn()
+	{
+		$tradeStatus = 1;
+		$out_trade_no = $_GET['out_trade_no']; //订单号
+		$order = M('orders');
+		$tmc = D('tmc_config_tbl');
 
-        $orderinfo= $order->where("order_num='%s'",$out_trade_no)->select();
-        $tmc_count_info = $tmc->where('tmc_id='.$orderinfo[0]['tmc_id'])->select();
+		$orderinfo = $order->where("order_num='%s'", $out_trade_no)->select();
+		$tmc_count_info = $tmc->where('tmc_id=' . $orderinfo[0]['tmc_id'])->select();
 
 		//合作者ID
-		$alipay_config['partner']		= $tmc_count_info[0]['alipay_partner_id'];
+		$alipay_config['partner'] = $tmc_count_info[0]['alipay_partner_id'];
 		//安全检验码，以数字和字母组成的32位字符
-		$alipay_config['key']			= $tmc_count_info[0]['rsa_key'];
+		$alipay_config['key'] = $tmc_count_info[0]['rsa_key'];
 
 		//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
 
 		//签名方式 不需修改
-		$alipay_config['sign_type']    = strtoupper('MD5');
+		$alipay_config['sign_type'] = strtoupper('MD5');
 		//字符编码格式 目前支持 gbk 或 utf-8
-		$alipay_config['input_charset']= strtolower('utf-8');
+		$alipay_config['input_charset'] = strtolower('utf-8');
 		//ca证书路径地址，用于curl中ssl校验
 		//请保证cacert.pem文件在当前文件夹目录中
-		$alipay_config['cacert']    = getcwd().'\\cacert.pem';
+		$alipay_config['cacert'] = getcwd() . '\\cacert.pem';
 
 		//访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
-		$alipay_config['transport']    = 'http';
+		$alipay_config['transport'] = 'http';
 		//
 		$alipayNotify = new \Org\Alipay\AlipayNotify($alipay_config);
 		$verify_result = $alipayNotify->verifyReturn();
-		if($verify_result) {//验证成功
+		if ($verify_result) {//验证成功
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 			//支付宝交易号
 
 			//$trade_no = $_GET['trade_no'];
 
-			if($_GET['trade_status'] == 'TRADE_FINISHED' || $_GET['trade_status'] == 'TRADE_SUCCESS') { //交易成功
-                $orderData['status'] =20 ;     //已确认
-                $flightData['status'] =2 ;     //待出票
-                $order = M('order');
-                $flight = M('flight_ticket_info');
-                $orderinfo= $order->where("order_num='%s'",$out_trade_no)->select();
-                $o_result = $order->where("order_num='%s'",$out_trade_no)->save($orderData);
-                $f_result = $flight->where('o_id='.$orderinfo[0]['id'])->save($flightData);
-                if($o_result && $f_result){
-                    $tradeStatus = 2;
-                }else{
-                    $tradeStatus = 1;
-                }
+			if ($_GET['trade_status'] == 'TRADE_FINISHED' || $_GET['trade_status'] == 'TRADE_SUCCESS') { //交易成功
+				$orderData['status'] = 1;     //已支付
+				$flightData['status'] = 1;     //已支付
+				$m_order = M('orders');
+				$m_flight = M('flight');
+				$o_result = $m_order->where("order_num='%s'", $out_trade_no)->save($orderData);
+				$f_result = $m_flight->where("order_num='%s'", $out_trade_no)->save($flightData);
+				$this->ajaxreturn(1);
+
+
+			} else {
+				//验证失败
+				//如要调试，请看alipay_notify.php页面的verifyReturn函数
+				//echo "验证失败"."verify_result:".$verify_result;
+				$this->ajaxreturn(0);
 			}
-
-			$flight_ticket_info=M('flight_ticket_info');
-			$employee=M('employee');
-			$user=M('user');
-			$tmc_employee=M('tmc_employee');
-			$flightInfo = $flight_ticket_info->where('o_id='.$orderinfo[0]['id'])->find();
-			$employeeName = $employee->where('id='.$orderinfo[0]['u_id'])->getField('name');
-			$tmcEmployee = $tmc_employee->where('id='.$orderinfo[0]['tmc_uid'])->find();
-			$userWx = $user->where('id='.$tmcEmployee['u_id'])->getField('wx_openid');
-			
-			//触发消息发送
-			$send_1=D("Home/SendMessage","Logic");
-			$case_1="OrderOP";
-			$ress['op_email']= $tmcEmployee['email'];
-			$ress['op_phone']= $tmcEmployee['phone'];
-			$ress['order_name']= $employeeName;
-			$ress['begin_time']= $flightInfo['time_dep'];
-			$ress['start_city']= $flightInfo['city_from'];
-			$ress['arrive_city']= $flightInfo['city_to'];
-			$ress['order_class']= $flightInfo['class'];
-			$ress['wx_openid']= $userWx;//传用户的wx_openid;
-			$send_1->SendDetails($case_1,$ress);
-			
-			//echo "验证成功<br />"."verify_result:".$verify_result;
-		}else {
-			//验证失败
-			//如要调试，请看alipay_notify.php页面的verifyReturn函数
-			//echo "验证失败"."verify_result:".$verify_result;
-            $tradeStatus = 1;
 		}
-        $this->showOrder($out_trade_no, $tradeStatus); //返回订单列表
 	}
-
-    private function  showOrder($orderID,$tradeStatus){
-        //加载布局文件
-        layout("home");
-        $order = D('order');
-        $flight= D('flight_ticket_info');
-
-        $orderInfo= $order->where("order_num='%s'",$orderID)->select();
-
-        $flightInfo= $flight->where('o_id='.$orderInfo[0]['id'])->select();
-        // traveler infomation
-        $orderuser= D('order_user');
-        $travelerinfo = $orderuser->where('o_id='.$orderInfo[0]['id'])->select();
-        //tmc infomation
-        $tmc = D('tmc_config_tbl');
-        $tmc_count_info = $tmc->where('tmc_id='.$orderInfo[0]['tmc_id'])->select();
-
-        $this->assign('orderinfo',$orderInfo[0]);
-        $this->assign('flightinfo',$flightInfo[0]);
-        $this->assign('travelerinfo',$travelerinfo);
-        $this->assign('tmccount',$tmc_count_info[0]);
-        $this->assign('tradeStatus',$tradeStatus);
-        $this->theme("default")->display("pay");
-    }
 }
