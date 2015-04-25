@@ -110,7 +110,7 @@ class OrderDistributeController extends Controller{
 
 				//查询出提出人所在的公司
 				//根据tmcID公司，查询好出tmc 公司下所有tmc员工的邮箱和电话
-				$Temp=M("oparator");
+				$Temp=M("operator");
 				$Tmc_emp=$Temp->where("tmc_id=".$vo['tmc_id'])->select();
 
 				foreach($Tmc_emp as $kk=>$vv){
@@ -136,7 +136,49 @@ class OrderDistributeController extends Controller{
 		}
 
 	}
-
+	//乘客所有的订单信息
+	public function whole_order(){
+		$account = I("session.LoginInfo");//与LI方法等价
+		$map['account'] = $account;
+		$m_orders = M('orders');
+		$orderlists=$m_orders->where($map)->select();
+		foreach($orderlists as $order){
+			$flights = M('flight');
+			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
+			$order['flight'] = $flight;
+		}
+		$this->ajaxreturn($order,'JSON');
+	}
+	//乘客所有未支付的订单信息
+	public function ticket_paying(){
+		$account = I("session.LoginInfo");//与LI方法等价
+		$map['account'] = $account;
+		$map['snatch_status'] = 1;
+		$map['ticket_status'] = 0;
+		$m_orders = M('orders');
+		$orderlists=$m_orders->where($map)->select();
+		foreach($orderlists as $order){
+			$flights = M('flight');
+			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
+			$order['flight'] = $flight;
+		}
+		$this->ajaxreturn($order,'JSON');
+	}
+	//乘客所有未出行的订单信息,包括已出票和未出票
+	public function no_travel(){
+		$account = I("session.LoginInfo");//与LI方法等价
+		$map['account'] = $account;
+		$map['snatch_status'] = 1;
+		$map['ticket_status'] = array('exp','IN(1,2)');
+		$m_orders = M('orders');
+		$orderlists=$m_orders->where($map)->select();
+		foreach($orderlists as $order){
+			$flights = M('flight');
+			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
+			$order['flight'] = $flight;
+		}
+		$this->ajaxreturn($order,'JSON');
+	}
 
 
 
