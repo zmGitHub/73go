@@ -35,18 +35,18 @@ class OrderSnatchController extends Controller {
 		$this->ajaxreturn($order,'json');
     }
 	/**
-	 * OP抢单成功后待支付页面
+	 * OP抢单成功更新数据库
 	 * 创建者：张鹏
 	 * 2015-3-17
 	 */
 	public function order_snatch() {
-		$op_id = '1222';//I ('"session.userId"');
-		$tmc_id = '1';//I ('"session.tmcId"');
+		$op_id = I ('"session.userId"');
+		$tmc_id = I ('"session.tmcId"');
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
 		$map['snatch_status'] = 1;
 		$map['ticket_status'] = 0;
-		$order_num = 'O123456';//$_POST['order_num'];
+		$order_num = $_POST['order_num'];
 		$orders = M ('orders');
 		$save_success=$orders->where("order_num ='%s'",$order_num)->save($map);
 		if($save_success){
@@ -58,13 +58,13 @@ class OrderSnatchController extends Controller {
 	}
 
 	/**
-	 * OP抢单成功后待支付页面
+	 * OP待支付页面
 	 * 创建者：张鹏
 	 * 2015-3-17
 	 */
 	public function ticketneedpay() {
-		$op_id = '1222';//I ('"session.userId"');
-		$tmc_id =  '1';//I ('"session.tmcId"');
+		$op_id = I ('"session.userId"');
+		$tmc_id =  I ('"session.tmcId"');
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
 		$map['snatch_status'] = 1;
@@ -85,8 +85,8 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function ticketprint() {
-		$op_id = '1222';//I ('"session.userId"');
-		$tmc_id = '1';//I ('"session.tmcId"');
+		$op_id = I ('"session.userId"');
+		$tmc_id = I ('"session.tmcId"');
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
 		$map['snatch_status'] = 1;
@@ -101,7 +101,7 @@ class OrderSnatchController extends Controller {
 		$this->ajaxreturn($order,'json');
 	}
 	/**
-	 * OP抢单成功,客户支付完成待出票页面
+	 * OP抢单成功,客户支付完成已出票页面
 	 * 创建者：张鹏
 	 * 2015-3-17
 	 */
@@ -147,7 +147,7 @@ class OrderSnatchController extends Controller {
 	 * 创建者：张鹏
 	 * 2015-3-17
 	 */
-	public function ticketalter() {
+	public function ticket_alter() {
 		$op_id = I ('"session.userId"');
 		$tmc_id = I ('"session.tmcId"');
 		$map['op_id'] = $op_id;
@@ -174,7 +174,7 @@ class OrderSnatchController extends Controller {
 		$tmc_id = I ('"session.tmcId"');
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
-		$map['snatch_status'] = 3;
+		$map['snatch_status'] = 1;
 		$map['ticket_status'] = 99;
 		$orders = M ('orders');
 		$orderlists=$orders->where($map)->select();
