@@ -18,7 +18,7 @@ class LoginController extends Controller{
         $data= $_POST['data'];
         $user = json_decode($data,true);
         $phone = $user['phone'];
-        $newpassword = $this->generate_password(6);//生成六位随机密码
+        $newpassword = $this->generate_password(6);//生成六位随机验证码
         //$map2['password'] = md5($newpassword);
         //if ($type == 1) {//判断帐号的类型 1、普通用户  2、企业 3、tmc 4、op
            // $emp = M('employee');
@@ -32,6 +32,27 @@ class LoginController extends Controller{
                 $datt['newpassword'] = $newpassword;
                 $send->SendDetails($case, $datt);
                 $this->ajaxReturn(1,'json');
+    }
+    //邮件收到验证码
+    public function verify_code_email()
+    {
+        $data= $_POST['data'];
+        $user = json_decode($data,true);
+        $email = $user['email'];
+        $newpassword = $this->generate_password(6);//生成六位随机验证码
+        //$map2['password'] = md5($newpassword);
+        //if ($type == 1) {//判断帐号的类型 1、普通用户  2、企业 3、tmc 4、op
+        // $emp = M('employee');
+        // $emp_phone = $emp->where($map1)->getField('phone');
+        // if ($emp_phone == $phone) {
+        //     $user->where("id=" . $id)->save($map2);
+        //发短信
+        $send = D("Home/SendMessage", "Logic");
+        $case = "EmailGetNewPassword";
+        $datt['user_email'] = $email;
+        $datt['newpassword'] = $newpassword;
+        $send->SendDetails($case, $datt);
+        $this->ajaxReturn(1,'json');
     }
    //查询到账号，发送密码，返回1
     //查询不到账号，返回0；
@@ -122,11 +143,11 @@ class LoginController extends Controller{
         $map['password'] = md5($user['password']);//必填项
         $map['name'] = $user['name'];//必填项
         $map['sex'] = $user['sex'];
-        $map['phone'] = $user['phone'];//必填项
-        $map['card_type'] = $user['card_type'];//必填项
-        $map['card_id'] = $user['card_id'];//必填项
-        $map['email'] = $user['email'];
-        $map['qq'] = $user['qq'];
+        $map['phone'] =$user['phone'];//必填项
+        $map['card_type'] =$user['card_type'];//必填项
+        $map['card_id'] =$user['card_id'];//必填项
+        $map['email'] =$user['email'];
+        $map['qq'] =$user['qq'];
         $map['user_type']=1;        //'user_type' should be 0  reviewer:Yu Zhuoran
         //$map['status']=0;
         $m_user = M('user');
