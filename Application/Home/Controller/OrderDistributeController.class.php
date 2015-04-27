@@ -14,15 +14,15 @@ class OrderDistributeController extends Controller{
 	*/
 	public function orderdistribute()
 	{
-		$account = I("session.LoginInfo");//与LI方法等价
+		$account = 18857166486;//I("session.LoginInfo");//与LI方法等价
 		$order = $_POST['order'];
 		$order_info = json_decode($order, true);
 		$user = $order_info['user'];
-		$passengers = $order_info['passengers'];//array('amount' => '1', 'PassengerList' => array('0' => array('name' => '张鹏', 'ordertype' => 'adult', 'card_type' => '身份证', 'card_id' => '350622198510301039')));
-		$phone = $order_info['phone'];
-		$flight_type = $order_info['flight_type'];
-		$flight = $order_info['flight'];//array('flight1' => array('flight_num' => 'MF8527', 'dcity' => '上海', 'acity' => '北京', 'dport' => '虹桥', 'aport' => '首都', 'dtime' => '2015-05-20 16:05:00', 'atime' => '2015-05-20 18:05:00', 'cabin_grade' => 'y', 'flight_price' => '500', 'adulttax' => '50', 'oilfee' => '50', 'acci_insu' => '50', 'delay_insu' => '50', 'total_price' => '720'));//
-		$passenger_amount = $passengers['amount'];//1;//
+		$passengers = array('amount' => '1', 'PassengerList' => array('0' => array('name' => '张鹏', 'ordertype' => 'adult', 'card_type' => '身份证', 'card_id' => '350622198510301039')));//$order_info['passengers'];//
+		$phone = 18857166486;//$order_info['phone'];
+		$flight_type = 'S';//$order_info['flight_type'];
+		$flight = array('flight1' => array('flight_num' => 'MF8527', 'dcity' => '上海', 'acity' => '北京', 'dport' => '虹桥', 'aport' => '首都', 'dtime' => '2015-05-20 16:05:00', 'atime' => '2015-05-20 18:05:00', 'cabin_grade' => 'y', 'flight_price' => '500', 'adulttax' => '50', 'oilfee' => '50', 'acci_insu' => '50', 'delay_insu' => '50'));//$order_info['flight'];//array('flight1' => array('flight_num' => 'MF8527', 'dcity' => '上海', 'acity' => '北京', 'dport' => '虹桥', 'aport' => '首都', 'dtime' => '2015-05-20 16:05:00', 'atime' => '2015-05-20 18:05:00', 'cabin_grade' => 'y', 'flight_price' => '500', 'adulttax' => '50', 'oilfee' => '50', 'acci_insu' => '50', 'delay_insu' => '50', 'total_price' => '720'));//
+		$passenger_amount = 1;//$passengers['amount'];
 
 
 		//生成 qsx订单号
@@ -31,7 +31,10 @@ class OrderDistributeController extends Controller{
 		$data['order_num'] = $num;
 		$data['account'] = $account;
 		$data['phone'] = $phone;
-		$data['need_ticket'] = $order_info['need_ticket'];
+		$data['need_ticket'] =1;// $order_info['need_ticket'];
+		$data['passenger_amount'] =1;// $order_info['need_ticket'];
+		$data['refund_amount'] =0;// $order_info['need_ticket'];
+		$data['total_price'] =720;// $order_info['need_ticket'];
 		$data['snatch_status'] = 0;
 		$data['ticket_status'] = 0;
 		$order_add = $m_order->add($data);
@@ -70,38 +73,10 @@ class OrderDistributeController extends Controller{
 			}
 		}
 
-
-
-
-
 		$tmc= M('tmc');
 		$tmc_info=$tmc->where('cert_val=1')->select();
 
 		if($order_add){
-
-			// 发送短信和邮件  郭攀  2015.3.2
-			// 企业员工出差需求提交成功通知
-			// 调用Logic/ApprovalLogic.class.php
-			//$map2['password'] = md5($newpassword);
-			//if ($type == 1) {//判断帐号的类型 1、普通用户  2、企业 3、tmc 4、op
-			// $emp = M('employee');
-			// $emp_phone = $emp->where($map1)->getField('phone');
-			// if ($emp_phone == $phone) {
-			//     $user->where("id=" . $id)->save($map2);
-			//预订成功给客户发送消息，
-			/*$send = D("Home/SendMessage", "Logic");
-			$case = "FlightBook";
-			$datt['user_phone'] = $phone;
-			$datt['wx_openid']= $user['wx_openid'];
-			$datt['email']= $user['email'];
-			$datt['num'] =$num;
-			$datt['name'] =$passengers['passengerList'][0]['name'];
-			$datt['flight_no'] = $flight['flight1']['flight_no'];//此处仅考虑单程。双程的待修改
-			$datt['begin_time'] = $flight['flight1']['dtime'];
-			$send->SendDetails($case, $datt);
-			*/
-
-
 
 			foreach($tmc_info as $key=>$vo){
 				//发送短信和邮件  郭攀  2015.3.2
@@ -122,9 +97,9 @@ class OrderDistributeController extends Controller{
 					$sender[$key] = new UnifyMessageSender ();
 					//$types = array(1,2);
 					$title =  '通知OP抢单';
-					$text =  $vv['name'].':'.$passengers['passengerList'][0]['name']."发出".$flight['flight1']['dtime']."乘坐".$flight['flight1']['flight_no']."航班的需求。请尽快刷新页面抢单。";
-					$html = $vv['name'].'：<br />.'.
-						$passengers['passengerList'][0]['name']."发出".$flight['flight1']['dtime']."乘坐".$flight['flight1']['flight_no']."航班的需求。请尽快刷新页面抢单。";
+					$text =  $vv['op_name'].':'.$passengers['PassengerList'][0]['name']."发出".$flight['flight1']['dtime']."乘坐".$flight['flight1']['flight_num']."航班的需求。请尽快刷新页面抢单。";
+					$html = $vv['op_name'].'：<br />.'.
+						$passengers['PassengerList'][0]['name']."发出".$flight['flight1']['dtime']."乘坐".$flight['flight1']['flight_num']."航班的需求。请尽快刷新页面抢单。";
 
 					$um[$key] = UnifyMessage::NewUnionMessage ( $types,$targets,$title,$text, $html );
 					$sender[$key]->sendUMessage ($um[$key]);
