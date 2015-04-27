@@ -11,14 +11,14 @@ return array(
 //	 'SHOW_ERROR_MSG'  => true,    // 显示错误信息
 
 	'DB_TYPE'=>'mysql',   //设置数据库类型
-	'DB_HOST'=>'localhost',//设置主机
+	'DB_HOST'=>'120.24.171.184',//设置主机
 	'DB_NAME' => '73go', // 设置数据库名
 		'DB_USER' => 'root', // 设置用户名
 		'DB_PWD' => 'fb1e43d94a', // 设置密码
 	'DB_PORT'=>'3306',   //设置端口号
 	'DB_PREFIX'=>'73go_',  //设置表前缀
 	'DB_CHARSET'=> 'utf8',//设置字符集
-	
+
 	//开启路由
  	'URL_ROUTER_ON' => true, 
 	//开启模板布局
@@ -52,10 +52,10 @@ return array(
 	"THINK_EMAIL" => array (
 		'SMTP_HOST' => 'smtp.exmail.qq.com', // SMTP服务器
 		'SMTP_PORT' => '465', // SMTP服务器端口
-		'SMTP_USER' => 'website@73go.cn', // SMTP服务器用户名
-		'SMTP_PASS' => 'web73go', // SMTP服务器密码
-		'FROM_EMAIL' => '691209942@qq.com', // 发件人EMAIL
-		'FROM_NAME' => 'turbo', // 发件人名称
+		'SMTP_USER' => 'zhangpeng@73go.cn', // SMTP服务器用户名
+		'SMTP_PASS' => 'zp34203549', // SMTP服务器密码
+		'FROM_EMAIL' => 'zhangpeng@73go.cn', // 发件人EMAIL
+		'FROM_NAME' => '张鹏', // 发件人名称
 		'REPLY_EMAIL' => '', // 回复EMAIL（留空则为发件人EMAIL）
 		'REPLY_NAME' => '' // 回复名称（留空则为发件人名称）
 	) 
