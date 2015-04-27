@@ -172,7 +172,7 @@ class FlightController extends Controller {
         return $tag;
     }
 
-    // 修改数据更新标识
+    // 修改数据更新标识；
     public function updataTag($data) {
         $updata_tag = M ( "updata_tag" );
         $condition ['id'] = $data ['id'];
