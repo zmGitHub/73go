@@ -15,6 +15,8 @@ class LoginController extends Controller{
     //发送验证码
     public function verify_code()
     {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         $data= $_POST['data'];
         $user = json_decode($data,true);
         $phone = $user['phone'];
@@ -36,6 +38,8 @@ class LoginController extends Controller{
     //邮件收到验证码
     public function verify_code_email()
     {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         $data= $_POST['data'];
         $user = json_decode($data,true);
         $email = $user['email'];
@@ -56,6 +60,8 @@ class LoginController extends Controller{
     }
 
     public function add_user(){
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         $data= $_POST['data'];
         $user = json_decode($data,true);
         $map['account'] = $user['account'];//必填项
@@ -74,6 +80,8 @@ class LoginController extends Controller{
     //查询不到账号，返回0；
     public function forget_password()
     {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         $data= $_POST['data'];
         $user = json_decode($data,true);
         $phone = $user['phone'];
@@ -96,6 +104,7 @@ class LoginController extends Controller{
     /*生成随机密码类*/
     function generate_password($length = 6)
     {
+
         // 密码字符集，可任意添加你需要的字符
         $chars = '0123456789';
 
@@ -111,6 +120,8 @@ class LoginController extends Controller{
         return $password;
     }
     public function check_login(){
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         $data= $_POST['data'];
         $user = json_decode($data,true);
         $account = $user['account'];
@@ -136,6 +147,8 @@ class LoginController extends Controller{
 
     //check if the user name has been registered   reviewer:Yu Zhuoran
     public function check_user(){
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         $data= $_POST['data'];
         $user = json_decode($data,true);
         $account = $user['account'];
@@ -156,7 +169,8 @@ class LoginController extends Controller{
 
     public function mod_password()
     {
-
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         $account = LI('account');
         $user = M('user');
         $map['password'] = md5($_POST['newpassword']);
@@ -172,7 +186,8 @@ class LoginController extends Controller{
 
     public function check_password()
     {
-
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         $map['account'] = LI('account');
         $map['password'] = md5($_POST['password']);
         $user = M('user');
@@ -186,6 +201,8 @@ class LoginController extends Controller{
     }
     //更新用户信息
     public function update_user(){
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         $data= $_POST['data'];
         $user = json_decode($data,true);
         $account = LI('account');//必填项
