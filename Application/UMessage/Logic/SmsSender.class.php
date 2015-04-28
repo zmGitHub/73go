@@ -34,8 +34,8 @@ class SmsSender {
          * @var string
          */
         static $gateway = "http://service.winic.org/sys_port/gateway/?id=%s&pwd=%s&to=%s&content=%s&time=";
-        static $sms_userid = "sz73go";
-        static $sms_upsw = "Futian73go";
+        static $sms_userid = "z00143104";
+        static $sms_upsw = "667215@aa";
 
         //执行url encoding
         $target = urlencode($target);
