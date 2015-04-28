@@ -54,6 +54,22 @@ class LoginController extends Controller{
         $send->SendDetails($case, $datt);
         $this->ajaxReturn(1,'json');
     }
+
+    public function add_user(){
+        $data= $_POST['data'];
+        $user = json_decode($data,true);
+        $map['account'] = $user['account'];//必填项
+        $map['password'] = md5($user['password']);//必填项
+        $map['user_type']=1;        //'user_type' should be 0  reviewer:Yu Zhuoran
+        //$map['status']=0;
+        $m_user = M('user');
+        $result= $m_user->data($map)->add();
+        if($result){
+            $this->ajaxreturn(1);
+        }else{
+            $this->ajaxreturn(0);
+        }
+    }
    //查询到账号，发送密码，返回1
     //查询不到账号，返回0；
     public function forget_password()
@@ -66,7 +82,7 @@ class LoginController extends Controller{
         $users = M('user');
         $map['account'] = $user['account'];
         $user = $users->where($map)->select();
-        if($user) {
+        if($user && ($user['phone'] == $phone)) {
             $send = D("Home/SendMessage", "Logic");
             $case = "PhoneGetNewPassword";
             $datt['user_phone'] = $phone;
@@ -136,11 +152,43 @@ class LoginController extends Controller{
 
     }
 
-    public function add_user(){
+    //用户修改密码的操作
+
+    public function mod_password()
+    {
+
+        $account = LI('account');
+        $user = M('user');
+        $map['password'] = md5($_POST['newpassword']);
+        $res = $user->where("account=" . $account)->save($map);
+        if ($res) {
+            $this->ajaxreturn(1);//, U('Index/config_myinfo_acount'));
+        } else {
+            $this->ajaxreturn(0);//, U('Index/config_myinfo_acount'));
+        }
+    }
+
+    //验证原有的密码
+
+    public function check_password()
+    {
+
+        $map['account'] = LI('account');
+        $map['password'] = md5($_POST['password']);
+        $user = M('user');
+        $result = $user->where($map)->select();
+        //print_r($result);
+        if ($result) {
+            $this->ajaxreturn(1);
+        } else {
+            $this->ajaxreturn(0);
+        }
+    }
+    //更新用户信息
+    public function update_user(){
         $data= $_POST['data'];
         $user = json_decode($data,true);
-        $map['account'] = $user['account'];//必填项
-        $map['password'] = md5($user['password']);//必填项
+        $account = LI('account');//必填项
         $map['name'] = $user['name'];//必填项
         $map['sex'] = $user['sex'];
         $map['phone'] =$user['phone'];//必填项
@@ -151,59 +199,11 @@ class LoginController extends Controller{
         $map['user_type']=1;        //'user_type' should be 0  reviewer:Yu Zhuoran
         //$map['status']=0;
         $m_user = M('user');
-        $result= $m_user->data($map)->add();
+        $result= $m_user->where('account='.$account)->save($map);
         if($result){
             $this->ajaxreturn(1);
         }else{
             $this->ajaxreturn(0);
         }
     }
-
-    /*修改个人用户详细信息*/
-    public function mod_user_detail(){
-
-        $id = LI('account');
-        $m_user = M('user');
-        $data= $_POST['data'];
-        $user = json_decode($data,true);
-        //print_r($map);exit;
-        $result = $m_user->where("account=".$id)->save($user);
-        $this->ajaxReturn($result, "JSON");
-    }
-
-    /*修改用户名*/
-   /* public function mod_username(){
-
-        $id = LI('account');
-        $m_user = M('user');
-
-        //查找重复名
-        $map['account'] = $_POST['account'];
-        $map['id'] = array('neq',$id);
-        $result = $m_user->where($map)->find();
-        if($result){
-            $this->error('修改失败,该用户名已存在！',U('Index/config_myinfo_acount'));
-        }
-        $map['username'] = $_POST['username'];
-
-        $res = $m_user->where('id = '.$id)->save($map);
-        LI('userName', $map['username']);
-        if($res){
-            $this->redirect('Index/config_myinfo_acount');
-            //$this->success('修改成功');//, U('Index/config_myinfo_acount'));
-        }else{
-            $this->redirect('Index/config_myinfo_acount');
-            //$this->error('修改失败');//, U('Index/config_myinfo_acount'));
-        }
-
-
-    }
-
-
-
-   /* public function checkBaseInfo(){
-        $employee = new \Home\Model\EmployeeMessageModel();
-        $employeeMessage = $employee->employeeMessage();
-        $this->ajaxReturn($employeeMessage, "JSON");
-    }*/
 }
