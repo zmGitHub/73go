@@ -41,7 +41,10 @@ class UnifyMessageSender extends UnifyMessageModel {
 					else $data['reply_to'] = $um->replyTo;
 					$data['op_time'] = date("Y-m-d H:i:s");
 					$data['status'] = C('73GO_UM_STATUS_NEW');
-					$this->data($data)->add();
+					//$m_message = D('unify_message');
+					//$result = $m_message->add($data);
+					$result=$this->data($data)->add();
+					//return $result;
 				}
 			}
 		} else {
@@ -63,8 +66,8 @@ class UnifyMessageSender extends UnifyMessageModel {
 		}
 
 		//添加实时触发发送消息 2015-3-11 david law
-		//$dipatcher = new UnifyMessageDispatcher();
-		//$dipatcher->sendPendingMessages();
+		$dipatcher = new UnifyMessageDispatcher();
+		$dipatcher->sendPendingMessages();
 	}
 	
 }
