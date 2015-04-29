@@ -1,5 +1,5 @@
 <?php
-namespace Agent\Controller;
+namespace Home\Controller;
 use Agent\Logic\TmcDepartmentStaffLogic;
 use Common\Logic\CommonLogic;
 use Think\Controller;
@@ -15,9 +15,12 @@ class TmcDepartmentStaffController extends Controller{
 	 * 创建时间：2014-12-8下午03:27:45
 	 */
 	public function showTmcDepartment(){
-		$tmcid = LI('tmcId');
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$tmc_id = LI('tmcId');
 		$m_tmc=M('tmc');
-		$tmc_info=$m_tmc->where('id='.$tmcid)->find();
+		$tmc_info=$m_tmc->where('tmc_id='.$tmc_id)->find();
 		$this->ajaxreturn($tmc_info,'json');
 	}
 
@@ -25,8 +28,11 @@ class TmcDepartmentStaffController extends Controller{
 	 * 获取当前登录的TMC所有员工列表。
 	 */
 	public function showCurrTmcStaff() {
-		$tmcId = '1';//LI('tmcId');
-		$m_op = M('oparator');
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$tmcId = LI('tmcId');
+		$m_op = M('operator');
 		$op_list = $m_op->where('tmc_id='.$tmcId)->select();
 		$this->ajaxreturn($op_list,'json');
 	}
@@ -38,10 +44,12 @@ class TmcDepartmentStaffController extends Controller{
 	 * 创建时间：2014-12-8下午04:33:39
 	 */
 	public function showTmcStaffLike(){
-		$tmcbarid=$_POST['tmcbarid'];//获取部门值
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
     	$eplike=$_POST['eplike'];//获取模糊搜索值
     	$tmcDeparmentStaff=D('Agent/TmcDepartmentStaff','Logic');//调用TMC部门员工业务处理层
-		$request=$tmcDeparmentStaff->showTmcStaffLikeLogic($tmcbarid,$eplike);//模糊查询员工
+		$request=$tmcDeparmentStaff->showTmcStaffLikeLogic('',$eplike);//模糊查询员工
     	$this->ajaxReturn($request);
 	}
 	/**
@@ -50,9 +58,12 @@ class TmcDepartmentStaffController extends Controller{
 	 * 创建时间：2014-12-8下午04:37:08
 	 */
 	public function deleteTmcStaff(){
-		$id=$_POST['str'];
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$op_id=1;//$_POST['op_id'];
 		$tmcDeparmentStaff=D('Agent/TmcDepartmentStaff','Logic');//调用TMC部门员工业务处理层
-		$request=$tmcDeparmentStaff->deleteTmcStaffLogic($id);//删除员工
+		$request=$tmcDeparmentStaff->deleteTmcStaffLogic($op_id);//删除员工
 		$this->ajaxReturn($request);
 	}
 
@@ -63,6 +74,9 @@ class TmcDepartmentStaffController extends Controller{
 	 * 创建时间：2014-12-8下午04:43:56
 	 */
 	public function addTmcStaff(){
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$data['account']=$_POST['account'];
 		$data['password']=md5($_POST['password']);
 	 	$data['name']=$_POST['name'];
@@ -77,7 +91,7 @@ class TmcDepartmentStaffController extends Controller{
 		if($result){
 			$data['tmc_id'] = LI('tmcId');//tmc企业id
 			$data['op_id']=$_POST['op_id'];
-			$tmc_employee = M('oparator');
+			$tmc_employee = M('operator');
 			$request = $tmc_employee->add($data);
 			if($request){
 				$this->ajaxReturn(0);
@@ -95,6 +109,9 @@ class TmcDepartmentStaffController extends Controller{
 	 * 创建时间：2014-12-8下午04:51:42
 	 */
 	public function updateTmcStaff(){
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$data['account']=$_POST['account'];
 		$data['password']=md5($_POST['password']);
 		$data['name']=$_POST['name'];
@@ -109,7 +126,7 @@ class TmcDepartmentStaffController extends Controller{
 		if($result){
 			$data['tmc_id'] = LI('tmcId');//tmc企业id
 			$data['op_id']=$_POST['op_id'];
-			$tmc_employee = M('oparator');
+			$tmc_employee = M('operator');
 			$request = $tmc_employee->where('op_id= and tmc_id = ',array($data['op_id'],$data['tmc_id']))->save($data);
 			if($request){
 				$this->ajaxReturn(0);
@@ -129,8 +146,10 @@ class TmcDepartmentStaffController extends Controller{
 	 * 创建时间：2014-12-8下午04:47:24
 	 */
 	public function showTmcStaffById($emps_id){
-		$this->prepareStaffView();
 
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$this->prepareStaffView();
 		$branche=M('');
 		$co_idbr=LI('tmcId');
 		$branchs = D('Agent/TmcDepartmentStaff','Logic');//调用TMC部门员工业务处理层
@@ -158,6 +177,9 @@ class TmcDepartmentStaffController extends Controller{
 
 	//查询员工所有信息
 	public function selectEmp($m,$co_id){
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$data['tmc_id']=$co_id;
 		$data['status']=0;
 		return $m->where($data)->select();
@@ -165,12 +187,18 @@ class TmcDepartmentStaffController extends Controller{
 
 	//带工号的查询方法
 	public function selectBycode($m,$coId,$code){
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$data['tmc_id']=$coId;
 		$data['emp_code']=$code;
 		return $m->where($data)->find();
 	}
 	//带证件号的查询方法
 	public function selectBynum($m,$coId,$type,$num){
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		//根据Type查出证件类型的id
 		$dictionary=M('dictionary');
 		if($type=="大陆居民身份证" || $type=="身份证"){
@@ -187,6 +215,9 @@ class TmcDepartmentStaffController extends Controller{
 	}
 	//带姓名+手机的方法
 	public function selectByname($m,$coId,$name,$phone){
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		//根据$brId查询出部门id
 		$branch=M('tmc_branch');
 		$br['tmc_id']=$coId;
