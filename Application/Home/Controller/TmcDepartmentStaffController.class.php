@@ -52,49 +52,17 @@ class TmcDepartmentStaffController extends Controller{
 	public function deleteTmcStaff(){
 		$id=$_POST['str'];
 		$tmcDeparmentStaff=D('Agent/TmcDepartmentStaff','Logic');//调用TMC部门员工业务处理层
-		$request=$tmcDeparmentStaff->deleteTmcStaffLogic($id);//模糊查询员工
+		$request=$tmcDeparmentStaff->deleteTmcStaffLogic($id);//删除员工
 		$this->ajaxReturn($request);
 	}
 
 
-	private function prepareStaffView() {
-		$data['tmc_id']=LI('tmcId');//获取tmc的id值
-		$data['status']=0;
-		$tmcemployeetable=M('tmc_branch');
-		$request=$tmcemployeetable->where($data)->select();//获取当前企业下的所有部门信息
-		$this->assign('branchList',$request);//保存部门信息
-		$es = D('Common/Common', 'Logic');
-		$group=$es->showDictionay(id_type);
-		$this->assign('grouplist',$group);//保存证件类型信息
-		$this->assign('groupjson',json_encode($group));
-		//加载布局文件
-		C('LAYOUT_ON',TRUE);
-		layout("tmc");
-	}
-
-
-
-
-	/**
-	 * 添加员工界面
-	 * 创建者：董发勇
-	 * 创建时间：2014-12-8下午04:40:24
-	 */
-	/*public function showaddTmcStaff(){
-		$data['tmc_id']=LI('tmcId');//获取tmc的id值
-		$data['status']=0;
-		$tmcemployeetable=M('tmc_branch');
-		$request=$tmcemployeetable->where($data)->select();//获取当前企业下的所有部门信息
-		$this->assign('branchList',$request);//保存部门信息
-		$es = D('Common/Common', 'Logic');
-		$group=$es->showDictionay(id_type);
-	}*/
 	/**
 	 * 添加员工
 	 * 创建者：董发勇
 	 * 创建时间：2014-12-8下午04:43:56
 	 */
-	public function addop(){
+	public function addTmcStaff(){
 		$data['account']=$_POST['account'];
 		$data['password']=md5($_POST['password']);
 	 	$data['name']=$_POST['name'];

@@ -62,7 +62,7 @@ class OrderSnatchController extends Controller {
 	 * 创建者：张鹏
 	 * 2015-3-17
 	 */
-	public function ticketneedpay() {
+	public function ticketpaying() {
 		$op_id = I ('"session.userId"');
 		$tmc_id =  I ('"session.tmcId"');
 		$map['op_id'] = $op_id;
