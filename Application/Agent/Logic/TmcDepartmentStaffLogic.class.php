@@ -97,8 +97,8 @@ class TmcDepartmentStaffLogic extends Model{
 	 * 创建时间：2014-12-8下午04:36:10
 	 */
 	public function deleteTmcStaffLogic($id){
-		$map['tmc_id']=1;//LI('tmcId');//获取tmc的id值
-		$map['op_id'] = 1;//$id;
+		$map['tmc_id']=LI('tmcId');//获取tmc的id值
+		$map['op_id'] = $id;
 		$tmc_employee=M('operator');
     	$request=$tmc_employee->where($map)->delete();
     	return $request;
