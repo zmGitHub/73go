@@ -17,9 +17,8 @@ class LoginController extends Controller{
     {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-        $data= $_POST['data'];
-        $user = json_decode($data,true);
-        $phone = $user['phone'];
+        $phone= $_POST['phone'];
+
         $newpassword = $this->generate_password(6);//生成六位随机验证码
         //$map2['password'] = md5($newpassword);
         //if ($type == 1) {//判断帐号的类型 1、普通用户  2、企业 3、tmc 4、op
@@ -62,10 +61,8 @@ class LoginController extends Controller{
     public function add_user(){
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-        $data= $_POST['data'];
-        $user = json_decode($data,true);
-        $map['account'] = $user['account'];//必填项
-        $map['password'] = md5($user['password']);//必填项
+        $map['account'] = $_POST['telNumber'];//必填项
+        $map['password'] = md5($_POST['loginPassword']);//必填项
         $map['user_type']=1;        //'user_type' should be 0  reviewer:Yu Zhuoran
         //$map['status']=0;
         $m_user = M('user');
@@ -119,13 +116,11 @@ class LoginController extends Controller{
 
         return $password;
     }
-    public function check_login(){
+    public function doLogin(){
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-        $data= $_POST['data'];
-        $user = json_decode($data,true);
-        $account = $user['account'];
-        $password =  md5($user['password']);
+        $account = $_POST['userName'];
+        $password =  md5($_POST['password']);
         $logic = new UserLogic();
         $user = $logic->findByNameAndPsw($account, $password);
         $type=1;
@@ -136,10 +131,10 @@ class LoginController extends Controller{
             $this->ajaxReturn(0);
         }else {
             $info='帐号'.$account.'登录73go前台页面成功';
-            session('user_type', $user['user_type']);
+            session('user_id', $user['id']);
             $logic->userLogins('', $user);
             LOGS($type,$info);
-            $this->ajaxReturn((int)$user['user_type']);
+            $this->ajaxReturn((int)$user['id']);
         }
     }
 

@@ -13,7 +13,7 @@ class UserLogic extends Model {
 	 */
 	public function findByNameAndPsw($userName, $password) {
 		$m = M('user');
-		$cond['username'] = $userName;
+		$cond['account'] = $userName;
 		$cond['password'] = $password;
 		return $m->where($cond)->find();
 	}
