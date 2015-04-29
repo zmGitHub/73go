@@ -83,20 +83,10 @@ class TmcDepartmentStaffLogic extends Model{
 	public function showTmcStaffLikeLogic($id,$like){
 		$tmc_id=LI('tmcId');//获取tmc的id值
     	
-    	//遍历获取该部门下全部子类ID
-		if($id==0){
-    		$p_id = $this->getChildBranchIDs($id,$tmc_id);
-    	}else {
-    		$p_id = $this->getChildBranchIDs($id);
-    	}
-    	$p_id = implode(',', $p_id); 
-    	
-    	if($id)
-    		$where = "and tmcbr_id in (".$p_id.")";
-    	
+
     	$tmc_employee=M('');
-			$sql="select * from 73go_tmc_employee where tmc_id=$tmc_id $where and status=0 and 
-				 (emp_code like '%$like%' or `name` LIKE '%$like%' or phone like '%$like%' or email like '%$like%')
+			$sql="select * from 73go_operator where tmc_id=$tmc_id and
+				 (op_id like '%$like%' or `op_name` LIKE '%$like%' or phone like '%$like%' or email like '%$like%')
 				 ";
 		$request=$tmc_employee->query($sql);
 		return $request;
@@ -107,8 +97,10 @@ class TmcDepartmentStaffLogic extends Model{
 	 * 创建时间：2014-12-8下午04:36:10
 	 */
 	public function deleteTmcStaffLogic($id){
-		$tmc_employee=M('tmc_employee');
-    	$request=$tmc_employee->where('id='.$id)->setField('status',99);
+		$map['tmc_id']=1;//LI('tmcId');//获取tmc的id值
+		$map['op_id'] = 1;//$id;
+		$tmc_employee=M('operator');
+    	$request=$tmc_employee->where($map)->delete();
     	return $request;
 	}
 	/**
