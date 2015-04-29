@@ -28,15 +28,15 @@ class FlightController extends Controller {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         //设置搜索参数
-        $data['searchtype'] = 'D';//$_POST['searchtype'];
-        $data['depart_city'] = 'BJS';// $_POST['depart_city'];
-        $data['arrive_city'] = 'SHA';//$_POST['arrive_city'];
-        $data['depart_date'] = '2015-05-04';//$_POST['depart_date'];
+        $data['searchtype'] = $_POST['searchtype'];
+        $data['depart_city'] =  $_POST['depart_city'];
+        $data['arrive_city'] =$_POST['arrive_city'];
+        $data['depart_date'] = $_POST['depart_date'];
         $userid= $_POST['userid'];
         $flight1 =$_POST['flight1'];
         $flight2 = $_POST['flight2'];
         if($data['searchtype']=='D') {
-            $data['return_date'] =  '2015-05-05';//$_POST['return_date'];
+            $data['return_date'] = $_POST['return_date'];
         }else {
             $data['return_date'] = '';
         }
