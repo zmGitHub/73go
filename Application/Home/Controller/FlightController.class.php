@@ -105,9 +105,7 @@ class FlightController extends Controller {
         }
 
         //$flight_info =array($flight,$flight_cheapest_array);
-        var_dump($flight_info);
        $this->ajaxReturn($flight_info, 'JSON' );
-        //$this->getFlightInfosFromCtrip($cu, $data);
     }
     public function ReturnCheapFlight($flight_info,$rt_num_count){
         $flight_cheapest_array=array();

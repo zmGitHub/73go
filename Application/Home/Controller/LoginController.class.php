@@ -79,9 +79,7 @@ class LoginController extends Controller{
     {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-        $data= $_POST['data'];
-        $user = json_decode($data,true);
-        $phone = $user['phone'];
+        $phone = $_POST['phone'];
         $newpassword = $this->generate_password(6);//生成六位随机密码
         //发短信
         $users = M('user');
