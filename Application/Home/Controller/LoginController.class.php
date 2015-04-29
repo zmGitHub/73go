@@ -79,13 +79,14 @@ class LoginController extends Controller{
     {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+        $account = $_POST['account'];
         $phone = $_POST['phone'];
         $newpassword = $this->generate_password(6);//生成六位随机密码
         //发短信
         $users = M('user');
-        $map['account'] = $user['account'];
+        $map['account'] = $account;
         $user = $users->where($map)->select();
-        if($user && ($user['phone'] == $phone)) {
+        if($user && ($user[0]['phone'] == $phone)) {
             $send = D("Home/SendMessage", "Logic");
             $case = "PhoneGetNewPassword";
             $datt['user_phone'] = $phone;
