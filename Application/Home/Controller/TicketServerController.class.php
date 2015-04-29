@@ -20,9 +20,101 @@ use Think\Controller;
 
 class TicketServerController extends Controller {
 
+
+
+	//发送验证码
+	public function verify_code()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$phone= $_POST['phone'];
+
+		$newpassword = $this->generate_password(6);//生成六位随机验证码
+		//$map2['password'] = md5($newpassword);
+		//if ($type == 1) {//判断帐号的类型 1、普通用户  2、企业 3、tmc 4、op
+		// $emp = M('employee');
+		// $emp_phone = $emp->where($map1)->getField('phone');
+		// if ($emp_phone == $phone) {
+		//     $user->where("id=" . $id)->save($map2);
+		//发短信
+		$send = D("Home/SendMessage", "Logic");
+		$case = "PhoneGetVerifyCode";
+		$datt['user_phone'] = $phone;
+		$datt['newpassword'] = $newpassword;
+		$send->SendDetails($case, $datt);
+		$this->ajaxReturn(1,'json');
+	}
+	//邮件收到验证码
+	public function verify_code_email()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$data= $_POST['data'];
+		$user = json_decode($data,true);
+		$email = $user['email'];
+		$newpassword = $this->generate_password(6);//生成六位随机验证码
+		//$map2['password'] = md5($newpassword);
+		//if ($type == 1) {//判断帐号的类型 1、普通用户  2、企业 3、tmc 4、op
+		// $emp = M('employee');
+		// $emp_phone = $emp->where($map1)->getField('phone');
+		// if ($emp_phone == $phone) {
+		//     $user->where("id=" . $id)->save($map2);
+		//发短信
+		$send = D("Home/SendMessage", "Logic");
+		$case = "EmailGetNewPassword";
+		$datt['user_email'] = $email;
+		$datt['newpassword'] = $newpassword;
+		$send->SendDetails($case, $datt);
+		$this->ajaxReturn(1,'json');
+	}
+	//查询到账号，发送密码，返回1
+	//查询不到账号，返回0；
+	public function forget_password()
+	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$data= $_POST['data'];
+		$user = json_decode($data,true);
+		$phone = $user['phone'];
+		$newpassword = $this->generate_password(6);//生成六位随机密码
+		//发短信
+		$users = M('user');
+		$map['account'] = $user['account'];
+		$user = $users->where($map)->select();
+		if($user && ($user['phone'] == $phone)) {
+			$send = D("Home/SendMessage", "Logic");
+			$case = "PhoneGetNewPassword";
+			$datt['user_phone'] = $phone;
+			$datt['newpassword'] = $newpassword;
+			$send->SendDetails($case, $datt);
+			$this->ajaxReturn(1, 'json');
+		}else {
+			$this->ajaxReturn(0, 'json');
+		}
+	}
+	/*生成随机密码类*/
+	function generate_password($length = 6)
+	{
+
+		// 密码字符集，可任意添加你需要的字符
+		$chars = '0123456789';
+
+		$password = '';
+		for ($i = 0; $i < $length; $i++) {
+			// 这里提供两种字符获取方式
+			// 第一种是使用 substr 截取$chars中的任意一位字符；
+			// 第二种是取字符数组 $chars 的任意元素
+			// $password .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
+			$password .= $chars[mt_rand(0, strlen($chars) - 1)];
+		}
+
+		return $password;
+	}
 	//代理商的登录
 	//查看是否具有该用户 
 	public function check_login(){
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$map['account']=$_POST['account'];
 		$map['password']= md5($_POST['password']);
 		$map['user_type']=array('exp','in(3,4)');
@@ -52,29 +144,15 @@ class TicketServerController extends Controller {
 			LOGS($type=1, $info);
 			$this->ajaxReturn(2);       //TMC员工登陆
 		}
-		/* 
-		
-		if($result){
-			$m = new UserLogic();
-			$m->userLogins('', $result);
-            if($result['user_type']== 3){
-				$this->ajaxReturn(1);       //TMC公司登陆
-            }
-			else{
-				$this->ajaxReturn(2);       //TMC员工登陆
-			}
-
-		}else{
-			$this->ajaxReturn(0);
-		} */
 	}
 	//代理商的注册信息
 	
 	//进行校验是否存在该代理商用户
 	public function check_tmc(){
-		$username = $_POST['account'];
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$map['account'] = $_POST['account'];
 		$user = M('user');
-		$map['account'] = $username;
 		$result= $user->where($map)->select();
 		if($result){
 			$this->ajaxReturn(1);
@@ -85,9 +163,11 @@ class TicketServerController extends Controller {
 	}
 		
 	public function add_tmc(){
-		$map['account']='18857166486';//$_POST['username'];
-		$map['password'] =12345; //md5($_POST['password']);
-		$map['name'] = '华润机票';//$_POST['name'];
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$map['account']=$_POST['account'];
+		$map['password'] =md5($_POST['password']);
+		$map['name'] = $_POST['name'];
 		$map['user_type']=3;
 		//$map['status']=0;
 		$m_user=M("user");
@@ -98,41 +178,52 @@ class TicketServerController extends Controller {
 			$tmcCode = VNumGen('tmc_code');//公司的编号；
 			$data['tmc_id'] = $tmcCode;
 			$m_tmc = M("tmc");
-			$newTmcId = $m_tmc->data($data)->add();
+			$newTmcId = $m_tmc->add($data);
 			if($newTmcId){
-				echo 1;//$this->ajaxReturn(1);
+				$this->ajaxReturn(1);
 			}else{
-				echo 0;//$this->ajaxReturn(0);
+				$this->ajaxReturn(0);
 			}
 		}else {
-			echo 0;//$this->ajaxReturn(0);
+			$this->ajaxReturn(0);
 		}
 	}
+	/*
+	 * 用于展示tmc的信息：提供tmc信息的初始修改页面
+	 */
 	public function show_tmcinfo()
 	{
-		$id = I('SESSION.userId');
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$account = I('SESSION.account');
+		$m_user = M('user');
+		$user = $m_user->where('account='.$account)->select();
+		$m_tmc = M("tmc");
+		$u_id = $user['0']['id'];
 		//$id=173;
-		$Tmc = M("tmc");
-		$result = $Tmc->where("u_id=" . $id)->find();
+		$result = $m_tmc->where("u_id=" . $u_id)->find();
 		$this->ajaxreturn($result,'json');
 	}
 
 
 	//进行config_tmcinfo_basicinfo 的处理
-	public function doconfig_tmcinfo()
+	public function update_tmc()
 	{
-
-		$id = Li("userId");
-		$Tmc = M("Tmc");
-		$map['u_id'] = $id;
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$account = Li("account");
+		$m_user = M('user');
+		$user = $m_user->where('account='.$account)->select();
+		$m_tmc = M("tmc");
+		$u_id = $user[0]['id'];
 		//将post传来的值进行更新
 		$map = $_POST;
-		$res = $Tmc->where("u_id=" . $id)->save($map);
+		$res = $m_tmc->where("u_id=" . $u_id)->save($map);
 
 		if ($res) {
-			$this->redirect('TicketServer/show_tmcinfo');
+			$this->ajaxreturn(1);
 		} else {
-			$this->redirect('TicketServer/show_basicinfo');
+			$this->ajaxreturn(0);
 		}
 	}
 
@@ -143,11 +234,12 @@ class TicketServerController extends Controller {
 
 	public function mod_password()
 	{
-
-		$id = LI('userId');
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$account = Li("account");
 		$user = M('user');
 		$map['password'] = md5($_POST['newpassword']);
-		$res = $user->where("id=" . $id)->save($map);
+		$res = $user->where("account=" . $account)->save($map);
 		if ($res) {
 			$this->ajaxreturn(1);//, U('Index/config_myinfo_acount'));
 		} else {
@@ -161,8 +253,9 @@ class TicketServerController extends Controller {
 
 	public function check_password()
 	{
-
-		$map['id'] = LI('userId');
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		$map['account'] = Li("account");
 		$map['password'] = md5($_POST['password']);
 		$user = M('user');
 		$result = $user->where($map)->select();
@@ -181,6 +274,8 @@ class TicketServerController extends Controller {
 	 */
 	public function upload()
 	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$imgTypes = array('image/jpg', 'image/jpeg', 'image/png', 'image/pjpeg', 'image/gif', 'image/bmp', 'image/x-png');//允许上传的文件类型
 		$imgSize = 1048576 * 2;//文件大小
 		$savePath = $_SERVER['DOCUMENT_ROOT'] . '/Uploads/';// 设置附件上传目录
