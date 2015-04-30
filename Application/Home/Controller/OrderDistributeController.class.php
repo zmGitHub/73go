@@ -147,7 +147,7 @@ class OrderDistributeController extends Controller{
 	}
 	//乘客所有的订单信息
 	public function whole_order(){
-		$account = I("session.LoginInfo");//与LI方法等价
+		$account =$_POST['user'][0]['account'];//与LI方法等价
 		$map['account'] = $account;
 		$m_orders = M('orders');
 		$orderlists=$m_orders->where($map)->select();
@@ -160,7 +160,7 @@ class OrderDistributeController extends Controller{
 	}
 	//乘客所有未支付的订单信息
 	public function ticket_paying(){
-		$account = I("session.LoginInfo");//与LI方法等价
+		$account = $_POST['user'][0]['account'];//与LI方法等价
 		$map['account'] = $account;
 		$map['snatch_status'] = 1;
 		$map['ticket_status'] = 0;
@@ -175,7 +175,7 @@ class OrderDistributeController extends Controller{
 	}
 	//乘客所有未出行的订单信息,包括已出票和未出票
 	public function no_travel(){
-		$account = I("session.LoginInfo");//与LI方法等价
+		$account = $_POST['user'][0]['account'];//与LI方法等价
 		$map['account'] = $account;
 		$map['snatch_status'] = 1;
 		$map['ticket_status'] = array('exp','IN(1,2)');
