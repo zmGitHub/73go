@@ -11,7 +11,7 @@ return array(
 //	 'SHOW_ERROR_MSG'  => true,    // 显示错误信息
 
 	'DB_TYPE'=>'mysql',   //设置数据库类型
-	'DB_HOST'=>'localhost',//设置主机
+	'DB_HOST'=>'120.24.171.184',//设置主机
 	'DB_NAME' => '73go', // 设置数据库名
 		'DB_USER' => 'root', // 设置用户名
 		'DB_PWD' => 'fb1e43d94a', // 设置密码
