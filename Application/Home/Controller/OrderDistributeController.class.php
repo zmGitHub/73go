@@ -150,10 +150,11 @@ class OrderDistributeController extends Controller{
 		$map['account'] = $account;
 		$m_orders = M('orders');
 		$orderlists=$m_orders->where($map)->select();
-		foreach($orderlists as $order){
+		$order_count = count($orderlists);
+		for($i=0;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
-			$order['flight'] = $flight;
+			$flight[$i]  = $flights->where("order_num='%s'",$orderlists[$i]['order_num'])->select();
+			$order[$i]['flight'] = $flight[$i];
 		}
 		$this->ajaxreturn($order,'JSON');
 	}
@@ -165,10 +166,11 @@ class OrderDistributeController extends Controller{
 		$map['ticket_status'] = 0;
 		$m_orders = M('orders');
 		$orderlists=$m_orders->where($map)->select();
-		foreach($orderlists as $order){
+		$order_count = count($orderlists);
+		for($i=0;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
-			$order['flight'] = $flight;
+			$flight[$i]  = $flights->where("order_num='%s'",$orderlists[$i]['order_num'])->select();
+			$order[$i]['flight'] = $flight[$i];
 		}
 		$this->ajaxreturn($order,'JSON');
 	}
@@ -180,10 +182,11 @@ class OrderDistributeController extends Controller{
 		$map['ticket_status'] = array('exp','IN(1,2)');
 		$m_orders = M('orders');
 		$orderlists=$m_orders->where($map)->select();
-		foreach($orderlists as $order){
+		$order_count = count($orderlists);
+		for($i=0;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
-			$order['flight'] = $flight;
+			$flight[$i]  = $flights->where("order_num='%s'",$orderlists[$i]['order_num'])->select();
+			$order[$i]['flight'] = $flight[$i];
 		}
 		$this->ajaxreturn($order,'JSON');
 	}
