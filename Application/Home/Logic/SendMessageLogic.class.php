@@ -39,7 +39,7 @@ use UMessage\Logic\UnifyMessageSender;
 					$types=array(1);
 					$targets = array (	1 => $data['user_phone']);
 					$title = '账户使用短信获得新的密码';
-					$text = '亲爱的'.$data['username'].':您在www.73go.cn的新密码为 '.$data['newpassword'].'，请及时修改密码！';
+					$text = '亲爱的'.$data['username'].':您在duangduang打飞机的新密码为 '.$data['newpassword'].'，请及时修改密码！';
 				break;
 
 				case "PhoneGetVerifyCode":
