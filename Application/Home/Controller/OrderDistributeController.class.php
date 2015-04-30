@@ -81,10 +81,10 @@ class OrderDistributeController extends Controller{
 				$flight['flight1']['passenger'] = $passengers[$i]['name'];
 				$flight['flight1']['id_type'] = $passengers[$i]['idType'];
 				$flight['flight1']['card_id'] = $passengers[$i]['idNumber'];
-				$flight['flight1']['account'] = $user['account'];
+				$flight['flight1']['account'] = $account;
 				$flight['flight1']['order_num'] = $num;
-				$map = $flight['flight1'];
-				$flight1_result = $m_flight->add($map);
+				$data =$flight['flight1'];
+				$flight1_result = $m_flight->add($data);
 			}
 		} else {
 			//往返行程
@@ -93,7 +93,7 @@ class OrderDistributeController extends Controller{
 				$flight['flight1']['passenger'] = $passengers[$i]['name'];
 				$flight['flight1']['id_type'] = $passengers[$i]['idType'];
 				$flight['flight1']['card_id'] = $passengers[$i]['idNumber'];
-				$flight['flight1']['account'] = $user['account'];
+				$flight['flight1']['account'] = $account;
 				$flight['flight1']['order_num'] = $num;
 				$map = $flight['flight1'];
 				$flight1_result = $m_flight->add($map);
@@ -101,7 +101,7 @@ class OrderDistributeController extends Controller{
 				$flight['flight2']['passenger'] = $passengers[$i]['name'];
 				$flight['flight2']['id_type'] = $passengers[$i]['idType'];
 				$flight['flight2']['card_id'] = $passengers[$i]['idNumber'];
-				$flight['flight2']['account'] = $user['account'];
+				$flight['flight2']['account'] = $account;
 				$flight['flight2']['order_num'] = $num;
 				$flight2_result = $m_flight->add($flight['flight2']);
 			}
