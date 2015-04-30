@@ -69,7 +69,8 @@ class OrderDistributeController extends Controller{
 		$data['total_price'] =$total_price;//
 		$data['snatch_status'] = 0;
 		$data['ticket_status'] = 0;
-
+		$time  =  date ( "Y-m-d H:i:s" );
+		$data['create_time'] = $time;
 		$order_add = $m_order->add($data);
 		//写入订单信息
 
@@ -154,9 +155,9 @@ class OrderDistributeController extends Controller{
 		for($i=0;$i<$order_count;$i++){
 			$flights = M('flight');
 			$flight[$i]  = $flights->where("order_num='%s'",$orderlists[$i]['order_num'])->select();
-			$order[$i]['flight'] = $flight[$i];
+			$orderlists[$i]['flight'] = $flight[$i];
 		}
-		$this->ajaxreturn($order,'JSON');
+		$this->ajaxreturn($orderlists,'JSON');
 	}
 	//乘客所有未支付的订单信息
 	public function ticket_paying(){
