@@ -27,12 +27,13 @@ class OrderSnatchController extends Controller {
 
 		$orders = M('orders');
 		$orderlist= $orders->where('snatch_status =0 and ticket_status = 0')->select();
-		foreach($orderlist as $order){
+		$order_count = count($orderlist);
+		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
-			$order['flight'] = $flight;
+			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
+			$orderlist[$i]['flight'] = $flight[$i];
 		}
-		$this->ajaxreturn($order,'json');
+		$this->ajaxreturn($orderlist,'json');
     }
 	/**
 	 * OP抢单成功更新数据库
@@ -40,8 +41,8 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function order_snatch() {
-		$op_id = I ('"session.userId"');
-		$tmc_id = I ('"session.tmcId"');
+		$op_id = $_POST['op_id'];
+		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
 		$map['snatch_status'] = 1;
@@ -53,7 +54,7 @@ class OrderSnatchController extends Controller {
 		$this->ajaxreturn(1);
 		}
 		else{
-			$this->ajaxreturn(1);
+			$this->ajaxreturn(0);
 		}
 	}
 
@@ -63,21 +64,21 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function ticketpaying() {
-		$op_id = I ('"session.userId"');
-		$tmc_id =  I ('"session.tmcId"');
+		$op_id = $_POST['op_id'];
+		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
 		$map['snatch_status'] = 1;
 		$map['ticket_status'] = 0;
 		$orders = M ('orders');
-		$orderlists=$orders->where($map)->select();
-		foreach($orderlists as $order){
-
+		$orderlist=$orders->where($map)->select();
+		$order_count = count($orderlist);
+		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
-			$order['flight'] = $flight;
+			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
+			$orderlist[$i]['flight'] = $flight[$i];
 		}
-		var_dump($order);//$this->ajaxreturn($order,'json');
+		$this->ajaxreturn($orderlist,'json');
 	}
 	/**
 	 * OP抢单成功,客户支付完成待出票页面
@@ -85,20 +86,44 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function ticketprint() {
-		$op_id = I ('"session.userId"');
-		$tmc_id = I ('"session.tmcId"');
+		$op_id = $_POST['op_id'];
+		$tmc_id =$_POST['tmc_id'];
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
 		$map['snatch_status'] = 1;
 		$map['ticket_status'] = 1;
 		$orders = M ('orders');
-		$orderlists=$orders->where($map)->select();
-		foreach($orderlists as $order){
+		$orderlist=$orders->where($map)->select();
+		$order_count = count($orderlist);
+		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
-			$order['flight'] = $flight;
+			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
+			$orderlist[$i]['flight'] = $flight[$i];
 		}
-		$this->ajaxreturn($order,'json');
+		$this->ajaxreturn($orderlist,'json');
+	}
+
+	/**
+	 * OP出票状态更新
+	 * 创建者：张鹏
+	 * 2015-3-17
+	 */
+	public function ticketprinting() {
+		$op_id = $_POST['op_id'];
+		$tmc_id = $_POST['tmc_id'];
+		$map['op_id'] = $op_id;
+		$map['tmc_id'] = $tmc_id;
+		$map['snatch_status'] = 1;
+		$map['ticket_status'] = 2;
+		$order_num = $_POST['order_num'];
+		$orders = M ('orders');
+		$save_success=$orders->where("order_num ='%s'",$order_num)->save($map);
+		if($save_success){
+			$this->ajaxreturn(1);
+		}
+		else{
+			$this->ajaxreturn(0);
+		}
 	}
 	/**
 	 * OP抢单成功,客户支付完成已出票页面
@@ -106,20 +131,21 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function ticketprinted() {
-		$op_id = I ('"session.userId"');
-		$tmc_id = I ('"session.tmcId"');
+		$op_id = $_POST['op_id'];
+		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
 		$map['snatch_status'] = 1;
 		$map['ticket_status'] = 2;
 		$orders = M ('orders');
-		$orderlists=$orders->where($map)->select();
-		foreach($orderlists as $order){
+		$orderlist=$orders->where($map)->select();
+		$order_count = count($orderlist);
+		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight  = $flights->where("order_no='%s'",$order['order_no'])->select();
-			$order['flight'] = $flight;
+			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
+			$orderlist[$i]['flight'] = $flight[$i];
 		}
-		$this->ajaxreturn($order,'json');
+		$this->ajaxreturn($orderlist,'json');
 	}
 	/**
 	 * OP电脑显示客户申请退票的页面
@@ -127,20 +153,21 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function refund() {
-		$op_id = I ('"session.userId"');
-		$tmc_id = I ('"session.tmcId"');
+		$op_id = $_POST['op_id'];
+		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
 		$map['snatch_status'] = 1;
 		$map['ticket_status'] = 3;
 		$orders = M ('orders');
-		$orderlists=$orders->where($map)->select();
-		foreach($orderlists as $order){
+		$orderlist=$orders->where($map)->select();
+		$order_count = count($orderlist);
+		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
-			$order['flight'] = $flight;
+			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
+			$orderlist[$i]['flight'] = $flight[$i];
 		}
-		$this->ajaxreturn($order,'json');
+		$this->ajaxreturn($orderlist,'json');
 	}
 	/**
 	 * OP电脑显示客户申请改签的页面
@@ -148,20 +175,21 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function ticket_alter() {
-		$op_id = I ('"session.userId"');
-		$tmc_id = I ('"session.tmcId"');
+		$op_id = $_POST['op_id'];
+		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
 		$map['snatch_status'] = 1;
 		$map['ticket_status'] = 4;
 		$orders = M ('orders');
-		$orderlists=$orders->where($map)->select();
-		foreach($orderlists as $order){
+		$orderlist=$orders->where($map)->select();
+		$order_count = count($orderlist);
+		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
-			$order['flight'] = $flight;
+			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
+			$orderlist[$i]['flight'] = $flight[$i];
 		}
-		$this->ajaxreturn($order,'json');
+		$this->ajaxreturn($orderlist,'json');
 	}
 
 	/**
@@ -170,20 +198,21 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function cancel() {
-		$op_id = I ('"session.userId"');
-		$tmc_id = I ('"session.tmcId"');
+		$op_id = $_POST['op_id'];
+		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
 		$map['snatch_status'] = 1;
 		$map['ticket_status'] = 99;
 		$orders = M ('orders');
-		$orderlists=$orders->where($map)->select();
-		foreach($orderlists as $order){
+		$orderlist=$orders->where($map)->select();
+		$order_count = count($orderlist);
+		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight  = $flights->where("order_num='%s'",$order['order_num'])->select();
-			$order['flight'] = $flight;
+			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
+			$orderlist[$i]['flight'] = $flight[$i];
 		}
-		$this->ajaxreturn($order,'json');
+		$this->ajaxreturn($orderlist,'json');
 	}
 
 
