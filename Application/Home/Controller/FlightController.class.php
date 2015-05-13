@@ -18,7 +18,6 @@ class FlightController extends Controller {
      * @author cgk
      */
     public function getFlightInfo() {
-        C ( 'LAYOUT_ON', false );
         vendor('Ctrip.CtripUnion');
         //,'99668','542961','1B365D98-B21E-404F-9084-2EE3F709403D'
         $cu = new \CU ('flight', 'OTA_FlightSearch','99668','542961','1B365D98-B21E-404F-9084-2EE3F709403D');
@@ -29,10 +28,10 @@ class FlightController extends Controller {
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         //设置搜索参数
         $data['searchtype'] = $_POST['searchtype'];
-        $data['depart_city'] =  $_POST['depart_city'];
+        $data['depart_city'] =$_POST['depart_city'];
         $data['arrive_city'] =$_POST['arrive_city'];
-        $data['depart_date'] = $_POST['depart_date'];
-        $userid= $_POST['userid'];
+        $data['depart_date'] =$_POST['depart_date'];
+        $account= $_POST['account'];
         $flight1 =$_POST['flight1'];
         $flight2 = $_POST['flight2'];
         if($data['searchtype']=='D') {
@@ -42,8 +41,8 @@ class FlightController extends Controller {
         }
         //设置缓存
         $now= time();
-        $rt_tmp = S("$userid");
-        $cachename="$userid"."$now";
+        $cachename="$account";
+        $rt_tmp = S("$cachename");
         if (empty($flight1) || empty($rt_tmp)){
         $rt_tmp = $cu->OTA_FlightSearch ( $data, 'array' );
         $rt_tmp['time']=time()+300;
@@ -103,9 +102,8 @@ class FlightController extends Controller {
         }else {
             $flight_info= $flight_detail;
         }
-
         //$flight_info =array($flight,$flight_cheapest_array);
-       $this->ajaxReturn($flight_info, 'JSON' );
+      $this->ajaxReturn($flight_info, 'JSON' );
     }
     public function ReturnCheapFlight($flight_info,$rt_num_count){
         $flight_cheapest_array=array();
@@ -154,6 +152,64 @@ class FlightController extends Controller {
             $airport_list->data($airport)->add();
         }
     }
+
+    public function ctrip_submit(){
+        vendor('Ctrip.CtripUnion');
+        //,'99668','542961','1B365D98-B21E-404F-9084-2EE3F709403D'
+        $cu = new \CU ('flight', 'OTA_FltSaveOrder','99668','542961','1B365D98-B21E-404F-9084-2EE3F709403D');
+        ini_set('memory_limit', '256M');
+        set_time_limit(0);
+
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+        $data['ordertype'] = 'ADU';//$_POST['ordertype '];
+        $data['amount'] = '730';//$_POST['amount '];
+        $data['desc'] = 'PEKtoSHA';// $_POST['desc '];
+        $data['dcity_id']  = '1';//$_POST['dcity_id'];
+        $data['acity_id']  = '2';//$_POST['acity_id'];
+        $data['dport'] = 'PEK';//$_POST['dport'];
+        $data['aport']  = 'SHA';//$_POST['aport '];
+        $data['airlinecode']  = 'HO';//$_POST['airlinecode '];
+        $data['flight']  = 'HO1252';//$_POST['airlinecode '];
+        $data['class']   = 'Y';//$_POST['class  '];
+        $data['subclass']  = 'K';//$_POST['subclass '];
+        $data['dtime']  = '2015-05-15T06:50:00';////$_POST['dtime '];
+        $data['atime']  = '2015-05-15T09:05:00';//$_POST['atime '];
+        $data['rate']  = '0.55';//$_POST['rate '];
+        $data['price']  = '680';//$_POST['price '];
+        $data['tax']  = '50';//$_POST['tax '];
+        $data['oilfee']  = '0.0';//$_POST['oilfee '];
+        $data['nonrer']  ='H';// $_POST['nonrer  '];
+        $data['nonref']  = 'H';//$_POST['nonref  '];
+        $data['nonend']  ='T';// $_POST['nonend  '];
+        $data['rernote']  ='起飞前2小时（含）以外需收取票面价10%的变更费，2小时以内及起飞后收取票面价20%的变更费。改期费与升舱费同时发生时，则需同时收取改期费和升舱差额。';// $_POST['rernote  '];
+        $data['RefNote']  = '起飞前2小时（含）以外办理需收取票面价20％的退票费，2小时以内及起飞后办理需收取票面价30％的退票费。';//$_POST['RefNote  '];
+        $data['EndNote']  = '不得签转。';//$_POST['EndNote '];
+        $data['CraftType']  ='320';// $_POST['CraftType '];
+        $data['Quantity']  ='10';// $_POST['Quantity '];
+        $data['RefundFeeFormulaID']  ='142';//$_POST['RefundFeeFormulaID  '];
+        $data['UpGrade']  ='T';// $_POST['UpGrade  '];
+        $data['ProductType']  = 'Normal';//$_POST['ProductType  '];
+        $data['PassengerName']  = '张鹏';//$_POST['PassengerName  '];
+        $data['BirthDay']  = '1985-10-30';//$_POST['BirthDay'];
+        $data['PassportTypeID']  = '1';//$_POST['PassportTypeID'];
+        $data['PassportNo']  = '350622198510301039';//$_POST['PassportNo'];
+        $data['ContactName']  = '张鹏';//$_POST['ContactName'];
+        $data['MobilePhone']  = '18857166486';//$_POST['MobilePhone'];
+        $data['ContactEMail']  = '18065355@qq.com';//$_POST['ContactEMail'];
+        $data['DeliveryType']  = 'PJN';//$_POST['DeliveryType'];
+        $data['SendTicketCityID']  = '';//$_POST['SendTicketCityID'];
+        $data['SendTicketCityID']  = '';//$_POST['SendTicketCityID'];
+        $data['Receiver']  = '';//$_POST['Receiver'];
+        $data['Province']  = '';//$_POST['Province'];
+        $data['City']  ='';// $_POST['City '];
+        $data['Canton']  = '';//$_POST['Canton'];
+        $data['Address']  = '';//$_POST['Address'];
+        $data['PostCode']  = '';//$_POST['PostCode '];
+        $rt_tmp = $cu->OTA_FltSaveOrder ( $data, 'array' );
+        var_dump($rt_tmp) ;
+    }
+
     //根据机场三字码返回机场名称
     public function airport_read($airport_code){
         $map['code'] =$airport_code;
