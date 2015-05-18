@@ -139,7 +139,7 @@ class OrderDistributeController extends Controller{
 					$sender[$key]->sendUMessage ($um[$key]);
 				}
 			}
-            $this->ajaxReturn(1);
+            $this->ajaxReturn($num);
 		}else{
             $this->ajaxReturn(-1);
 		}
