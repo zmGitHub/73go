@@ -28,7 +28,7 @@ class FlightController extends Controller {
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         //设置搜索参数
         $data['searchtype'] = $_POST['searchtype'];
-        $data['depart_city'] =$_POST['depart_city'];
+        $data['depart_city'] = $_POST['depart_city'];
         $data['arrive_city'] =$_POST['arrive_city'];
         $data['depart_date'] =$_POST['depart_date'];
         $account= $_POST['account'];
@@ -53,6 +53,14 @@ class FlightController extends Controller {
         $rt_tmp = S("$cachename");
         }
         $rt=$rt_tmp;
+        $m_city = M('city');
+        $dicty = $m_city->where("CityCode='%s'",$data['depart_city'])->select();
+        $aicty = $m_city->where( "CityCode='%s'",$data['arrive_city'])->select();
+        $m_airport = M('airport');
+        $dport = $m_airport->where('CityId ='.$dicty[0]['CityId'])->select();
+        $dport_num = count($dport);
+        $aport = $m_airport->where('CityId ='.$aicty[0]['CityId'])->select();
+        $aport_num = count($aport);
         //抽取航班号
        // $rt_num_count = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['0']['RecordCount'];
        // for ($i=0;$i<$rt_num_count;$i++){
@@ -60,6 +68,38 @@ class FlightController extends Controller {
         //}
         //$flight= array_unique($flight);
         //$flight= array_values($flight);
+        //修改机场名称
+        for($i=0;$i<$rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['RecordCount'];$i++){
+            for($j=0;$j<$dport_num;$j++){
+                if($data['searchtype']=='S'){
+                    if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['DPortCode']==$dport[$j]['AirPort']){
+                        $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['DPortCode'] = $dport[$j]['AirPortName'];
+                    }
+                }
+                else{
+                    if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['DPortCode']=$dport[$j]['AirPort']){
+                        $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['DPortCode'] = $dport[$j]['AirPortName'];
+                    }
+                }
+
+            }
+        }
+
+        for($i=0;$i<$rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['RecordCount'];$i++){
+            for($j=0;$j<$aport_num;$j++){
+                if($data['searchtype']=='S'){
+                    if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['APortCode']==$aport[$j]['AirPort']){
+                        $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['APortCode'] = $aport[$j]['AirPortName'];
+                    }
+                }
+                else{
+                    if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['APortCode']=$aport[$j]['AirPort']){
+                        $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['APortCode'] = $aport[$j]['AirPortName'];
+                    }
+                }
+
+            }
+        }
         //选择航班
         if($data['searchtype']=='S') {
             $dpt_rt_num_count = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['RecordCount'];
@@ -103,7 +143,7 @@ class FlightController extends Controller {
             $flight_info= $flight_detail;
         }
         //$flight_info =array($flight,$flight_cheapest_array);
-      $this->ajaxReturn($flight_info, 'JSON' );
+        $this->ajaxReturn($flight_info, 'JSON' );
     }
     public function ReturnCheapFlight($flight_info,$rt_num_count){
         $flight_cheapest_array=array();
@@ -231,5 +271,27 @@ class FlightController extends Controller {
         $updata_tag = M ( "updata_tag" );
         $condition ['id'] = $data ['id'];
         $updata_tag->where ( $condition )->save ( $data );
+    }
+    public function airport_reg(){
+        $file = "C:/wamp/www/73go/ThinkPHP/Library/Vendor/Ctrip/flight/airport.xml";
+        $airport_list = simplexml_load_file($file);
+        $count = $airport_list->RecordCount;
+        $m_airport = M('airport');
+        for($i=0;$i<$count;$i++){
+            $m_airport ->data($airport_list->AirportInfosList->AirportInfoEntity[$i])->add();
+
+        }
+
+    }
+    public function city_reg(){
+        $file = "C:/wamp/www/73go/ThinkPHP/Library/Vendor/Ctrip/flight/city.xml";
+        $airport_list = simplexml_load_file($file);
+        $count = $airport_list->RecordCount;
+        $m_airport = M('city');
+        for($i=0;$i<$count;$i++){
+            $m_airport ->data($airport_list->CityInfosList->CityInfoEntity[$i])->add();
+
+        }
+
     }
 }
