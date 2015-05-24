@@ -25,6 +25,8 @@ class OrderSnatchController extends Controller {
 	 */
     public function showreq(){
 
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$orders = M('orders');
 		$orderlist= $orders->where('snatch_status =0 and ticket_status = 0')->select();
 		$order_count = count($orderlist);
@@ -41,6 +43,8 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function order_snatch() {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$op_id = $_POST['op_id'];
 		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
@@ -51,7 +55,7 @@ class OrderSnatchController extends Controller {
 		$orders = M ('orders');
 		$save_success=$orders->where("order_num ='%s'",$order_num)->save($map);
 		if($save_success){
-		$this->ajaxreturn(1);
+		    $this->ajaxreturn(1);
 		}
 		else{
 			$this->ajaxreturn(0);
@@ -64,6 +68,8 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function ticketpaying() {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$op_id = $_POST['op_id'];
 		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
@@ -86,6 +92,8 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function ticketprint() {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$op_id = $_POST['op_id'];
 		$tmc_id =$_POST['tmc_id'];
 		$map['op_id'] = $op_id;
@@ -109,6 +117,8 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function ticketprinting() {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$op_id = $_POST['op_id'];
 		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
@@ -131,6 +141,8 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function ticketprinted() {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$op_id = $_POST['op_id'];
 		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
@@ -153,6 +165,8 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function refund() {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$op_id = $_POST['op_id'];
 		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
@@ -175,6 +189,8 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function ticket_alter() {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$op_id = $_POST['op_id'];
 		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
@@ -198,6 +214,8 @@ class OrderSnatchController extends Controller {
 	 * 2015-3-17
 	 */
 	public function cancel() {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$op_id = $_POST['op_id'];
 		$tmc_id = $_POST['tmc_id'];
 		$map['op_id'] = $op_id;
@@ -214,7 +232,5 @@ class OrderSnatchController extends Controller {
 		}
 		$this->ajaxreturn($orderlist,'json');
 	}
-
-
 
 }
