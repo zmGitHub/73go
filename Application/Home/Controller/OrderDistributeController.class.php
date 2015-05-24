@@ -48,6 +48,7 @@ class OrderDistributeController extends Controller{
 	{
 		$account = $_POST['user'][0]['account'];
 		$user = $_POST['user'];
+
 		$passengers = $_POST['passengers'];//array('amount' => '1', 'PassengerList' => array('0' => array('name' => '张鹏', 'ordertype' => 'adult', 'card_type' => '身份证', 'card_id' => '350622198510301039')));//
 		$passenger_amount = $_POST['passenger_amount'];
 		$need_ticket= $_POST['need_ticket'];
@@ -56,6 +57,13 @@ class OrderDistributeController extends Controller{
 		$flight = $_POST['flight'];//array('flight1' => array('flight_num' => 'MF8527', 'dcity' => '上海', 'acity' => '北京', 'dport' => '虹桥', 'aport' => '首都', 'dtime' => '2015-05-20 16:05:00', 'atime' => '2015-05-20 18:05:00', 'cabin_grade' => 'y', 'flight_price' => '500', 'adulttax' => '50', 'oilfee' => '50', 'acci_insu' => '50', 'delay_insu' => '50', 'total_price' => '720'));//
 		$total_price = $_POST['full_price'];
 
+		if($flight_type == 'S'){
+			$trip_type = 1;
+			$ticket_amount = $passenger_amount;
+		}else{
+			$trip_type = 2;
+			$ticket_amount = $passenger_amount *2;
+		}
 
 		//生成 qsx订单号
 		$num = VNumGen('tmc_code');
@@ -63,8 +71,20 @@ class OrderDistributeController extends Controller{
 		$data['order_num'] = $num;
 		$data['account'] = $account;
 		$data['phone'] = $phone;
+		$data['trip_type'] = $trip_type;
+		//航班信息
+		$data['dpt_dtime'] = $flight['flight1']['dtime'];
+		$data['dpt_flight_num'] = $flight['flight1']['flight_num'];
+		$data['dpt_origin_price'] = $flight['flight1']['origin_price'];
+		$data['dpt_flight_price'] = $flight['flight1']['flight_price'];
+		$data['rtn_dtime'] = $flight['flight2']['dtime'];
+		$data['rtn_flight_num'] = $flight['flight2']['flight_num'];
+		$data['rtn_origin_price'] = $flight['flight2']['origin_price'];
+		$data['rtn_flight_price'] = $flight['flight2']['flight_price'];
+		//订单信息
 		$data['need_ticket'] = $need_ticket;
-		$data['passenger_amount'] =$passenger_amount;//
+		$data['ticket_amount'] = $ticket_amount;
+
 		$data['refund_amount'] =0;//
 		$data['total_price'] =$total_price;//
 		$data['snatch_status'] = 0;
