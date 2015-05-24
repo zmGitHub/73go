@@ -46,6 +46,8 @@ class OrderDistributeController extends Controller{
 	*/
 	public function orderdistribute()
 	{
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$account = $_POST['user'][0]['account'];
 		$user = $_POST['user'];
 
@@ -167,6 +169,9 @@ class OrderDistributeController extends Controller{
 	}
 	//乘客所有的订单信息
 	public function whole_order(){
+
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$account =$_POST['account'];//与LI方法等价
 		$map['account'] = $account;
 		$m_orders = M('orders');
@@ -181,6 +186,8 @@ class OrderDistributeController extends Controller{
 	}
 	//乘客所有未支付的订单信息
 	public function ticket_paying(){
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$account = $_POST['account'];//与LI方法等价
 		$map['account'] = $account;
 		$map['snatch_status'] = 1;
@@ -197,6 +204,8 @@ class OrderDistributeController extends Controller{
 	}
 	//乘客所有未出行的订单信息,包括已出票和未出票
 	public function no_travel(){
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$account = $_POST['account'];//与LI方法等价
 		$map['account'] = $account;
 		$map['snatch_status'] = 1;
