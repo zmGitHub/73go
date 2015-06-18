@@ -50,11 +50,11 @@ return array(
 	"73GO_UM_STATUS_SENT"    => '9',
 	/************************/
 	"THINK_EMAIL" => array (
-		'SMTP_HOST' => 'smtp.exmail.qq.com', // SMTP服务器
+		'SMTP_HOST' => 'smtp.qq.com', // SMTP服务器
 		'SMTP_PORT' => '465', // SMTP服务器端口
-		'SMTP_USER' => 'zhangpeng@73go.cn', // SMTP服务器用户名
+		'SMTP_USER' => '18065355@qq.com', // SMTP服务器用户名
 		'SMTP_PASS' => 'zp34203549', // SMTP服务器密码
-		'FROM_EMAIL' => 'zhangpeng@73go.cn', // 发件人EMAIL
+		'FROM_EMAIL' => '18065355@qq.com', // 发件人EMAIL
 		'FROM_NAME' => '张鹏', // 发件人名称
 		'REPLY_EMAIL' => '', // 回复EMAIL（留空则为发件人EMAIL）
 		'REPLY_NAME' => '' // 回复名称（留空则为发件人名称）

@@ -52,8 +52,11 @@ class CU extends Token
 		if($args[0]['searchtype'] =='S'){
 		$request_xml = $C->single_trip_request_xml( $this->_uid, $this->_sid,
 							$this->_stmp, $this->_sign, $this->_type );
-		}else {
+		}else if($args[0]['searchtype'] =='D') {
 			$request_xml = $C->double_trip_request_xml( $this->_uid, $this->_sid,
+				$this->_stmp, $this->_sign, $this->_type );
+		}else {
+			$request_xml = $C->order_generate( $this->_uid, $this->_sid,
 				$this->_stmp, $this->_sign, $this->_type );
 		}
 		$request = $this->request_xml_shell($request_xml);

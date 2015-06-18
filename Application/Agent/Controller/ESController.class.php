@@ -311,8 +311,8 @@ class ESController extends Controller {
 				FROM 73go_qsx_solution qs 
     			LEFT JOIN 73go_user u  on qs.u_id =u.id 
 				LEFT JOIN 73go_tmc_employee as temp ON temp.u_id=u.id
-				LEFT JOIN 73go_tmc as tmc ON tmc.id=temp.tmc_id
-				WHERE tmc.id=$tmc_id AND qs.`status`=0 AND qs.req_id = ".$req_id;
+				LEFT JOIN 73go_tmc as tmc ON 73go_tmc.id=temp.tmc_id
+				WHERE 73go_tmc.id=$tmc_id AND qs.`status`=0 AND qs.req_id = " .$req_id;
 			$count = $qs->query($sql2);
 			$result1[$key]['count'] = $count[0]['num'];
 			

@@ -23,7 +23,7 @@ class OrderDistributeController extends Controller{
 
 
         //生成 qsx订单号
-        $num = VNumGen('tmc_code');
+        $num = _getOrderCode();
         $m_order = M('orders');
         $data['order_num'] = $num;
         $data['account'] = $account;
@@ -68,7 +68,7 @@ class OrderDistributeController extends Controller{
 		}
 
 		//生成 qsx订单号
-		$num = VNumGen('tmc_code');
+		$num = $this->_getOrderCode();
 		$m_order = M('orders');
 		$data['order_num'] = $num;
 		$data['account'] = $account;
@@ -172,7 +172,7 @@ class OrderDistributeController extends Controller{
 
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-		$account =$_POST['account'];//与LI方法等价
+		$account =15575466453;//$_POST['account'];//与LI方法等价
 		$map['account'] = $account;
 		$m_orders = M('orders');
 		$orderlists=$m_orders->where($map)->select();
@@ -221,7 +221,16 @@ class OrderDistributeController extends Controller{
 		$this->ajaxreturn($order,'JSON');
 	}
 
-
+	private function _getOrderCode(){
+		$code = rand(1000000,9999999);
+		$m_order= M('orders');
+		$pinfo=$m_order->where('order_num='.$code)->select();
+		if($pinfo){
+			$this->_getCompanyCode();
+		}else{
+			return $code;
+		}
+	}
 
 
 
