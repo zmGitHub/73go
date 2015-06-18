@@ -172,7 +172,7 @@ class OrderDistributeController extends Controller{
 
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-		$account =15575466453;//$_POST['account'];//与LI方法等价
+		$account =$_POST['account'];//与LI方法等价
 		$map['account'] = $account;
 		$m_orders = M('orders');
 		$orderlists=$m_orders->where($map)->select();
