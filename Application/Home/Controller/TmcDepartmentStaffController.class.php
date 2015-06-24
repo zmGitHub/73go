@@ -87,20 +87,25 @@ class TmcDepartmentStaffController extends Controller{
 	 	$data['card_type']=$_POST['id_type'];
 	 	$data['card_id']=$_POST['id_num'];
 		$m_user = M('user');
-		$result = $m_user->add($data);
-		if($result){
-			$data['tmc_id'] = LI('tmcId');//tmc企业id
-			$data['op_id']=$_POST['op_id'];
-			$tmc_employee = M('operator');
-			$request = $tmc_employee->add($data);
-			if($request){
+		$cardid_repeat=$m_user->where('phone='.$data['phone'])->select();
+		if(!$cardid_repeat) {
+
+			$result = $m_user->add($data);
+			if ($result) {
+				$data['tmc_id'] = $_POST['tmc_id'];//tmc企业id
+				$data['op_id'] = $_POST['op_id'];
+				$tmc_employee = M('operator');
+				$request = $tmc_employee->add($data);
+				if ($request) {
+					$this->ajaxReturn(1);
+				} else {
+					$this->ajaxReturn(0);
+				}
+			} else {
 				$this->ajaxReturn(0);
 			}
-			else {
-				$this->ajaxReturn(0);
-			}
-		}else{
-			$this->ajaxReturn(0);
+		}else {
+			$this->ajaxReturn(99);
 		}
 	}
 	/**
@@ -121,6 +126,7 @@ class TmcDepartmentStaffController extends Controller{
 		$data['email']=$_POST['email'];
 		$data['card_type']=$_POST['id_type'];
 		$data['card_id']=$_POST['id_num'];
+		$data['user_type']=4;
 		$m_user = M('user');
 		$result = $m_user->where('account='.$data['account'])->save($data);
 		if($result){
@@ -129,7 +135,7 @@ class TmcDepartmentStaffController extends Controller{
 			$tmc_employee = M('operator');
 			$request = $tmc_employee->where('op_id= and tmc_id = ',array($data['op_id'],$data['tmc_id']))->save($data);
 			if($request){
-				$this->ajaxReturn(0);
+				$this->ajaxReturn(1);
 			}
 			else {
 				$this->ajaxReturn(0);
