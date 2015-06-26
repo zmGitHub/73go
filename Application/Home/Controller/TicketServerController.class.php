@@ -110,6 +110,13 @@ class TicketServerController extends Controller {
 
 		return $password;
 	}
+	public function session_exist(){
+		if($_SESSION['LoginInfo']){
+			$this->ajaxReturn(1);
+		}else {
+			$this->ajaxReturn(0);
+		}
+	}
 	//代理商的登录
 	//查看是否具有该用户 
 	public function check_login(){
@@ -120,7 +127,7 @@ class TicketServerController extends Controller {
 		$map['user_type']=array('exp','in(3,4)');
 		$user = M('user');
 		$result = $user->where($map)->find();//查询验证用户
-		//保存企业信息
+		//保存企业信息;
 		if(!$result){
 			$info = '帐号 ' . $map['account'] . ' 登录73goTMC网页失败';
 			LOGS($type=1, $info, $map['account']);
