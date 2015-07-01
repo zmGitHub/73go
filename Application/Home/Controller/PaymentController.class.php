@@ -20,12 +20,12 @@ class PaymentController extends Controller {
 	 */
 		public function pingpay(){
 			$input_data = json_decode(file_get_contents('php://input'), true);
-			$input_data['channel']='alipay_wap';
+			$input_data['channel']='alipay';
 			$input_data['amount']=1;
 			if (empty($input_data['channel']) || empty($input_data['amount'])) {
 				exit();
 			}
-			$channel = 'alipay_wap';//strtolower($input_data['channel']);
+			$channel = 'alipay';//strtolower($input_data['channel']);
 			$amount = $input_data['amount'];
 			$orderNo = substr(md5(time()), 0, 12);
 
@@ -79,11 +79,11 @@ class PaymentController extends Controller {
 					array(
 						"subject"   => "Your Subject",
 						"body"      => "Your Body",
-						"amount"    => '100',//$amount,
-						"order_no"  => '12',//$orderNo,
+						"amount"    =>'110',//$amount,
+						"order_no"  => '100',//$orderNo,
 						"currency"  => "cny",
 						"extra"     => $extra,
-						"channel"   => 'alipay_wap',//$channel,
+						"channel"   => 'alipay',//$channel,
 						"client_ip" => '120.24.171.184',//$_SERVER["REMOTE_ADDR"],
 						"app"       => array("id" => "app_SuLWfHyXH0CCX1uL")
 					)
