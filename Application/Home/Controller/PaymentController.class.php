@@ -73,17 +73,17 @@ class PaymentController extends Controller {
 
 			}
 
-			\Pingpp\Pingpp::setApiKey('sk_live_CejnL8nHm5i5fvLa5Cu5SiLC');
+			\Pingpp\Pingpp::setApiKey('sk_test_Lu5KW540uXvHzP00qDPu5WHG');
 			try {
 				$ch = \Pingpp\Charge::create(
 					array(
 						"subject"   => "Your Subject",
 						"body"      => "Your Body",
-						"amount"    => $amount,
-						"order_no"  => $orderNo,
+						"amount"    => '100',//$amount,
+						"order_no"  => '12',//$orderNo,
 						"currency"  => "cny",
 						"extra"     => $extra,
-						"channel"   => 'alipay',//$channel,
+						"channel"   => 'alipay_wap',//$channel,
 						"client_ip" => '120.24.171.184',//$_SERVER["REMOTE_ADDR"],
 						"app"       => array("id" => "app_SuLWfHyXH0CCX1uL")
 					)
