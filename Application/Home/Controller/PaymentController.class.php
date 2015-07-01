@@ -19,6 +19,8 @@ class PaymentController extends Controller {
 	 * 创建时间：2014-12-15下午04:36:22
 	 */
 		public function pingpay(){
+			header("Access-Control-Allow-Origin: *");
+			header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 			$input_data = json_decode(file_get_contents('php://input'), true);
 			$input_data['channel']='alipay';
 			$input_data['amount']=1;
