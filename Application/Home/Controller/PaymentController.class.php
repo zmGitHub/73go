@@ -3,7 +3,7 @@ namespace Home\Controller;
 
 use Think\Controller;
 use Org\Alipay;
-require '../../../../ThinkPHP/Library/Org/ping/init.php';
+require './ThinkPHP/Library/Org/ping/init.php';
 /**
  * 支付宝处理
  * 创建者：董发勇
