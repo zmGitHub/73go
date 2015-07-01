@@ -3,6 +3,7 @@ namespace Home\Controller;
 
 use Think\Controller;
 use Org\Alipay;
+require 'D:/wamp/www/73go/ThinkPHP/Library/Org/ping/init.php';
 /**
  * 支付宝处理
  * 创建者：董发勇
@@ -14,9 +15,85 @@ class PaymentController extends Controller {
 
 	/**
 	 * 支付宝响应
-	 * 创建者：董发勇
+	 * 创建者：张鹏
 	 * 创建时间：2014-12-15下午04:36:22
 	 */
+		public function pingpay(){
+			$input_data = json_decode(file_get_contents('php://input'), true);
+			$input_data['channel']='alipay_wap';
+			$input_data['amount']=1;
+			if (empty($input_data['channel']) || empty($input_data['amount'])) {
+				exit();
+			}
+			$channel = 'alipay_wap';//strtolower($input_data['channel']);
+			$amount = $input_data['amount'];
+			$orderNo = substr(md5(time()), 0, 12);
+
+//$extra 在使用某些渠道的时候，需要填入相应的参数，其它渠道则是 array() .具体见以下代码或者官网中的文档。其他渠道时可以传空值也可以不传。
+			$extra = array();
+			switch ($channel) {
+				//这里值列举了其中部分渠道的，具体的extra所需参数请参见官网中的 API 文档
+				case 'alipay_wap':
+					$extra = array(
+						'success_url' => 'http://www.baidu.com/success',
+						'cancel_url' => 'http://www.sina.com/success'
+					);
+					break;
+				case 'upmp_wap':
+					$extra = array(
+						'result_url' => 'http://www.yourdomain.com/result?code='
+					);
+					break;
+				case 'bfb_wap':
+					$extra = array(
+						'result_url' => 'http://www.yourdomain.com/result?code='
+					);
+					break;
+				case 'upacp_wap':
+					$extra = array(
+						'result_url' => 'http://www.yourdomain.com/result?code='
+					);
+					break;
+				case 'wx_pub':
+					$extra = array(
+						'open_id' => 'Openid'
+					);
+					break;
+				case 'wx_pub_qr':
+					$extra = array(
+						'product_id' => 'Productid'
+					);
+					break;
+				case 'jdpay_wap':
+					$extra = array(
+						'success_url'=>'http://www.yourdomain.com',
+						'fail_url'=>'http://www.yourdomain.com'
+					);
+					break;
+
+			}
+
+			\Pingpp\Pingpp::setApiKey('sk_live_CejnL8nHm5i5fvLa5Cu5SiLC');
+			try {
+				$ch = \Pingpp\Charge::create(
+					array(
+						"subject"   => "Your Subject",
+						"body"      => "Your Body",
+						"amount"    => $amount,
+						"order_no"  => $orderNo,
+						"currency"  => "cny",
+						"extra"     => $extra,
+						"channel"   => 'alipay',//$channel,
+						"client_ip" => '120.24.171.184',//$_SERVER["REMOTE_ADDR"],
+						"app"       => array("id" => "app_SuLWfHyXH0CCX1uL")
+					)
+				);
+				echo $ch;
+			} catch (\Pingpp\Error\Base $e) {
+				header('Status: ' . $e->getHttpStatus());
+				echo($e->getHttpBody());
+			}
+		}
 	/**
 	 * 修改仓位信息
 	 * 修改者：王月
