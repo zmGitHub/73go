@@ -22,12 +22,12 @@ class PaymentController extends Controller {
 			header("Access-Control-Allow-Origin: *");
 			header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 			$input_data = json_decode(file_get_contents('php://input'), true);
-			$input_data['channel']='alipay';
+			$input_data['channel']='alipay_wap';
 			$input_data['amount']=1;
 			if (empty($input_data['channel']) || empty($input_data['amount'])) {
 				exit();
 			}
-			$channel = 'alipay';//strtolower($input_data['channel']);
+			$channel = 'alipay_wap';//strtolower($input_data['channel']);
 			$amount = $input_data['amount'];
 			$orderNo = substr(md5(time()), 0, 12);
 
@@ -37,8 +37,8 @@ class PaymentController extends Controller {
 				//这里值列举了其中部分渠道的，具体的extra所需参数请参见官网中的 API 文档
 				case 'alipay_wap':
 					$extra = array(
-						'success_url' => 'http://www.baidu.com/success',
-						'cancel_url' => 'http://www.sina.com/success'
+						'success_url' => 'http://www.dddafeiji.com',
+						'cancel_url' => 'http://www.sina.com'
 					);
 					break;
 				case 'upmp_wap':
@@ -85,7 +85,7 @@ class PaymentController extends Controller {
 						"order_no"  => '100',//$orderNo,
 						"currency"  => "cny",
 						"extra"     => $extra,
-						"channel"   => 'alipay',//$channel,
+						"channel"   => 'alipay_wap',//$channel,
 						"client_ip" => '120.24.171.184',//$_SERVER["REMOTE_ADDR"],
 						"app"       => array("id" => "app_SuLWfHyXH0CCX1uL")
 					)
