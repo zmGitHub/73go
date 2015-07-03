@@ -27,7 +27,7 @@ class PaymentController extends Controller {
 			if (empty($input_data['channel']) || empty($input_data['amount'])) {
 				exit();
 			}
-			$channel = 'alipay_wap';//strtolower($input_data['channel']);
+			$channel = 'alipay';//strtolower($input_data['channel']);
 			$amount = $input_data['amount'];
 			$orderNo = substr(md5(time()), 0, 12);
 
@@ -75,17 +75,17 @@ class PaymentController extends Controller {
 
 			}
 
-			\Pingpp\Pingpp::setApiKey('sk_test_Lu5KW540uXvHzP00qDPu5WHG');
+			\Pingpp\Pingpp::setApiKey('sk_live_CejnL8nHm5i5fvLa5Cu5SiLC');
 			try {
 				$ch = \Pingpp\Charge::create(
 					array(
 						"subject"   => "Your Subject",
 						"body"      => "Your Body",
-						"amount"    =>'110',//$amount,
-						"order_no"  => '100',//$orderNo,
+						"amount"    => '1',//$amount,
+						"order_no"  => $orderNo,
 						"currency"  => "cny",
 						"extra"     => $extra,
-						"channel"   => 'alipay_wap',//$channel,
+						"channel"   => $channel,
 						"client_ip" => '120.24.171.184',//$_SERVER["REMOTE_ADDR"],
 						"app"       => array("id" => "app_SuLWfHyXH0CCX1uL")
 					)
@@ -127,6 +127,7 @@ class PaymentController extends Controller {
 		$order = array($orderinfo,$flightinfo) ;
 		$this->ajaxreturn($order,'JSON');
 	}
+
 
 	public function alipay(){
 		//合作者ID
