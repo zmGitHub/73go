@@ -176,11 +176,12 @@ class OrderDistributeController extends Controller{
 		$map['account'] = $account;
 		$m_orders = M('orders');
 		$orderlists=$m_orders->where($map)->select();
+		$this->_updateticket($orderlists);
 		$order_count = count($orderlists);
 		for($i=0;$i<$order_count;$i++){
 			$flights = M('flight');
 			$flight[$i]  = $flights->where("order_num='%s'",$orderlists[$i]['order_num'])->select();
-			$orderlists[$i]['flight'] = $flight[$i];
+				$orderlists[$i]['flight'] = $flight[$i];
 		}
 		$this->ajaxreturn($orderlists,'JSON');
 	}
@@ -194,13 +195,20 @@ class OrderDistributeController extends Controller{
 		$map['ticket_status'] = 0;
 		$m_orders = M('orders');
 		$orderlists=$m_orders->where($map)->select();
-		$order_count = count($orderlists);
-		for($i=0;$i<$order_count;$i++){
-			$flights = M('flight');
-			$flight[$i]  = $flights->where("order_num='%s'",$orderlists[$i]['order_num'])->select();
-			$order[$i]['flight'] = $flight[$i];
+		$this->_updateticket($orderlists);
+		$now_time = time();
+		foreach($orderlists as $key=>$order){
+			$create_time = strtotime($order['create_time']);
+			if(($now_time - $create_time < 1800) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+				$unpaylist[$key] = $order;
+			}
 		}
-		$this->ajaxreturn($order,'JSON');
+		foreach($unpaylist as $pkey=> $unpayorder){
+			$flights = M('flight');
+			$flight = $flights->where("order_num='%s'",$unpayorder['order_num'])->select();
+			$unpaylist[$pkey]['flight'] = $flight[$pkey];
+		}
+		$this->ajaxreturn($unpaylist,'JSON');
 	}
 	//乘客所有未出行的订单信息,包括已出票和未出票
 	public function no_travel(){
@@ -220,7 +228,21 @@ class OrderDistributeController extends Controller{
 		}
 		$this->ajaxreturn($order,'JSON');
 	}
-
+	private function _updateticket($orderlists){
+		$now_time = time();
+		foreach($orderlists as $key=>$order){
+			$create_time = strtotime($order['create_time']);
+			if(($now_time - $create_time > 1800) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+				$outdateList[$key] = $order;
+			}
+		}
+		foreach ($outdateList as $outdateorder){
+			$m_orders = M('orders');
+			$outdateorder['ticket_status'] = 99;
+			$new_map['order_num'] = $outdateorder['order_num'];
+			$m_orders->where($new_map)->save($outdateorder);
+		}
+	}
 	private function _getOrderCode(){
 		$code = rand(1000000,9999999);
 		$m_order= M('orders');

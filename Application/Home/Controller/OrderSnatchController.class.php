@@ -78,13 +78,20 @@ class OrderSnatchController extends Controller {
 		$map['ticket_status'] = 0;
 		$orders = M ('orders');
 		$orderlist=$orders->where($map)->select();
-		$order_count = count($orderlist);
-		for($i=0 ;$i<$order_count;$i++){
-			$flights = M('flight');
-			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
-			$orderlist[$i]['flight'] = $flight[$i];
+		$this->_updateticket($orderlist);
+		$now_time = time();
+		foreach($orderlist as $key=>$order){
+			$create_time = strtotime($order['create_time']);
+			if(($now_time - $create_time < 1800) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+				$unpaylist[$key] = $order;
+			}
 		}
-		$this->ajaxreturn($orderlist,'json');
+		foreach($unpaylist as $pkey=> $unpayorder){
+			$flights = M('flight');
+			$flight = $flights->where("order_num='%s'",$unpayorder['order_num'])->select();
+			$unpaylist[$pkey]['flight'] = $flight[$pkey];
+		}
+		$this->ajaxreturn($unpaylist,'JSON');
 	}
 	/**
 	 * OP抢单成功,客户支付完成待出票页面
@@ -232,5 +239,19 @@ class OrderSnatchController extends Controller {
 		}
 		$this->ajaxreturn($orderlist,'json');
 	}
-
+	private function _updateticket($orderlists){
+		$now_time = time();
+		foreach($orderlists as $key=>$order){
+			$create_time = strtotime($order['create_time']);
+			if(($now_time - $create_time > 1800) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+				$outdateList[$key] = $order;
+			}
+		}
+		foreach ($outdateList as $outdateorder){
+			$m_orders = M('orders');
+			$outdateorder['ticket_status'] = 99;
+			$new_map['order_num'] = $outdateorder['order_num'];
+			$m_orders->where($new_map)->save($outdateorder);
+		}
+	}
 }
