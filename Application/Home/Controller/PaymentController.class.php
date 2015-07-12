@@ -27,7 +27,7 @@ class PaymentController extends Controller {
 			if (empty($input_data['channel']) || empty($input_data['amount'])) {
 				exit();
 			}
-			$channel = 'alipay';//strtolower($input_data['channel']);
+			$channel = 'alipay_wap';//strtolower($input_data['channel']);
 			$amount = $input_data['amount'];
 			$orderNo = substr(md5(time()), 0, 12);
 
@@ -37,8 +37,8 @@ class PaymentController extends Controller {
 				//这里值列举了其中部分渠道的，具体的extra所需参数请参见官网中的 API 文档
 				case 'alipay_wap':
 					$extra = array(
-						'success_url' => 'http://www.dddafeiji.com',
-						'cancel_url' => 'http://www.sina.com'
+						'success_url' => 'http://www.alipay.com/alipay/return_url.php',
+						'cancel_url' => 'http://www.alipay.com/alipay/return_url.php'
 					);
 					break;
 				case 'upmp_wap':
@@ -75,17 +75,17 @@ class PaymentController extends Controller {
 
 			}
 
-			\Pingpp\Pingpp::setApiKey('sk_live_CejnL8nHm5i5fvLa5Cu5SiLC');
+			\Pingpp\Pingpp::setApiKey('sk_live_4eDavP9W1O8GifXTOK8SSm5K');
 			try {
 				$ch = \Pingpp\Charge::create(
 					array(
 						"subject"   => "Your Subject",
 						"body"      => "Your Body",
 						"amount"    => '1',//$amount,
-						"order_no"  => $orderNo,
+						"order_no"  => '11234',
 						"currency"  => "cny",
 						"extra"     => $extra,
-						"channel"   => $channel,
+						"channel"   => 'alipay_wap',
 						"client_ip" => '120.24.171.184',//$_SERVER["REMOTE_ADDR"],
 						"app"       => array("id" => "app_SuLWfHyXH0CCX1uL")
 					)
@@ -128,86 +128,174 @@ class PaymentController extends Controller {
 		$this->ajaxreturn($order,'JSON');
 	}
 
+	public function alipay_wap(){
+		//合作身份者id，以2088开头的16位纯数字
+		$alipay_config['partner']		= '2088911077493342';
 
-	public function alipay(){
-		//合作者ID
-		$alipay_config['partner']		= $_POST['tmc_partner_id'];
-		//安全检验码，以数字和字母组成的32位字符
-		$alipay_config['key']			= $_POST['rsa_key'];
+//收款支付宝账号
+		$alipay_config['seller_id']	= '46079867@qq.com';
 
-		//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+//商户的私钥（后缀是.pen）文件相对路径
+		$alipay_config['private_key_path']	= './ThinkPHP/Library/Org/Alipay_wap/key/rsa_private_key.pem';
+
+//支付宝公钥（后缀是.pen）文件相对路径
+		$alipay_config['ali_public_key_path']= './ThinkPHP/Library/Org/Alipay_wap/key/alipay_public_key.pem';
 
 
-		//签名方式 不需修改
-		$alipay_config['sign_type']    = strtoupper('MD5');
-		//字符编码格式 目前支持 gbk 或 utf-8
+//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+
+//签名方式 不需修改
+		$alipay_config['sign_type']    = strtoupper('RSA');
+
+//字符编码格式 目前支持 gbk 或 utf-8
 		$alipay_config['input_charset']= strtolower('utf-8');
-		//ca证书路径地址，用于curl中ssl校验
-		//请保证cacert.pem文件在当前文件夹目录中
+
+//ca证书路径地址，用于curl中ssl校验
+//请保证cacert.pem文件在当前文件夹目录中
 		$alipay_config['cacert']    = getcwd().'\\cacert.pem';
 
-		//访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
+//访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
 		$alipay_config['transport']    = 'http';
+
 		//支付类型
 		$payment_type = "1";
 		//必填，不能修改
 		//服务器异步通知页面路径
-		$notify_url = "http://www.dddafeiji.com/home/payment/notify";
+		$notify_url = "http://www.alipay.com/alipay/return_url.php";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数
 		//页面跳转同步通知页面路径
-		$return_url = "http://www.dddafeiji.com/home/payment/alireturn";
+		$return_url = "http://www.alipay.com/alipay/return_url.php";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
-		//卖家支付宝帐户
-		$seller_email = $_POST['alipay_id'];
-		//必填
 		//商户订单号
-		$out_trade_no = $_POST['order_num'];
+		$out_trade_no = substr(md5(time()), 0, 12);//$_POST['WIDout_trade_no'];
 		//商户网站订单系统中唯一订单号，必填
 		//订单名称
-		$subject = $_POST['desc'];
+		$subject = 'OK';//$_POST['WIDsubject'];
 		//必填
 		//付款金额
-		//$total_fee1 = $_POST['totalPay'];
-        $total_fee = $_POST['total_price'];
+		$total_fee = 0.1;//$_POST['WIDtotal_fee'];
 		//必填
-		//订单描述
-		$body = "";
 		//商品展示地址
-		$show_url ="";
-		//需以http://开头的完整路径，例如：http://www.商户网址.com/myorder.html
-		//防钓鱼时间戳
-		$anti_phishing_key = "";
-		//若要使用请调用类文件submit中的query_timestamp函数
-		//客户端的IP地址
-		$exter_invoke_ip = "";
-		//非局域网的外网IP地址，如：221.0.0.1
+		$show_url = 'www.dddafeiji.com/myorder.html';//$_POST['WIDshow_url'];
+		//必填，需以http://开头的完整路径，例如：http://www.商户网址.com/myorder.html
+		//订单描述
+		$body = $_POST['WIDbody'];
+		//选填
+		//超时时间
+		$it_b_pay = $_POST['WIDit_b_pay'];
+		//选填
+		//钱包token
+		$extern_token = $_POST['WIDextern_token'];
+		//选填
 
 
-		/*************************************************************/
+		/************************************************************/
 
-		//构造要请求的参数数组，无需改动
+//构造要请求的参数数组，无需改动
 		$parameter = array(
-			"service" => "create_direct_pay_by_user",
+			"service" => "alipay.wap.create.direct.pay.by.user",
 			"partner" => trim($alipay_config['partner']),
-			"payment_type" => $payment_type,
-			"notify_url" => $notify_url,
-			"return_url" => $return_url,
-			"seller_email" => $seller_email,
-			"out_trade_no" => $out_trade_no,
-			"subject" => $subject,
-			"total_fee" => $total_fee,
-			"body" => $body,
-			"show_url" => $show_url,
-			"anti_phishing_key" => $anti_phishing_key,
-			"exter_invoke_ip" => $exter_invoke_ip,
-			"_input_charset" => trim(strtolower($alipay_config['input_charset']))
+			"seller_id" => trim($alipay_config['seller_id']),
+			"payment_type"	=> $payment_type,
+			"notify_url"	=> $notify_url,
+			"return_url"	=> $return_url,
+			"out_trade_no"	=> $out_trade_no,
+			"subject"	=> $subject,
+			"total_fee"	=> $total_fee,
+			"show_url"	=> $show_url,
+			"body"	=> $body,
+			"it_b_pay"	=> $it_b_pay,
+			"extern_token"	=> $extern_token,
+			"_input_charset"	=> trim(strtolower($alipay_config['input_charset']))
 		);
 
-		//建立请求
-		$alipaySubmit = new \Org\Alipay\AlipaySubmit($alipay_config);
-		$html_text = $alipaySubmit->buildRequestForm($parameter, "get", "确认");
+//建立请求
+		$alipaySubmit = new \Org\Alipay_wap\Lib\AlipaySubmit($alipay_config);
+		$html_text = $alipaySubmit->buildRequestForm($parameter,"get", "确认");
 		echo $html_text;
 	}
+
+	public function alipay(){
+        //合作者ID
+        $alipay_config['partner'] = '2088911077493342';
+        //安全检验码，以数字和字母组成的32位字符
+        $alipay_config['key'] = 'oa45tknq7iqug9g9oji5f7r2vf9q0ntr';
+
+        //↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+        $alipay_config['seller_email']	= '46079867@qq.com';
+
+
+        //签名方式 不需修改
+        $alipay_config['sign_type'] = strtoupper('MD5');
+        //字符编码格式 目前支持 gbk 或 utf-8
+        $alipay_config['input_charset'] = strtolower('utf-8');
+        //ca证书路径地址，用于curl中ssl校验
+        //请保证cacert.pem文件在当前文件夹目录中
+        $alipay_config['cacert'] = getcwd() . '\\cacert.pem';
+
+        //访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
+        $alipay_config['transport'] = 'http';
+        //支付类型
+        $payment_type = "1";
+        //必填，不能修改
+        //服务器异步通知页面路径
+        $notify_url = " http://www.alipay.com/alipay/return_url.php";
+        //需http://格式的完整路径，不能加?id=123这类自定义参数
+        //页面跳转同步通知页面路径
+        $return_url = " http://www.alipay.com/alipay/return_url.php";
+        //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+        //必填
+        //商户订单号
+        $out_trade_no = substr(md5(time()), 0, 12);
+        //商户网站订单系统中唯一订单号，必填
+        //订单名称
+        $subject = 'ok';
+        //必填
+        //付款金额
+        //$total_fee1 = $_POST['totalPay'];
+        $total_fee = 0.1;
+        //必填
+        //订单描述
+        $body = "";
+        //商品展示地址
+        $show_url = "";
+        //需以http://开头的完整路径，例如：http://www.商户网址.com/myorder.html
+        //防钓鱼时间戳
+        $anti_phishing_key = "";
+        //若要使用请调用类文件submit中的query_timestamp函数
+        //客户端的IP地址
+        $exter_invoke_ip = "";
+        //非局域网的外网IP地址，如：221.0.0.1
+
+
+
+
+        /*************************************************************/
+
+        //构造要请求的参数数组，无需改动
+        $parameter = array(
+            "service" => "create_direct_pay_by_user",
+            "partner" => trim($alipay_config['partner']),
+            "payment_type" => $payment_type,
+            "notify_url" => $notify_url,
+            "return_url" => $return_url,
+            "seller_email" => trim($alipay_config['seller_email']),
+            "out_trade_no" => $out_trade_no,
+            "subject" => $subject,
+            "total_fee" => $total_fee,
+            "body" => $body,
+            "show_url" => $show_url,
+            "anti_phishing_key" => $anti_phishing_key,
+            "exter_invoke_ip" => $exter_invoke_ip,
+            "_input_charset" => trim(strtolower($alipay_config['input_charset']))
+        );
+
+        //建立请求
+        $alipaySubmit = new \Org\Alipay\AlipaySubmit($alipay_config);
+        $html_text = $alipaySubmit->buildRequestForm($parameter, "get", "确认");
+        echo $html_text;
+    }
 
     public function notify(){
         echo "提示信息！";
