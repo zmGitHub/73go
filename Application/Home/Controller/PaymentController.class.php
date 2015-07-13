@@ -165,7 +165,7 @@ class PaymentController extends Controller {
 		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 		//商户订单号
 
-		$out_trade_no = $_GET['order_num'];
+		$out_trade_no = $_GET['orderNumber'];
 		$m_filght = M('filght');
 		$flight = $m_filght->where('order_num='.$out_trade_no)->select();
 		$dcity = $flight['dcity'];
