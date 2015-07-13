@@ -12,7 +12,7 @@
 namespace Org\Alipay;
 use Org\Alipay\AlipayCore;
 use Org\Alipay\AlipayMd5;
-//require_once("alipay_core.function.php");
+//require_once("AlipayCore.class.php");
 //require_once("alipay_md5.function.php");
 
 class AlipaySubmit {
