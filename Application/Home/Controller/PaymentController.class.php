@@ -166,11 +166,12 @@ class PaymentController extends Controller {
 		//商户订单号
 
 		$out_trade_no = $_GET['orderNumber'];
-		$m_filght = M('filght');
-		$flight = $m_filght->where('order_num='.$out_trade_no)->select();
-		$dcity = $flight['dcity'];
-		$acity = $flight['acity'];
-		$flight_num = $flight['flight_num'];
+		$map['order_num'] = $out_trade_no;
+		$m_flight = M('flight');
+		$flight = $m_flight->where($map)->select();
+		$dcity = $flight[0]['dcity'];
+		$acity = $flight[0]['acity'];
+		$flight_num = $flight[0]['flight_num'];
 		//商户网站订单系统中唯一订单号，必填
 		//订单名称
 		$subject = "从$dcity"."到"."$acity"."的$flight_num"."航班";
