@@ -16,35 +16,158 @@ class FlightController extends Controller {
      * 获取酒店基础信息入库
      *
      * @author cgk
-     */
-    public function getFlightInfo() {
+     */public function getFlightInfo() {
+    vendor('Ctrip.CtripUnion');
+    //,'99668','542961','1B365D98-B21E-404F-9084-2EE3F709403D'
+    $cu = new \CU ('flight', 'OTA_FlightSearch','99668','542961','1B365D98-B21E-404F-9084-2EE3F709403D');
+    ini_set('memory_limit', '256M');
+    set_time_limit(0);
+
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+    //设置搜索参数
+    $data['triptype'] ='domestic';
+    $data['searchtype'] ='S';//$_POST['searchtype'];
+    $data['depart_city'] ='SHA';//$_POST['depart_city'];
+    $data['arrive_city'] ='BJS';//$_POST['arrive_city'];
+    $data['depart_date'] = '2015-07-25';//$_POST['depart_date'];
+    $account= $_POST['account'];
+    $flight1 =$_POST['flight1'];
+    $flight2 = $_POST['flight2'];
+    if($data['searchtype']=='D') {
+        $data['return_date'] = $_POST['return_date'];
+    }else {
+        $data['return_date'] = '';
+    }
+    //设置缓存
+    $now= time();
+    $cachename="$account";
+    $rt_tmp = S("$cachename");
+    if (empty($flight1) || empty($rt_tmp)){
+        $rt_tmp = $cu->OTA_FlightSearch ( $data, 'array' );
+        $rt_tmp['time']=time()+300;
+        S("$cachename",$rt_tmp,300);
+    }else if( $now>$rt_tmp['time']){
+        S("$cachename",null);
+    }else{
+        $rt_tmp = S("$cachename");
+    }
+    $rt=$rt_tmp;
+    $m_city = M('city');
+    $dicty = $m_city->where("CityCode='%s'",$data['depart_city'])->select();
+    $aicty = $m_city->where( "CityCode='%s'",$data['arrive_city'])->select();
+    $m_airport = M('airport');
+    $dport = $m_airport->where('CityId ='.$dicty[0]['CityId'])->select();
+    $dport_num = count($dport);
+    $aport = $m_airport->where('CityId ='.$aicty[0]['CityId'])->select();
+    $aport_num = count($aport);
+    //抽取航班号
+    // $rt_num_count = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['0']['RecordCount'];
+    // for ($i=0;$i<$rt_num_count;$i++){
+    //    $flight[$i]= $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['Flight'];
+    //}
+    //$flight= array_unique($flight);
+    //$flight= array_values($flight);
+    //修改机场名称
+    for($i=0;$i<$rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['RecordCount'];$i++){
+        for($j=0;$j<$dport_num;$j++){
+            if($data['searchtype']=='S'){
+                if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['DPortCode']==$dport[$j]['AirPort']){
+                    $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['DPortCode'] = $dport[$j]['AirPortName'];
+                }
+            }
+            else{
+                if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['DPortCode']=$dport[$j]['AirPort']){
+                    $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['DPortCode'] = $dport[$j]['AirPortName'];
+                }
+            }
+
+        }
+    }
+
+    for($i=0;$i<$rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['RecordCount'];$i++){
+        for($j=0;$j<$aport_num;$j++){
+            if($data['searchtype']=='S'){
+                if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['APortCode']==$aport[$j]['AirPort']){
+                    $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['APortCode'] = $aport[$j]['AirPortName'];
+                }
+            }
+            else{
+                if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['APortCode']=$aport[$j]['AirPort']){
+                    $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['APortCode'] = $aport[$j]['AirPortName'];
+                }
+            }
+
+        }
+    }
+    //选择航班
+    if($data['searchtype']=='S') {
+        $dpt_rt_num_count = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['RecordCount'];
+        $dpt_flight_info = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'];
+        $rtn_rt_num_count='';
+        $rtn_flight_info ='';
+    }else{
+        $dpt_flight_info = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['0']['FlightsList']['DomesticFlightData'];
+        $dpt_rt_num_count = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['0']['RecordCount'];
+        $rtn_flight_info = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['1']['FlightsList']['DomesticFlightData'];
+        $rtn_rt_num_count = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['1']['RecordCount'];
+    }
+    //选择最便宜的航班作为列表输出
+
+    if($data['searchtype']=='S'&& empty($flight1)) {
+        $dpt_flight_cheapest_array = $this->ReturnCheapFlight($dpt_flight_info, $dpt_rt_num_count);
+        $rtn_flight_cheapest_array ='';
+    }else if ($data['searchtype']=='D'&&empty($flight1)){
+        $dpt_flight_cheapest_array = $this->ReturnCheapFlight($dpt_flight_info, $dpt_rt_num_count);
+        $rtn_flight_cheapest_array = $this->ReturnCheapFlight($rtn_flight_info, $rtn_rt_num_count);
+    }else{
+
+    }
+    $flight_cheapest_array= array('D'=>$dpt_flight_cheapest_array,'R'=>$rtn_flight_cheapest_array);
+    //搜索具体航班信息。区分单程和往返
+    if($data['searchtype']=='S'&& !empty($flight1)) {
+        $dpt_flight_detail=$this->FlightDetail($dpt_flight_info,$flight1);
+        $rtn_flight_detail='';
+
+    }else if (!empty($flight1)){
+        $dpt_flight_detail=$this->FlightDetail($dpt_flight_info,$flight1);
+        $rtn_flight_detail=$this->FlightDetail($rtn_flight_info,$flight2);
+    }else{
+
+    }
+    $flight_detail = array('D'=>$dpt_flight_detail,'R'=>$rtn_flight_detail);
+    //选择输出便宜的航班列表还是具体航班信息
+    if(empty($flight1)){
+        $flight_info= $flight_cheapest_array;
+    }else {
+        $flight_info= $flight_detail;
+    }
+    //$flight_info =array($flight,$flight_cheapest_array);
+    $this->ajaxReturn($flight_info, 'JSON' );
+}
+    public function getInterSingleFlight() {
         vendor('Ctrip.CtripUnion');
         //,'99668','542961','1B365D98-B21E-404F-9084-2EE3F709403D'
-        $cu = new \CU ('flight', 'OTA_FlightSearch','99668','542961','1B365D98-B21E-404F-9084-2EE3F709403D');
+        $cu = new \CU ('flight', 'OTA_IntlFlightSearch','99668','542961','1B365D98-B21E-404F-9084-2EE3F709403D');
         ini_set('memory_limit', '256M');
         set_time_limit(0);
 
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
         //设置搜索参数
-        $data['searchtype'] =$_POST['searchtype'];
-        $data['depart_city'] =$_POST['depart_city'];
-        $data['arrive_city'] =$_POST['arrive_city'];
-        $data['depart_date'] = $_POST['depart_date'];
+        $data['triptype'] ='inter';
+        $data['passengertype'] ='ADT';//$_POST['depart_city'];
+        $data['dcode'] ='SHA';//$_POST['depart_city'];
+        $data['acode'] ='HKG';//$_POST['arrive_city'];
+        $data['ddate'] = '2015-07-25T00:00:00';//$_POST['depart_date'];
         $account= $_POST['account'];
         $flight1 =$_POST['flight1'];
-        $flight2 = $_POST['flight2'];
-        if($data['searchtype']=='D') {
-            $data['return_date'] = $_POST['return_date'];
-        }else {
-            $data['return_date'] = '';
-        }
         //设置缓存
         $now= time();
         $cachename="$account";
         $rt_tmp = S("$cachename");
         if (empty($flight1) || empty($rt_tmp)){
-        $rt_tmp = $cu->OTA_FlightSearch ( $data, 'array' );
+        $rt_tmp = $cu->OTA_IntlFlightSingleSearch ( $data, 'array' );
         $rt_tmp['time']=time()+300;
         S("$cachename",$rt_tmp,300);
         }else if( $now>$rt_tmp['time']){
@@ -53,111 +176,113 @@ class FlightController extends Controller {
         $rt_tmp = S("$cachename");
         }
         $rt=$rt_tmp;
-        $m_city = M('city');
-        $dicty = $m_city->where("CityCode='%s'",$data['depart_city'])->select();
-        $aicty = $m_city->where( "CityCode='%s'",$data['arrive_city'])->select();
+
+        //根据城市三字码查找机场
+        /*$m_city = M('city');
+        $dicty = $m_city->where("CityCode='%s'",$data['dcode'])->select();
+        $aicty = $m_city->where( "CityCode='%s'",$data['acode'])->select();
         $m_airport = M('airport');
         $dport = $m_airport->where('CityId ='.$dicty[0]['CityId'])->select();
         $dport_num = count($dport);
         $aport = $m_airport->where('CityId ='.$aicty[0]['CityId'])->select();
         $aport_num = count($aport);
-        //抽取航班号
-       // $rt_num_count = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['0']['RecordCount'];
-       // for ($i=0;$i<$rt_num_count;$i++){
-        //    $flight[$i]= $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['Flight'];
-        //}
-        //$flight= array_unique($flight);
-        //$flight= array_values($flight);
         //修改机场名称
-        for($i=0;$i<$rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['RecordCount'];$i++){
+        for($i=0;$i<$rt['IntlFlightSearchResponse']['RecordCount'];$i++){
             for($j=0;$j<$dport_num;$j++){
-                if($data['searchtype']=='S'){
-                    if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['DPortCode']==$dport[$j]['AirPort']){
-                        $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['DPortCode'] = $dport[$j]['AirPortName'];
+                    if($rt['IntlFlightSearchResponse']['ShoppingResults']['ShoppingResultInfo'][$i]['FlightInfos']['FlightsInfo']['Flights']['Flight']==$dport[$j]['AirPort']){
+                        $rt['IntlFlightSearchResponse']['ShoppingResults']['ShoppingResultInfo'][$i]['DPortCode'] = $dport[$j]['AirPortName'];
                     }
-                }
-                else{
-                    if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['DPortCode']=$dport[$j]['AirPort']){
-                        $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['DPortCode'] = $dport[$j]['AirPortName'];
-                    }
-                }
-
             }
         }
 
         for($i=0;$i<$rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['RecordCount'];$i++){
             for($j=0;$j<$aport_num;$j++){
-                if($data['searchtype']=='S'){
                     if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['APortCode']==$aport[$j]['AirPort']){
                         $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'][$i]['APortCode'] = $aport[$j]['AirPortName'];
                     }
-                }
-                else{
-                    if($rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['APortCode']=$aport[$j]['AirPort']){
-                        $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute'][0]['FlightsList']['DomesticFlightData'][$i]['APortCode'] = $aport[$j]['AirPortName'];
-                    }
-                }
-
             }
-        }
-        //选择航班
-        if($data['searchtype']=='S') {
-            $dpt_rt_num_count = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['RecordCount'];
-            $dpt_flight_info = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['FlightsList']['DomesticFlightData'];
-            $rtn_rt_num_count='';
-            $rtn_flight_info ='';
-        }else{
-            $dpt_flight_info = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['0']['FlightsList']['DomesticFlightData'];
-            $dpt_rt_num_count = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['0']['RecordCount'];
-            $rtn_flight_info = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['1']['FlightsList']['DomesticFlightData'];
-            $rtn_rt_num_count = $rt['FlightSearchResponse']['FlightRoutes']['DomesticFlightRoute']['1']['RecordCount'];
-        }
+        }*/
+        //输出航班
+            $rt_num_count = $rt['IntlFlightSearchResponse']['RecordsCount'];
+            $flight_info = $rt['IntlFlightSearchResponse']['ShoppingResults']['ShoppingResultInfo'];
+
         //选择最便宜的航班作为列表输出
-
-        if($data['searchtype']=='S'&& empty($flight1)) {
-            $dpt_flight_cheapest_array = $this->ReturnCheapFlight($dpt_flight_info, $dpt_rt_num_count);
-            $rtn_flight_cheapest_array ='';
-        }else if ($data['searchtype']=='D'&&empty($flight1)){
-            $dpt_flight_cheapest_array = $this->ReturnCheapFlight($dpt_flight_info, $dpt_rt_num_count);
-            $rtn_flight_cheapest_array = $this->ReturnCheapFlight($rtn_flight_info, $rtn_rt_num_count);
-        }else{
-
-        }
-        $flight_cheapest_array= array('D'=>$dpt_flight_cheapest_array,'R'=>$rtn_flight_cheapest_array);
+        $cheap_flight_list_tmp = $this->IntlCheapFlight($flight_info, $rt_num_count);
+        $flight_cheapest_list = $this->IntlFlightchange($cheap_flight_list_tmp);
         //搜索具体航班信息。区分单程和往返
-        if($data['searchtype']=='S'&& !empty($flight1)) {
-            $dpt_flight_detail=$this->FlightDetail($dpt_flight_info,$flight1);
-            $rtn_flight_detail='';
-
-        }else if (!empty($flight1)){
-            $dpt_flight_detail=$this->FlightDetail($dpt_flight_info,$flight1);
-            $rtn_flight_detail=$this->FlightDetail($rtn_flight_info,$flight2);
-        }else{
-
+        if(!empty($flight1)) {
+            $flight_detail=$this->FlightDetail($flight_info,$flight1);
         }
-        $flight_detail = array('D'=>$dpt_flight_detail,'R'=>$rtn_flight_detail);
         //选择输出便宜的航班列表还是具体航班信息
         if(empty($flight1)){
-            $flight_info= $flight_cheapest_array;
+            $flight_info= $flight_cheapest_list;
         }else {
             $flight_info= $flight_detail;
         }
         //$flight_info =array($flight,$flight_cheapest_array);
         $this->ajaxReturn($flight_info, 'JSON' );
     }
+
     public function ReturnCheapFlight($flight_info,$rt_num_count){
+    $flight_cheapest_array=array();
+    $flight_tmp='';
+    for($j=0;$j<$rt_num_count;$j++){
+        if($flight_info[$j]['Flight'] == $flight_tmp){
+            $flight_cheapest_array= $flight_cheapest_array;
+        }else{
+            $flight_cheapest_array[] = $flight_info[$j];
+            $flight_tmp= $flight_info[$j]['Flight'];
+        }
+    }
+    return $flight_cheapest_array;
+}
+    public function IntlCheapFlight($flight_info,$rt_num_count){
         $flight_cheapest_array=array();
-        $flight_tmp='';
         for($j=0;$j<$rt_num_count;$j++){
-            if($flight_info[$j]['Flight'] == $flight_tmp){
-                $flight_cheapest_array= $flight_cheapest_array;
-            }else{
-                $flight_cheapest_array[] = $flight_info[$j];
-                $flight_tmp= $flight_info[$j]['Flight'];
-            }
+            $flight_cheapest_array[$j]['FlightInfo'] = $flight_info[$j]['FlightInfos'];
+            $flight_cheapest_array[$j]['PriceInfo'] = $flight_info[$j]['PolicyInfos']['PolicyInfo'][0]['PriceInfos']['PriceInfo'];
         }
         return $flight_cheapest_array;
     }
+
+    public function IntlFlightchange($cheap_flight_list_tmp)
+    {
+        $flight_cheapest_array = array();
+        foreach ($cheap_flight_list_tmp as $key => $flight_cheapest) {
+
+            $flight_cheapest_array[$key] = $key;
+            $flight_count = count($flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight']);
+            for ($i = 0; $i < $flight_count; $i++) {
+                $flight_cheapest_array[$key][$i]['No'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['No'];
+                $flight_cheapest_array[$key][$i]['AirLineName'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['AirLineName'];
+                $flight_cheapest_array[$key][$i]['FlightNo'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['FlightNo'];
+                $flight_cheapest_array[$key][$i]['DCity'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['DCity'];
+                $flight_cheapest_array[$key][$i]['DCityID'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['DCityID'];
+                $flight_cheapest_array[$key][$i]['DCityName'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['DCityName'];
+                $flight_cheapest_array[$key][$i]['ACity'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['ACity'];
+                $flight_cheapest_array[$key][$i]['ACityName'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['ACityName'];
+                $flight_cheapest_array[$key][$i]['ACityID'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['ACityID'];
+                $flight_cheapest_array[$key][$i]['DPortName'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['DPortName'];
+                $flight_cheapest_array[$key][$i]['APortName'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['APortName'];
+                $flight_cheapest_array[$key][$i]['EffectDate'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['EffectDate'];
+                $flight_cheapest_array[$key][$i]['DTime'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['DTime'];
+                $flight_cheapest_array[$key][$i]['ATime'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['ATime'];
+                $flight_cheapest_array[$key][$i]['CraftType'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['CraftType'];
+                $flight_cheapest_array[$key][$i]['MealType'] = $flight_cheapest['FlightInfo']['FlightsInfo']['Flights']['Flight'][$i]['MealType'];
+            }
+                $flight_cheapest_array[$key]['Price'] = $flight_cheapest['PriceInfo']['Price'];
+                $flight_cheapest_array[$key]['Tax'] = $flight_cheapest['PriceInfo']['Tax'];
+                $flight_cheapest_array[$key]['IsContainOil'] = $flight_cheapest['PriceInfo']['IsContainOil'];
+                $flight_cheapest_array[$key]['Currency'] = $flight_cheapest['PriceInfo']['Currency'];
+        }
+                $flight_cheapest_array['count'] = $flight_count;
+        return $flight_cheapest_array;
+    }
+
+    public function DetailIntlFlightchange($cheap_flight_list_tmp){
+
+    }
+
 
 
     public function FlightDetail($flight_info,$flight){
