@@ -141,10 +141,6 @@ class PaymentController extends Controller {
 //支付宝公钥（后缀是.pen）文件相对路径
 		$alipay_config['ali_public_key_path']= './ThinkPHP/Library/Org/Alipay_wap/key/alipay_public_key.pem';
 
-
-//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-
-
 //签名方式 不需修改
 		$alipay_config['sign_type']    = strtoupper('RSA');
 
@@ -162,19 +158,25 @@ class PaymentController extends Controller {
 		$payment_type = "1";
 		//必填，不能修改
 		//服务器异步通知页面路径
-		$notify_url = "http://www.alipay.com/alipay/return_url.php";
+		$notify_url = "http://120.24.171.184/home/payment/return_url.php";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数
 		//页面跳转同步通知页面路径
-		$return_url = "http://www.alipay.com/alipay/return_url.php";
+		$return_url = "http://120.24.171.184/home/payment/return_url.php";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 		//商户订单号
-		$out_trade_no = substr(md5(time()), 0, 12);//$_POST['WIDout_trade_no'];
+
+		$out_trade_no = $_GET['order_num'];
+		$m_filght = M('filght');
+		$flight = $m_filght->where('order_num='.$out_trade_no)->select();
+		$dcity = $flight['dcity'];
+		$acity = $flight['acity'];
+		$flight_num = $flight['flight_num'];
 		//商户网站订单系统中唯一订单号，必填
 		//订单名称
-		$subject = 'OK';//$_POST['WIDsubject'];
+		$subject = "从$dcity"."到"."$acity"."的$flight_num"."航班";
 		//必填
 		//付款金额
-		$total_fee = 0.1;//$_POST['WIDtotal_fee'];
+		$total_fee = $_GET['price'];
 		//必填
 		//商品展示地址
 		$show_url = 'www.dddafeiji.com/myorder.html';//$_POST['WIDshow_url'];
@@ -240,10 +242,10 @@ class PaymentController extends Controller {
         $payment_type = "1";
         //必填，不能修改
         //服务器异步通知页面路径
-        $notify_url = " http://www.alipay.com/alipay/return_url.php";
+        $notify_url = " http://www.alipay.com/alipay/alipay_wap_return";
         //需http://格式的完整路径，不能加?id=123这类自定义参数
         //页面跳转同步通知页面路径
-        $return_url = " http://www.alipay.com/alipay/return_url.php";
+        $return_url = " http://www.alipay.com/alipay/alipay_wap_return";
         //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
         //必填
         //商户订单号
@@ -300,7 +302,59 @@ class PaymentController extends Controller {
     public function notify(){
         echo "提示信息！";
     }
+	public function alipay_wap_return(){
+		//合作身份者id，以2088开头的16位纯数字
+		$alipay_config['partner']		= '2088911077493342';
 
+//收款支付宝账号
+		$alipay_config['seller_id']	= '46079867@qq.com';
+
+//商户的私钥（后缀是.pen）文件相对路径
+		$alipay_config['private_key_path']	= './ThinkPHP/Library/Org/Alipay_wap/key/rsa_private_key.pem';
+
+//支付宝公钥（后缀是.pen）文件相对路径
+		$alipay_config['ali_public_key_path']= './ThinkPHP/Library/Org/Alipay_wap/key/alipay_public_key.pem';
+
+//签名方式 不需修改
+		$alipay_config['sign_type']    = strtoupper('RSA');
+
+//字符编码格式 目前支持 gbk 或 utf-8
+		$alipay_config['input_charset']= strtolower('utf-8');
+
+//ca证书路径地址，用于curl中ssl校验
+//请保证cacert.pem文件在当前文件夹目录中
+		$alipay_config['cacert']    = getcwd().'\\cacert.pem';
+
+//访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
+		$alipay_config['transport']    = 'http';
+		//计算得出通知验证结果
+		$alipayNotify = new \Org\Alipay_wap\Lib\AlipayNotify($alipay_config);
+		$verify_result = $alipayNotify->verifyReturn();
+		if($verify_result) {
+			//商户订单号
+			$out_trade_no = $_GET['out_trade_no'];
+			//支付宝交易号
+			$trade_no = $_GET['trade_no'];
+			//交易状态
+			$trade_status = $_GET['trade_status'];
+			if($_GET['trade_status'] == 'TRADE_FINISHED' || $_GET['trade_status'] == 'TRADE_SUCCESS') {
+				$orderData['ticket_status'] = 1;     //已支付
+				$m_order = M('orders');
+				$save_result = $m_order->where("order_num=", $out_trade_no)->save($orderData);
+				if($save_result){
+					$order =$m_order->where("order_num=", $out_trade_no)->select();
+					$this->assign('order_num',$out_trade_no);
+					$this->assign('total_price',$order['total_price']);
+					$this->theme('default')->display('pay_success');
+				}
+			}
+			else {
+				$this->theme('default')->display('pay_error');
+			}
+		} else {
+			$this->theme('default')->display('pay_error');
+		}
+	}
     public function alireturn()
 	{
 		$tradeStatus = 1;
