@@ -228,6 +228,9 @@ class OrderDistributeController extends Controller{
 		}
 		$this->ajaxreturn($order,'JSON');
 	}
+	public function cancel($order_num){
+
+	}
 	private function _updateticket($orderlists){
 		$now_time = time();
 		foreach($orderlists as $key=>$order){
