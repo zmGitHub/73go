@@ -158,10 +158,10 @@ class PaymentController extends Controller {
 		$payment_type = "1";
 		//必填，不能修改
 		//服务器异步通知页面路径
-		$notify_url = "http://120.24.171.184/home/payment/return_url.php";
+		$notify_url = "http://120.24.171.184/home/payment/alipay_wap_return";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数
 		//页面跳转同步通知页面路径
-		$return_url = "http://120.24.171.184/home/payment/return_url.php";
+		$return_url = "http://120.24.171.184/home/payment/alipay_wap_return";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 		//商户订单号
 
@@ -304,35 +304,6 @@ class PaymentController extends Controller {
         echo "提示信息！";
     }
 	public function alipay_wap_return(){
-		//合作身份者id，以2088开头的16位纯数字
-		$alipay_config['partner']		= '2088911077493342';
-
-//收款支付宝账号
-		$alipay_config['seller_id']	= '46079867@qq.com';
-
-//商户的私钥（后缀是.pen）文件相对路径
-		$alipay_config['private_key_path']	= './ThinkPHP/Library/Org/Alipay_wap/key/rsa_private_key.pem';
-
-//支付宝公钥（后缀是.pen）文件相对路径
-		$alipay_config['ali_public_key_path']= './ThinkPHP/Library/Org/Alipay_wap/key/alipay_public_key.pem';
-
-//签名方式 不需修改
-		$alipay_config['sign_type']    = strtoupper('RSA');
-
-//字符编码格式 目前支持 gbk 或 utf-8
-		$alipay_config['input_charset']= strtolower('utf-8');
-
-//ca证书路径地址，用于curl中ssl校验
-//请保证cacert.pem文件在当前文件夹目录中
-		$alipay_config['cacert']    = getcwd().'\\cacert.pem';
-
-//访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
-		$alipay_config['transport']    = 'http';
-		//计算得出通知验证结果
-		$alipayNotify = new \Org\Alipay_wap\Lib\AlipayNotify($alipay_config);
-		$verify_result = $alipayNotify->verifyReturn();
-		if($verify_result) {
-			//商户订单号
 			$out_trade_no = $_GET['out_trade_no'];
 			//支付宝交易号
 			$trade_no = $_GET['trade_no'];
@@ -341,21 +312,20 @@ class PaymentController extends Controller {
 			if($_GET['trade_status'] == 'TRADE_FINISHED' || $_GET['trade_status'] == 'TRADE_SUCCESS') {
 				$orderData['ticket_status'] = 1;     //已支付
 				$m_order = M('orders');
-				$save_result = $m_order->where("order_num=", $out_trade_no)->save($orderData);
-				if($save_result){
-					$order =$m_order->where("order_num=", $out_trade_no)->select();
-					$this->assign('order_num',$out_trade_no);
-					$this->assign('total_price',$order['total_price']);
+				$map['order_num'] = $out_trade_no;
+				$order_result = $m_order->where($map)->save($orderData);
+				$order_info = $m_order->where($map)->select();
+				$m_user = M('user');
+				$user_info = $m_user->where('account='.$order_info['account'])->select();
+				$user_info['remain_sum'] = $_GET['total_fee'] * 0.005+$user_info['remain_sum'];
+				$account_result= $m_user->where('account='.$order_info['account'])->save($user_info);
+				if($account_result){
 					$this->theme('default')->display('pay_success');
 				}
-			}
-			else {
+			} else {
 				$this->theme('default')->display('pay_error');
 			}
-		} else {
-			$this->theme('default')->display('pay_error');
 		}
-	}
     public function alireturn()
 	{
 		$tradeStatus = 1;
