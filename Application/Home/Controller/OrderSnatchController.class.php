@@ -70,8 +70,8 @@ class OrderSnatchController extends Controller {
 	public function ticketpaying() {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-		$op_id = $_POST['op_id'];
-		$tmc_id = $_POST['tmc_id'];
+		$op_id = 1;//$_POST['op_id'];
+		$tmc_id = 1;//$_POST['tmc_id'];
 		$map['op_id'] = $op_id;
 		$map['tmc_id'] = $tmc_id;
 		$map['snatch_status'] = 1;
@@ -82,7 +82,7 @@ class OrderSnatchController extends Controller {
 		$now_time = time();
 		foreach($orderlist as $key=>$order){
 			$create_time = strtotime($order['create_time']);
-			if(($now_time - $create_time < 1800) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+			if(($now_time - $create_time < 1800000) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
 				$unpaylist[$key] = $order;
 			}
 		}
@@ -243,7 +243,7 @@ class OrderSnatchController extends Controller {
 		$now_time = time();
 		foreach($orderlists as $key=>$order){
 			$create_time = strtotime($order['create_time']);
-			if(($now_time - $create_time > 1800) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+			if(($now_time - $create_time > 1800000) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
 				$outdateList[$key] = $order;
 			}
 		}
