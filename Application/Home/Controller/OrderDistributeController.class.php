@@ -77,12 +77,12 @@ class OrderDistributeController extends Controller{
 		//航班信息
 		$data['dpt_dtime'] = $flight['flight1']['dtime'];
 		$data['dpt_flight_num'] = $flight['flight1']['flight_num'];
-		$data['dpt_origin_price'] = $flight['flight1']['origin_price'];
-		$data['dpt_flight_price'] = $flight['flight1']['flight_price'];
+		$data['dpt_origin_price'] = $flight['flight1']['flight_price'];
+		$data['dpt_flight_price'] = $flight['flight1']['bargain_price'];
 		$data['rtn_dtime'] = $flight['flight2']['dtime'];
 		$data['rtn_flight_num'] = $flight['flight2']['flight_num'];
-		$data['rtn_origin_price'] = $flight['flight2']['origin_price'];
-		$data['rtn_flight_price'] = $flight['flight2']['flight_price'];
+		$data['rtn_origin_price'] = $flight['flight2']['flight_price'];
+		$data['rtn_flight_price'] = $flight['flight2']['bargain_price'];
 		//订单信息
 		$data['need_ticket'] = $need_ticket;
 		$data['ticket_amount'] = $ticket_amount;
