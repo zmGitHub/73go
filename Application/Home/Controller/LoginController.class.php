@@ -61,16 +61,23 @@ class LoginController extends Controller{
     public function add_user(){
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-        $map['account'] = $_POST['telNumber'];//必填项
-        $map['password'] = md5($_POST['loginPassword']);//必填项
-        $map['user_type']=1;        //'user_type' should be 0  reviewer:Yu Zhuoran
+        $map['account'] =18857166486; //$_POST['telNumber'];//必填项
+        $data['account'] = $_POST['telNumber'];//必填项
+        $data['password'] = md5($_POST['loginPassword']);//必填项
+        $data['user_type']=1;        //'user_type' should be 0  reviewer:Yu Zhuoran
         //$map['status']=0;
         $m_user = M('user');
-        $result= $m_user->data($map)->add();
-        if($result){
-            $this->ajaxreturn(1);
-        }else{
-            $this->ajaxreturn(0);
+        $user = $m_user->where($map)->select();
+        if(isset($user)) {
+            $this->ajaxreturn(-1);
+        }
+        else{
+            $result = $m_user->add($data);
+            if ($result) {
+                $this->ajaxreturn(1);
+            } else {
+                $this->ajaxreturn(0);
+            }
         }
     }
    //查询到账号，发送密码，返回1
