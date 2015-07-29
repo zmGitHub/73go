@@ -316,9 +316,10 @@ class PaymentController extends Controller {
 				$order_result = $m_order->where($map)->save($orderData);
 				$order_info = $m_order->where($map)->select();
 				$m_user = M('user');
-				$user_info = $m_user->where('account='.$order_info['account'])->select();
+				$account=$order_info['account'];
+				$user_info = $m_user->where('account='.$account)->select();
 				$user_info['remain_sum'] = $_GET['total_fee'] * 0.005+$user_info['remain_sum'];
-				$account_result= $m_user->where('account='.$order_info['account'])->save($user_info);
+				$account_result= $m_user->where('account='.$account)->save($user_info);
 				if($account_result){
 					$this->theme('default')->display('pay_success');
 				}
