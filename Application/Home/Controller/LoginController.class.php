@@ -64,6 +64,7 @@ class LoginController extends Controller{
         $map['account'] =$_POST['telNumber'];//必填项
         $data['account'] = $_POST['telNumber'];//必填项
         $data['password'] = md5($_POST['loginPassword']);//必填项
+        $data['recmmd_phone'] = md5($_POST['recmmd_phone']);//非必填项
         $data['user_type']=1;        //'user_type' should be 0  reviewer:Yu Zhuoran
         //$map['status']=0;
         $m_user = M('user');
@@ -205,16 +206,15 @@ class LoginController extends Controller{
     public function update_user(){
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-        $data= $_POST['data'];
-        $user = json_decode($data,true);
-        $account = LI('account');//必填项
-        $map['name'] = $user['name'];//必填项
-        $map['sex'] = $user['sex'];
-        $map['phone'] =$user['phone'];//必填项
-        $map['card_type'] =$user['card_type'];//必填项
-        $map['card_id'] =$user['card_id'];//必填项
-        $map['email'] =$user['email'];
-        $map['qq'] =$user['qq'];
+        $account = $_POST['account'];//必填项
+        $map['name'] = $_POST['name'];//必填项
+        $map['sex'] = $_POST['sex'];
+        $map['phone'] =$_POST['phone'];//必填项
+        $map['card_type'] =$_POST['card_type'];//必填项
+        $map['card_id'] =$_POST['card_id'];//必填项
+        $map['email'] =$_POST['email'];
+        $map['qq'] =$_POST['qq'];
+        $map['ali_account'] =$_POST['ali_account'];
         $map['user_type']=1;        //'user_type' should be 0  reviewer:Yu Zhuoran
         //$map['status']=0;
         $m_user = M('user');
