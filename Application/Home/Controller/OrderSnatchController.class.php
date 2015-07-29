@@ -33,14 +33,15 @@ class OrderSnatchController extends Controller {
 		$now_time = time();
 		foreach($orderlist as $key=>$order){
 			$create_time = strtotime($order['create_time']);
-			if(($now_time - $create_time < 180000) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+			if(($now_time - $create_time < 180000) &&($order['snatch_status'] ==0) &&($order['ticket_status'] ==0)){
 				$snatchlist[$key] = $order;
 			}
 		}
 		foreach($snatchlist as $pkey=> $unpayorder){
 			$flights = M('flight');
-			$flight = $flights->where("order_num='%s'",$unpayorder['order_num'])->select();
-			$snatchlist[$pkey]['flight'] = $flight[$pkey];
+			$map['order_num'] = $unpayorder['order_num'];
+			$flight = $flights->where($map)->select();
+			$snatchlist[$pkey]['flight'] = $flight;
 		}
 		$this->ajaxreturn($snatchlist,'JSON');
     }
@@ -60,7 +61,7 @@ class OrderSnatchController extends Controller {
 		$map['ticket_status'] = 0;
 		$order_num = $_POST['order_num'];
 		$orders = M ('orders');
-		$save_success=$orders->where("order_num ='%s'",$order_num)->save($map);
+		$save_success=$orders->where("order_num =".$order_num)->save($map);
 		if($save_success){
 		    $this->ajaxreturn(1);
 		}
@@ -95,7 +96,8 @@ class OrderSnatchController extends Controller {
 		}
 		foreach($unpaylist as $pkey=> $unpayorder){
 			$flights = M('flight');
-			$flight = $flights->where("order_num='%s'",$unpayorder['order_num'])->select();
+			$order_num= $unpayorder['order_num'];
+			$flight = $flights->where('order_num='.$order_num)->select();
 			$unpaylist[$pkey]['flight'] = $flight[$pkey];
 		}
 		$this->ajaxreturn($unpaylist,'JSON');
@@ -119,8 +121,9 @@ class OrderSnatchController extends Controller {
 		$order_count = count($orderlist);
 		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
-			$orderlist[$i]['flight'] = $flight[$i];
+			$order_num= $orderlist[$i]['order_num'];
+			$flight = $flights->where('order_num='.$order_num)->select();
+			$orderlist[$i]['flight'] = $flight;
 		}
 		$this->ajaxreturn($orderlist,'json');
 	}
@@ -141,7 +144,7 @@ class OrderSnatchController extends Controller {
 		$map['ticket_status'] = 2;
 		$order_num = $_POST['order_num'];
 		$orders = M ('orders');
-		$save_success=$orders->where("order_num ='%s'",$order_num)->save($map);
+		$save_success=$orders->where("order_num =".$order_num)->save($map);
 		if($save_success){
 			$this->ajaxreturn(1);
 		}
@@ -168,8 +171,9 @@ class OrderSnatchController extends Controller {
 		$order_count = count($orderlist);
 		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
-			$orderlist[$i]['flight'] = $flight[$i];
+			$order_num= $orderlist[$i]['order_num'];
+			$flight = $flights->where('order_num='.$order_num)->select();
+			$orderlist[$i]['flight'] = $flight;
 		}
 		$this->ajaxreturn($orderlist,'json');
 	}
@@ -192,8 +196,9 @@ class OrderSnatchController extends Controller {
 		$order_count = count($orderlist);
 		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
-			$orderlist[$i]['flight'] = $flight[$i];
+			$order_num= $orderlist[$i]['order_num'];
+			$flight = $flights->where('order_num='.$order_num)->select();
+			$orderlist[$i]['flight'] = $flight;
 		}
 		$this->ajaxreturn($orderlist,'json');
 	}
@@ -216,8 +221,9 @@ class OrderSnatchController extends Controller {
 		$order_count = count($orderlist);
 		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
-			$orderlist[$i]['flight'] = $flight[$i];
+			$order_num= $orderlist[$i]['order_num'];
+			$flight = $flights->where('order_num='.$order_num)->select();
+			$orderlist[$i]['flight'] = $flight;
 		}
 		$this->ajaxreturn($orderlist,'json');
 	}
@@ -241,8 +247,9 @@ class OrderSnatchController extends Controller {
 		$order_count = count($orderlist);
 		for($i=0 ;$i<$order_count;$i++){
 			$flights = M('flight');
-			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
-			$orderlist[$i]['flight'] = $flight[$i];
+			$order_num= $orderlist[$i]['order_num'];
+			$flight = $flights->where('order_num='.$order_num)->select();
+			$orderlist[$i]['flight'] = $flight;
 		}
 		$this->ajaxreturn($orderlist,'json');
 	}
