@@ -85,15 +85,6 @@ class TmcDepartmentStaffController extends Controller{
 			$data['password']=md5($_POST['password']);
 			$result = $m_user->add($data);
 			if ($result) {
-				$data['name']=$_POST['name'];
-				$data['sex']=$_POST['sex'];
-				$data['phone']=$_POST['phone'];
-				$data['qq']=$_POST['qq'];
-				$data['email']=$_POST['email'];
-				$data['card_type']=$_POST['id_type'];
-				$data['card_id']=$_POST['id_num'];
-				$data['tmc_id'] = $_POST['tmc_id'];//tmc企业id
-				$data['op_id'] = $_POST['op_id'];
 				$tmc_employee = M('operator');
 				$request = $tmc_employee->add($data);
 				if ($request) {
