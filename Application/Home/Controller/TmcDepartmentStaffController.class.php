@@ -61,7 +61,7 @@ class TmcDepartmentStaffController extends Controller{
 
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-		$op_id=1;//$_POST['op_id'];
+		$op_id=$_POST['op_id'];
 		$tmcDeparmentStaff=D('Agent/TmcDepartmentStaff','Logic');//调用TMC部门员工业务处理层
 		$request=$tmcDeparmentStaff->deleteTmcStaffLogic($op_id);//删除员工
 		$this->ajaxReturn($request);
@@ -77,8 +77,7 @@ class TmcDepartmentStaffController extends Controller{
 
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-		$map['account']='18065355@qq.com';//$_POST['account'];
-
+		$map['account']=$_POST['account'];
 		$m_user = M('user');
 		$cardid_repeat=$m_user->where($map)->select();
 		if(!$cardid_repeat) {
