@@ -29,13 +29,20 @@ class OrderSnatchController extends Controller {
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$orders = M('orders');
 		$orderlist= $orders->where('snatch_status =0 and ticket_status = 0')->select();
-		$order_count = count($orderlist);
-		for($i=0 ;$i<$order_count;$i++){
-			$flights = M('flight');
-			$flight[$i]  = $flights->where("order_num='%s'",$orderlist[$i]['order_num'])->select();
-			$orderlist[$i]['flight'] = $flight[$i];
+		$this->_updateticket($orderlist,180000);
+		$now_time = time();
+		foreach($orderlist as $key=>$order){
+			$create_time = strtotime($order['create_time']);
+			if(($now_time - $create_time < 180000) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+				$snatchlist[$key] = $order;
+			}
 		}
-		$this->ajaxreturn($orderlist,'json');
+		foreach($snatchlist as $pkey=> $unpayorder){
+			$flights = M('flight');
+			$flight = $flights->where("order_num='%s'",$unpayorder['order_num'])->select();
+			$snatchlist[$pkey]['flight'] = $flight[$pkey];
+		}
+		$this->ajaxreturn($snatchlist,'JSON');
     }
 	/**
 	 * OP抢单成功更新数据库
@@ -78,7 +85,7 @@ class OrderSnatchController extends Controller {
 		$map['ticket_status'] = 0;
 		$orders = M ('orders');
 		$orderlist=$orders->where($map)->select();
-		$this->_updateticket($orderlist);
+		$this->_updateticket($orderlist,1800000);
 		$now_time = time();
 		foreach($orderlist as $key=>$order){
 			$create_time = strtotime($order['create_time']);
@@ -239,11 +246,11 @@ class OrderSnatchController extends Controller {
 		}
 		$this->ajaxreturn($orderlist,'json');
 	}
-	private function _updateticket($orderlists){
+	private function _updateticket($orderlists,$time){
 		$now_time = time();
 		foreach($orderlists as $key=>$order){
 			$create_time = strtotime($order['create_time']);
-			if(($now_time - $create_time > 1800000) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+			if(($now_time - $create_time > $time) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
 				$outdateList[$key] = $order;
 			}
 		}
