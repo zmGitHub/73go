@@ -199,7 +199,7 @@ class OrderDistributeController extends Controller{
 		$now_time = time();
 		foreach($orderlists as $key=>$order){
 			$create_time = strtotime($order['create_time']);
-			if(($now_time - $create_time < 1800000) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+			if(($now_time - $create_time < 1800) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
 				$unpaylist[$key] = $order;
 			}
 		}
@@ -235,7 +235,7 @@ class OrderDistributeController extends Controller{
 		$now_time = time();
 		foreach($orderlists as $key=>$order){
 			$create_time = strtotime($order['create_time']);
-			if(($now_time - $create_time > 1800000) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+			if(($now_time - $create_time > 1800) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
 				$outdateList[$key] = $order;
 			}
 		}

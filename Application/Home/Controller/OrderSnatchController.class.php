@@ -29,11 +29,11 @@ class OrderSnatchController extends Controller {
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$orders = M('orders');
 		$orderlist= $orders->where('snatch_status =0 and ticket_status = 0')->select();
-		$this->_updateticket($orderlist,180000);
+		$this->_updateticket($orderlist,180);
 		$now_time = time();
 		foreach($orderlist as $key=>$order){
 			$create_time = strtotime($order['create_time']);
-			if(($now_time - $create_time < 180000) &&($order['snatch_status'] ==0) &&($order['ticket_status'] ==0)){
+			if(($now_time - $create_time < 180) &&($order['snatch_status'] ==0) &&($order['ticket_status'] ==0)){
 				$snatchlist[$key] = $order;
 			}
 		}
@@ -86,11 +86,11 @@ class OrderSnatchController extends Controller {
 		$map['ticket_status'] = 0;
 		$orders = M ('orders');
 		$orderlist=$orders->where($map)->select();
-		$this->_updateticket($orderlist,1800000);
+		$this->_updateticket($orderlist,1800);
 		$now_time = time();
 		foreach($orderlist as $key=>$order){
 			$create_time = strtotime($order['create_time']);
-			if(($now_time - $create_time < 1800000) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
+			if(($now_time - $create_time < 1800) &&($order['snatch_status'] ==1) &&($order['ticket_status'] ==0)){
 				$unpaylist[$key] = $order;
 			}
 		}
@@ -98,7 +98,7 @@ class OrderSnatchController extends Controller {
 			$flights = M('flight');
 			$order_num= $unpayorder['order_num'];
 			$flight = $flights->where('order_num='.$order_num)->select();
-			$unpaylist[$pkey]['flight'] = $flight[$pkey];
+			$unpaylist[$pkey]['flight'] = $flight;
 		}
 		$this->ajaxreturn($unpaylist,'JSON');
 	}
