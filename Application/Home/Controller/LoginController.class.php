@@ -61,7 +61,7 @@ class LoginController extends Controller{
     public function add_user(){
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-        $map['account'] =18857166486; //$_POST['telNumber'];//必填项
+        $map['account'] =$_POST['telNumber'];//必填项
         $data['account'] = $_POST['telNumber'];//必填项
         $data['password'] = md5($_POST['loginPassword']);//必填项
         $data['user_type']=1;        //'user_type' should be 0  reviewer:Yu Zhuoran
